@@ -16,18 +16,18 @@ msgstr ""
 msgid "Actions"
 msgstr ""
 
-#: lib/tremtec_web/components/layouts.ex:99
-#: lib/tremtec_web/components/layouts.ex:111
+#: lib/tremtec_web/components/layouts.ex:155
+#: lib/tremtec_web/components/layouts.ex:167
 #, elixir-autogen, elixir-format
 msgid "Attempting to reconnect"
 msgstr ""
 
-#: lib/tremtec_web/components/layouts.ex:106
+#: lib/tremtec_web/components/layouts.ex:162
 #, elixir-autogen, elixir-format
 msgid "Something went wrong!"
 msgstr ""
 
-#: lib/tremtec_web/components/layouts.ex:94
+#: lib/tremtec_web/components/layouts.ex:150
 #, elixir-autogen, elixir-format
 msgid "We can't find the internet"
 msgstr ""
@@ -35,7 +35,7 @@ msgstr ""
 #: lib/tremtec_web/components/core_components.ex:74
 #, elixir-autogen, elixir-format
 msgid "close"
-msgstr ""
+msgstr "Close"
 
 #: lib/tremtec_web/controllers/page_html/landing_page.html.heex:10
 #, elixir-autogen, elixir-format
@@ -47,7 +47,78 @@ msgstr "Your Development Cycle taken seriously!"
 msgid "hero subtitle"
 msgstr "We implement and improve processes, tools, and people that accelerate the delivery of quality code, from conception to deployment."
 
-#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:16
+#: lib/tremtec_web/components/layouts.ex:111
+#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:17
 #, elixir-autogen, elixir-format
 msgid "get started"
-msgstr ""
+msgstr "Book a Demo!"
+
+#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:16
+#, elixir-autogen, elixir-format
+msgid "how it works"
+msgstr "How it works?"
+
+#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:28
+#, elixir-autogen, elixir-format
+msgid "problem subtitle"
+msgstr "Slow deliveies and bugs in production are undermining your business growth?"
+
+#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:25
+#, elixir-autogen, elixir-format
+msgid "problem title"
+msgstr "Move fast without breaking things"
+
+#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:37
+#, elixir-autogen, elixir-format
+msgid "missed deadlines"
+msgstr "Missed Deadlines"
+
+#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:44
+#, elixir-autogen, elixir-format
+msgid "unmotivated team"
+msgstr "Unmotivated Team"
+
+#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:51
+#, elixir-autogen, elixir-format
+msgid "unpredictable costs"
+msgstr "Unpredictable Costs"
+
+#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:73
+#, elixir-autogen, elixir-format
+msgid "diagnostics"
+msgstr "Diagnostics"
+
+#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:74
+#, elixir-autogen, elixir-format
+msgid "diagnostics description"
+msgstr "We analyze your current development process, tools, and team dynamics to identify bottlenecks"
+
+#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:81
+#, elixir-autogen, elixir-format
+msgid "implementation"
+msgstr "Implementation"
+
+#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:82
+#, elixir-autogen, elixir-format
+msgid "implementation description"
+msgstr "TremTec implements best practices and tools to streamline your development process and accelerate delivery."
+
+#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:89
+#, elixir-autogen, elixir-format
+msgid "mentoring"
+msgstr "Mentoring"
+
+#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:90
+#, elixir-autogen, elixir-format
+msgid "mentoring description"
+msgstr "If needed, we provide ongoing mentorship and support to ensure your team continues to improve and adapt to changing needs."
+
+#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:64
+#, elixir-autogen, elixir-format
+msgid "solution subtitle"
+msgstr "Deploy people, processes, and tools that accelerate your development cycle, focusing on continuous delivery and automation."
+
+#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:61
+#, elixir-autogen, elixir-format
+msgid "solution title"
+msgstr "Structure that turns potential into results!"

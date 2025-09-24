@@ -1,9 +1,9 @@
 <Layouts.app flash={@flash}>
   <div class="hero">
-    <div class="hero-content flex-col lg:flex-row-reverse">
+    <div class="hero-content flex-col lg:flex-row-reverse py-56 gap-16">
       <img
-        src="https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp"
-        class="max-w-sm rounded-lg shadow-2xl"
+        src={~p"/images/hero.png"}
+        class="max-w-sm lg:max-w-xl animate-pulse"
       />
 
       <div>
@@ -13,8 +13,86 @@
           {gettext("hero subtitle")}
         </p>
 
-        <button class="btn btn-primary">{gettext("get started")}</button>
+        <a href="#solution" class="btn btn-link">{gettext("how it works")}</a>
+        <a href="#" class="btn btn-primary">{gettext("get started")}</a>
       </div>
     </div>
   </div>
+
+  <div class="hero bg-base-200" id="problem">
+    <div class="hero-content flex-col lg:flex-row py-32 text-center">
+      <div>
+        <h1 class="text-5xl font-bold">{gettext("problem title")}</h1>
+
+        <h2 class="py-6">
+          {gettext("problem subtitle")}
+        </h2>
+
+        <div class="grid md:grid-cols-3 gap-4 py-6">
+          <div class="col-span-1">
+            <image
+              src={~p"/images/deadline.png"}
+              class="md:h-48 h-96 mx-auto"
+            />
+            <h3 class="text-xl font-semibold">{gettext("missed deadlines")}</h3>
+          </div>
+          <div class="col-span-1">
+            <image
+              src={~p"/images/unmotivated.png"}
+              class="md:h-48 h-96 mx-auto"
+            />
+            <h3 class="text-xl font-semibold">{gettext("unmotivated team")}</h3>
+          </div>
+          <div class="col-span-1">
+            <image
+              src={~p"/images/budget.png"}
+              class="md:h-48 h-96 mx-auto"
+            />
+            <h3 class="text-xl font-semibold">{gettext("unpredictable costs")}</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero" id="solution">
+    <div class="hero-content flex-col lg:flex-row p-32 text-center">
+      <div>
+        <h1 class="text-5xl font-bold">{gettext("solution title")}</h1>
+
+        <h2 class="py-6">
+          {gettext("solution subtitle")}
+        </h2>
+
+        <div class="grid md:grid-cols-3 gap-16 md:gap-8 py-6">
+          <div class="col-span-1">
+            <image
+              src={~p"/images/diagnostics.png"}
+              class="md:h-48 h-96 mx-auto"
+            />
+            <h3 class="text-xl font-semibold py-4">{gettext("diagnostics")}</h3>
+            <p class="text-normal">{gettext("diagnostics description")}</p>
+          </div>
+          <div class="col-span-1">
+            <image
+              src={~p"/images/implementation.png"}
+              class="md:h-48 h-96 mx-auto"
+            />
+            <h3 class="text-xl font-semibold py-4">{gettext("implementation")}</h3>
+            <p class="text-normal">{gettext("implementation description")}</p>
+          </div>
+          <div class="col-span-1">
+            <image
+              src={~p"/images/mentoring.png"}
+              class="md:h-48 h-96 mx-auto"
+            />
+            <h3 class="text-xl font-semibold py-4">{gettext("mentoring")}</h3>
+            <p class="text-normal">{gettext("mentoring description")}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="session" id="act-now"></div>
 </Layouts.app>

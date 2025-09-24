@@ -35,40 +35,99 @@ defmodule TremtecWeb.Layouts do
 
   def app(assigns) do
     ~H"""
-    <header class="navbar px-4 sm:px-6 lg:px-8">
-      <div class="flex-1">
-        <a href="/" class="flex-1 flex w-fit items-center gap-2">
-          <img src={~p"/images/logo.svg"} width="36" />
-          <span class="text-sm font-semibold">v{Application.spec(:phoenix, :vsn)}</span>
-        </a>
-      </div>
-      <div class="flex-none">
-        <ul class="flex flex-column px-1 space-x-4 items-center">
-          <li>
-            <a href="https://phoenixframework.org/" class="btn btn-ghost">Website</a>
-          </li>
-          <li>
-            <a href="https://github.com/phoenixframework/phoenix" class="btn btn-ghost">GitHub</a>
-          </li>
-          <li>
-            <.theme_toggle />
-          </li>
-          <li>
-            <a href="https://hexdocs.pm/phoenix/overview.html" class="btn btn-primary">
-              Get Started <span aria-hidden="true">&rarr;</span>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </header>
+    <div class="bg-base-100 drawer">
+      <input id="my-drawer-3" type="checkbox" class="drawer-toggle" />
 
-    <main class="px-4 py-20 sm:px-6 lg:px-8">
-      <div class="mx-auto max-w-2xl space-y-4">
-        {render_slot(@inner_block)}
+      <div class="drawer-content flex flex-col min-h-screen">
+        <.navbar current_scope={@current_scope} />
+
+        <main class="flex-grow">
+          {render_slot(@inner_block)}
+        </main>
+
+        <.footer />
       </div>
-    </main>
+
+      <.drawer />
+    </div>
 
     <.flash_group flash={@flash} />
+    """
+  end
+
+  def logo(assigns) do
+    ~H"""
+    <a href="/" class="flex items-center gap-2">
+      <img src={~p"/images/logo.png"} width="48" alt="Tremtec logo" />
+      <span class="text-lg font-bold">Tremtec</span>
+    </a>
+    """
+  end
+
+  def drawer(assigns) do
+    ~H"""
+    <div class="drawer-side">
+      <label for="my-drawer-3" class="drawer-overlay"></label>
+      <ul class="menu p-4 w-80 min-h-full bg-base-200">
+        <div class="spacer mt-24" />
+        <li><.logo /></li>
+        <div class="spacer flex-1" />
+        <li><.theme_toggle /></li>
+      </ul>
+    </div>
+    """
+  end
+
+  def navbar(assigns) do
+    ~H"""
+    <div class="navbar none sticky top-0 p-4 z-50">
+      <div class="flex bg-opacity-80 backdrop-blur-sm shadow-md rounded-lg w-full py-2 px-4 z-50">
+        <div class="flex-none lg:hidden">
+          <label for="my-drawer-3" class="btn btn-square btn-ghost">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              class="inline-block w-6 h-6 stroke-current"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              >
+              </path>
+            </svg>
+          </label>
+        </div>
+
+        <div class="flex flex-1 mr-12 justify-center lg:justify-start">
+          <.logo />
+        </div>
+
+        <div class="flex-none hidden lg:block">
+          <ul class="menu menu-horizontal gap-4">
+            <.theme_toggle />
+
+            <li>
+              <a href="/contact" class="btn btn-primary">
+                {gettext("get started")} <span aria-hidden="true">&rarr;</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    """
+  end
+
+  def footer(assigns) do
+    ~H"""
+    <footer class="footer footer-center p-6 bg-base-200 text-base-content">
+      <div>
+        <p>Copyright © {Date.utc_today().year} - Todos os direitos reservados a Tremtec</p>
+      </div>
+    </footer>
     """
   end
 
@@ -130,7 +189,7 @@ defmodule TremtecWeb.Layouts do
         phx-click={JS.dispatch("phx:set-theme")}
         data-phx-theme="system"
       >
-        <.icon name="hero-computer-desktop-micro" class="size-4 opacity-75 hover:opacity-100" />
+        <.icon name="hero-computer-desktop-micro" class="size-4 opacity-75 hover:opacity-100 mx-auto" />
       </button>
 
       <button
@@ -138,7 +197,7 @@ defmodule TremtecWeb.Layouts do
         phx-click={JS.dispatch("phx:set-theme")}
         data-phx-theme="light"
       >
-        <.icon name="hero-sun-micro" class="size-4 opacity-75 hover:opacity-100" />
+        <.icon name="hero-sun-micro" class="size-4 opacity-75 hover:opacity-100 mx-auto" />
       </button>
 
       <button
@@ -146,7 +205,7 @@ defmodule TremtecWeb.Layouts do
         phx-click={JS.dispatch("phx:set-theme")}
         data-phx-theme="dark"
       >
-        <.icon name="hero-moon-micro" class="size-4 opacity-75 hover:opacity-100" />
+        <.icon name="hero-moon-micro" class="size-4 opacity-75 hover:opacity-100 mx-auto" />
       </button>
     </div>
     """
