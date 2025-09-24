@@ -8,6 +8,12 @@ defmodule TremtecWeb.Router do
     plug :put_root_layout, html: {TremtecWeb.Layouts, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+
+    plug(SetLocale,
+      gettext: TremtecWeb.Gettext,
+      default_locale: "pt",
+      cookie_key: "preferred_locale"
+    )
   end
 
   pipeline :api do
@@ -17,7 +23,14 @@ defmodule TremtecWeb.Router do
   scope "/", TremtecWeb do
     pipe_through :browser
 
-    get "/", PageController, :home
+    get "/", PageController, :dummy
+  end
+
+  scope "/:locale", TremtecWeb do
+    pipe_through :browser
+
+    get "/", PageController, :landing_page
+    get "/docs", PageController, :home
   end
 
   # Other scopes may use custom stacks.

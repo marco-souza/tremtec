@@ -1,0 +1,20 @@
+<Layouts.app flash={@flash}>
+  <div class="hero">
+    <div class="hero-content flex-col lg:flex-row-reverse">
+      <img
+        src="https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp"
+        class="max-w-sm rounded-lg shadow-2xl"
+      />
+
+      <div>
+        <h1 class="text-5xl font-bold">{gettext("hero title")}</h1>
+
+        <p class="py-6">
+          {gettext("hero subtitle")}
+        </p>
+
+        <button class="btn btn-primary">{gettext("get started")}</button>
+      </div>
+    </div>
+  </div>
+</Layouts.app>

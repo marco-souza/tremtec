@@ -1,0 +1,53 @@
+## "msgid"s in this file come from POT (.pot) files.
+###
+### Do not add, change, or remove "msgid"s manually here as
+### they're tied to the ones in the corresponding POT file
+### (with the same domain).
+###
+### Use "mix gettext.extract --merge" or "mix gettext.merge"
+### to merge POT files into PO files.
+msgid ""
+msgstr ""
+"Language: pt-BR\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: lib/tremtec_web/components/core_components.ex:342
+#, elixir-autogen, elixir-format
+msgid "Actions"
+msgstr "Ações"
+
+#: lib/tremtec_web/components/layouts.ex:99
+#: lib/tremtec_web/components/layouts.ex:111
+#, elixir-autogen, elixir-format
+msgid "Attempting to reconnect"
+msgstr "Tentando se reconectar"
+
+#: lib/tremtec_web/components/layouts.ex:106
+#, elixir-autogen, elixir-format
+msgid "Something went wrong!"
+msgstr "Alguma coisa deu errado!"
+
+#: lib/tremtec_web/components/layouts.ex:94
+#, elixir-autogen, elixir-format
+msgid "We can't find the internet"
+msgstr "Não conseguimos conectar a internet"
+
+#: lib/tremtec_web/components/core_components.ex:74
+#, elixir-autogen, elixir-format
+msgid "close"
+msgstr "Fechar"
+
+#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:10
+#, elixir-autogen, elixir-format
+msgid "hero title"
+msgstr "Seu Ciclo de Desenvolvimento levado a sério!"
+
+#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:13
+#, elixir-autogen, elixir-format, fuzzy
+msgid "hero subtitle"
+msgstr "Implementamos e aperfeiçoamos processos, ferramentas e pessoas que aceleram a entrega de código com qualidade, da concepção ao deploy."
+
+#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:16
+#, elixir-autogen, elixir-format
+msgid "get started"
+msgstr ""

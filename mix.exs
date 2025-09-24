@@ -21,7 +21,7 @@ defmodule Tremtec.MixProject do
   def application do
     [
       mod: {Tremtec.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :set_locale]
     ]
   end
 
@@ -58,6 +58,7 @@ defmodule Tremtec.MixProject do
        app: false,
        compile: false,
        depth: 1},
+      {:set_locale, "~> 0.2.9"},
       {:swoosh, "~> 1.16"},
       {:req, "~> 0.5"},
       {:telemetry_metrics, "~> 1.0"},
