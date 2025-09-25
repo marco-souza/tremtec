@@ -113,17 +113,17 @@ msgstr "Deploy people, processes, and tools that accelerate your development cyc
 msgid "solution title"
 msgstr "Structure that turns potential into results!"
 
-#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:108
+#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:113
 #, elixir-autogen, elixir-format
 msgid "contact us"
 msgstr "Let's book a call!"
 
-#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:104
+#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:109
 #, elixir-autogen, elixir-format, fuzzy
 msgid "cta subtitle"
 msgstr "We will talk for 30 minutes to map your biggest development bottlenecks, no strings attached."
 
-#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:101
+#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:106
 #, elixir-autogen, elixir-format
 msgid "cta title"
 msgstr "Ready to transform your development process?"
@@ -137,3 +137,8 @@ msgstr "Mentoring"
 #, elixir-autogen, elixir-format
 msgid "mentoring description"
 msgstr "If needed, we provide ongoing mentorship and support to ensure your team continues to improve and adapt to changing needs."
+
+#: lib/tremtec_web/components/layouts.ex:128
+#, elixir-autogen, elixir-format
+msgid "All rights reserved"
+msgstr "All rights reserved by TremTec"

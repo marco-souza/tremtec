@@ -125,7 +125,7 @@ defmodule TremtecWeb.Layouts do
     ~H"""
     <footer class="footer footer-center p-6 bg-base-200 text-base-content">
       <div>
-        <p>Copyright © {Date.utc_today().year} - Todos os direitos reservados a TremTec</p>
+        <p>Copyright © {Date.utc_today().year} - {gettext("All rights reserved")}</p>
       </div>
     </footer>
     """

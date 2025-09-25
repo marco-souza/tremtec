@@ -113,17 +113,17 @@ msgstr ""
 msgid "solution title"
 msgstr ""
 
-#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:108
+#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:113
 #, elixir-autogen, elixir-format
 msgid "contact us"
 msgstr ""
 
-#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:104
+#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:109
 #, elixir-autogen, elixir-format
 msgid "cta subtitle"
 msgstr ""
 
-#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:101
+#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:106
 #, elixir-autogen, elixir-format
 msgid "cta title"
 msgstr ""
@@ -136,4 +136,9 @@ msgstr ""
 #: lib/tremtec_web/controllers/page_html/landing_page.html.heex:90
 #, elixir-autogen, elixir-format
 msgid "mentoring description"
+msgstr ""
+
+#: lib/tremtec_web/components/layouts.ex:128
+#, elixir-autogen, elixir-format
+msgid "All rights reserved"
 msgstr ""
