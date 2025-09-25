@@ -1,0 +1,25 @@
+services:
+  tremtec:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: tremtec:latest
+    environment:
+      PORT: "4000"
+      PHX_SERVER: "true"
+      PHX_HOST: localhost
+      DATABASE_PATH: /data/tremtec.db
+      # Generate one with: mix phx.gen.secret
+      SECRET_KEY_BASE: ${SECRET_KEY_BASE}
+      MIX_ENV: prod
+    ports:
+      - "4000:4000"
+    volumes:
+      - tremtec_data:/data
+    restart: unless-stopped
+
+volumes:
+  tremtec_data:
+    driver: local
+
+

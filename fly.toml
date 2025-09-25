@@ -1,0 +1,22 @@
+app = 'tremtec'
+primary_region = 'gru'
+
+[env]
+  PHX_HOST = "tremtec.fly.dev"
+  PORT = "8080"
+  PHX_SERVER = "true"
+  DATABASE_PATH = "/data/tremtec.db"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+  min_machines_running = 1
+  max_machines_running = 1
+  processes = ['app']
+
+[[vm]]
+  memory = '256mb'
+  cpu_kind = 'shared'
+  cpus = 1
