@@ -51,7 +51,7 @@ msgstr "Implementamos e aperfeiçoamos processos, ferramentas e pessoas que acel
 #: lib/tremtec_web/controllers/page_html/landing_page.html.heex:17
 #, elixir-autogen, elixir-format
 msgid "get started"
-msgstr "Agente uma Demo!"
+msgstr "Agende uma Demo!"
 
 #: lib/tremtec_web/controllers/page_html/landing_page.html.heex:16
 #, elixir-autogen, elixir-format
@@ -66,7 +66,7 @@ msgstr "Entregas lentas e bugs em produção estão minando o seu crescimento?"
 #: lib/tremtec_web/controllers/page_html/landing_page.html.heex:25
 #, elixir-autogen, elixir-format
 msgid "problem title"
-msgstr "Mova rápido sem perder a qualidade"
+msgstr "Mova rápido sem perder qualidade"
 
 #: lib/tremtec_web/controllers/page_html/landing_page.html.heex:37
 #, elixir-autogen, elixir-format

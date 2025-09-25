@@ -61,7 +61,7 @@ msgstr "How it works?"
 #: lib/tremtec_web/controllers/page_html/landing_page.html.heex:28
 #, elixir-autogen, elixir-format
 msgid "problem subtitle"
-msgstr "Slow deliveies and bugs in production are undermining your business growth?"
+msgstr "Slow deliveries and bugs in production are undermining your business growth?"
 
 #: lib/tremtec_web/controllers/page_html/landing_page.html.heex:25
 #, elixir-autogen, elixir-format
