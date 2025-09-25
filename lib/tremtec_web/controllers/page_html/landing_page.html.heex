@@ -14,7 +14,7 @@
         </p>
 
         <a href="#solution" class="btn btn-link">{gettext("how it works")}</a>
-        <a href="#" class="btn btn-primary">{gettext("get started")}</a>
+        <a href="#act-now" class="btn btn-primary">{gettext("get started")}</a>
       </div>
     </div>
   </div>
@@ -56,7 +56,7 @@
   </div>
 
   <div class="hero" id="solution">
-    <div class="hero-content flex-col lg:flex-row p-32 text-center">
+    <div class="hero-content flex-col lg:flex-row py-32 text-center">
       <div>
         <h1 class="text-5xl font-bold">{gettext("solution title")}</h1>
 
@@ -94,5 +94,26 @@
     </div>
   </div>
 
-  <div class="session" id="act-now"></div>
+  <div class="hero session bg-base-300" id="act-now">
+    <div class="hero-content flex-col lg:flex-row p-16 text-center">
+      <div class="grid md:grid-cols-1 gap-16 md:gap-8 py-6">
+        <image
+          src={~p"/images/logo-tremtec.png"}
+          class="md:h-48 h-96 mx-auto"
+        />
+
+        <div>
+          <h1 class="text-5xl font-bold px-16">{gettext("cta title")}</h1>
+
+          <h2 class="py-6">
+            {gettext("cta subtitle")}
+          </h2>
+
+          <a class="btn btn-primary btn-lg hover:animate-pulse" href="/contact">
+            {gettext("contact us")}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
 </Layouts.app>

@@ -16,18 +16,18 @@ msgstr ""
 msgid "Actions"
 msgstr ""
 
-#: lib/tremtec_web/components/layouts.ex:155
-#: lib/tremtec_web/components/layouts.ex:167
+#: lib/tremtec_web/components/layouts.ex:158
+#: lib/tremtec_web/components/layouts.ex:170
 #, elixir-autogen, elixir-format
 msgid "Attempting to reconnect"
 msgstr ""
 
-#: lib/tremtec_web/components/layouts.ex:162
+#: lib/tremtec_web/components/layouts.ex:165
 #, elixir-autogen, elixir-format
 msgid "Something went wrong!"
 msgstr ""
 
-#: lib/tremtec_web/components/layouts.ex:150
+#: lib/tremtec_web/components/layouts.ex:153
 #, elixir-autogen, elixir-format
 msgid "We can't find the internet"
 msgstr ""
@@ -47,7 +47,7 @@ msgstr ""
 msgid "hero subtitle"
 msgstr ""
 
-#: lib/tremtec_web/components/layouts.ex:111
+#: lib/tremtec_web/components/layouts.ex:114
 #: lib/tremtec_web/controllers/page_html/landing_page.html.heex:17
 #, elixir-autogen, elixir-format
 msgid "get started"
@@ -103,16 +103,6 @@ msgstr ""
 msgid "implementation description"
 msgstr ""
 
-#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:89
-#, elixir-autogen, elixir-format
-msgid "mentorship"
-msgstr ""
-
-#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:90
-#, elixir-autogen, elixir-format
-msgid "mentorship description"
-msgstr ""
-
 #: lib/tremtec_web/controllers/page_html/landing_page.html.heex:64
 #, elixir-autogen, elixir-format
 msgid "solution subtitle"
@@ -121,4 +111,29 @@ msgstr ""
 #: lib/tremtec_web/controllers/page_html/landing_page.html.heex:61
 #, elixir-autogen, elixir-format
 msgid "solution title"
+msgstr ""
+
+#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:108
+#, elixir-autogen, elixir-format
+msgid "contact us"
+msgstr ""
+
+#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:104
+#, elixir-autogen, elixir-format
+msgid "cta subtitle"
+msgstr ""
+
+#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:101
+#, elixir-autogen, elixir-format
+msgid "cta title"
+msgstr ""
+
+#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:89
+#, elixir-autogen, elixir-format
+msgid "mentoring"
+msgstr ""
+
+#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:90
+#, elixir-autogen, elixir-format
+msgid "mentoring description"
 msgstr ""

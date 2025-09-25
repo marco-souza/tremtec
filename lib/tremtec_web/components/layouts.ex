@@ -110,7 +110,7 @@ defmodule TremtecWeb.Layouts do
             <.theme_toggle />
 
             <li>
-              <a href="/contact" class="btn btn-primary">
+              <a href="#act-now" class="btn btn-primary">
                 {gettext("get started")} <span aria-hidden="true">&rarr;</span>
               </a>
             </li>

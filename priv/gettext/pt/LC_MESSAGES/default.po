@@ -16,18 +16,18 @@ msgstr ""
 msgid "Actions"
 msgstr "Ações"
 
-#: lib/tremtec_web/components/layouts.ex:155
-#: lib/tremtec_web/components/layouts.ex:167
+#: lib/tremtec_web/components/layouts.ex:158
+#: lib/tremtec_web/components/layouts.ex:170
 #, elixir-autogen, elixir-format
 msgid "Attempting to reconnect"
 msgstr "Tentando se reconectar"
 
-#: lib/tremtec_web/components/layouts.ex:162
+#: lib/tremtec_web/components/layouts.ex:165
 #, elixir-autogen, elixir-format
 msgid "Something went wrong!"
 msgstr "Alguma coisa deu errado!"
 
-#: lib/tremtec_web/components/layouts.ex:150
+#: lib/tremtec_web/components/layouts.ex:153
 #, elixir-autogen, elixir-format
 msgid "We can't find the internet"
 msgstr "Não conseguimos conectar a internet"
@@ -47,7 +47,7 @@ msgstr "Desenvolvimento de Software levado a sério!"
 msgid "hero subtitle"
 msgstr "Implementamos e aperfeiçoamos processos, ferramentas e pessoas que aceleram a entrega de código com qualidade, da concepção ao deploy."
 
-#: lib/tremtec_web/components/layouts.ex:111
+#: lib/tremtec_web/components/layouts.ex:114
 #: lib/tremtec_web/controllers/page_html/landing_page.html.heex:17
 #, elixir-autogen, elixir-format
 msgid "get started"
@@ -103,16 +103,6 @@ msgstr "Implementação"
 msgid "implementation description"
 msgstr "Implementamos as melhores práticas, ferramentas e processos para otimizar seu ciclo de desenvolvimento."
 
-#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:89
-#, elixir-autogen, elixir-format
-msgid "mentoring"
-msgstr "Mentoria"
-
-#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:90
-#, elixir-autogen, elixir-format
-msgid "mentoring description"
-msgstr "Quando necessário, oferecemos mentoria contínua para garantir a adoção e evolução das práticas implementadas."
-
 #: lib/tremtec_web/controllers/page_html/landing_page.html.heex:64
 #, elixir-autogen, elixir-format
 msgid "solution subtitle"
@@ -122,3 +112,28 @@ msgstr "Orquestramos pessoas, processos e ferramentas para acelerar a entrega de
 #, elixir-autogen, elixir-format
 msgid "solution title"
 msgstr "Estrutura que transforma potencial em resultados!"
+
+#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:108
+#, elixir-autogen, elixir-format
+msgid "contact us"
+msgstr "Agende uma Análise Estratégica!"
+
+#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:104
+#, elixir-autogen, elixir-format, fuzzy
+msgid "cta subtitle"
+msgstr "Vamos conversar por 30 minutos para mapear seus maiores gargalos de desenvolvimento, sem compromisso."
+
+#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:101
+#, elixir-autogen, elixir-format
+msgid "cta title"
+msgstr "Pronto para acelerar suas entregas?"
+
+#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:89
+#, elixir-autogen, elixir-format
+msgid "mentoring"
+msgstr "Mentoria"
+
+#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:90
+#, elixir-autogen, elixir-format
+msgid "mentoring description"
+msgstr "Quando necessário, oferecemos mentoria contínua para garantir a adoção e evolução das práticas implementadas."
