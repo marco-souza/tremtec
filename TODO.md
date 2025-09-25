@@ -5,10 +5,11 @@
 - [x] add Hero section
 - [x] add problem section
 - [x] add solution section
-- [ ] add CTA section
+- [x] add CTA section
 - [ ] add testimonials section
 - [ ] implement `/contact` page
+- [ ] implement `/about` page
 - [ ] translate footer
-- [ ] deploy to tremtec.fly.dev
-- [ ] setup fly.io <> cloudflare for custom domain
+- [x] deploy to tremtec.fly.dev
+- [x] setup fly.io <> cloudflare for custom domain
 
