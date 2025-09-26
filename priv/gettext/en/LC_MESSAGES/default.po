@@ -40,12 +40,12 @@ msgstr "Close"
 #: lib/tremtec_web/controllers/page_html/landing_page.html.heex:10
 #, elixir-autogen, elixir-format
 msgid "hero title"
-msgstr "Your Development Cycle taken seriously!"
+msgstr "Your Software on Track!"
 
 #: lib/tremtec_web/controllers/page_html/landing_page.html.heex:13
 #, elixir-autogen, elixir-format, fuzzy
 msgid "hero subtitle"
-msgstr "We implement and improve processes, tools, and people that accelerate the delivery of quality code, from conception to deployment."
+msgstr "We transform your development processes into a high-performance locomotive, designing clear routes for your product to move fast without derailing into bugs or delays."
 
 #: lib/tremtec_web/components/layouts.ex:114
 #: lib/tremtec_web/controllers/page_html/landing_page.html.heex:17

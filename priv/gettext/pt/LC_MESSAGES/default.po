@@ -40,12 +40,12 @@ msgstr "Fechar"
 #: lib/tremtec_web/controllers/page_html/landing_page.html.heex:10
 #, elixir-autogen, elixir-format
 msgid "hero title"
-msgstr "Desenvolvimento de Software levado a sério!"
+msgstr "Coloque seu Software nos Trilhos!"
 
 #: lib/tremtec_web/controllers/page_html/landing_page.html.heex:13
 #, elixir-autogen, elixir-format, fuzzy
 msgid "hero subtitle"
-msgstr "Implementamos e aperfeiçoamos processos, ferramentas e pessoas que aceleram a entrega de código com qualidade, da concepção ao deploy."
+msgstr "Transformamos seus processos de desenvolvimento em uma locomotiva de alta performance, projetando rotas claras para que seu produto avance rápido, sem descarrilar em bugs ou atrasos."
 
 #: lib/tremtec_web/components/layouts.ex:114
 #: lib/tremtec_web/controllers/page_html/landing_page.html.heex:17
