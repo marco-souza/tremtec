@@ -142,3 +142,64 @@ msgstr "If needed, we provide ongoing mentorship and support to ensure your team
 #, elixir-autogen, elixir-format
 msgid "All rights reserved"
 msgstr "All rights reserved by TremTec"
+
+#: lib/tremtec_web/live/contact_live.ex:11
+#: lib/tremtec_web/live/contact_live.html.heex:4
+#, elixir-autogen, elixir-format
+msgid "Contact"
+msgstr "Contact"
+
+#: lib/tremtec_web/live/contact_live.html.heex:27
+#, elixir-autogen, elixir-format
+msgid "Email"
+msgstr "Email"
+
+#: lib/tremtec_web/live/contact_live.html.heex:38
+#, elixir-autogen, elixir-format
+msgid "How can we help?"
+msgstr "How can we help?"
+
+#: lib/tremtec_web/live/contact_live.html.heex:37
+#, elixir-autogen, elixir-format
+msgid "Message"
+msgstr "Message"
+
+#: lib/tremtec_web/live/contact_live.html.heex:19
+#, elixir-autogen, elixir-format
+msgid "Name"
+msgstr "Name"
+
+#: lib/tremtec_web/live/contact_live.html.heex:45
+#, elixir-autogen, elixir-format
+msgid "Nickname"
+msgstr "Nickname"
+
+#: lib/tremtec_web/live/contact_live.html.heex:51
+#, elixir-autogen, elixir-format
+msgid "Send message"
+msgstr "Send message"
+
+#: lib/tremtec_web/live/contact_live.html.heex:50
+#, elixir-autogen, elixir-format
+msgid "Sending..."
+msgstr "Sending..."
+
+#: lib/tremtec_web/live/contact_live.ex:67
+#, elixir-autogen, elixir-format
+msgid "Spam detected"
+msgstr "Spam detected"
+
+#: lib/tremtec_web/live/contact_live.ex:34
+#, elixir-autogen, elixir-format
+msgid "Thanks! Your message has been sent."
+msgstr "Thanks! Your message has been sent."
+
+#: lib/tremtec_web/live/contact_live.html.heex:5
+#, elixir-autogen, elixir-format
+msgid "We'd love to hear from you. Send us a message."
+msgstr "We'd love to hear from you. Send us a message."
+
+#: lib/tremtec_web/live/contact_live.html.heex:20
+#, elixir-autogen, elixir-format
+msgid "Your name"
+msgstr "Your name"
