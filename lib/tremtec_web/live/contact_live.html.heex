@@ -1,0 +1,70 @@
+<Layouts.app flash={@flash} current_scope={assigns[:current_scope]}>
+  <div class="max-w-2xl mx-auto px-4 py-10">
+    <.header>
+      {gettext("Contact")}
+      <:subtitle>{gettext("We'd love to hear from you. Send us a message.")}</:subtitle>
+    </.header>
+
+    <div class="card bg-base-200/40 border border-base-300 shadow-sm rounded-xl p-6">
+      <div :if={@form.source.action && @form.source.errors != []} class="mb-4 space-y-2">
+        <p class="alert alert-error">
+          {gettext("Please correct the errors below")}
+        </p>
+        <%= for msg <- TremtecWeb.CoreComponents.translate_errors(@form.source.errors, :base) do %>
+          <p class="mt-1.5 flex gap-2 items-center text-sm text-error">
+            <span class="hero-exclamation-circle size-5"></span>
+            {msg}
+          </p>
+        <% end %>
+      </div>
+      <.form
+        for={@form}
+        id="contact-form"
+        phx-change="validate"
+        phx-submit="save"
+        class="space-y-4"
+      >
+        <.input
+          field={@form[:name]}
+          type="text"
+          label={gettext("Name")}
+          placeholder={gettext("Your name")}
+          required
+        />
+
+        <.input
+          field={@form[:email]}
+          type="email"
+          label={gettext("Email")}
+          placeholder="you@example.com"
+          autocomplete="email"
+          inputmode="email"
+          required
+        />
+
+        <.input
+          field={@form[:message]}
+          type="textarea"
+          label={gettext("Message")}
+          placeholder={gettext("How can we help?")}
+          rows="6"
+          minlength="10"
+          required
+        />
+
+        <div class="sr-only" aria-hidden="true">
+          <label for="nickname">{gettext("Nickname")}</label>
+          <input id="nickname" name="contact[nickname]" type="text" tabindex="-1" autocomplete="off" />
+        </div>
+
+        <div class="pt-2">
+          <.button type="submit" phx-disable-with={gettext("Sending...")}>
+            {gettext("Send message")}
+          </.button>
+        </div>
+      </.form>
+    </div>
+  </div>
+</Layouts.app>
+
+

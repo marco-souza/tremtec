@@ -31,6 +31,7 @@ defmodule TremtecWeb.Router do
 
     get "/", PageController, :landing_page
     get "/docs", PageController, :home
+    live "/contact", ContactLive
   end
 
   # Other scopes may use custom stacks.
