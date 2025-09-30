@@ -14,6 +14,7 @@ defmodule TremtecWeb.Router do
       default_locale: "pt",
       cookie_key: "preferred_locale"
     )
+    plug TremtecWeb.Plug.PutLocaleSession
   end
 
   pipeline :api do

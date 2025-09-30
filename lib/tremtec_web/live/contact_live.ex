@@ -1,11 +1,16 @@
 defmodule TremtecWeb.ContactLive do
   use TremtecWeb, :live_view
 
+  require Logger
+
   alias Phoenix.LiveView.Socket
   alias Ecto.Changeset
 
   @impl true
-  def mount(_params, _session, %Socket{} = socket) do
+  def mount(_params, %{"locale" => locale}, %Socket{} = socket) do
+    Logger.info("Mounting contact live with locale: #{locale}")
+    Gettext.put_locale(TremtecWeb.Gettext, locale)
+
     {:ok,
      socket
      |> assign(:page_title, gettext("Contact"))
@@ -68,5 +73,3 @@ defmodule TremtecWeb.ContactLive do
     end
   end
 end
-
-

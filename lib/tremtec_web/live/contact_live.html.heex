@@ -6,17 +6,6 @@
     </.header>
 
     <div class="card bg-base-200/40 border border-base-300 shadow-sm rounded-xl p-6">
-      <div :if={@form.source.action && @form.source.errors != []} class="mb-4 space-y-2">
-        <p class="alert alert-error">
-          {gettext("Please correct the errors below")}
-        </p>
-        <%= for msg <- TremtecWeb.CoreComponents.translate_errors(@form.source.errors, :base) do %>
-          <p class="mt-1.5 flex gap-2 items-center text-sm text-error">
-            <span class="hero-exclamation-circle size-5"></span>
-            {msg}
-          </p>
-        <% end %>
-      </div>
       <.form
         for={@form}
         id="contact-form"
