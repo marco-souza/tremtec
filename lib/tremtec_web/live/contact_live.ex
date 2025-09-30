@@ -5,6 +5,7 @@ defmodule TremtecWeb.ContactLive do
 
   alias Phoenix.LiveView.Socket
   alias Ecto.Changeset
+  alias Tremtec.Messages
 
   @impl true
   def mount(_params, %{"locale" => locale}, %Socket{} = socket) do
@@ -32,8 +33,9 @@ defmodule TremtecWeb.ContactLive do
   @impl true
   def handle_event("save", %{"contact" => params}, %Socket{} = socket) do
     case Changeset.apply_action(changeset(params), :insert) do
-      {:ok, _data} ->
-        # In a future iteration, persist or deliver via email.
+      {:ok, data} ->
+        _ = Messages.create_contact_message(data)
+
         {:noreply,
          socket
          |> put_flash(:info, gettext("Thanks! Your message has been sent."))

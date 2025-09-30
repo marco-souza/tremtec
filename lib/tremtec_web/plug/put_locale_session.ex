@@ -20,7 +20,7 @@ defmodule TremtecWeb.Plug.PutLocaleSession do
 
   defp get_locale_for_user(params) do
     case params do
-      %{ "locale" => locale } -> locale
+      %{"locale" => locale} -> locale
       _ -> "pt"
     end
   end

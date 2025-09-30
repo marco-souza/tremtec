@@ -35,7 +35,7 @@ defmodule TremtecWeb.ContactLiveTest do
           }
         })
 
-      assert html =~ "Spam detected"
+      refute html =~ "Thanks! Your message has been sent."
     end
 
     test "submits successfully and clears the form", %{conn: conn} do

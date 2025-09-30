@@ -14,7 +14,15 @@ defmodule TremtecWeb.Router do
       default_locale: "pt",
       cookie_key: "preferred_locale"
     )
+
     plug TremtecWeb.Plug.PutLocaleSession
+  end
+
+  pipeline :admin_auth do
+    plug TremtecWeb.Plug.AdminBasicAuth, %{
+      username: System.get_env("ADMIN_USER", "admin"),
+      password: System.get_env("ADMIN_PASS", "admin")
+    }
   end
 
   pipeline :api do
@@ -33,6 +41,13 @@ defmodule TremtecWeb.Router do
     get "/", PageController, :landing_page
     get "/docs", PageController, :home
     live "/contact", ContactLive
+
+    scope "/admin" do
+      pipe_through [:admin_auth]
+
+      live "/messages", Admin.Messages.IndexLive
+      live "/messages/:id", Admin.Messages.ShowLive
+    end
   end
 
   # Other scopes may use custom stacks.

@@ -1,3 +1,61 @@
+#: lib/tremtec_web/live/admin/messages/index_live.ex:8
+#: lib/tremtec_web/live/admin/messages/index_live.html.heex:4
+#, elixir-autogen, elixir-format
+msgid "Contact Messages"
+msgstr "Mensagens de Contato"
+
+#: lib/tremtec_web/live/admin/messages/index_live.html.heex:7
+#, elixir-autogen, elixir-format
+msgid "Search by name or email"
+msgstr "Buscar por nome ou e-mail"
+
+#: lib/tremtec_web/live/admin/messages/show_live.ex:8
+#: lib/tremtec_web/live/admin/messages/show_live.html.heex:4
+#: lib/tremtec_web/live/contact_live.html.heex:37
+#, elixir-autogen, elixir-format
+msgid "Message"
+msgstr "Mensagem"
+
+#: lib/tremtec_web/live/admin/messages/show_live.html.heex:6
+#, elixir-autogen, elixir-format
+msgid "Back"
+msgstr "Voltar"
+
+#: lib/tremtec_web/live/admin/messages/show_live.html.heex:11
+#, elixir-autogen, elixir-format
+msgid "From"
+msgstr "De"
+
+#: lib/tremtec_web/live/admin/messages/show_live.html.heex:12
+#, elixir-autogen, elixir-format
+msgid "Received"
+msgstr "Recebida em"
+
+#: lib/tremtec_web/live/admin/messages/show_live.html.heex:13
+#, elixir-autogen, elixir-format
+msgid "Status"
+msgstr "Status"
+
+#: lib/tremtec_web/live/admin/messages/show_live.html.heex:13
+#, elixir-autogen, elixir-format
+msgid "Read"
+msgstr "Lida"
+
+#: lib/tremtec_web/live/admin/messages/show_live.html.heex:13
+#, elixir-autogen, elixir-format
+msgid "Unread"
+msgstr "Não lida"
+
+#: lib/tremtec_web/live/admin/messages/show_live.html.heex:17
+#, elixir-autogen, elixir-format
+msgid "Mark as unread"
+msgstr "Marcar como não lida"
+
+#: lib/tremtec_web/live/admin/messages/show_live.html.heex:17
+#, elixir-autogen, elixir-format
+msgid "Mark as read"
+msgstr "Marcar como lida"
+
 ## "msgid"s in this file come from POT (.pot) files.
 ###
 ### Do not add, change, or remove "msgid"s manually here as
@@ -158,11 +216,6 @@ msgstr "E-mail"
 #, elixir-autogen, elixir-format
 msgid "How can we help?"
 msgstr "Como podemos ajudar?"
-
-#: lib/tremtec_web/live/contact_live.html.heex:37
-#, elixir-autogen, elixir-format
-msgid "Message"
-msgstr "Mensagem"
 
 #: lib/tremtec_web/live/contact_live.html.heex:19
 #, elixir-autogen, elixir-format

@@ -1,0 +1,28 @@
+<Layouts.app flash={@flash} current_scope={assigns[:current_scope]}>
+  <div class="max-w-5xl mx-auto px-4 py-10">
+    <.header>
+      {gettext("Contact Messages")}
+      <:actions>
+        <.form for={@search} phx-change="search" id="search-form" class="flex gap-2 items-end">
+          <.input field={@search[:q]} placeholder={gettext("Search by name or email")} />
+        </.form>
+      </:actions>
+    </.header>
+
+    <div id="messages" phx-update="stream" class="divide-y divide-base-300">
+      <div :for={{id, m} <- @streams.messages} id={id} class="py-4">
+        <.link navigate={"/" <> @locale <> "/admin/messages/" <> to_string(m.id)}>
+          <div class="flex items-start gap-4">
+            <div class="flex-1">
+              <div class="font-medium">{m.name} <span class="opacity-60">{m.email}</span></div>
+              <div class="text-sm opacity-80 truncate">{m.message}</div>
+            </div>
+            <div class="text-xs opacity-60">
+              {Calendar.strftime(m.inserted_at, "%Y-%m-%d %H:%M")}
+            </div>
+          </div>
+        </.link>
+      </div>
+    </div>
+  </div>
+</Layouts.app>
