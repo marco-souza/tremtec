@@ -68,10 +68,11 @@ COPY --from=build /app/_build/prod/rel/tremtec ./
 
 USER app
 
-ENV DATABASE_PATH=${DATABASE_PATH:-/data/tremtec.db}
+ENV DATABASE_PATH=${DATABASE_PATH:-/data/tremtec.db} \
+    ADMIN_USER=${ADMIN_USER:-tremtec} \
+    ADMIN_PASS=${ADMIN_PASS:-tremtec}
 
 ENTRYPOINT ["/app/bin/tremtec"]
 
 CMD ["start"]
-
 

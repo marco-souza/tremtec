@@ -1,5 +1,23 @@
 import Config
 
+# Runtime config for all environments
+# LiveView signing salt - generate for dev, require for prod
+live_view_signing_salt =
+  System.get_env("LIVE_VIEW_SIGNING_SALT") ||
+    if config_env() == :prod do
+      raise "environment variable LIVE_VIEW_SIGNING_SALT is missing. Generate with: mix phx.gen.secret 32"
+    else
+      # dev default
+      "MkHmw9im"
+    end
+
+config :tremtec, TremtecWeb.Endpoint, live_view: [signing_salt: live_view_signing_salt]
+
+# Admin credentials
+config :tremtec,
+  admin_user: System.get_env("ADMIN_USER") || "admin",
+  admin_password: System.get_env("ADMIN_PASS") || "admin"
+
 # config/runtime.exs is executed for all environments, including
 # during releases. It is executed after compilation and before the
 # system starts, so it is typically used to load production configuration

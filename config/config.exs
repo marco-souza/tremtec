@@ -19,8 +19,7 @@ config :tremtec, TremtecWeb.Endpoint,
     formats: [html: TremtecWeb.ErrorHTML, json: TremtecWeb.ErrorJSON],
     layout: false
   ],
-  pubsub_server: Tremtec.PubSub,
-  live_view: [signing_salt: "MkHmw9im"]
+  pubsub_server: Tremtec.PubSub
 
 # Configures the mailer
 #

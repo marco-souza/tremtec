@@ -20,8 +20,8 @@ defmodule TremtecWeb.Router do
 
   pipeline :admin_auth do
     plug TremtecWeb.Plug.AdminBasicAuth, %{
-      username: System.get_env("ADMIN_USER", "admin"),
-      password: System.get_env("ADMIN_PASS", "admin")
+      username: Application.compile_env(:tremtec, :admin_user),
+      password: Application.compile_env(:tremtec, :admin_password)
     }
   end
 

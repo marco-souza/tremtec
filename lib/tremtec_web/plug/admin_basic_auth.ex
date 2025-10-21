@@ -9,22 +9,34 @@ defmodule TremtecWeb.Plug.AdminBasicAuth do
 
   import Plug.Conn
 
+  require Logger
+
+  # define struct state
+  defmodule AuthState do
+    defstruct [:username, :password]
+  end
+
   @behaviour Plug
 
   @impl Plug
-  def init(opts) do
-    %{
-      username: Map.get(opts, :username) || System.get_env("ADMIN_USER", "admin"),
-      password: Map.get(opts, :password) || System.get_env("ADMIN_PASS", "admin")
-    }
+  def init(%{username: username, password: password}) do
+    %AuthState{username: username, password: password}
   end
 
   @impl Plug
-  def call(conn, %{username: expected_user, password: expected_pass}) do
+  def call(conn, %AuthState{username: expected_user, password: expected_pass} = state) do
+    Logger.info(
+      "Admin access attempt from #{conn.remote_ip |> Tuple.to_list() |> Enum.join(".")}"
+    )
+
+    Logger.debug("State: #{inspect(state)}")
+
     case get_req_header(conn, "authorization") do
       ["Basic " <> base64] ->
         with {:ok, creds} <- Base.decode64(base64),
              [user, pass] <- String.split(creds, ":", parts: 2) do
+          Logger.debug("User: #{user}, Pass: #{String.duplicate("*", String.length(pass))}")
+
           if secure_compare(user, expected_user) and secure_compare(pass, expected_pass) do
             conn
           else
