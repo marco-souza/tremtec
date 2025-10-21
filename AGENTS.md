@@ -121,6 +121,37 @@ custom classes must fully style the input
 - Fields which are set programatically, such as `user_id`, must not be listed in `cast` calls or similar for security purposes. Instead they must be explicitly set when creating the struct
 <!-- phoenix:ecto-end -->
 
+## Configuration and Environment Variables
+
+- **Always** use `config/runtime.exs` for secrets, environment-specific config, and any values that change at runtime (e.g., database paths, API keys, hostnames). **Never** put secrets in `config.exs` or other compile-time files.
+- **Always** require critical environment variables in production (e.g., `SECRET_KEY_BASE`) with clear error messages if missing.
+- **Prefer** `Application.compile_env/2` over `System.get_env/1` in application code for better performance (env read once at startup).
+- **Use** `System.get_env/1` only in `config/runtime.exs` or for optional, defaulted values.
+- Key environment variables for this app:
+  - `ADMIN_USER` / `ADMIN_PASS`: Basic auth credentials (default: `admin`/`admin`)
+  - `LIVE_VIEW_SIGNING_SALT`: Required for LiveView security (generate with `mix phx.gen.secret 32`)
+  - `DATABASE_PATH`: SQLite file path (default: `/data/tremtec.db`)
+  - `SECRET_KEY_BASE`: Session encryption key (generate with `mix phx.gen.secret`)
+  - `PHX_HOST`, `PORT`, `POOL_SIZE`: Production server config
+- **Generate secrets securely**: Use `mix phx.gen.secret` for keys and `mix phx.gen.secret 32` for salts.
+
+## Docker Guidelines
+
+- **Use multi-stage builds** to minimize image size, with separate build and runtime stages.
+- **Remove unused ARG** declarations that aren't used in the Dockerfile.
+- **Set environment variables** in the runtime stage for defaults, allowing override at container runtime.
+- **Mount volumes** for persistent data (e.g., SQLite database).
+- **Run as non-root user** in production images for security.
+- Build with: `docker build -t tremtec .`
+- Run with proper env vars: `docker run -p 4000:4000 -e SECRET_KEY_BASE=... tremtec`
+
+## Deployment Guidelines
+
+- **Use Fly.io** for deployment with persistent volumes for SQLite.
+- **Configure fly.toml** with mounts for data persistence.
+- **Set secrets** in Fly.io environment, not in code.
+- **Test releases** locally with `mix release` before deploying.
+
 <!-- phoenix:html-start -->
 ## Phoenix HTML guidelines
 
