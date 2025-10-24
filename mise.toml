@@ -1,0 +1,10 @@
+[tasks]
+precommit = "mix precommit"
+
+[env]
+_.file = '.env'
+ENV = "production"
+
+[tools]
+elixir = "latest"
+erlang = "latest"
