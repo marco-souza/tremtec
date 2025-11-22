@@ -2,6 +2,14 @@
 
 A Phoenix web application.
 
+## Features
+
+- 🌍 **Internationalization (i18n)**: Full support for Portuguese, English, and Spanish
+- 📱 **Responsive Design**: Mobile-first UI with Tailwind CSS
+- ⚡ **Real-time Communication**: Phoenix LiveView for interactive features
+- 🔐 **Admin Dashboard**: Secure admin interface with basic auth
+- 📧 **Contact Form**: Fully localized contact form with spam detection
+
 ## Development
 
 To start your Phoenix server:
@@ -10,6 +18,22 @@ To start your Phoenix server:
 * Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
 
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+
+## Documentation
+
+Comprehensive documentation available in the `docs/` directory:
+
+### Internationalization (i18n)
+- **[docs/README.md](./docs/README.md)** - Documentation index
+- **[docs/I18N.md](./docs/I18N.md)** - Quick reference and overview
+- **[docs/I18N_OVERVIEW.md](./docs/I18N_OVERVIEW.md)** - How the system works
+- **[docs/I18N_SETUP.md](./docs/I18N_SETUP.md)** - Configuration details
+- **[docs/I18N_LOCALES.md](./docs/I18N_LOCALES.md)** - Supported languages
+- **[docs/I18N_ADDING_TRANSLATIONS.md](./docs/I18N_ADDING_TRANSLATIONS.md)** - How to add strings
+- **[docs/I18N_ADDING_LOCALES.md](./docs/I18N_ADDING_LOCALES.md)** - How to add languages
+
+### Guidelines
+- **[AGENTS.md](./AGENTS.md)** - Development guidelines and code patterns
 
 ## Configuration
 
