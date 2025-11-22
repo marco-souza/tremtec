@@ -2,9 +2,12 @@ defmodule TremtecWeb.Plug.AdminBasicAuth do
   @moduledoc """
   Minimal Basic Auth plug for protecting admin routes.
 
+  Credentials are loaded from runtime configuration (set via ADMIN_USER and ADMIN_PASS
+  environment variables). Credentials are required and must be explicitly set - there
+  are no defaults.
+
   Options:
-    * :username - admin username (defaults to ENV ADMIN_USER or "admin")
-    * :password - admin password (defaults to ENV ADMIN_PASS or "admin")
+    * :runtime - Load credentials from Application config (requires ADMIN_USER and ADMIN_PASS env vars)
   """
 
   import Plug.Conn
@@ -25,10 +28,22 @@ defmodule TremtecWeb.Plug.AdminBasicAuth do
 
   @impl Plug
   def init(:runtime) do
-    %AuthState{
-      username: Application.get_env(:tremtec, :admin_user, "admin"),
-      password: Application.get_env(:tremtec, :admin_password, "admin")
-    }
+    username = Application.get_env(:tremtec, :admin_user)
+    password = Application.get_env(:tremtec, :admin_password)
+
+    unless username && password do
+      raise """
+      Admin credentials not configured!
+
+      Required environment variables:
+        * ADMIN_USER - Admin username
+        * ADMIN_PASS - Admin password
+
+      These variables must be set before the application starts.
+      """
+    end
+
+    %AuthState{username: username, password: password}
   end
 
   @impl Plug

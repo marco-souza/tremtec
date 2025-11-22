@@ -128,9 +128,9 @@ custom classes must fully style the input
 - **Prefer** `Application.compile_env/2` over `System.get_env/1` in application code for better performance (env read once at startup).
 - **Use** `System.get_env/1` only in `config/runtime.exs` or for optional, defaulted values.
 - Key environment variables for this app:
-  - `ADMIN_USER` / `ADMIN_PASS`: Basic auth credentials (default: `admin`/`admin`)
+  - `ADMIN_USER` / `ADMIN_PASS`: **Required** - Basic auth credentials for admin panel. Must be set explicitly (no defaults, even in dev set them)
   - `LIVE_VIEW_SIGNING_SALT`: Required for LiveView security (generate with `mix phx.gen.secret 32`)
-  - `DATABASE_PATH`: SQLite file path (default: `/data/tremtec.db`)
+  - `DATABASE_PATH`: SQLite file path (default: `/data/tremtec.db` in prod)
   - `SECRET_KEY_BASE`: Session encryption key (generate with `mix phx.gen.secret`)
   - `PHX_HOST`, `PORT`, `POOL_SIZE`: Production server config
 - **Generate secrets securely**: Use `mix phx.gen.secret` for keys and `mix phx.gen.secret 32` for salts.
