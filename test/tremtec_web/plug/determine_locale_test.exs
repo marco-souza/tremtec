@@ -127,8 +127,8 @@ defmodule TremtecWeb.Plug.DetermineLocaleTest do
         conn_with_session()
         |> TremtecWeb.Plug.DetermineLocale.call(opts)
 
-      assert conn.assigns[:locale] == "pt"
-      assert get_session(conn, :locale) == "pt"
+      assert conn.assigns[:locale] == "en"
+      assert get_session(conn, :locale) == "en"
     end
 
     test "uses default locale for unsupported languages", %{opts: opts} do
@@ -137,8 +137,8 @@ defmodule TremtecWeb.Plug.DetermineLocaleTest do
         |> put_req_header("accept-language", "fr,de;q=0.9")
         |> TremtecWeb.Plug.DetermineLocale.call(opts)
 
-      # French and German are not supported, should fall back to Portuguese
-      assert conn.assigns[:locale] == "pt"
+      # French and German are not supported, should fall back to English
+      assert conn.assigns[:locale] == "en"
     end
 
     test "uses default locale when only unsupported variants are provided", %{opts: opts} do
@@ -147,8 +147,8 @@ defmodule TremtecWeb.Plug.DetermineLocaleTest do
         |> put_req_header("accept-language", "fr-FR,de-DE;q=0.9")
         |> TremtecWeb.Plug.DetermineLocale.call(opts)
 
-      # Unsupported languages, should fall back to Portuguese
-      assert conn.assigns[:locale] == "pt"
+      # Unsupported languages, should fall back to English
+      assert conn.assigns[:locale] == "en"
     end
 
     test "ignores unsupported languages and selects from supported ones", %{opts: opts} do
@@ -198,7 +198,7 @@ defmodule TremtecWeb.Plug.DetermineLocaleTest do
         |> put_req_header("accept-language", "")
         |> TremtecWeb.Plug.DetermineLocale.call(opts)
 
-      assert conn.assigns[:locale] == "pt"
+      assert conn.assigns[:locale] == "en"
     end
   end
 

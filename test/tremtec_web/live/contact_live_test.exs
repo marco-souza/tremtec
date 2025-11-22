@@ -18,12 +18,10 @@ defmodule TremtecWeb.ContactLiveTest do
           "contact" => %{"name" => "", "email" => "bad", "message" => "short"}
         })
 
-      # Check for validation error messages using gettext
-      blank_msg = dgettext("errors", "can't be blank")
-      invalid_msg = dgettext("errors", "has invalid format")
-
-      assert html =~ blank_msg
-      assert html =~ invalid_msg
+      # Check for validation error messages (HTML will have entities escaped)
+      # The messages are from gettext, so they appear as rendered in the template
+      assert html =~ "can&#39;t be blank"
+      assert html =~ "has invalid format"
       # Check for error styling class on inputs
       assert html =~ "input-error"
     end

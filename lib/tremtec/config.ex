@@ -14,5 +14,5 @@ defmodule Tremtec.Config do
   @doc """
   Returns the default locale when no preference is detected.
   """
-  def default_locale, do: "pt"
+  def default_locale, do: "en"
 end

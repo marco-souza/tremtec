@@ -35,14 +35,14 @@ defmodule TremtecWeb.LocaleHelpersTest do
       assert LocaleHelpers.get_locale(conn) == Tremtec.Config.default_locale()
     end
 
-    test "returns Portuguese (default) for integer value in session", %{conn: conn} do
+    test "returns English (default) for integer value in session", %{conn: conn} do
       conn = put_session(conn, :locale, 123)
-      assert LocaleHelpers.get_locale(conn) == "pt"
+      assert LocaleHelpers.get_locale(conn) == "en"
     end
 
-    test "returns Portuguese (default) for empty list in session", %{conn: conn} do
+    test "returns English (default) for empty list in session", %{conn: conn} do
       conn = put_session(conn, :locale, [])
-      assert LocaleHelpers.get_locale(conn) == "pt"
+      assert LocaleHelpers.get_locale(conn) == "en"
     end
 
     test "respects different valid locales", %{conn: conn} do
@@ -95,11 +95,11 @@ defmodule TremtecWeb.LocaleHelpersTest do
 
   describe "get_locale/1 with other types" do
     test "returns default locale for any other type" do
-      assert LocaleHelpers.get_locale(nil) == Tremtec.Config.default_locale()
-      assert LocaleHelpers.get_locale("string") == Tremtec.Config.default_locale()
-      assert LocaleHelpers.get_locale(123) == Tremtec.Config.default_locale()
-      assert LocaleHelpers.get_locale([]) == Tremtec.Config.default_locale()
-      assert LocaleHelpers.get_locale(%{}) == Tremtec.Config.default_locale()
+      assert LocaleHelpers.get_locale(nil) == "en"
+      assert LocaleHelpers.get_locale("string") == "en"
+      assert LocaleHelpers.get_locale(123) == "en"
+      assert LocaleHelpers.get_locale([]) == "en"
+      assert LocaleHelpers.get_locale(%{}) == "en"
     end
   end
 
@@ -150,14 +150,14 @@ defmodule TremtecWeb.LocaleHelpersTest do
     end
 
     test "returns default locale string for unknown locale" do
-      assert LocaleHelpers.language_name("fr") == Tremtec.Config.default_locale()
-      assert LocaleHelpers.language_name("de") == Tremtec.Config.default_locale()
-      assert LocaleHelpers.language_name("") == Tremtec.Config.default_locale()
+      assert LocaleHelpers.language_name("fr") == "en"
+      assert LocaleHelpers.language_name("de") == "en"
+      assert LocaleHelpers.language_name("") == "en"
     end
 
     test "returns default locale string for invalid types" do
-      assert LocaleHelpers.language_name(nil) == Tremtec.Config.default_locale()
-      assert LocaleHelpers.language_name(123) == Tremtec.Config.default_locale()
+      assert LocaleHelpers.language_name(nil) == "en"
+      assert LocaleHelpers.language_name(123) == "en"
     end
   end
 end
