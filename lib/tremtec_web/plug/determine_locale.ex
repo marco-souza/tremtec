@@ -39,30 +39,47 @@ defmodule TremtecWeb.Plug.DetermineLocale do
   defp parse_accept_language(headers, supported_locales, default_locale) do
     accept_language = Enum.join(headers, ",")
 
-    accept_language
-    |> String.split(",")
-    |> Enum.map(&String.trim/1)
-    |> Enum.map(&parse_language_tag/1)
-    |> Enum.sort_by(fn {_lang, quality} -> quality end, :desc)
-    |> Enum.find_value(default_locale, fn {lang, _quality} ->
-      if lang in supported_locales do
-        Logger.info("Using locale from Accept-Language header: #{lang}")
+    parsed_languages =
+      accept_language
+      |> String.split(",")
+      |> Enum.map(&String.trim/1)
+      |> Enum.map(&parse_language_tag/1)
+      |> Enum.sort_by(fn {_lang, quality} -> quality end, :desc)
+
+    case Enum.find(parsed_languages, fn {lang, _} -> lang in supported_locales end) do
+      {lang, _} ->
+        if Application.get_env(:tremtec, :dev_routes) do
+          Logger.info("Using locale from Accept-Language header: #{lang}")
+        end
+
         lang
-      else
-        nil
-      end
-    end)
+
+      nil ->
+        default_locale
+    end
   end
 
   defp parse_language_tag(tag) do
     case String.split(tag, ";q=") do
       [lang] ->
-        {String.trim(lang), 1.0}
+        # Extract just the language code (e.g., "pt" from "pt-BR")
+        lang_code =
+          String.trim(lang)
+          |> String.split("-")
+          |> List.first()
+
+        {lang_code, 1.0}
 
       [lang, quality] ->
+        # Extract just the language code (e.g., "pt" from "pt-BR")
+        lang_code =
+          String.trim(lang)
+          |> String.split("-")
+          |> List.first()
+
         case Float.parse(String.trim(quality)) do
-          {q, _} -> {String.trim(lang), q}
-          :error -> {String.trim(lang), 1.0}
+          {q, _} -> {lang_code, q}
+          :error -> {lang_code, 1.0}
         end
 
       _ ->

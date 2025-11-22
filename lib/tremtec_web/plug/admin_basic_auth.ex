@@ -47,12 +47,10 @@ defmodule TremtecWeb.Plug.AdminBasicAuth do
   end
 
   @impl Plug
-  def call(conn, %AuthState{username: expected_user, password: expected_pass} = state) do
+  def call(conn, %AuthState{username: expected_user, password: expected_pass}) do
     Logger.info(
       "Admin access attempt from #{conn.remote_ip |> Tuple.to_list() |> Enum.join(".")}"
     )
-
-    Logger.debug("State: #{inspect(state)}")
 
     case get_req_header(conn, "authorization") do
       ["Basic " <> base64] ->
@@ -83,7 +81,6 @@ defmodule TremtecWeb.Plug.AdminBasicAuth do
 
   # Constant-time compare to mitigate timing attacks
   defp secure_compare(a, b) when is_binary(a) and is_binary(b) do
-    (byte_size(a) == byte_size(b) and :crypto.strong_rand_bytes(1)) &&
-      Plug.Crypto.secure_compare(a, b)
+    byte_size(a) == byte_size(b) and Plug.Crypto.secure_compare(a, b)
   end
 end

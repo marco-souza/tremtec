@@ -10,9 +10,8 @@ defmodule TremtecWeb.Router do
     plug :put_secure_browser_headers
 
     plug TremtecWeb.Plug.DetermineLocale,
-      cookie_key: "preferred_locale",
-      supported_locales: ["pt", "en", "es"],
-      default_locale: "pt",
+      supported_locales: Tremtec.Config.supported_locales(),
+      default_locale: Tremtec.Config.default_locale(),
       gettext: TremtecWeb.Gettext
   end
 
