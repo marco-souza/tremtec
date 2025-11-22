@@ -13,30 +13,11 @@ live_view_signing_salt =
 
 config :tremtec, TremtecWeb.Endpoint, live_view: [signing_salt: live_view_signing_salt]
 
-# Admin credentials - no defaults, must be set via environment
-admin_user =
-  System.get_env("ADMIN_USER") ||
-    if config_env() == :prod do
-      raise """
-      environment variable ADMIN_USER is missing.
-      You must set valid admin credentials for production.
-      """
-    else
-      # dev default
-      "admin"
-    end
-
-admin_password =
-  System.get_env("ADMIN_PASS") ||
-    if config_env() == :prod do
-      raise """
-      environment variable ADMIN_PASS is missing.
-      You must set valid admin credentials for production.
-      """
-    else
-      # dev default
-      "admin"
-    end
+# Admin credentials - required for production, optional for dev/build
+# NOTE: During Docker build, these may not be set. That's OK - runtime will validate them.
+# The validation happens in TremtecWeb.Plug.AdminBasicAuth.init(:runtime) when the plug is actually used.
+admin_user = System.get_env("ADMIN_USER") || "placeholder-build-user"
+admin_password = System.get_env("ADMIN_PASS") || "placeholder-build-pass"
 
 config :tremtec,
   admin_user: admin_user,
