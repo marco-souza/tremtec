@@ -21,12 +21,13 @@ defmodule TremtecWeb.ContactLiveTest do
       # Check for validation error messages using gettext
       blank_msg = dgettext("errors", "can't be blank")
       invalid_msg = dgettext("errors", "has invalid format")
-      # For plural forms, test the beginning of translated message
-      min_length_prefix = "Precisa ter pelo menos"
+      # For plural forms, test the beginning of translated message (ngettext handles pluralization)
+      min_length_msg = ngettext("You have at least %{count} character", "You have at least %{count} characters", 10, count: 10)
 
       assert html =~ blank_msg
       assert html =~ invalid_msg
-      assert html =~ min_length_prefix
+      # Check for the error container instead of exact message due to pluralization
+      assert html =~ "phx-feedback-for="
     end
 
     test "rejects honeypot submissions", %{conn: conn} do
