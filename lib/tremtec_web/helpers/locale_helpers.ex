@@ -1,7 +1,7 @@
 defmodule TremtecWeb.LocaleHelpers do
   @moduledoc """
   Helper functions for accessing locale information throughout the app.
-  
+
   Locale is determined automatically from the Accept-Language header
   and is available in assigns as `:locale`.
   """
