@@ -11,7 +11,7 @@ defmodule TremtecWeb.Router do
 
     plug TremtecWeb.Plug.DetermineLocale,
       cookie_key: "preferred_locale",
-      supported_locales: ["pt", "en"],
+      supported_locales: ["pt", "en", "es"],
       default_locale: "pt",
       gettext: TremtecWeb.Gettext
   end

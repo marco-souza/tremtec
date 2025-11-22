@@ -493,6 +493,7 @@ end
 |--------|----------|--------|--------|
 | pt | Português | Brazil/Portugal | Default ✅ |
 | en | English | International | Complete ✅ |
+| es | Español | Spain/Latin America | Complete ✅ |
 
 ### Files Structure
 - **Configuration**: `lib/tremtec_web/plug/determine_locale.ex`

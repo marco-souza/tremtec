@@ -58,8 +58,8 @@ defmodule TremtecWeb.Layouts do
   def logo(assigns) do
     ~H"""
     <a href="/" class="flex items-center gap-2">
-      <img src={~p"/images/logo.png"} width="48" alt="TremTec logo" />
-      <span class="text-lg font-bold">TremTec</span>
+      <img src={~p"/images/logo.png"} width="48" alt={gettext("TremTec logo")} />
+      <span class="text-lg font-bold">{gettext("TremTec")}</span>
     </a>
     """
   end

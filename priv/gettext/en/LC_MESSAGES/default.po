@@ -1,74 +1,3 @@
-#: lib/tremtec_web/live/admin/messages/index_live.ex:8
-#: lib/tremtec_web/live/admin/messages/index_live.html.heex:4
-#, elixir-autogen, elixir-format
-msgid "Contact Messages"
-msgstr "Contact Messages"
-
-#: lib/tremtec_web/live/admin/messages/index_live.html.heex:7
-#, elixir-autogen, elixir-format
-msgid "Search by name or email"
-msgstr "Search by name or email"
-
-#: lib/tremtec_web/live/admin/messages/show_live.ex:8
-#: lib/tremtec_web/live/admin/messages/show_live.html.heex:4
-#: lib/tremtec_web/live/contact_live.html.heex:37
-#, elixir-autogen, elixir-format
-msgid "Message"
-msgstr "Message"
-
-#: lib/tremtec_web/live/admin/messages/show_live.html.heex:6
-#, elixir-autogen, elixir-format
-msgid "Back"
-msgstr "Back"
-
-#: lib/tremtec_web/live/admin/messages/show_live.html.heex:11
-#, elixir-autogen, elixir-format
-msgid "From"
-msgstr "From"
-
-#: lib/tremtec_web/live/admin/messages/show_live.html.heex:12
-#, elixir-autogen, elixir-format
-msgid "Received"
-msgstr "Received"
-
-#: lib/tremtec_web/live/admin/messages/show_live.html.heex:13
-#, elixir-autogen, elixir-format
-msgid "Status"
-msgstr "Status"
-
-#: lib/tremtec_web/live/admin/messages/show_live.html.heex:13
-#, elixir-autogen, elixir-format
-msgid "Read"
-msgstr "Read"
-
-#: lib/tremtec_web/live/admin/messages/show_live.html.heex:13
-#, elixir-autogen, elixir-format
-msgid "Unread"
-msgstr "Unread"
-
-#: lib/tremtec_web/live/admin/messages/show_live.html.heex:17
-#, elixir-autogen, elixir-format
-msgid "Mark as unread"
-msgstr "Mark as unread"
-
-#: lib/tremtec_web/live/admin/messages/show_live.html.heex:17
-#, elixir-autogen, elixir-format
-msgid "Mark as read"
-msgstr "Mark as read"
-
-## "msgid"s in this file come from POT (.pot) files.
-###
-### Do not add, change, or remove "msgid"s manually here as
-### they're tied to the ones in the corresponding POT file
-### (with the same domain).
-###
-### Use "mix gettext.extract --merge" or "mix gettext.merge"
-### to merge POT files into PO files.
-msgid ""
-msgstr ""
-"Language: en\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
 #: lib/tremtec_web/components/core_components.ex:342
 #, elixir-autogen, elixir-format
 msgid "Actions"
@@ -201,7 +130,7 @@ msgstr "If needed, we provide ongoing mentorship and support to ensure your team
 msgid "All rights reserved"
 msgstr "All rights reserved by TremTec"
 
-#: lib/tremtec_web/live/contact_live.ex:11
+#: lib/tremtec_web/live/contact_live.ex:17
 #: lib/tremtec_web/live/contact_live.html.heex:4
 #, elixir-autogen, elixir-format
 msgid "Contact"
@@ -217,6 +146,13 @@ msgstr "Email"
 msgid "How can we help?"
 msgstr "How can we help?"
 
+#: lib/tremtec_web/live/admin/messages/show_live.ex:14
+#: lib/tremtec_web/live/admin/messages/show_live.html.heex:4
+#: lib/tremtec_web/live/contact_live.html.heex:37
+#, elixir-autogen, elixir-format
+msgid "Message"
+msgstr "Message"
+
 #: lib/tremtec_web/live/contact_live.html.heex:19
 #, elixir-autogen, elixir-format
 msgid "Name"
@@ -227,22 +163,22 @@ msgstr "Name"
 msgid "Nickname"
 msgstr "Nickname"
 
-#: lib/tremtec_web/live/contact_live.html.heex:51
+#: lib/tremtec_web/live/contact_live.html.heex:57
 #, elixir-autogen, elixir-format
 msgid "Send message"
 msgstr "Send message"
 
-#: lib/tremtec_web/live/contact_live.html.heex:50
+#: lib/tremtec_web/live/contact_live.html.heex:56
 #, elixir-autogen, elixir-format
 msgid "Sending..."
 msgstr "Sending..."
 
-#: lib/tremtec_web/live/contact_live.ex:67
+#: lib/tremtec_web/live/contact_live.ex:74
 #, elixir-autogen, elixir-format
 msgid "Spam detected"
 msgstr "Spam detected"
 
-#: lib/tremtec_web/live/contact_live.ex:34
+#: lib/tremtec_web/live/contact_live.ex:41
 #, elixir-autogen, elixir-format
 msgid "Thanks! Your message has been sent."
 msgstr "Thanks! Your message has been sent."
@@ -256,6 +192,73 @@ msgstr "We'd love to hear from you. Send us a message."
 #, elixir-autogen, elixir-format
 msgid "Your name"
 msgstr "Your name"
+
+#: lib/tremtec_web/components/layouts/root.html.heex:7
+#, elixir-autogen, elixir-format
+msgid " · Software Solutions"
+msgstr " · Software Solutions"
+
+#: lib/tremtec_web/live/admin/messages/show_live.html.heex:7
+#, elixir-autogen, elixir-format
+msgid "Back"
+msgstr "Back"
+
+#: lib/tremtec_web/live/admin/messages/index_live.ex:15
+#: lib/tremtec_web/live/admin/messages/index_live.html.heex:4
+#, elixir-autogen, elixir-format
+msgid "Contact Messages"
+msgstr "Contact Messages"
+
+#: lib/tremtec_web/live/admin/messages/show_live.html.heex:13
+#, elixir-autogen, elixir-format
+msgid "From"
+msgstr "From"
+
+#: lib/tremtec_web/live/admin/messages/show_live.html.heex:25
+#, elixir-autogen, elixir-format
+msgid "Mark as read"
+msgstr "Mark as read"
+
+#: lib/tremtec_web/live/admin/messages/show_live.html.heex:25
+#, elixir-autogen, elixir-format
+msgid "Mark as unread"
+msgstr "Mark as unread"
+
+#: lib/tremtec_web/live/admin/messages/show_live.html.heex:18
+#, elixir-autogen, elixir-format
+msgid "Read"
+msgstr "Read"
+
+#: lib/tremtec_web/live/admin/messages/show_live.html.heex:14
+#, elixir-autogen, elixir-format
+msgid "Received"
+msgstr "Received"
+
+#: lib/tremtec_web/live/admin/messages/index_live.html.heex:7
+#, elixir-autogen, elixir-format
+msgid "Search by name or email"
+msgstr "Search by name or email"
+
+#: lib/tremtec_web/live/admin/messages/show_live.html.heex:17
+#, elixir-autogen, elixir-format
+msgid "Status"
+msgstr "Status"
+
+#: lib/tremtec_web/components/layouts.ex:62
+#: lib/tremtec_web/components/layouts/root.html.heex:7
+#, elixir-autogen, elixir-format
+msgid "TremTec"
+msgstr "TremTec"
+
+#: lib/tremtec_web/components/layouts.ex:61
+#, elixir-autogen, elixir-format
+msgid "TremTec logo"
+msgstr "TremTec logo"
+
+#: lib/tremtec_web/live/admin/messages/show_live.html.heex:18
+#, elixir-autogen, elixir-format
+msgid "Unread"
+msgstr "Unread"
 
 #: lib/tremtec_web/live/contact_live.html.heex:28
 #, elixir-autogen, elixir-format

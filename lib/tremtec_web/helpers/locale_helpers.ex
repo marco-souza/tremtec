@@ -5,7 +5,7 @@ defmodule TremtecWeb.LocaleHelpers do
 
   import Plug.Conn
 
-  @supported_locales ["pt", "en"]
+  @supported_locales ["pt", "en", "es"]
   @default_locale "pt"
   @locale_cookie_key "preferred_locale"
 
@@ -54,6 +54,7 @@ defmodule TremtecWeb.LocaleHelpers do
     case locale do
       "pt" -> "Português"
       "en" -> "English"
+      "es" -> "Español"
       _ -> @default_locale
     end
   end
