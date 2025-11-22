@@ -24,6 +24,14 @@ defmodule TremtecWeb.Plug.AdminBasicAuth do
   end
 
   @impl Plug
+  def init(:runtime) do
+    %AuthState{
+      username: Application.get_env(:tremtec, :admin_user, "admin"),
+      password: Application.get_env(:tremtec, :admin_password, "admin")
+    }
+  end
+
+  @impl Plug
   def call(conn, %AuthState{username: expected_user, password: expected_pass} = state) do
     Logger.info(
       "Admin access attempt from #{conn.remote_ip |> Tuple.to_list() |> Enum.join(".")}"
