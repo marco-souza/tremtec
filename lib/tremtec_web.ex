@@ -87,6 +87,9 @@ defmodule TremtecWeb do
       # Core UI components
       import TremtecWeb.CoreComponents
 
+      # Locale helpers
+      import TremtecWeb.LocaleHelpers
+
       # Common modules used in templates
       alias Phoenix.LiveView.JS
       alias TremtecWeb.Layouts

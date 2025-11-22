@@ -362,4 +362,177 @@ And **never** do this:
 - **Never** use `<.form let={f} ...>` in the template, instead **always use `<.form for={@form} ...>`**, then drive all form references from the form assign as in `@form[:field]`. The UI should **always** be driven by a `to_form/2` assigned in the LiveView module that is derived from a changeset
 <!-- phoenix:liveview-end -->
 
+<!-- i18n-start -->
+## Internationalization (i18n) Guidelines
+
+### Overview
+The application supports Portuguese (pt) as the default locale and English (en). Locale is determined by:
+1. User's preferred locale cookie (`preferred_locale`)
+2. Browser's Accept-Language header
+3. Default to Portuguese (pt)
+
+### Gettext Pattern
+**All user-facing strings must use gettext()**, never hardcoded text.
+
+#### Simple Strings
+```elixir
+# In templates
+gettext("Welcome")
+
+# In Elixir code (after `use Gettext, backend: TremtecWeb.Gettext`)
+gettext("Thanks! Your message has been sent.")
+```
+
+#### Domain-Specific Errors
+```elixir
+# Always use "errors" domain for validation/error messages
+dgettext("errors", "can't be blank")
+dgettext("errors", "has invalid format")
+```
+
+#### Plural Forms
+```elixir
+ngettext("You have %{count} message", "You have %{count} messages", count, count: count)
+```
+
+### Where gettext is Available
+- ✅ All LiveView templates (automatic via `TremtecWeb.ex`)
+- ✅ All LiveView modules (use `Gettext, backend: TremtecWeb.Gettext`)
+- ✅ All controller modules (automatic via `TremtecWeb.ex`)
+- ✅ All component modules (automatic via `TremtecWeb.ex`)
+- ✅ All test files (add `use Gettext, backend: TremtecWeb.Gettext`)
+
+### Adding Translations
+
+#### 1. Add gettext() to code
+```heex
+<!-- In templates -->
+<.button>{gettext("Send message")}</.button>
+<.input placeholder={gettext("Your email")} />
+```
+
+#### 2. Extract strings
+```bash
+mix gettext.extract --merge
+```
+
+This updates `priv/gettext/{locale}/LC_MESSAGES/default.po`
+
+#### 3. Add translations to .po files
+Edit `priv/gettext/pt/LC_MESSAGES/default.po`:
+```po
+msgid "Send message"
+msgstr "Enviar mensagem"
+
+msgid "Your email"
+msgstr "Seu e-mail"
+```
+
+Edit `priv/gettext/en/LC_MESSAGES/default.po`:
+```po
+msgid "Send message"
+msgstr "Send message"
+
+msgid "Your email"
+msgstr "Your email"
+```
+
+#### 4. Test the translation
+Restart the server. The strings automatically update based on locale.
+
+### Locale Helpers
+Available in all templates and LiveViews via `TremtecWeb.LocaleHelpers`:
+
+```elixir
+# Get current locale
+TremtecWeb.LocaleHelpers.get_locale(conn_or_socket)
+# Returns: "pt" or "en"
+
+# Set locale with cookie persistence
+TremtecWeb.LocaleHelpers.set_locale(conn, "en")
+
+# Check if locale is supported
+TremtecWeb.LocaleHelpers.is_supported_locale?("pt")
+# Returns: true or false
+
+# Get language name for display
+TremtecWeb.LocaleHelpers.language_name("pt")
+# Returns: "Português"
+```
+
+### Router Configuration
+The DetermineLocale plug in `lib/tremtec_web/plug/determine_locale.ex` automatically:
+- Sets `Gettext` backend locale globally
+- Stores locale in session (for LiveView)
+- Assigns locale to template as `@locale`
+
+No additional configuration needed.
+
+### Testing with i18n
+Use gettext() in test assertions, never hardcoded strings:
+
+```elixir
+test "shows translated message" do
+  {:ok, view, _html} = live(conn, ~p"/contact")
+  success_msg = gettext("Thanks! Your message has been sent.")
+  assert html =~ success_msg
+end
+```
+
+For errors, use dgettext():
+```elixir
+test "validates email format" do
+  html = render_change(view, "validate", %{"contact" => %{"email" => "invalid"}})
+  invalid_msg = dgettext("errors", "has invalid format")
+  assert html =~ invalid_msg
+end
+```
+
+### Current Supported Locales
+| Locale | Language | Region | Status |
+|--------|----------|--------|--------|
+| pt | Português | Brazil/Portugal | Default ✅ |
+| en | English | International | Complete ✅ |
+
+### Files Structure
+- **Configuration**: `lib/tremtec_web/plug/determine_locale.ex`
+- **Helpers**: `lib/tremtec_web/helpers/locale_helpers.ex`
+- **Translations PT**: `priv/gettext/pt/LC_MESSAGES/default.po`
+- **Translations EN**: `priv/gettext/en/LC_MESSAGES/default.po`
+- **Error Messages**: `priv/gettext/{locale}/LC_MESSAGES/errors.po`
+
+### Common Mistakes
+❌ **Don't**: Hardcode strings in templates
+```heex
+<p>Welcome to our app</p>  ← Raw string, not translatable
+```
+
+✅ **Do**: Wrap in gettext()
+```heex
+<p>{gettext("Welcome to our app")}</p>
+```
+
+❌ **Don't**: Use map access on changesets
+```elixir
+gettext(changeset[:field_error])  ← Won't work
+```
+
+✅ **Do**: Use Ecto.Changeset.get_field()
+```elixir
+field_value = Ecto.Changeset.get_field(changeset, :field)
+gettext("Your message")
+```
+
+❌ **Don't**: Forget gettext in tests
+```elixir
+assert html =~ "Thanks! Your message has been sent."  ← String might be translated
+```
+
+✅ **Do**: Use gettext in test assertions
+```elixir
+success_msg = gettext("Thanks! Your message has been sent.")
+assert html =~ success_msg
+```
+<!-- i18n-end -->
+
 <!-- usage-rules-end -->

@@ -9,13 +9,11 @@ defmodule TremtecWeb.Router do
     plug :protect_from_forgery
     plug :put_secure_browser_headers
 
-    plug(SetLocale,
-      gettext: TremtecWeb.Gettext,
+    plug TremtecWeb.Plug.DetermineLocale,
+      cookie_key: "preferred_locale",
+      supported_locales: ["pt", "en"],
       default_locale: "pt",
-      cookie_key: "preferred_locale"
-    )
-
-    plug TremtecWeb.Plug.PutLocaleSession
+      gettext: TremtecWeb.Gettext
   end
 
   pipeline :admin_auth do
@@ -27,12 +25,6 @@ defmodule TremtecWeb.Router do
   end
 
   scope "/", TremtecWeb do
-    pipe_through :browser
-
-    get "/", PageController, :dummy
-  end
-
-  scope "/:locale", TremtecWeb do
     pipe_through :browser
 
     get "/", PageController, :landing_page

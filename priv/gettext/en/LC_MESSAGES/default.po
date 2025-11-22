@@ -256,3 +256,8 @@ msgstr "We'd love to hear from you. Send us a message."
 #, elixir-autogen, elixir-format
 msgid "Your name"
 msgstr "Your name"
+
+#: lib/tremtec_web/live/contact_live.html.heex:28
+#, elixir-autogen, elixir-format
+msgid "your@email.com"
+msgstr "your@email.com"

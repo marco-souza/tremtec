@@ -1,27 +1,18 @@
 defmodule TremtecWeb.Plug.PutLocaleSession do
   @moduledoc """
-  A plug to put the locale in the session.
+  DEPRECATED: This plug is no longer used.
+
+  Locale determination has been moved to `TremtecWeb.Plug.DetermineLocale`
+  which handles cookie preferences and Accept-Language headers.
+
+  This module is kept for backwards compatibility and can be safely removed
+  in a future version.
   """
-
-  import Plug.Conn
-
-  require Logger
 
   def init(opts), do: opts
 
   def call(conn, _opts) do
-    Logger.info("Putting locale in session: #{inspect(conn.params)}")
-    locale = get_locale_for_user(conn.params)
-    Gettext.put_locale(TremtecWeb.Gettext, locale)
-
+    # This plug is deprecated and does nothing
     conn
-    |> put_session(:locale, locale)
-  end
-
-  defp get_locale_for_user(params) do
-    case params do
-      %{"locale" => locale} -> locale
-      _ -> "pt"
-    end
   end
 end
