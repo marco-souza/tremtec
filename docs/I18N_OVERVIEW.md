@@ -3,9 +3,8 @@
 ## What is i18n?
 
 Internationalization (i18n) allows your application to support multiple languages. Users see content in their preferred language based on:
-- Browser language preference
-- Saved user preference (cookie)
-- Application default
+- Browser language preference (Accept-Language header)
+- Application default (Portuguese)
 
 ## How Tremtec Implements i18n
 
@@ -26,7 +25,6 @@ Tremtec uses **Gettext**, Phoenix's standard i18n framework.
 - Supports plural forms with `ngettext()`
 
 #### Level 3: User Experience
-- Locale stored in cookie for persistence
 - Accept-Language header support
 - Graceful fallback to Portuguese
 - Session integration for LiveView
@@ -90,21 +88,12 @@ Tremtec uses **Gettext**, Phoenix's standard i18n framework.
 ### 1. Automatic Locale Detection
 ```
 User Request
-  → Check preferred_locale cookie
-    → Found: Use it
-    → Not found: Check Accept-Language header
-      → Supported: Use it
-      → Not supported: Use Portuguese (default)
+  → Check Accept-Language header
+    → Supported: Use it
+    → Not supported: Use Portuguese (default)
 ```
 
-### 2. Cookie Persistence
-Users who select a language have their choice remembered:
-```elixir
-TremtecWeb.LocaleHelpers.set_locale(conn, "es")
-# Cookie set for 365 days
-```
-
-### 3. Template Integration
+### 2. Template Integration
 Translations work seamlessly in HEEx templates:
 ```heex
 <h1>{gettext("Contact")}</h1>
@@ -112,14 +101,14 @@ Translations work seamlessly in HEEx templates:
 <.button>{gettext("Send message")}</.button>
 ```
 
-### 4. Error Message Localization
+### 3. Error Message Localization
 Validation errors automatically translated:
 ```elixir
 # Changeset shows "Tem formato inválido" (PT) or "Has invalid format" (EN)
 validate_format(email, ~r/@/)
 ```
 
-### 5. Plural Forms
+### 4. Plural Forms
 Proper grammatical handling of plurals:
 ```elixir
 ngettext(
@@ -146,7 +135,6 @@ Located at: `lib/tremtec_web/helpers/locale_helpers.ex`
 
 **Functions**:
 - `get_locale/1` - Get current locale
-- `set_locale/2` - Set user preference with cookie
 - `is_supported_locale?/1` - Validate locale
 - `language_name/1` - Human-readable name
 - `supported_locales/0` - List all locales
@@ -167,7 +155,7 @@ Located at: `priv/gettext/{locale}/LC_MESSAGES/{domain}.po`
 ## Testing Translations
 
 ### Manual Testing
-1. Set cookie: `preferred_locale=es`
+1. Set browser language to Spanish (or use `Accept-Language: es`)
 2. Refresh page
 3. Content appears in Spanish
 
@@ -268,10 +256,11 @@ See [I18N_ADDING_LOCALES.md](./I18N_ADDING_LOCALES.md) for detailed steps.
 - Works with HEEx templates
 - No database required
 
-### Why Cookie + Header Detection?
-- **Cookie**: User's explicit choice takes priority
-- **Header**: Respects browser settings
-- **Default**: Portuguese ensures content is always available
+### Why Accept-Language Header?
+- Respects browser settings
+- Simple and stateless
+- No need to manage cookies
+- Standard web best practice
 
 ### Why Default to Portuguese?
 - TremTec is primarily a Brazilian service
@@ -305,9 +294,9 @@ See [I18N_ADDING_LOCALES.md](./I18N_ADDING_LOCALES.md) for detailed steps.
 **Cause**: Using hardcoded string in assertion
 **Fix**: Use `gettext()` in test: `success = gettext("..."); assert html =~ success`
 
-### Locale Not Persisting
-**Cause**: Not using `LocaleHelpers.set_locale()`
-**Fix**: Call `TremtecWeb.LocaleHelpers.set_locale(conn, locale)`
+### Locale Changes Not Persisting
+**Cause**: Locale is determined by Accept-Language header on each request
+**Note**: Locale is not persisted - it's determined fresh on each request from the browser's Accept-Language header
 
 ## Related Documentation
 

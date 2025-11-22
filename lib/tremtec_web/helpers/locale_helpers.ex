@@ -1,17 +1,16 @@
 defmodule TremtecWeb.LocaleHelpers do
   @moduledoc """
-  Helper functions for managing locale/language preferences throughout the app.
+  Helper functions for accessing locale information throughout the app.
+  
+  Locale is determined automatically from the Accept-Language header
+  and is available in assigns as `:locale`.
   """
-
-  import Plug.Conn
 
   @supported_locales ["pt", "en", "es"]
   @default_locale "pt"
-  @locale_cookie_key "preferred_locale"
 
   def supported_locales, do: @supported_locales
   def default_locale, do: @default_locale
-  def locale_cookie_key, do: @locale_cookie_key
 
   @doc """
   Get the current locale from connection/socket assigns.
@@ -28,17 +27,6 @@ defmodule TremtecWeb.LocaleHelpers do
   end
 
   def get_locale(_), do: @default_locale
-
-  @doc """
-  Set the user's preferred locale by updating session and setting cookie.
-  """
-  def set_locale(conn, locale) when locale in @supported_locales do
-    conn
-    |> put_session(@locale_cookie_key, locale)
-    |> put_resp_cookie(@locale_cookie_key, locale, max_age: 365 * 24 * 60 * 60)
-  end
-
-  def set_locale(conn, _locale), do: conn
 
   @doc """
   Check if a locale is supported.

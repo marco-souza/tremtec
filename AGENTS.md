@@ -366,10 +366,9 @@ And **never** do this:
 ## Internationalization (i18n) Guidelines
 
 ### Overview
-The application supports Portuguese (pt) as the default locale and English (en). Locale is determined by:
-1. User's preferred locale cookie (`preferred_locale`)
-2. Browser's Accept-Language header
-3. Default to Portuguese (pt)
+The application supports Portuguese (pt) as the default locale, English (en), and Spanish (es). Locale is determined by:
+1. Browser's Accept-Language header
+2. Default to Portuguese (pt)
 
 ### Gettext Pattern
 **All user-facing strings must use gettext()**, never hardcoded text.

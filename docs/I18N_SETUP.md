@@ -36,15 +36,11 @@ Request arrives
   ↓
 Check if DetermineLocale plug runs
   ↓
-1. Try to get locale from cookie (session[:locale])
-   ├─ Found → Use this locale
-   └─ Not found → Continue to step 2
-  ↓
-2. Parse Accept-Language header
+1. Parse Accept-Language header
    ├─ Contains supported locale → Use it
-   └─ Not found/unsupported → Continue to step 3
+   └─ Not found/unsupported → Continue to step 2
   ↓
-3. Use default locale (Portuguese)
+2. Use default locale (Portuguese)
   ↓
 Set Gettext.put_locale(locale)
 Set session[:locale]
@@ -57,7 +53,6 @@ pipeline :browser do
   # ... other plugs ...
   
   plug TremtecWeb.Plug.DetermineLocale,
-    cookie_key: "preferred_locale",
     supported_locales: ["pt", "en", "es"],
     default_locale: "pt",
     gettext: TremtecWeb.Gettext
@@ -65,7 +60,6 @@ end
 ```
 
 **Available Options**:
-- `cookie_key` - Name of cookie for saved preference
 - `supported_locales` - List of valid locales
 - `default_locale` - Fallback if not detected
 - `gettext` - Gettext backend module
@@ -82,15 +76,6 @@ locale = TremtecWeb.LocaleHelpers.get_locale(conn_or_socket)
 ```
 
 Works with both Plug.Conn and Phoenix.LiveView.Socket
-
-#### `set_locale/2`
-```elixir
-conn = TremtecWeb.LocaleHelpers.set_locale(conn, "es")
-# Sets session[:locale] = "es"
-# Sets cookie "preferred_locale" = "es" (365 days)
-```
-
-Only accepts supported locales.
 
 #### `is_supported_locale?/1`
 ```elixir

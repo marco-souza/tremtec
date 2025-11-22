@@ -1,9 +1,8 @@
 defmodule TremtecWeb.Plug.DetermineLocale do
   @moduledoc """
   Plug to determine user's locale based on:
-  1. Preferred locale cookie (if set)
-  2. Accept-Language header (if available)
-  3. Default locale (pt)
+  1. Accept-Language header (if available)
+  2. Default locale (pt)
 
   The determined locale is set in the session and made available to Gettext.
   """
@@ -14,38 +13,25 @@ defmodule TremtecWeb.Plug.DetermineLocale do
 
   def init(opts) do
     [
-      cookie_key: Keyword.get(opts, :cookie_key, "preferred_locale"),
-      supported_locales: Keyword.get(opts, :supported_locales, ["pt", "en"]),
+      supported_locales: Keyword.get(opts, :supported_locales, ["pt", "en", "es"]),
       default_locale: Keyword.get(opts, :default_locale, "pt"),
       gettext: Keyword.get(opts, :gettext, TremtecWeb.Gettext)
     ]
   end
 
   def call(conn, opts) do
-    locale = determine_locale(conn, opts)
+    locale =
+      parse_accept_language(
+        get_req_header(conn, "accept-language"),
+        opts[:supported_locales],
+        opts[:default_locale]
+      )
 
     Gettext.put_locale(opts[:gettext], locale)
 
     conn
     |> put_session(:locale, locale)
     |> assign(:locale, locale)
-  end
-
-  defp determine_locale(conn, opts) do
-    # Try to get from cookie first
-    case get_session(conn, opts[:cookie_key]) do
-      nil ->
-        # Fall back to Accept-Language header
-        parse_accept_language(
-          get_req_header(conn, "accept-language"),
-          opts[:supported_locales],
-          opts[:default_locale]
-        )
-
-      locale ->
-        Logger.info("Using locale from cookie: #{locale}")
-        locale
-    end
   end
 
   defp parse_accept_language([], _supported_locales, default_locale), do: default_locale
