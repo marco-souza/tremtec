@@ -1,6 +1,6 @@
 [tasks]
 fmt = "deno run -A npm:prettier --write **/*.md"
-dotenv = "op item get $(op item list | grep .podcodar.env | awk '{ print $1 }') --fields 'notesPlain' --reveal | sed 's/\"//g' > .env"
+dotenv = "op item get $(op item list | grep .tremtec.env | awk '{ print $1 }') --fields 'notesPlain' --reveal | sed 's/\"//g' > .env"
 precommit = "mix precommit"
 
 [env]
