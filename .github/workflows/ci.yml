@@ -16,6 +16,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       MIX_ENV: test
+      ADMIN_USER: test-admin
+      ADMIN_PASS: test-password
     steps:
       - name: Checkout
         uses: actions/checkout@v4
