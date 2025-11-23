@@ -29,30 +29,8 @@ defmodule TremtecWeb.Plug.AdminBasicAuth do
     username = Application.get_env(:tremtec, :admin_user)
     password = Application.get_env(:tremtec, :admin_password)
 
-    # Check if we have valid credentials (not placeholders from build time)
-    if is_placeholder?(username) or is_placeholder?(password) do
-      raise """
-      Admin credentials not configured!
-
-      Required environment variables:
-        * ADMIN_USER - Admin username
-        * ADMIN_PASS - Admin password
-
-      These variables must be explicitly set before the application starts.
-
-      Example:
-        export ADMIN_USER='your-secure-username'
-        export ADMIN_PASS='your-secure-password'
-      """
-    end
-
     %AuthState{username: username, password: password}
   end
-
-  # Check if credentials are just build-time placeholders
-  defp is_placeholder?("placeholder-build-user"), do: true
-  defp is_placeholder?("placeholder-build-pass"), do: true
-  defp is_placeholder?(_), do: false
 
   @impl Plug
   def call(conn, %AuthState{username: expected_user, password: expected_pass}) do
