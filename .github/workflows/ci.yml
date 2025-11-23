@@ -66,22 +66,3 @@ jobs:
     steps:
       - name: All checks passed
         run: echo "All required jobs succeeded."
-
-  deploy:
-    name: Deploy app
-    needs: [quality-gateway]
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-    runs-on: ubuntu-latest
-    environment: production
-    concurrency: deploy-group
-    steps:
-      - uses: actions/checkout@v4
-      - uses: superfly/flyctl-actions/setup-flyctl@master
-      - name: Verify Fly.io authentication
-        run: flyctl apps list
-        env:
-          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
-      - name: Deploy to Fly.io
-        run: flyctl deploy --depot=false
-        env:
-          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
