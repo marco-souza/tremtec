@@ -216,6 +216,21 @@ To restore from backup:
 cp /backups/tremtec.db.backup.XXX /data/tremtec.db
 ```
 
+## CI/CD Pipelines
+
+The project includes GitHub Actions workflows for Continuous Integration and Continuous Deployment.
+
+### CI Workflow (`.github/workflows/ci.yml`)
+Runs on every push and pull request to `main`.
+- **Checks**: formatting (`mix format`), compilation warnings (`mix compile --warning-as-errors`), and tests (`mix test`).
+- **Assets**: Builds assets to ensure frontend integrity.
+- **Environment**: Uses ephemeral SQLite database for testing.
+
+### Deployment Workflow (`.github/workflows/deploy.yml`)
+Automatically deploys to Fly.io when changes are pushed to `main`.
+- **Concurrency**: Ensures only one deployment runs at a time.
+- **Secrets**: Requires `FLY_API_TOKEN` in GitHub Secrets.
+
 ## Pre-Deployment Checklist
 
 - [ ] All environment variables set and verified

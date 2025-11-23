@@ -39,7 +39,7 @@ defmodule TremtecWeb.Plug.AdminBasicAuth do
         * ADMIN_PASS - Admin password
 
       These variables must be explicitly set before the application starts.
-      
+
       Example:
         export ADMIN_USER='your-secure-username'
         export ADMIN_PASS='your-secure-password'
