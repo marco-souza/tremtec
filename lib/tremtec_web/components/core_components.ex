@@ -32,6 +32,50 @@ defmodule TremtecWeb.CoreComponents do
   alias Phoenix.LiveView.JS
 
   @doc """
+  Renders a specialized section for the landing page.
+  """
+  attr :id, :string, required: true
+  attr :class, :string, default: "bg-base-100"
+  slot :inner_block, required: true
+
+  def landing_section(assigns) do
+    ~H"""
+    <div id={@id} class={["py-24", @class]}>
+      <div class="mx-auto max-w-7xl px-6 lg:px-8">
+        {render_slot(@inner_block)}
+      </div>
+    </div>
+    """
+  end
+
+  @doc """
+  Renders a Bento Grid card for the landing page services.
+  """
+  attr :class, :string, default: nil
+  attr :hover_border, :string, default: "primary", values: ~w(primary secondary accent)
+  slot :inner_block, required: true
+
+  def bento_card(assigns) do
+    hover_classes = %{
+      "primary" => "hover:border-primary/50",
+      "secondary" => "hover:border-secondary/50",
+      "accent" => "hover:border-accent/50"
+    }
+
+    assigns = assign(assigns, :hover_class, hover_classes[assigns.hover_border])
+
+    ~H"""
+    <div class={[
+      "group relative overflow-hidden rounded-3xl bg-base-100 border border-base-200 p-8 transition-all duration-300 shadow-sm hover:shadow-xl min-h-[320px]",
+      @hover_class,
+      @class
+    ]}>
+      {render_slot(@inner_block)}
+    </div>
+    """
+  end
+
+  @doc """
   Renders flash notices.
 
   ## Examples
