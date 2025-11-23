@@ -47,7 +47,7 @@ msgstr "Começar Agora"
 msgid "how it works"
 msgstr "Como funciona?"
 
-#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:308
+#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:288
 #, elixir-autogen, elixir-format
 msgid "problem subtitle"
 msgstr "Sua concorrência não espera. Cada atraso no lançamento é receita perdida e oportunidade desperdiçada."
@@ -57,17 +57,17 @@ msgstr "Sua concorrência não espera. Cada atraso no lançamento é receita per
 msgid "problem title"
 msgstr "Elimine o Débito Técnico"
 
-#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:307
+#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:287
 #, elixir-autogen, elixir-format
 msgid "missed deadlines"
 msgstr "Time-to-Market Lento"
 
-#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:314
+#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:294
 #, elixir-autogen, elixir-format
 msgid "unmotivated team"
 msgstr "Falta de Senioridade"
 
-#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:315
+#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:295
 #, elixir-autogen, elixir-format
 msgid "unpredictable costs"
 msgstr "A ausência de liderança técnica gera retrabalho, bugs e decisões arquiteturais custosas."
@@ -102,17 +102,17 @@ msgstr "Escalabilidade e expertise técnica instantânea para o seu time."
 msgid "solution title"
 msgstr "Engenharia Sob Demanda"
 
-#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:298
+#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:278
 #, elixir-autogen, elixir-format
 msgid "contact us"
 msgstr "Fale com um Especialista"
 
-#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:294
+#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:274
 #, elixir-autogen, elixir-format, fuzzy
 msgid "cta subtitle"
 msgstr "Agende uma consultoria estratégica gratuita e descubra como podemos acelerar seu roadmap."
 
-#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:291
+#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:271
 #, elixir-autogen, elixir-format
 msgid "cta title"
 msgstr "Pronto para Escalar?"
@@ -279,7 +279,7 @@ msgid "Company"
 msgstr "Empresa"
 
 #: lib/tremtec_web/components/layouts.ex:191
-#, elixir-autogen, elixir-format, fuzzy
+#, elixir-autogen, elixir-format
 msgid "Connect"
 msgstr "Conecte-se"
 
@@ -289,13 +289,13 @@ msgid "Consulting"
 msgstr "Consultoria"
 
 #: lib/tremtec_web/components/layouts.ex:177
-#, elixir-autogen, elixir-format, fuzzy
+#, elixir-autogen, elixir-format
 msgid "Diagnostics"
 msgstr "Diagnóstico"
 
 #: lib/tremtec_web/components/layouts.ex:93
 #: lib/tremtec_web/components/layouts.ex:131
-#, elixir-autogen, elixir-format, fuzzy
+#, elixir-autogen, elixir-format
 msgid "Get Started"
 msgstr "Começar Agora"
 
@@ -378,16 +378,6 @@ msgstr "Sobre a TremTec"
 msgid "Agile Integration"
 msgstr "Integração Ágil"
 
-#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:271
-#, elixir-autogen, elixir-format
-msgid "Founder & CTO"
-msgstr "Fundador & CTO"
-
-#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:270
-#, elixir-autogen, elixir-format
-msgid "Marco Souza"
-msgstr "Marco Souza"
-
 #: lib/tremtec_web/controllers/page_html/landing_page.html.heex:253
 #, elixir-autogen, elixir-format
 msgid "Our Mission"
@@ -419,12 +409,12 @@ msgid "iteration description"
 msgstr "Ciclos curtos de feedback para validar hipóteses e entregar valor continuamente."
 
 #: lib/tremtec_web/controllers/page_html/landing_page.html.heex:156
-#, elixir-autogen, elixir-format, fuzzy
+#, elixir-autogen, elixir-format
 msgid "methodology description"
 msgstr "Combinamos expertise técnica profunda com visão de produto pragmática."
 
 #: lib/tremtec_web/controllers/page_html/landing_page.html.heex:154
-#, elixir-autogen, elixir-format, fuzzy
+#, elixir-autogen, elixir-format
 msgid "methodology title"
 msgstr "Como trabalhamos"
 
@@ -440,7 +430,7 @@ msgstr "Automação de testes e CI/CD robusto desde o primeiro dia de projeto."
 
 #: lib/tremtec_web/components/layouts.ex:88
 #: lib/tremtec_web/components/layouts.ex:123
-#, elixir-autogen, elixir-format, fuzzy
+#, elixir-autogen, elixir-format
 msgid "About"
 msgstr "Sobre Nós"
 
@@ -452,17 +442,17 @@ msgstr "Em 4 continentes"
 #: lib/tremtec_web/controllers/page_html/landing_page.html.heex:122
 #, elixir-autogen, elixir-format
 msgid "Architecture"
-msgstr ""
+msgstr "Arquitetura"
 
 #: lib/tremtec_web/controllers/page_html/landing_page.html.heex:123
 #, elixir-autogen, elixir-format
 msgid "Best Practices"
-msgstr ""
+msgstr "Melhores Práticas"
 
 #: lib/tremtec_web/controllers/page_html/landing_page.html.heex:121
 #, elixir-autogen, elixir-format
 msgid "Code Reviews"
-msgstr ""
+msgstr "Revisão de Código"
 
 #: lib/tremtec_web/controllers/page_html/landing_page.html.heex:244
 #, elixir-autogen, elixir-format
@@ -505,6 +495,6 @@ msgid "Years Experience"
 msgstr "Anos de Experiência"
 
 #: lib/tremtec_web/controllers/page_html/landing_page.html.heex:258
-#, elixir-autogen, elixir-format, fuzzy
+#, elixir-autogen, elixir-format
 msgid "mission description part 2"
 msgstr "Não apenas corrigimos código; cultivamos culturas de alta performance. Ao preencher a lacuna entre objetivos de negócios e execução técnica, transformamos squads com dificuldades em potências autônomas geradoras de valor que impulsionam a empresa para frente."

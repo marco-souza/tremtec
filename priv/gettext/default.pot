@@ -57,7 +57,7 @@ msgstr ""
 msgid "how it works"
 msgstr ""
 
-#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:308
+#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:288
 #, elixir-autogen, elixir-format
 msgid "problem subtitle"
 msgstr ""
@@ -67,17 +67,17 @@ msgstr ""
 msgid "problem title"
 msgstr ""
 
-#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:307
+#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:287
 #, elixir-autogen, elixir-format
 msgid "missed deadlines"
 msgstr ""
 
-#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:314
+#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:294
 #, elixir-autogen, elixir-format
 msgid "unmotivated team"
 msgstr ""
 
-#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:315
+#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:295
 #, elixir-autogen, elixir-format
 msgid "unpredictable costs"
 msgstr ""
@@ -112,17 +112,17 @@ msgstr ""
 msgid "solution title"
 msgstr ""
 
-#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:298
+#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:278
 #, elixir-autogen, elixir-format
 msgid "contact us"
 msgstr ""
 
-#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:294
+#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:274
 #, elixir-autogen, elixir-format
 msgid "cta subtitle"
 msgstr ""
 
-#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:291
+#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:271
 #, elixir-autogen, elixir-format
 msgid "cta title"
 msgstr ""
@@ -386,16 +386,6 @@ msgstr ""
 #: lib/tremtec_web/controllers/page_html/landing_page.html.heex:162
 #, elixir-autogen, elixir-format
 msgid "Agile Integration"
-msgstr ""
-
-#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:271
-#, elixir-autogen, elixir-format
-msgid "Founder & CTO"
-msgstr ""
-
-#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:270
-#, elixir-autogen, elixir-format
-msgid "Marco Souza"
 msgstr ""
 
 #: lib/tremtec_web/controllers/page_html/landing_page.html.heex:253

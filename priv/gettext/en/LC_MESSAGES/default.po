@@ -47,7 +47,7 @@ msgstr "Book a Demo!"
 msgid "how it works"
 msgstr "How it works?"
 
-#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:308
+#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:288
 #, elixir-autogen, elixir-format
 msgid "problem subtitle"
 msgstr "Your competition won't wait. Every launch delay is lost revenue and missed opportunity."
@@ -57,17 +57,17 @@ msgstr "Your competition won't wait. Every launch delay is lost revenue and miss
 msgid "problem title"
 msgstr "Move fast without breaking things"
 
-#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:307
+#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:287
 #, elixir-autogen, elixir-format
 msgid "missed deadlines"
 msgstr "Slow Time-to-Market"
 
-#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:314
+#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:294
 #, elixir-autogen, elixir-format
 msgid "unmotivated team"
 msgstr "Lack of Seniority"
 
-#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:315
+#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:295
 #, elixir-autogen, elixir-format
 msgid "unpredictable costs"
 msgstr "Absence of technical leadership leads to rework, bugs, and costly architectural decisions."
@@ -102,17 +102,17 @@ msgstr "Deploy people, processes, and tools that accelerate your development cyc
 msgid "solution title"
 msgstr "Structure that turns potential into results!"
 
-#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:298
+#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:278
 #, elixir-autogen, elixir-format
 msgid "contact us"
 msgstr "Let's book a call!"
 
-#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:294
-#, elixir-autogen, elixir-format, fuzzy
+#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:274
+#, elixir-autogen, elixir-format
 msgid "cta subtitle"
 msgstr "We will talk for 30 minutes to map your biggest development bottlenecks, no strings attached."
 
-#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:291
+#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:271
 #, elixir-autogen, elixir-format
 msgid "cta title"
 msgstr "Ready to transform your development process?"
@@ -279,9 +279,9 @@ msgid "Company"
 msgstr ""
 
 #: lib/tremtec_web/components/layouts.ex:191
-#, elixir-autogen, elixir-format, fuzzy
+#, elixir-autogen, elixir-format
 msgid "Connect"
-msgstr "Contact"
+msgstr "Connect"
 
 #: lib/tremtec_web/components/layouts.ex:176
 #, elixir-autogen, elixir-format
@@ -289,15 +289,15 @@ msgid "Consulting"
 msgstr ""
 
 #: lib/tremtec_web/components/layouts.ex:177
-#, elixir-autogen, elixir-format, fuzzy
+#, elixir-autogen, elixir-format
 msgid "Diagnostics"
 msgstr "Diagnostics"
 
 #: lib/tremtec_web/components/layouts.ex:93
 #: lib/tremtec_web/components/layouts.ex:131
-#, elixir-autogen, elixir-format, fuzzy
+#, elixir-autogen, elixir-format
 msgid "Get Started"
-msgstr "Book a Demo!"
+msgstr "Get Started"
 
 #: lib/tremtec_web/controllers/page_html/landing_page.html.heex:88
 #, elixir-autogen, elixir-format
@@ -378,16 +378,6 @@ msgstr ""
 msgid "Agile Integration"
 msgstr ""
 
-#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:271
-#, elixir-autogen, elixir-format
-msgid "Founder & CTO"
-msgstr ""
-
-#: lib/tremtec_web/controllers/page_html/landing_page.html.heex:270
-#, elixir-autogen, elixir-format
-msgid "Marco Souza"
-msgstr ""
-
 #: lib/tremtec_web/controllers/page_html/landing_page.html.heex:253
 #, elixir-autogen, elixir-format
 msgid "Our Mission"
@@ -406,27 +396,27 @@ msgstr ""
 #: lib/tremtec_web/controllers/page_html/landing_page.html.heex:219
 #, elixir-autogen, elixir-format
 msgid "about description"
-msgstr ""
+msgstr "Born with the purpose of closing the gap between software engineering and business value."
 
 #: lib/tremtec_web/controllers/page_html/landing_page.html.heex:164
 #, elixir-autogen, elixir-format
 msgid "agile description"
-msgstr ""
+msgstr "Adaptable processes that mold to your business reality, not the other way around."
 
 #: lib/tremtec_web/controllers/page_html/landing_page.html.heex:171
 #, elixir-autogen, elixir-format
 msgid "iteration description"
-msgstr ""
+msgstr "Short feedback cycles to validate hypotheses and deliver value continuously."
 
 #: lib/tremtec_web/controllers/page_html/landing_page.html.heex:156
-#, elixir-autogen, elixir-format, fuzzy
+#, elixir-autogen, elixir-format
 msgid "methodology description"
-msgstr "If needed, we provide ongoing mentorship and support to ensure your team continues to improve and adapt to changing needs."
+msgstr "We combine deep technical expertise with pragmatic product vision."
 
 #: lib/tremtec_web/controllers/page_html/landing_page.html.heex:154
-#, elixir-autogen, elixir-format, fuzzy
+#, elixir-autogen, elixir-format
 msgid "methodology title"
-msgstr ""
+msgstr "Methodology"
 
 #: lib/tremtec_web/controllers/page_html/landing_page.html.heex:255
 #, elixir-autogen, elixir-format
@@ -436,11 +426,11 @@ msgstr "We believe that technology should be an engine of growth, not a source o
 #: lib/tremtec_web/controllers/page_html/landing_page.html.heex:178
 #, elixir-autogen, elixir-format
 msgid "quality description"
-msgstr ""
+msgstr "Test automation and robust CI/CD from project day one."
 
 #: lib/tremtec_web/components/layouts.ex:88
 #: lib/tremtec_web/components/layouts.ex:123
-#, elixir-autogen, elixir-format, fuzzy
+#, elixir-autogen, elixir-format
 msgid "About"
 msgstr ""
 
@@ -505,6 +495,6 @@ msgid "Years Experience"
 msgstr ""
 
 #: lib/tremtec_web/controllers/page_html/landing_page.html.heex:258
-#, elixir-autogen, elixir-format, fuzzy
+#, elixir-autogen, elixir-format
 msgid "mission description part 2"
 msgstr "We don't just fix code; we cultivate high-performance cultures. By bridging the gap between business goals and technical execution, we transform struggling development squads into autonomous, value-generating powerhouses that drive the company forward."
