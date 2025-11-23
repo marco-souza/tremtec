@@ -98,13 +98,15 @@ mix format
 ✅ **Phase 1** - Core infrastructure  
 ✅ **Phase 2** - Brand name localization  
 ✅ **Phase 3** - Spanish language support  
-⏳ **Phase 4** - Additional languages (French, German)  
-⏳ **Phase 5** - UI language selector  
+✅ **Phase 4** - CI/CD Pipelines (GitHub Actions)  
+⏳ **Phase 5** - Additional languages (French, German)  
+⏳ **Phase 6** - UI language selector  
 
 ## Related Documentation
 
 - **[AGENTS.md](../AGENTS.md)** - Development guidelines & code patterns
 - **[README.md](../README.md)** - Project overview
+- **[PRODUCTION_DEPLOYMENT.md](./PRODUCTION_DEPLOYMENT.md)** - Deployment guide & CI/CD
 
 ## Troubleshooting
 

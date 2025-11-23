@@ -1,4 +1,6 @@
 [tasks]
+fmt = "deno run -A npm:prettier --write **/*.md"
+dotenv = "op item get $(op item list | grep .tremtec.env | awk '{ print $1 }') --fields 'notesPlain' --reveal | sed 's/\"//g' > .env"
 precommit = "mix precommit"
 
 [env]
@@ -6,5 +8,6 @@ _.file = '.env'
 ENV = "production"
 
 [tools]
+deno = "latest"
 elixir = "latest"
 erlang = "latest"

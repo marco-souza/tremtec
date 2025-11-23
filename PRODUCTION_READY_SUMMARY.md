@@ -18,6 +18,7 @@ The i18n (internationalization) implementation is **complete and production-read
 | **Security** | ✅ 3/3 | All critical issues fixed |
 | **Documentation** | ✅ Complete | Deployment guides and guidelines included |
 | **Code Quality** | ✅ Verified | No warnings, all checks pass |
+| **CI/CD** | ✅ Automated | GitHub Actions for test & deploy |
 | **Production Readiness** | ✅ Ready | All requirements met |
 
 ---
@@ -40,6 +41,22 @@ The i18n (internationalization) implementation is **complete and production-read
    - ✅ `config/runtime.exs` enforces ADMIN_USER and ADMIN_PASS in production
    - ✅ Clear error messages if variables missing
    - ✅ No insecure defaults in any environment
+
+## CI/CD Infrastructure
+
+### 🤖 Automated Workflows
+
+1. **Continuous Integration (CI)**
+   - ✅ Runs on every push/PR to `main`
+   - ✅ Enforces formatting (`mix format`)
+   - ✅ Enforces clean compilation (`--warning-as-errors`)
+   - ✅ Runs full test suite with ephemeral DB
+   - ✅ Verifies asset build pipeline
+
+2. **Continuous Deployment (CD)**
+   - ✅ Automated deployment to Fly.io on merge to `main`
+   - ✅ Zero-downtime deployments
+   - ✅ Secure secret injection via GitHub Secrets
 
 ---
 
