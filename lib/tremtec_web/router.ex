@@ -25,8 +25,7 @@ defmodule TremtecWeb.Router do
   scope "/", TremtecWeb do
     pipe_through :browser
 
-    get "/", PageController, :landing_page
-    get "/docs", PageController, :home
+    live "/", LandingLive
     live "/contact", ContactLive
 
     scope "/admin" do
