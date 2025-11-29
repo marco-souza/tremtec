@@ -41,7 +41,7 @@ defmodule TremtecWeb.Layouts do
       <div class="drawer-content flex flex-col min-h-screen">
         <.navbar current_scope={@current_scope} />
 
-        <main class="flex-grow mt-8">
+        <main class="flex-1 mt-20 py-8">
           {render_slot(@inner_block)}
         </main>
 
