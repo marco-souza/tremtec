@@ -27,6 +27,7 @@ This is a web application written using the Phoenix web framework.
 - **Design**: Focus on polish, micro-interactions, clean typography, and responsiveness.
 
 <!-- phoenix-gen-auth-start -->
+
 ## Authentication
 
 - **Always** handle authentication flow at the router level with proper redirects
@@ -41,12 +42,12 @@ This is a web application written using the Phoenix web framework.
 - `phx.gen.auth` assigns the `current_scope` assign - it **does not assign a `current_user` assign**
 - Always pass the assign `current_scope` to context modules as first argument. When performing queries, use `current_scope.user` to filter the query results
 - To derive/access `current_user` in templates, **always use the `@current_scope.user`**, never use **`@current_user`** in templates or LiveViews
-- **Never** duplicate `live_session` names. A `live_session :current_user` can only be defined __once__ in the router, so all routes for the `live_session :current_user`  must be grouped in a single block
+- **Never** duplicate `live_session` names. A `live_session :current_user` can only be defined **once** in the router, so all routes for the `live_session :current_user` must be grouped in a single block
 - Anytime you hit `current_scope` errors or the logged in session isn't displaying the right content, **always double check the router and ensure you are using the correct plug and `live_session` as described below**
 
 ### Routes that require authentication
 
-LiveViews that require login should **always be placed inside the __existing__ `live_session :require_authenticated_user` block**:
+LiveViews that require login should **always be placed inside the **existing** `live_session :require_authenticated_user` block**:
 
     scope "/", AppWeb do
       pipe_through [:browser, :require_authenticated_user]
@@ -54,8 +55,8 @@ LiveViews that require login should **always be placed inside the __existing__ `
       live_session :require_authenticated_user,
         on_mount: [{TremtecWeb.UserAuth, :require_authenticated}] do
         # phx.gen.auth generated routes
-        live "/users/settings", UserLive.Settings, :edit
-        live "/users/settings/confirm-email/:token", UserLive.Settings, :confirm_email
+        live "/admin/settings", UserLive.Settings, :edit
+        live "/admin/settings/confirm-email/:token", UserLive.Settings, :confirm_email
         # our own routes that require logged in user
         live "/", MyLiveThatRequiresAuth, :index
       end
@@ -71,7 +72,7 @@ Controller routes must be placed in a scope that sets the `:require_authenticate
 
 ### Routes that work with or without authentication
 
-LiveViews that can work with or without authentication, **always use the __existing__ `:current_user` scope**, ie:
+LiveViews that can work with or without authentication, **always use the **existing** `:current_user` scope**, ie:
 
     scope "/", MyAppWeb do
       pipe_through [:browser]
@@ -90,6 +91,7 @@ Controllers automatically have the `current_scope` available if they use the `:b
 <!-- usage-rules-start -->
 
 <!-- phoenix:elixir-start -->
+
 ## Elixir Guidelines
 
 - **Lists**: No index access (`list[i]`). Use `Enum.at/2`.
@@ -120,6 +122,7 @@ Task.async_stream(items, &process/1, timeout: :infinity)
 <!-- phoenix:elixir-end -->
 
 <!-- phoenix:phoenix-start -->
+
 ## Phoenix Guidelines
 
 - **Routing**: `scope` aliases modules automatically. Don't create duplicate aliases.
@@ -127,6 +130,7 @@ Task.async_stream(items, &process/1, timeout: :infinity)
 <!-- phoenix:phoenix-end -->
 
 <!-- phoenix:ecto-start -->
+
 ## Ecto Guidelines
 
 - **Queries**: Preload associations used in templates.
@@ -142,6 +146,7 @@ Task.async_stream(items, &process/1, timeout: :infinity)
 - **Docker/Fly**: Multi-stage builds, non-root user, SQLite volumes. Secrets in Fly env.
 
 <!-- phoenix:html-start -->
+
 ## Phoenix HTML (HEEx)
 
 - **Syntax**: Always `~H`.
@@ -161,9 +166,11 @@ Task.async_stream(items, &process/1, timeout: :infinity)
   if(@error, do: "text-red-500", else: "text-gray-500")
 ]}>
 ```
+
 <!-- phoenix:html-end -->
 
 <!-- phoenix:liveview-start -->
+
 ## LiveView Guidelines
 
 - **Navigation**: Use `<.link navigate/patch>` and `push_navigate/push_patch`.
@@ -195,9 +202,11 @@ Task.async_stream(items, &process/1, timeout: :infinity)
   <.input field={@form[:email]} />
     </.form>
 ```
+
 <!-- phoenix:liveview-end -->
 
 <!-- i18n-start -->
+
 ## Internationalization (i18n)
 
 > **Full Documentation**: See `docs/I18N.md`.
@@ -207,6 +216,6 @@ Task.async_stream(items, &process/1, timeout: :infinity)
   1. Code: `<.button>{gettext("Save")}</.button>`
   2. Extract: `mix gettext.extract --merge`
   3. Translate: Edit `priv/gettext/**/*.po`
-<!-- i18n-end -->
+  <!-- i18n-end -->
 
 <!-- usage-rules-end -->

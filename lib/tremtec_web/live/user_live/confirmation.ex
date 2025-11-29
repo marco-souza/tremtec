@@ -18,7 +18,7 @@ defmodule TremtecWeb.UserLive.Confirmation do
           id="confirmation_form"
           phx-mounted={JS.focus_first()}
           phx-submit="submit"
-          action={~p"/users/log-in?_action=confirmed"}
+          action={~p"/admin/log-in?_action=confirmed"}
           phx-trigger-action={@trigger_submit}
         >
           <input type="hidden" name={@form[:token].name} value={@form[:token].value} />
@@ -41,7 +41,7 @@ defmodule TremtecWeb.UserLive.Confirmation do
           id="login_form"
           phx-submit="submit"
           phx-mounted={JS.focus_first()}
-          action={~p"/users/log-in"}
+          action={~p"/admin/log-in"}
           phx-trigger-action={@trigger_submit}
         >
           <input type="hidden" name={@form[:token].name} value={@form[:token].value} />
@@ -83,7 +83,7 @@ defmodule TremtecWeb.UserLive.Confirmation do
       {:ok,
        socket
        |> put_flash(:error, "Magic link is invalid or it has expired.")
-       |> push_navigate(to: ~p"/users/log-in")}
+       |> push_navigate(to: ~p"/admin/log-in")}
     end
   end
 

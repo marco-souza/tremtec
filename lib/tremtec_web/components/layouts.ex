@@ -151,7 +151,6 @@ defmodule TremtecWeb.Layouts do
           
     <!-- Right: CTA & Theme -->
           <div class="hidden md:flex items-center gap-4">
-            <.theme_toggle />
             <a href="#contact" class="btn btn-primary btn-sm font-medium px-6">
               {gettext("Get Started")}
             </a>
