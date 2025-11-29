@@ -40,8 +40,8 @@ defmodule TremtecWeb.LandingLive do
                 />
               </div>
             </div>
-
-            <!-- Content Column -->
+            
+    <!-- Content Column -->
             <div class="w-full order-2 lg:order-1 md:col-span-12 lg:col-span-6 text-center lg:text-left">
               <h1 class="text-4xl font-extrabold tracking-tight text-base-content sm:text-6xl mb-6">
                 {gettext("hero title")}
@@ -63,16 +63,16 @@ defmodule TremtecWeb.LandingLive do
             </div>
           </div>
         </div>
-
-        <!-- Background Gradient Blur -->
+        
+    <!-- Background Gradient Blur -->
         <div class="absolute top-0 left-1/2 -translate-x-1/2 -z-10 w-full h-full max-w-7xl opacity-30 pointer-events-none">
           <div class="absolute top-[20%] left-[10%] w-72 h-72 bg-primary/30 rounded-full blur-3xl mix-blend-multiply animate-blob" />
           <div class="absolute top-[20%] right-[10%] w-72 h-72 bg-secondary/30 rounded-full blur-3xl mix-blend-multiply animate-blob animation-delay-2000" />
           <div class="absolute -bottom-8 left-[30%] w-72 h-72 bg-accent/30 rounded-full blur-3xl mix-blend-multiply animate-blob animation-delay-4000" />
         </div>
       </div>
-
-      <!-- Trust Section -->
+      
+    <!-- Trust Section -->
       <div class="py-12 bg-base-100 border-y border-base-200/50">
         <div class="mx-auto max-w-7xl px-6 md:px-8">
           <p class="text-center text-sm font-semibold text-base-content/40 uppercase tracking-widest mb-8">
@@ -88,8 +88,8 @@ defmodule TremtecWeb.LandingLive do
           </div>
         </div>
       </div>
-
-      <!-- Bento Grid Services -->
+      
+    <!-- Bento Grid Services -->
       <.landing_section id="services" class="bg-base-200">
         <.section_header
           title={gettext("problem title")}
@@ -121,8 +121,8 @@ defmodule TremtecWeb.LandingLive do
               </.service_card_content>
             </div>
           </.bento_card>
-
-          <!-- Card 2: Diagnostics (Span 1) -->
+          
+    <!-- Card 2: Diagnostics (Span 1) -->
           <.bento_card class="md:col-span-1" hover_border="secondary">
             <div class="absolute -bottom-8 -right-8 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
               <.icon name="hero-magnifying-glass" class="w-40 h-40 text-secondary" />
@@ -138,8 +138,8 @@ defmodule TremtecWeb.LandingLive do
               />
             </div>
           </.bento_card>
-
-          <!-- Card 3: Mentorship (Span 3 - Full Width) -->
+          
+    <!-- Card 3: Mentorship (Span 3 - Full Width) -->
           <.bento_card
             class="md:col-span-3 flex flex-col md:flex-row gap-8 items-center"
             hover_border="accent"
@@ -173,8 +173,8 @@ defmodule TremtecWeb.LandingLive do
           </.bento_card>
         </div>
       </.landing_section>
-
-      <!-- Methodology Section -->
+      
+    <!-- Methodology Section -->
       <.landing_section id="methodology" class="bg-base-100 overflow-hidden">
         <div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 md:mx-0 md:max-w-none md:grid-cols-2">
           <div class="md:pr-8 md:pt-4">
@@ -233,8 +233,8 @@ defmodule TremtecWeb.LandingLive do
           </div>
         </div>
       </.landing_section>
-
-      <!-- About Section -->
+      
+    <!-- About Section -->
       <.landing_section id="about" class="bg-base-200">
         <.section_header
           title={gettext("About TremTec")}
@@ -269,8 +269,8 @@ defmodule TremtecWeb.LandingLive do
               </div>
             </div>
           </div>
-
-          <!-- Mission -->
+          
+    <!-- Mission -->
           <div class="card bg-base-100 shadow-xl border border-base-300 md:col-span-2">
             <div class="card-body">
               <h3 class="card-title text-2xl mb-4">{gettext("Our Mission")}</h3>
@@ -284,8 +284,8 @@ defmodule TremtecWeb.LandingLive do
           </div>
         </div>
       </.landing_section>
-
-      <!-- CTA Section -->
+      
+    <!-- CTA Section -->
       <div id="contact" class="relative isolate overflow-hidden bg-base-100 py-16 sm:py-24 md:py-32">
         <div class="mx-auto max-w-7xl px-6 md:px-8">
           <div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 md:max-w-none md:grid-cols-2">
