@@ -9,61 +9,65 @@ defmodule TremtecWeb.UserLive.Settings do
   def render(assigns) do
     ~H"""
     <Layouts.app flash={@flash} current_scope={@current_scope}>
-      <div class="text-center">
-        <.header>
-          {gettext("Account Settings")}
-          <:subtitle>{gettext("Manage your account email address and password settings")}</:subtitle>
-        </.header>
+      <div class="mx-auto max-w-sm space-y-4">
+        <div class="text-center">
+          <.header>
+            {gettext("Account Settings")}
+            <:subtitle>
+              {gettext("Manage your account email address and password settings")}
+            </:subtitle>
+          </.header>
+        </div>
+
+        <.form for={@email_form} id="email_form" phx-submit="update_email" phx-change="validate_email">
+          <.input
+            field={@email_form[:email]}
+            type="email"
+            label={gettext("Email")}
+            autocomplete="username"
+            required
+          />
+          <.button class="btn btn-primary w-full" phx-disable-with={gettext("Changing...")}>
+            {gettext("Change Email")}
+          </.button>
+        </.form>
+
+        <div class="divider" />
+
+        <.form
+          for={@password_form}
+          id="password_form"
+          action={~p"/admin/update-password"}
+          method="post"
+          phx-change="validate_password"
+          phx-submit="update_password"
+          phx-trigger-action={@trigger_submit}
+        >
+          <input
+            name={@password_form[:email].name}
+            type="hidden"
+            id="hidden_user_email"
+            autocomplete="username"
+            value={@current_email}
+          />
+          <.input
+            field={@password_form[:password]}
+            type="password"
+            label={gettext("New password")}
+            autocomplete="new-password"
+            required
+          />
+          <.input
+            field={@password_form[:password_confirmation]}
+            type="password"
+            label={gettext("Confirm new password")}
+            autocomplete="new-password"
+          />
+          <.button class="btn btn-primary w-full" phx-disable-with={gettext("Saving...")}>
+            {gettext("Save Password")}
+          </.button>
+        </.form>
       </div>
-
-      <.form for={@email_form} id="email_form" phx-submit="update_email" phx-change="validate_email">
-        <.input
-          field={@email_form[:email]}
-          type="email"
-          label={gettext("Email")}
-          autocomplete="username"
-          required
-        />
-        <.button variant="primary" phx-disable-with={gettext("Changing...")}>
-          {gettext("Change Email")}
-        </.button>
-      </.form>
-
-      <div class="divider" />
-
-      <.form
-        for={@password_form}
-        id="password_form"
-        action={~p"/admin/update-password"}
-        method="post"
-        phx-change="validate_password"
-        phx-submit="update_password"
-        phx-trigger-action={@trigger_submit}
-      >
-        <input
-          name={@password_form[:email].name}
-          type="hidden"
-          id="hidden_user_email"
-          autocomplete="username"
-          value={@current_email}
-        />
-        <.input
-          field={@password_form[:password]}
-          type="password"
-          label={gettext("New password")}
-          autocomplete="new-password"
-          required
-        />
-        <.input
-          field={@password_form[:password_confirmation]}
-          type="password"
-          label={gettext("Confirm new password")}
-          autocomplete="new-password"
-        />
-        <.button variant="primary" phx-disable-with={gettext("Saving...")}>
-          {gettext("Save Password")}
-        </.button>
-      </.form>
     </Layouts.app>
     """
   end
