@@ -1,10 +1,10 @@
-defmodule TremtecWeb.ContactLiveTest do
+defmodule TremtecWeb.PublicPages.ContactLiveTest do
   use TremtecWeb.ConnCase, async: true
 
   import Phoenix.LiveViewTest
   use Gettext, backend: TremtecWeb.Gettext
 
-  describe "/contact" do
+  describe "Contact" do
     test "renders contact form", %{conn: conn} do
       {:ok, _view, html} = live(conn, ~p"/contact")
       assert html =~ "contact-form"
@@ -18,12 +18,15 @@ defmodule TremtecWeb.ContactLiveTest do
           "contact" => %{"name" => "", "email" => "bad", "message" => "short"}
         })
 
-      # Check for validation error messages (HTML will have entities escaped)
-      # The messages are from gettext, so they appear as rendered in the template
-      assert html =~ "can&#39;t be blank"
-      assert html =~ "has invalid format"
-      # Check for error styling class on inputs
-      assert html =~ "input-error"
+      # Errors are from Ecto and might be HTML escaped in the view
+      # We use dgettext for Ecto errors
+      assert html =~
+               Phoenix.HTML.html_escape(dgettext("errors", "can't be blank"))
+               |> Phoenix.HTML.safe_to_string()
+
+      assert html =~
+               Phoenix.HTML.html_escape(dgettext("errors", "has invalid format"))
+               |> Phoenix.HTML.safe_to_string()
     end
 
     test "rejects honeypot submissions", %{conn: conn} do
