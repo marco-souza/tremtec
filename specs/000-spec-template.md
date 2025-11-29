@@ -1,39 +1,29 @@
 # Feature Specification Template
 
+> **Note**: This is Phase 1 of the Spec-Driven Development process. After approval, proceed to Phase 2 (Implementation Plan) using `specs/000-implementation-plan-template.md`.
+
 ## Feature Name
 
-[Provide a concise and descriptive name for the feature.]
+[Concise, descriptive name]
 
 ## Objective
 
-[Summarize the purpose and goals of the feature in a few sentences.]
+[Purpose and goals in 1-2 sentences]
 
 ## User Story
 
-[Describe the feature from the user's perspective in the format:
-"As a [user role], I want to [goal] so that I can [reason]."]
+As a [user role], I want to [goal] so that I can [reason].
 
 ## Functional Requirements
 
-- [List specific functional requirements for the feature.]
-- [Each requirement should be clear, testable, and actionable.]
-
-## Non-Functional Requirements
-
-- [List non-functional requirements such as performance, scalability, security, etc.]
+- [Clear, testable requirement]
+- [Another requirement]
 
 ## Success Criteria
 
-- [Define how success will be measured for the feature.]
+- [Measurable success indicator]
+- [Another success indicator]
 
-## Assumptions
+## Notes
 
-- [List any assumptions made during the feature planning.]
-
-## Constraints
-
-- [List any constraints or limitations for the feature.]
-
-## Additional Notes
-
-[Include any other relevant information, context, or details related to the feature.]
+[Optional: constraints, assumptions, or additional context]

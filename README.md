@@ -40,8 +40,8 @@ Comprehensive documentation available in the `docs/` directory:
 The application uses environment variables for runtime configuration. Key variables:
 
 ### All Environments
-- `ADMIN_USER`: Admin username for basic auth (default: `admin`)
-- `ADMIN_PASS`: Admin password for basic auth (default: `admin`)
+- `RESEND_API_KEY`: Resend API key for email delivery (optional in dev, required in prod)
+- `SMTP_FROM_EMAIL`: Email "from" address (optional, defaults to `noreply@tremtec.com`)
 - `LIVE_VIEW_SIGNING_SALT`: Signing salt for LiveView (default in dev: `MkHmw9im`, required in prod)
 
 ### Production

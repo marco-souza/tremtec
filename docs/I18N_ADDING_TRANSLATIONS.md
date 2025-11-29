@@ -5,11 +5,13 @@ This guide explains how to add new translatable strings to Tremtec.
 ## Quick Start
 
 1. Wrap string in `gettext()`:
+
    ```heex
    {gettext("My new text")}
    ```
 
 2. Extract strings:
+
    ```bash
    mix gettext.extract --merge
    ```
@@ -27,6 +29,7 @@ This guide explains how to add new translatable strings to Tremtec.
 Find the file where you want to add the translatable string:
 
 **Examples**:
+
 - Template: `lib/tremtec_web/live/my_live.html.heex`
 - LiveView module: `lib/tremtec_web/live/my_live.ex`
 - Controller: `lib/tremtec_web/controllers/my_controller.ex`
@@ -37,16 +40,19 @@ Find the file where you want to add the translatable string:
 #### In Templates (HEEx)
 
 **Single line**:
+
 ```heex
 <h1>{gettext("Welcome to My Page")}</h1>
 ```
 
 **In attributes**:
+
 ```heex
 <.input placeholder={gettext("Enter your name")} />
 ```
 
 **In component props**:
+
 ```heex
 <.button phx-disable-with={gettext("Loading...")}>
   {gettext("Submit")}
@@ -54,6 +60,7 @@ Find the file where you want to add the translatable string:
 ```
 
 **Multiple strings**:
+
 ```heex
 <div>
   <h1>{gettext("Title")}</h1>
@@ -65,6 +72,7 @@ Find the file where you want to add the translatable string:
 #### In Elixir Code
 
 **In LiveView**:
+
 ```elixir
 defmodule TremtecWeb.MyLive do
   use TremtecWeb, :live_view
@@ -78,6 +86,7 @@ end
 ```
 
 **In Controller**:
+
 ```elixir
 defmodule TremtecWeb.MyController do
   use TremtecWeb, :controller
@@ -91,6 +100,7 @@ end
 ```
 
 **In Module/Helper**:
+
 ```elixir
 defmodule MyApp.Helper do
   use Gettext, backend: TremtecWeb.Gettext
@@ -102,6 +112,7 @@ end
 ```
 
 **For Error Messages** (use dgettext):
+
 ```elixir
 # In validation
 error = dgettext("errors", "can't be blank")
@@ -120,6 +131,7 @@ mix gettext.extract --merge
 ```
 
 **Output**:
+
 ```
 Extracted priv/gettext/default.pot
 Wrote priv/gettext/pt/LC_MESSAGES/errors.po (0 new, 0 removed, 24 unchanged)
@@ -158,6 +170,7 @@ Open each `.po` file and add translations:
 Edit: `priv/gettext/pt/LC_MESSAGES/default.po`
 
 Find the new entry:
+
 ```po
 #: lib/tremtec_web/live/my_live.html.heex:15
 #, elixir-autogen, elixir-format
@@ -166,6 +179,7 @@ msgstr ""
 ```
 
 Add the translation:
+
 ```po
 #: lib/tremtec_web/live/my_live.html.heex:15
 #, elixir-autogen, elixir-format
@@ -178,6 +192,7 @@ msgstr "Meu novo texto"
 Edit: `priv/gettext/en/LC_MESSAGES/default.po`
 
 English usually matches the source:
+
 ```po
 #: lib/tremtec_web/live/my_live.html.heex:15
 #, elixir-autogen, elixir-format
@@ -201,9 +216,11 @@ msgstr "Mi nuevo texto"
 Restart the server and test each language:
 
 **Test Portuguese** (default):
+
 ```bash
 iex -S mix phx.server
 ```
+
 Visit http://localhost:4000 - should show "Meu novo texto"
 
 **Test English**:
@@ -217,11 +234,13 @@ Refresh - should show "Mi nuevo texto"
 ### Step 7: Format and Commit
 
 Format the code:
+
 ```bash
 mix format
 ```
 
 Commit your changes:
+
 ```bash
 git add -A
 git commit -m "feat: Add new feature with i18n support
@@ -233,8 +252,9 @@ git commit -m "feat: Add new feature with i18n support
 ## Common Patterns
 
 ### Form Labels
+
 ```heex
-<.input 
+<.input
   field={@form[:email]}
   label={gettext("Email Address")}
   placeholder={gettext("name@example.com")}
@@ -242,6 +262,7 @@ git commit -m "feat: Add new feature with i18n support
 ```
 
 ### Buttons
+
 ```heex
 <.button type="submit" phx-disable-with={gettext("Saving...")}>
   {gettext("Save Changes")}
@@ -249,12 +270,14 @@ git commit -m "feat: Add new feature with i18n support
 ```
 
 ### Flash Messages
+
 ```elixir
 message = gettext("Profile updated successfully!")
 put_flash(conn, :info, message)
 ```
 
 ### Error Messages
+
 ```elixir
 # Validation errors
 dgettext("errors", "can't be blank")
@@ -262,6 +285,7 @@ dgettext("errors", "has invalid format")
 ```
 
 ### Plural Forms
+
 For strings with counts:
 
 ```heex
@@ -274,6 +298,7 @@ For strings with counts:
 ```
 
 In Portuguese:
+
 ```po
 msgid "You have 1 message"
 msgid_plural "You have %{count} messages"
@@ -301,6 +326,7 @@ msgstr[1] "Você tem %{count} mensagens"
 - **Don't use string interpolation** - use `%{var}` for variables
 
 ### Example: Good String
+
 ```heex
 <!-- ✅ GOOD: Translator has context -->
 {gettext("Send message")}
@@ -313,6 +339,7 @@ msgstr[1] "Você tem %{count} mensagens"
 ```
 
 ### Example: Variables
+
 ```heex
 <!-- ✅ GOOD: Use template variables -->
 {gettext("Welcome, %{name}!", name: @user.name)}
@@ -326,6 +353,7 @@ msgstr[1] "Você tem %{count} mensagens"
 ### If You Need to Change a String
 
 **Option 1: Minor Edit** (typo fix)
+
 ```po
 # Before
 msgid "Snd message"
@@ -339,6 +367,7 @@ msgstr "Enviar mensagem"
 Run `mix gettext.extract --merge` - it updates all files.
 
 **Option 2: Complete Rewrite** (change meaning)
+
 1. Remove old string from `.po` files
 2. Add new string using `gettext()`
 3. Run `mix gettext.extract --merge`
@@ -347,6 +376,7 @@ Run `mix gettext.extract --merge` - it updates all files.
 ### If String is Used Multiple Places
 
 **Reuse, don't duplicate**:
+
 ```heex
 <!-- ✅ GOOD: Reuse same string -->
 <button>{gettext("Send")}</button>
@@ -377,6 +407,7 @@ msgstr "Tem formato inválido"
 ```
 
 ### Common Validation Strings
+
 ```
 "can't be blank"
 "has invalid format"
@@ -390,11 +421,13 @@ These are already in `errors.po` for all locales.
 ## Checking Translation Status
 
 ### See all untranslated strings
+
 ```bash
 grep -n 'msgstr ""' priv/gettext/es/LC_MESSAGES/default.po
 ```
 
 ### Count translations
+
 ```bash
 echo "Portuguese:"
 grep "^msgstr" priv/gettext/pt/LC_MESSAGES/default.po | wc -l
@@ -407,6 +440,7 @@ grep "^msgstr" priv/gettext/es/LC_MESSAGES/default.po | wc -l
 ```
 
 ### Verify no empty translations
+
 ```bash
 grep -c 'msgstr ""' priv/gettext/pt/LC_MESSAGES/default.po
 # Should output: 0
@@ -433,6 +467,7 @@ grep -c 'msgstr ""' priv/gettext/pt/LC_MESSAGES/default.po
 ### String Not Appearing Translated
 
 **Check**:
+
 1. Did you run `mix gettext.extract --merge`?
 2. Is msgstr filled in (not empty)?
 3. Did you restart the server?
@@ -446,6 +481,7 @@ grep "My new text" priv/gettext/pt/LC_MESSAGES/default.po
 ### Too Many Untranslated Strings
 
 **Solution**: Run extraction and fill in immediately
+
 ```bash
 mix gettext.extract --merge
 grep 'msgstr ""' priv/gettext/es/LC_MESSAGES/default.po | wc -l
@@ -455,6 +491,7 @@ grep 'msgstr ""' priv/gettext/es/LC_MESSAGES/default.po | wc -l
 ### Merge Conflicts in .po Files
 
 **Solution**: Keep both, extract again
+
 ```bash
 # Resolve conflicts manually, then:
 mix gettext.extract --merge
@@ -463,11 +500,13 @@ mix gettext.extract --merge
 ## Tools
 
 ### Editor Plugins
+
 - VS Code: Gettext extension
 - Vim: po.vim syntax
 - Emacs: po-mode
 
 ### Command Line
+
 ```bash
 # Extract only (don't merge)
 mix gettext.extract

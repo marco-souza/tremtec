@@ -7,6 +7,7 @@ This document explains how the i18n system is configured and integrated into Tre
 ## Core Components
 
 ### 1. Gettext Backend
+
 **File**: `lib/tremtec_web/gettext.ex`
 
 ```elixir
@@ -16,21 +17,25 @@ end
 ```
 
 **Purpose**:
+
 - Central gettext backend for the application
 - Handles all translation lookups
 - Manages locale-specific translations
 
 **Configuration**:
+
 - OTP app: `:tremtec`
 - Translation files: `priv/gettext/`
 - Domains: `default`, `errors`
 
 ### 2. Locale Detection Plug
+
 **File**: `lib/tremtec_web/plug/determine_locale.ex`
 
 **Purpose**: Runs on every HTTP request to detect and set the user's locale
 
 **Detection Flow**:
+
 ```
 Request arrives
   ↓
@@ -48,10 +53,11 @@ Assign @locale to template
 ```
 
 **Configuration in Router**:
+
 ```elixir
 pipeline :browser do
   # ... other plugs ...
-  
+
   plug TremtecWeb.Plug.DetermineLocale,
     supported_locales: ["pt", "en", "es"],
     default_locale: "pt",
@@ -60,16 +66,19 @@ end
 ```
 
 **Available Options**:
+
 - `supported_locales` - List of valid locales
 - `default_locale` - Fallback if not detected
 - `gettext` - Gettext backend module
 
 ### 3. Locale Helpers
+
 **File**: `lib/tremtec_web/helpers/locale_helpers.ex`
 
 **Available Functions**:
 
 #### `get_locale/1`
+
 ```elixir
 locale = TremtecWeb.LocaleHelpers.get_locale(conn_or_socket)
 # Returns: "pt", "en", "es", or default "pt"
@@ -78,12 +87,14 @@ locale = TremtecWeb.LocaleHelpers.get_locale(conn_or_socket)
 Works with both Plug.Conn and Phoenix.LiveView.Socket
 
 #### `is_supported_locale?/1`
+
 ```elixir
 TremtecWeb.LocaleHelpers.is_supported_locale?("es")
 # Returns: true or false
 ```
 
 #### `language_name/1`
+
 ```elixir
 TremtecWeb.LocaleHelpers.language_name("es")
 # Returns: "Español"
@@ -92,18 +103,21 @@ TremtecWeb.LocaleHelpers.language_name("es")
 Used for displaying language names in UI.
 
 #### `supported_locales/0`
+
 ```elixir
 TremtecWeb.LocaleHelpers.supported_locales()
 # Returns: ["pt", "en", "es"]
 ```
 
 #### `default_locale/0`
+
 ```elixir
 TremtecWeb.LocaleHelpers.default_locale()
 # Returns: "pt"
 ```
 
 ### 4. Router Integration
+
 **File**: `lib/tremtec_web/router.ex`
 
 The DetermineLocale plug is added to the `:browser` pipeline, so it runs on all browser requests:
@@ -127,14 +141,17 @@ end
 ```
 
 **Result**:
+
 - `conn` has `:locale` in session
 - `@locale` available in all templates
 - Gettext locale set globally for request
 
 ### 5. TremtecWeb Module
+
 **File**: `lib/tremtec_web.ex`
 
 In the `html_helpers` block:
+
 ```elixir
 def html_helpers do
   quote do
@@ -149,6 +166,7 @@ end
 ## Translation Files
 
 ### Directory Structure
+
 ```
 priv/gettext/
 ├── default.pot              # Master template (generated)
@@ -166,6 +184,7 @@ priv/gettext/
 ### File Format (.po files)
 
 Example structure:
+
 ```po
 #: lib/tremtec_web/live/contact_live.html.heex:4
 #, elixir-autogen, elixir-format
@@ -179,6 +198,7 @@ msgstr "seu@email.com"
 ```
 
 **Fields**:
+
 - `#:` - Source file location (auto-generated)
 - `#,` - Metadata flags
 - `msgid` - Original English string
@@ -194,6 +214,7 @@ mix gettext.extract --merge
 ```
 
 This command:
+
 1. Scans code for `gettext()` calls
 2. Generates/updates `default.pot`
 3. Merges into language-specific `.po` files
@@ -203,11 +224,13 @@ This command:
 ## How Translations Work
 
 ### Template Example
+
 ```heex
 <h1>{gettext("Contact Form")}</h1>
 ```
 
 At render time:
+
 1. `gettext("Contact Form")` is called
 2. Gettext looks up locale (from Gettext.get_locale() = "es")
 3. Searches `priv/gettext/es/LC_MESSAGES/default.po`
@@ -215,12 +238,15 @@ At render time:
 5. Returns: "Formulario de Contacto"
 
 ### Fallback Behavior
+
 If translation is missing:
+
 1. Checks if string exists in current locale file
 2. If not found, returns original string (English)
 3. Portuguese fallback is the source, never missing
 
 ### Error Messages
+
 Validation errors use a separate domain:
 
 ```elixir
@@ -228,6 +254,7 @@ validate_format(email, ~r/@/)
 ```
 
 When validation fails:
+
 1. Returns error from `errors.po`
 2. English: "has invalid format"
 3. Portuguese: "Tem formato inválido"
@@ -236,6 +263,7 @@ When validation fails:
 ## Request Lifecycle
 
 ### 1. HTTP Request Arrives
+
 ```
 GET /contact HTTP/1.1
 Accept-Language: es-ES,es;q=0.9,en;q=0.8
@@ -243,6 +271,7 @@ Cookie: preferred_locale=es
 ```
 
 ### 2. DetermineLocale Plug Runs
+
 ```elixir
 # Check cookie first
 session[:locale] # Already has "es" from cookie
@@ -250,23 +279,27 @@ session[:locale] # Already has "es" from cookie
 ```
 
 ### 3. Set Gettext Locale
+
 ```elixir
 Gettext.put_locale(TremtecWeb.Gettext, "es")
 # All gettext() calls in this request will use Spanish
 ```
 
 ### 4. Set Session
+
 ```elixir
 conn |> put_session(:locale, "es")
 ```
 
 ### 5. Assign to Template
+
 ```elixir
 conn |> assign(:locale, "es")
 # @locale available in HEEx templates
 ```
 
 ### 6. Template Renders
+
 ```heex
 {gettext("Contact")}
 <!-- Looks up in es/LC_MESSAGES/default.po -->
@@ -274,6 +307,7 @@ conn |> assign(:locale, "es")
 ```
 
 ### 7. Response Sent
+
 ```
 HTTP/1.1 200 OK
 Set-Cookie: preferred_locale=es; Max-Age=31536000
@@ -315,20 +349,22 @@ The DetermineLocale plug runs on initial load, setting `:locale` in session. Liv
 ## Testing Locale Detection
 
 ### Unit Test Plug
+
 ```elixir
 test "detects Spanish from cookie" do
-  conn = %Plug.Conn{} 
+  conn = %Plug.Conn{}
     |> init_test_session(%{locale: "es"})
     |> TremtecWeb.Plug.DetermineLocale.call(
       supported_locales: ["pt", "en", "es"],
       default_locale: "pt"
     )
-  
+
   assert get_session(conn, :locale) == "es"
 end
 ```
 
 ### Integration Test
+
 ```elixir
 test "renders in Spanish when locale is set" do
   {:ok, view, _html} = live(conn, ~p"/contact")
@@ -342,6 +378,7 @@ end
 ### To Add a New Locale
 
 1. **Update helpers**:
+
 ```elixir
 # lib/tremtec_web/helpers/locale_helpers.ex
 @supported_locales ["pt", "en", "es", "fr"]
@@ -358,6 +395,7 @@ end
 ```
 
 2. **Update router**:
+
 ```elixir
 # lib/tremtec_web/router.ex
 plug TremtecWeb.Plug.DetermineLocale,
@@ -368,6 +406,7 @@ plug TremtecWeb.Plug.DetermineLocale,
 ```
 
 3. **Create translation files**:
+
 ```bash
 mkdir -p priv/gettext/fr/LC_MESSAGES
 mix gettext.extract --merge
@@ -383,16 +422,19 @@ See [I18N_ADDING_LOCALES.md](./I18N_ADDING_LOCALES.md) for detailed instructions
 ## Performance Considerations
 
 ### Minimal Overhead
+
 - Locale detection: ~1ms (cookie/header check)
 - Translation lookup: ~0.1ms (HashMap lookup in memory)
 - No database queries for translations
 
 ### Translation Files
+
 - Compiled into application at build time
 - Zero runtime file I/O
 - Translations in memory after `mix compile`
 
 ### Session & Cookie
+
 - Locale stored in session (in-memory in dev)
 - Cookie used for persistence (user preference)
 - No extra database tables needed
@@ -400,12 +442,14 @@ See [I18N_ADDING_LOCALES.md](./I18N_ADDING_LOCALES.md) for detailed instructions
 ## Security
 
 ### Safe Translation Strings
+
 - Gettext strings are compile-time fixed
 - No dynamic string injection
 - No SQL injection risk
 - Safe for untrusted locales (validated first)
 
 ### Cookie Security
+
 - Locale cookie is non-sensitive
 - No user data or tokens in cookie
 - Safe to use with HTTPS
@@ -414,6 +458,7 @@ See [I18N_ADDING_LOCALES.md](./I18N_ADDING_LOCALES.md) for detailed instructions
 ## Debugging
 
 ### Enable Logging
+
 ```elixir
 # lib/tremtec_web/plug/determine_locale.ex
 # Already has Logger.info/1 calls
@@ -421,19 +466,23 @@ See [I18N_ADDING_LOCALES.md](./I18N_ADDING_LOCALES.md) for detailed instructions
 ```
 
 ### Check Current Locale
+
 In iex:
+
 ```elixir
 Gettext.get_locale(TremtecWeb.Gettext)
 # Returns current locale for this process
 ```
 
 ### Find Missing Translations
+
 ```bash
 mix gettext.extract --merge --check-format
 # Identifies missing or conflicting translations
 ```
 
 ### View Translation File
+
 ```bash
 grep -n "msgid" priv/gettext/es/LC_MESSAGES/default.po
 # List all translatable strings for Spanish

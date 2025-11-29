@@ -32,16 +32,16 @@ git commit -m "i18n: Add French locale support"
 
 Choose a two-letter ISO 639-1 code:
 
-| Language | Code | Example |
-|----------|------|---------|
-| French | fr | fr-FR, fr-CA |
-| German | de | de-DE, de-AT |
-| Italian | it | it-IT |
-| Dutch | nl | nl-NL, nl-BE |
-| Polish | pl | pl-PL |
-| Russian | ru | ru-RU |
-| Japanese | ja | ja-JP |
-| Chinese | zh | zh-CN, zh-TW |
+| Language | Code | Example      |
+| -------- | ---- | ------------ |
+| French   | fr   | fr-FR, fr-CA |
+| German   | de   | de-DE, de-AT |
+| Italian  | it   | it-IT        |
+| Dutch    | nl   | nl-NL, nl-BE |
+| Polish   | pl   | pl-PL        |
+| Russian  | ru   | ru-RU        |
+| Japanese | ja   | ja-JP        |
+| Chinese  | zh   | zh-CN, zh-TW |
 
 For this guide, we'll use `fr` (French).
 
@@ -74,6 +74,7 @@ end
 ```
 
 **Full Example**:
+
 ```elixir
 defmodule TremtecWeb.LocaleHelpers do
   @moduledoc """
@@ -134,6 +135,7 @@ mkdir -p priv/gettext/fr/LC_MESSAGES
 ```
 
 This creates:
+
 - `priv/gettext/fr/` - French locale directory
 - `priv/gettext/fr/LC_MESSAGES/` - Translation files location
 
@@ -146,6 +148,7 @@ mix gettext.extract --merge
 ```
 
 **Output**:
+
 ```
 Extracted priv/gettext/default.pot
 Wrote priv/gettext/pt/LC_MESSAGES/errors.po (...)
@@ -159,6 +162,7 @@ Wrote priv/gettext/fr/LC_MESSAGES/default.po (62 new messages, 0 removed)
 ```
 
 This creates:
+
 - `priv/gettext/fr/LC_MESSAGES/default.po` - User-facing strings (62)
 - `priv/gettext/fr/LC_MESSAGES/errors.po` - Error messages (24)
 
@@ -188,6 +192,7 @@ Edit each `.po` file and fill in translations.
 **Path**: `priv/gettext/fr/LC_MESSAGES/default.po`
 
 **Format**:
+
 ```po
 #: lib/tremtec_web/live/contact_live.html.heex:4
 #, elixir-autogen, elixir-format
@@ -196,6 +201,7 @@ msgstr ""
 ```
 
 **Fill in**:
+
 ```po
 #: lib/tremtec_web/live/contact_live.html.heex:4
 #, elixir-autogen, elixir-format
@@ -204,6 +210,7 @@ msgstr "Contact"
 ```
 
 **Example Translations** (French):
+
 ```po
 msgid "Contact"
 msgstr "Contact"
@@ -226,6 +233,7 @@ msgstr "Merci ! Votre message a été envoyé."
 **Path**: `priv/gettext/fr/LC_MESSAGES/errors.po`
 
 **Example Translations** (French):
+
 ```po
 msgid "can't be blank"
 msgstr "ne peut pas être vide"
@@ -245,19 +253,25 @@ msgstr[1] "doit contenir au moins %{count} caractères"
 ### Step 8: Tools for Translation
 
 #### Option A: Manual Editing
+
 Edit `.po` files directly in your editor:
+
 ```bash
 vim priv/gettext/fr/LC_MESSAGES/default.po
 ```
 
 #### Option B: Online Editor
+
 Use [Poedit](https://poedit.net/) for easier editing:
+
 1. Open `priv/gettext/fr/LC_MESSAGES/default.po`
 2. Add translations via GUI
 3. Save file
 
 #### Option C: AI/Translation Service
+
 Use online services for bulk translation:
+
 1. Export strings from `.po` file
 2. Translate via service
 3. Update `.po` files
@@ -277,6 +291,7 @@ mix test
 ```
 
 If tests fail, check:
+
 - Syntax errors in `.po` files
 - Missing translations
 - Invalid locale codes
@@ -303,6 +318,7 @@ iex> Gettext.gettext(TremtecWeb.Gettext, "Contact")
 ```
 
 Or in the browser:
+
 1. Set cookie: `preferred_locale=fr`
 2. Visit http://localhost:4000
 3. Content should be in French
@@ -365,6 +381,7 @@ git commit -m "i18n: Add French, German, Italian locales"
 ### Changes Summary
 
 **1. lib/tremtec_web/helpers/locale_helpers.ex**
+
 ```elixir
 @supported_locales ["pt", "en", "es", "de"]
 
@@ -380,6 +397,7 @@ end
 ```
 
 **2. lib/tremtec_web/router.ex**
+
 ```elixir
 plug TremtecWeb.Plug.DetermineLocale,
   cookie_key: "preferred_locale",
@@ -389,20 +407,24 @@ plug TremtecWeb.Plug.DetermineLocale,
 ```
 
 **3. Create directories**
+
 ```bash
 mkdir -p priv/gettext/de/LC_MESSAGES
 ```
 
 **4. Generate files**
+
 ```bash
 mix gettext.extract --merge
 ```
 
 **5. Add translations to:**
+
 - `priv/gettext/de/LC_MESSAGES/default.po` - 62 strings
 - `priv/gettext/de/LC_MESSAGES/errors.po` - 24 errors
 
 **6. Test & commit**
+
 ```bash
 mix test && git add -A && git commit -m "i18n: Add German locale"
 ```
@@ -468,6 +490,7 @@ zh - Chinese
 To remove support for a locale:
 
 1. **Update helpers**:
+
 ```elixir
 @supported_locales ["pt", "en", "es"]  # Remove "fr"
 
@@ -475,16 +498,19 @@ To remove support for a locale:
 ```
 
 2. **Update router**:
+
 ```elixir
 supported_locales: ["pt", "en", "es"],  # Remove "fr"
 ```
 
 3. **Delete translation files**:
+
 ```bash
 rm -rf priv/gettext/fr
 ```
 
 4. **Test and commit**:
+
 ```bash
 mix test
 git add -A
@@ -498,6 +524,7 @@ git commit -m "i18n: Remove French locale support"
 **Problem**: Locale set to "fr" but shows Portuguese
 
 **Solutions**:
+
 1. Check you updated both helper AND router
 2. Verify `mix compile` succeeded
 3. Restart server
@@ -508,6 +535,7 @@ git commit -m "i18n: Remove French locale support"
 **Problem**: `default.po` has no strings
 
 **Solution**: Run extraction again
+
 ```bash
 mix gettext.extract --merge
 ```
@@ -517,6 +545,7 @@ mix gettext.extract --merge
 **Problem**: Plural translations not working
 
 **Check**: Verify correct format in errors.po
+
 ```po
 # WRONG
 msgstr "One item"
@@ -532,6 +561,7 @@ msgstr[1] "Many items"
 **Problem**: Special characters show as ???
 
 **Solution**: Ensure files are UTF-8
+
 ```bash
 file priv/gettext/fr/LC_MESSAGES/default.po
 # Should show: UTF-8 Unicode text
