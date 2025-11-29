@@ -2,6 +2,24 @@ defmodule TremtecWeb.LandingLive do
   use TremtecWeb, :live_view
 
   def mount(_params, _session, socket) do
+    code_sample = """
+    defmodule HighPerformanceTeam do
+      use Expertise
+
+      def scale(team) do
+        team
+        |> Mentorship.boost()
+        |> Process.optimize()
+        |> Output.maximize()
+      end
+    end
+    """
+
+    socket =
+      socket
+      |> assign(:page_title, gettext("Trem to your Tech Team"))
+      |> assign(:code_sample, code_sample)
+
     {:ok, socket}
   end
 
@@ -48,12 +66,9 @@ defmodule TremtecWeb.LandingLive do
 
         <!-- Background Gradient Blur -->
         <div class="absolute top-0 left-1/2 -translate-x-1/2 -z-10 w-full h-full max-w-7xl opacity-30 pointer-events-none">
-          <div class="absolute top-[20%] left-[10%] w-72 h-72 bg-primary/30 rounded-full blur-3xl mix-blend-multiply animate-blob">
-          </div>
-          <div class="absolute top-[20%] right-[10%] w-72 h-72 bg-secondary/30 rounded-full blur-3xl mix-blend-multiply animate-blob animation-delay-2000">
-          </div>
-          <div class="absolute -bottom-8 left-[30%] w-72 h-72 bg-accent/30 rounded-full blur-3xl mix-blend-multiply animate-blob animation-delay-4000">
-          </div>
+          <div class="absolute top-[20%] left-[10%] w-72 h-72 bg-primary/30 rounded-full blur-3xl mix-blend-multiply animate-blob" />
+          <div class="absolute top-[20%] right-[10%] w-72 h-72 bg-secondary/30 rounded-full blur-3xl mix-blend-multiply animate-blob animation-delay-2000" />
+          <div class="absolute -bottom-8 left-[30%] w-72 h-72 bg-accent/30 rounded-full blur-3xl mix-blend-multiply animate-blob animation-delay-4000" />
         </div>
       </div>
 
@@ -63,6 +78,7 @@ defmodule TremtecWeb.LandingLive do
           <p class="text-center text-sm font-semibold text-base-content/40 uppercase tracking-widest mb-8">
             {gettext("Trusted by high-growth companies")}
           </p>
+
           <div class="flex justify-center items-center gap-x-12 gap-y-8 grayscale opacity-50 flex-wrap">
             <.trust_logo name={gettext("ACME Corp")} />
             <.trust_logo name={gettext("Stark Ind")} />
@@ -87,6 +103,7 @@ defmodule TremtecWeb.LandingLive do
             <div class="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
               <.icon name="hero-code-bracket-square" class="w-48 h-48 text-primary" />
             </div>
+
             <div class="relative z-10 flex flex-col h-full justify-between">
               <.service_card_content
                 icon="hero-cpu-chip"
@@ -110,6 +127,7 @@ defmodule TremtecWeb.LandingLive do
             <div class="absolute -bottom-8 -right-8 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
               <.icon name="hero-magnifying-glass" class="w-40 h-40 text-secondary" />
             </div>
+
             <div class="relative z-10">
               <.service_card_content
                 icon="hero-chart-bar-square"
@@ -142,6 +160,7 @@ defmodule TremtecWeb.LandingLive do
                 </:extra>
               </.service_card_content>
             </div>
+
             <div class="flex-1 w-full bg-base-200/50 rounded-xl p-2 sm:p-4 md:p-6 font-mono text-xs md:text-sm text-base-content/80 border border-base-300 shadow-inner">
               <!-- Mock Code Block -->
               <div class="flex gap-2 mb-4">
@@ -149,16 +168,7 @@ defmodule TremtecWeb.LandingLive do
                 <div class="w-3 h-3 rounded-full bg-warning"></div>
                 <div class="w-3 h-3 rounded-full bg-success"></div>
               </div>
-              <pre><code>defmodule HighPerformanceTeam do
-      use Expertise
-
-      def scale(team) do
-        team
-        |> Mentorship.boost()
-        |> Process.optimize()
-        |> Output.maximize()
-      end
-      end</code></pre>
+              <pre><code>{@code_sample}</code></pre>
             </div>
           </.bento_card>
         </div>

@@ -94,7 +94,7 @@ defmodule TremtecWeb.Layouts do
           </a>
         </li>
 
-        <div class="spacer flex-1"/>
+        <div class="spacer flex-1" />
 
         <%= if @current_scope && @current_scope.user do %>
           <li class="mt-4 pt-4 border-t border-base-300">
