@@ -7,6 +7,9 @@
 # General application configuration
 import Config
 
+# valid email domains
+config :tremtec, :accepted_email_domains, ["tremtec.com", "podcodar.org"]
+
 config :tremtec, :scopes,
   user: [
     default: true,

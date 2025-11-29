@@ -58,7 +58,9 @@ defmodule Tremtec.AccountsTest do
     test "validates email when given" do
       {:error, changeset} = Accounts.register_user(%{email: "not valid"})
 
-      assert %{email: ["must have the @ sign and no spaces"]} = errors_on(changeset)
+      errors = errors_on(changeset).email
+      assert "must have the @ sign and no spaces" in errors
+      assert "must be from an accepted domain: tremtec.com, example.com" in errors
     end
 
     test "validates maximum values for email for security" do
@@ -75,6 +77,11 @@ defmodule Tremtec.AccountsTest do
       # Now try with the upper cased email too, to check that email case is ignored.
       {:error, changeset} = Accounts.register_user(%{email: String.upcase(email)})
       assert "has already been taken" in errors_on(changeset).email
+    end
+
+    test "validates email domain" do
+      {:error, changeset} = Accounts.register_user(%{email: "user@invalid.com"})
+      assert "must be from an accepted domain: tremtec.com, example.com" in errors_on(changeset).email
     end
 
     test "registers users without password" do

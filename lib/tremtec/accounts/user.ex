@@ -39,12 +39,31 @@ defmodule Tremtec.Accounts.User do
         message: "must have the @ sign and no spaces"
       )
       |> validate_length(:email, max: 160)
+      |> validate_email_domain()
 
     if Keyword.get(opts, :validate_unique, true) do
       changeset
       |> unsafe_validate_unique(:email, Tremtec.Repo)
       |> unique_constraint(:email)
       |> validate_email_changed()
+    else
+      changeset
+    end
+  end
+
+  defp validate_email_domain(changeset) do
+    accepted_domains = Application.get_env(:tremtec, :accepted_email_domains, [])
+
+    if accepted_domains != [] do
+      validate_change(changeset, :email, fn :email, email ->
+        valid? = Enum.any?(accepted_domains, &String.ends_with?(String.downcase(email), "@#{&1}"))
+
+        if valid? do
+          []
+        else
+          [email: "must be from an accepted domain: #{Enum.join(accepted_domains, ", ")}"]
+        end
+      end)
     else
       changeset
     end
