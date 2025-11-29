@@ -4,21 +4,25 @@ This document outlines the critical requirements and best practices for deployin
 
 ## Critical Security Requirements
 
-### Admin Credentials (REQUIRED)
+### Authentication
 
-Admin credentials **must** be explicitly set before deployment. The application will fail to start if these environment variables are not provided.
+The application uses session-based authentication. Users must register with an email address that matches the allowed email domains (configured in `config/config.exs` or via `ALLOWED_EMAIL_DOMAINS` environment variable).
+
+**Note**: Admin access is now controlled through user accounts. Create an admin user account via registration or through the admin user management interface.
+
+### Email Configuration (REQUIRED for Production)
+
+The application uses Resend for email delivery. You must configure the Resend API key:
 
 ```bash
-# Set these environment variables in your production environment
-export ADMIN_USER='your-secure-username'
-export ADMIN_PASS='your-secure-password'
+export RESEND_API_KEY='your-resend-api-key'
+export SMTP_FROM_EMAIL='noreply@yourdomain.com'  # Optional, defaults to noreply@tremtec.com
 ```
 
-**Important**: 
-- Do NOT use the default credentials from development
-- Use strong, randomly-generated credentials (minimum 16 characters)
-- Store these in your secrets manager (not in code or Docker image)
-- Rotate credentials regularly
+**Important**:
+- Get your API key from [Resend](https://resend.com)
+- The `SMTP_FROM_EMAIL` must be a verified domain in your Resend account
+- Without `RESEND_API_KEY`, emails will be logged to console (development mode)
 
 ### Session Encryption (REQUIRED)
 
@@ -54,6 +58,7 @@ export POOL_SIZE='5'  # Adjust based on concurrency needs
 ```
 
 Ensure the directory has proper permissions:
+
 ```bash
 mkdir -p /var/lib/tremtec
 chown -R app:app /var/lib/tremtec
@@ -61,6 +66,7 @@ chmod 750 /var/lib/tremtec
 ```
 
 **Persistence**: When using Docker, ensure the database volume is properly mounted:
+
 ```bash
 docker run -v tremtec-data:/data tremtec:latest
 ```
@@ -70,16 +76,18 @@ docker run -v tremtec-data:/data tremtec:latest
 ### Environment Variables
 
 Set these secrets in Fly.io:
+
 ```bash
-fly secrets set ADMIN_USER='your-username'
-fly secrets set ADMIN_PASS='your-password'
 fly secrets set SECRET_KEY_BASE='your-key'
 fly secrets set LIVE_VIEW_SIGNING_SALT='your-salt'
+fly secrets set RESEND_API_KEY='your-resend-api-key'
+fly secrets set SMTP_FROM_EMAIL='noreply@yourdomain.com'  # Optional
 ```
 
 ### Volume Configuration
 
 The `fly.toml` already includes persistent storage configuration:
+
 ```toml
 [mounts]
   source = "data"
@@ -99,10 +107,10 @@ docker build -t tremtec:latest .
 ```bash
 docker run \
   -p 4000:8080 \
-  -e ADMIN_USER='your-username' \
-  -e ADMIN_PASS='your-password' \
   -e SECRET_KEY_BASE='your-key' \
   -e LIVE_VIEW_SIGNING_SALT='your-salt' \
+  -e RESEND_API_KEY='your-resend-api-key' \
+  -e SMTP_FROM_EMAIL='noreply@yourdomain.com' \
   -e DATABASE_PATH='/data/tremtec.db' \
   -e PHX_HOST='your-domain.com' \
   -v tremtec-data:/data \
@@ -114,6 +122,7 @@ docker run \
 ### Supported Locales
 
 TremTec supports 3 locales:
+
 - Portuguese (pt) - `pt` or `pt-BR`, `pt-PT`
 - English (en) - `en`, `en-US`, `en-GB`
 - Spanish (es) - `es`, `es-ES`, `es-MX`
@@ -123,6 +132,7 @@ TremTec supports 3 locales:
 Locale detection is automatic based on the `Accept-Language` HTTP header sent by browsers. No configuration required.
 
 Fallback:
+
 - If no supported locale is detected, defaults to English (en)
 - Users cannot manually switch locales (design by intent)
 
@@ -174,6 +184,7 @@ Expected response: HTTP 200 with the documentation page.
 ### Application Logs
 
 Access logs via:
+
 ```bash
 # Fly.io
 fly logs
@@ -185,12 +196,14 @@ docker logs <container-id>
 ### Admin Access Monitoring
 
 Admin authentication attempts are not logged to prevent credential exposure. Monitor access via:
+
 - Web server access logs (nginx, etc.)
 - Container orchestration logs (Fly.io)
 
 ### Performance Monitoring
 
 For production, consider:
+
 - HTTP request metrics (response time, error rates)
 - Database query performance
 - Memory and CPU usage
@@ -212,6 +225,7 @@ cp /data/tremtec.db /backups/tremtec.db.backup.$(date +%s)
 ### Recovery
 
 To restore from backup:
+
 ```bash
 cp /backups/tremtec.db.backup.XXX /data/tremtec.db
 ```
@@ -221,28 +235,33 @@ cp /backups/tremtec.db.backup.XXX /data/tremtec.db
 The project includes GitHub Actions workflows for Continuous Integration and Continuous Deployment.
 
 ### CI Workflow (`.github/workflows/ci.yml`)
+
 Runs on every push and pull request to `main`.
+
 - **Checks**: formatting (`mix format`), compilation warnings (`mix compile --warning-as-errors`), and tests (`mix test`).
 - **Assets**: Builds assets to ensure frontend integrity.
 - **Environment**: Uses ephemeral SQLite database for testing.
 
 ### Deployment Workflow (`.github/workflows/deploy.yml`)
+
 Automatically deploys to Fly.io when changes are pushed to `main`.
+
 - **Concurrency**: Ensures only one deployment runs at a time.
 - **Secrets**: Requires `FLY_API_TOKEN` in GitHub Secrets.
 
 ## Pre-Deployment Checklist
 
 - [ ] All environment variables set and verified
-- [ ] Admin credentials are strong and secure
+- [ ] Resend API key configured for email delivery
 - [ ] Database volume/path configured correctly
 - [ ] SSL/HTTPS enabled
-- [ ] Admin auth URL (`/admin/*`) is behind authentication
+- [ ] Admin routes (`/admin/*`) are behind authentication
 - [ ] No compiler warnings: `mix compile --force`
 - [ ] All tests passing: `mix test`
 - [ ] Code quality checks pass: `mix precommit`
 - [ ] Logs don't expose sensitive information
 - [ ] Backups configured for database
+- [ ] At least one admin user account created
 
 ## Rollback Procedure
 
@@ -255,24 +274,26 @@ If issues occur:
 
 ## Production Configuration Summary
 
-| Variable | Required | Description |
-|----------|----------|-------------|
-| ADMIN_USER | Yes | Admin username (no default) |
-| ADMIN_PASS | Yes | Admin password (no default) |
-| SECRET_KEY_BASE | Yes | Session encryption key |
-| LIVE_VIEW_SIGNING_SALT | Yes | LiveView security salt |
-| DATABASE_PATH | No | SQLite file path (default: `/data/tremtec.db`) |
-| PHX_HOST | No | Application hostname (default: `example.com`) |
-| PORT | No | Server port (default: `4000`) |
-| POOL_SIZE | No | Database connection pool (default: `5`) |
+| Variable               | Required | Description                                    |
+| ---------------------- | -------- | ---------------------------------------------- |
+| SECRET_KEY_BASE        | Yes      | Session encryption key                         |
+| LIVE_VIEW_SIGNING_SALT | Yes      | LiveView security salt                         |
+| RESEND_API_KEY         | No*      | Resend API key for email delivery              |
+| SMTP_FROM_EMAIL        | No       | Email "from" address (default: `noreply@tremtec.com`) |
+| DATABASE_PATH          | No       | SQLite file path (default: `/data/tremtec.db`) |
+| PHX_HOST               | No       | Application hostname (default: `example.com`)  |
+| PORT                   | No       | Server port (default: `4000`)                  |
+| POOL_SIZE              | No       | Database connection pool (default: `5`)        |
+
+\* Required in production for email delivery. Optional in development (emails logged to console).
 
 ## Troubleshooting
 
-### Application fails to start: "Admin credentials not configured!"
+### Application fails to start: "Email delivery not configured!"
 
-**Cause**: ADMIN_USER or ADMIN_PASS environment variables are not set.
+**Cause**: RESEND_API_KEY environment variable is not set (optional in dev, required in prod).
 
-**Solution**: Set both environment variables before starting.
+**Solution**: Set RESEND_API_KEY for production email delivery, or emails will be logged to console.
 
 ### HTTPS not working
 
@@ -289,6 +310,7 @@ If issues occur:
 ## Support
 
 For issues or questions about production deployment:
+
 1. Check the logs first
 2. Verify all environment variables are set
 3. Consult this documentation
