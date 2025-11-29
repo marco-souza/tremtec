@@ -1,11 +1,16 @@
-# Multi-stage Dockerfile for TremTec (Phoenix) - Elixir 1.18.4, OTP 28
+# Production Dockerfile for TremTec (Phoenix)
+# Multi-stage build: compile on Elixir base, run on Debian slim
+# Elixir 1.18.4, OTP 28
 
 ARG ELIXIR_VERSION=1.18.4
+ARG ERLANG_VERSION=28.0.0
 
-FROM elixir:${ELIXIR_VERSION} AS build
+# Build stage
+FROM elixir:${ELIXIR_VERSION} AS builder
 
 ENV MIX_ENV=prod \
-    LANG=C.UTF-8
+    LANG=C.UTF-8 \
+    SHELL=/bin/bash
 
 RUN apt-get update -y && \
     apt-get install -y --no-install-recommends \
@@ -24,53 +29,55 @@ WORKDIR /app
 RUN mix local.hex --force && \
     mix local.rebar --force
 
-# Cache deps
+# Copy mix files and config
 COPY mix.exs mix.lock ./
 COPY config ./config
 
+# Install dependencies (prod only - no dev/test)
 RUN mix deps.get --only prod && \
     mix deps.compile
 
-# Copy application source
-COPY lib ./lib
-COPY assets ./assets
-COPY priv ./priv
+# Copy entire application
+COPY . .
 
-# Compile first to generate phoenix-colocated modules, then build assets and release
-RUN mix compile && \
-    mix assets.deploy && \
-    mix release
+# Compile the application
+RUN mix compile
 
-# Minimal runtime image
-FROM debian:bookworm-slim AS runner
+# Build the release
+RUN mix release
+
+# Runtime stage - minimal image
+FROM debian:bookworm-slim
 
 ENV LANG=C.UTF-8 \
-    MIX_ENV=prod \
-    SHELL=/bin/bash \
-    PHX_SERVER=true
+    SHELL=/bin/bash
 
 RUN apt-get update -y && \
     apt-get install -y --no-install-recommends \
-      openssl \
-      libstdc++6 \
-      sqlite3 \
-      ca-certificates && \
-    rm -rf /var/lib/apt/lists/* && \
-    useradd --create-home --shell /bin/bash app
+      libssl3 \
+      libsqlite3-0 \
+      ca-certificates \
+      curl && \
+    rm -rf /var/lib/apt/lists/*
+
+# Create non-root user for security
+RUN useradd -m -u 1000 app
 
 WORKDIR /app
 
-# Create data directory for SQLite database
-RUN mkdir -p /data && chown -R app:app /data
+# Copy release from builder
+COPY --from=builder --chown=app:app /app/_build/prod/rel/tremtec ./
 
-# Copy release from build stage
-COPY --from=build /app/_build/prod/rel/tremtec ./
+# Create data directory
+RUN mkdir -p /data && chown -R app:app /data
 
 USER app
 
-ENV DATABASE_PATH=${DATABASE_PATH:-/data/tremtec.db}
+EXPOSE 4000
 
-ENTRYPOINT ["/app/bin/tremtec"]
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=10s --retries=3 \
+    CMD curl -f http://localhost:4000/healthz || exit 1
 
-CMD ["start"]
-
+# Run the release
+CMD ["bin/tremtec", "start"]

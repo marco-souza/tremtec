@@ -1,25 +1,53 @@
 services:
-  tremtec:
+  # Development environment with live reload
+  tremtec-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    image: tremtec:dev
+    container_name: tremtec-dev
+    environment:
+      PORT: "4000"
+      PHX_SERVER: "true"
+      PHX_HOST: localhost
+      DATABASE_PATH: /data/tremtec_dev.db
+      MIX_ENV: dev
+    ports:
+      - "4000:4000"
+    volumes:
+      - .:/app
+      - tremtec_dev_data:/data
+    restart: unless-stopped
+    env_file:
+      - .env
+    profiles:
+      - dev
+
+  # Production environment 
+  tremtec-prod:
     build:
       context: .
       dockerfile: Dockerfile
     image: tremtec:latest
+    container_name: tremtec-prod
     environment:
       PORT: "4000"
       PHX_SERVER: "true"
       PHX_HOST: localhost
       DATABASE_PATH: /data/tremtec.db
-      # Generate one with: mix phx.gen.secret
-      SECRET_KEY_BASE: ${SECRET_KEY_BASE}
       MIX_ENV: prod
     ports:
-      - "4000:4000"
+      - "4001:4000"
     volumes:
-      - tremtec_data:/data
+      - tremtec_prod_data:/data
     restart: unless-stopped
+    env_file:
+      - .env.production
+    profiles:
+      - prod
 
 volumes:
-  tremtec_data:
+  tremtec_dev_data:
     driver: local
-
-
+  tremtec_prod_data:
+    driver: local
