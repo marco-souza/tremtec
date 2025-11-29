@@ -36,7 +36,7 @@ defmodule TremtecWeb.Layouts do
   def app(assigns) do
     ~H"""
     <div class="bg-base-100 drawer">
-      <input id="my-drawer-3" type="checkbox" class="drawer-toggle" />
+      <input id="mobile-drawer" type="checkbox" class="drawer-toggle" />
 
       <div class="drawer-content flex flex-col min-h-screen">
         <.navbar current_scope={@current_scope} />
@@ -67,7 +67,8 @@ defmodule TremtecWeb.Layouts do
   def drawer(assigns) do
     ~H"""
     <div class="drawer-side z-50">
-      <label for="my-drawer-3" class="drawer-overlay"></label>
+      <label for="mobile-drawer" class="drawer-overlay"></label>
+
       <ul class="menu p-4 w-80 min-h-full bg-base-200 gap-2 flex flex-col">
         <div class="spacer mt-4 mb-8">
           <.logo />
@@ -77,7 +78,7 @@ defmodule TremtecWeb.Layouts do
           <a
             href={link.href}
             class="text-lg font-medium"
-            onclick="document.getElementById('my-drawer-3').click()"
+            onclick="document.getElementById('mobile-drawer').click()"
           >
             {link.label}
           </a>
@@ -87,11 +88,13 @@ defmodule TremtecWeb.Layouts do
           <a
             href="#contact"
             class="btn btn-primary btn-block mt-4 text-white"
-            onclick="document.getElementById('my-drawer-3').click()"
+            onclick="document.getElementById('mobile-drawer').click()"
           >
             {gettext("Get Started")}
           </a>
         </li>
+
+        <div class="spacer flex-1"/>
 
         <%= if @current_scope && @current_scope.user do %>
           <li class="mt-4 pt-4 border-t border-base-300">
@@ -101,7 +104,7 @@ defmodule TremtecWeb.Layouts do
             <.link
               navigate={~p"/admin/settings"}
               class="text-lg font-medium"
-              onclick="document.getElementById('my-drawer-3').click()"
+              onclick="document.getElementById('mobile-drawer').click()"
             >
               {gettext("Settings")}
             </.link>
@@ -111,7 +114,7 @@ defmodule TremtecWeb.Layouts do
               href={~p"/admin/log-out"}
               method="delete"
               class="text-lg font-medium"
-              onclick="document.getElementById('my-drawer-3').click()"
+              onclick="document.getElementById('mobile-drawer').click()"
             >
               {gettext("Log out")}
             </.link>
@@ -121,7 +124,7 @@ defmodule TremtecWeb.Layouts do
             <.link
               navigate={~p"/admin/register"}
               class="text-lg font-medium"
-              onclick="document.getElementById('my-drawer-3').click()"
+              onclick="document.getElementById('mobile-drawer').click()"
             >
               {gettext("Register")}
             </.link>
@@ -130,14 +133,13 @@ defmodule TremtecWeb.Layouts do
             <.link
               navigate={~p"/admin/log-in"}
               class="text-lg font-medium"
-              onclick="document.getElementById('my-drawer-3').click()"
+              onclick="document.getElementById('mobile-drawer').click()"
             >
               {gettext("Log in")}
             </.link>
           </li>
         <% end %>
 
-        <div class="spacer flex-1" />
         <li><.theme_toggle /></li>
       </ul>
     </div>
@@ -203,7 +205,7 @@ defmodule TremtecWeb.Layouts do
           
     <!-- Mobile Menu Button -->
           <div class="flex items-center md:hidden gap-4">
-            <label for="my-drawer-3" class="btn btn-square btn-ghost">
+            <label for="mobile-drawer" class="btn btn-square btn-ghost">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
