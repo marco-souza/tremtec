@@ -81,6 +81,7 @@ defmodule Tremtec.AccountsTest do
 
     test "validates email domain" do
       {:error, changeset} = Accounts.register_user(%{email: "user@invalid.com"})
+
       assert "must be from an accepted domain: tremtec.com, example.com" in errors_on(changeset).email
     end
 

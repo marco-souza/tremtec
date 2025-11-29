@@ -4,6 +4,7 @@ defmodule TremtecWeb.UserLive.SettingsTest do
   alias Tremtec.Accounts
   import Phoenix.LiveViewTest
   import Tremtec.AccountsFixtures
+  use Gettext, backend: TremtecWeb.Gettext
 
   describe "Settings page" do
     test "renders settings page", %{conn: conn} do
@@ -12,8 +13,8 @@ defmodule TremtecWeb.UserLive.SettingsTest do
         |> log_in_user(user_fixture())
         |> live(~p"/admin/settings")
 
-      assert html =~ "Change Email"
-      assert html =~ "Save Password"
+      assert html =~ gettext("Change Email")
+      assert html =~ gettext("Save Password")
     end
 
     test "redirects if user is not logged in", %{conn: conn} do
@@ -21,7 +22,8 @@ defmodule TremtecWeb.UserLive.SettingsTest do
 
       assert {:redirect, %{to: path, flash: flash}} = redirect
       assert path == ~p"/admin/log-in"
-      assert %{"error" => "You must log in to access this page."} = flash
+      assert %{"error" => message} = flash
+      assert message == gettext("You must log in to access this page.")
     end
 
     test "redirects if user is not in sudo mode", %{conn: conn} do
@@ -33,7 +35,7 @@ defmodule TremtecWeb.UserLive.SettingsTest do
         |> live(~p"/admin/settings")
         |> follow_redirect(conn, ~p"/admin/log-in")
 
-      assert conn.resp_body =~ "You must re-authenticate to access this page."
+      assert conn.resp_body =~ gettext("You must re-authenticate to access this page.")
     end
   end
 
@@ -55,7 +57,9 @@ defmodule TremtecWeb.UserLive.SettingsTest do
         })
         |> render_submit()
 
-      assert result =~ "A link to confirm your email"
+      assert result =~
+               gettext("A link to confirm your email change has been sent to the new address.")
+
       assert Accounts.get_user_by_email(user.email)
     end
 
@@ -70,8 +74,11 @@ defmodule TremtecWeb.UserLive.SettingsTest do
           "user" => %{"email" => "with spaces"}
         })
 
-      assert result =~ "Change Email"
-      assert result =~ "must have the @ sign and no spaces"
+      assert result =~ gettext("Change Email")
+
+      assert result =~
+               Phoenix.HTML.html_escape(dgettext("errors", "must have the @ sign and no spaces"))
+               |> Phoenix.HTML.safe_to_string()
     end
 
     test "renders errors with invalid data (phx-submit)", %{conn: conn, user: user} do
@@ -84,8 +91,11 @@ defmodule TremtecWeb.UserLive.SettingsTest do
         })
         |> render_submit()
 
-      assert result =~ "Change Email"
-      assert result =~ "did not change"
+      assert result =~ gettext("Change Email")
+
+      assert result =~
+               Phoenix.HTML.html_escape(dgettext("errors", "did not change"))
+               |> Phoenix.HTML.safe_to_string()
     end
   end
 
@@ -118,7 +128,7 @@ defmodule TremtecWeb.UserLive.SettingsTest do
       assert get_session(new_password_conn, :user_token) != get_session(conn, :user_token)
 
       assert Phoenix.Flash.get(new_password_conn.assigns.flash, :info) =~
-               "Password updated successfully"
+               gettext("Password updated successfully!")
 
       assert Accounts.get_user_by_email_and_password(user.email, new_password)
     end
@@ -136,9 +146,17 @@ defmodule TremtecWeb.UserLive.SettingsTest do
           }
         })
 
-      assert result =~ "Save Password"
-      assert result =~ "should be at least 12 character(s)"
-      assert result =~ "does not match password"
+      assert result =~ gettext("Save Password")
+
+      assert result =~
+               Phoenix.HTML.html_escape(
+                 dgettext("errors", "should be at least %{count} character(s)", count: 12)
+               )
+               |> Phoenix.HTML.safe_to_string()
+
+      assert result =~
+               Phoenix.HTML.html_escape(dgettext("errors", "does not match password"))
+               |> Phoenix.HTML.safe_to_string()
     end
 
     test "renders errors with invalid data (phx-submit)", %{conn: conn} do
@@ -154,9 +172,17 @@ defmodule TremtecWeb.UserLive.SettingsTest do
         })
         |> render_submit()
 
-      assert result =~ "Save Password"
-      assert result =~ "should be at least 12 character(s)"
-      assert result =~ "does not match password"
+      assert result =~ gettext("Save Password")
+
+      assert result =~
+               Phoenix.HTML.html_escape(
+                 dgettext("errors", "should be at least %{count} character(s)", count: 12)
+               )
+               |> Phoenix.HTML.safe_to_string()
+
+      assert result =~
+               Phoenix.HTML.html_escape(dgettext("errors", "does not match password"))
+               |> Phoenix.HTML.safe_to_string()
     end
   end
 
@@ -179,7 +205,7 @@ defmodule TremtecWeb.UserLive.SettingsTest do
       assert {:live_redirect, %{to: path, flash: flash}} = redirect
       assert path == ~p"/admin/settings"
       assert %{"info" => message} = flash
-      assert message == "Email changed successfully."
+      assert message == gettext("Email changed successfully.")
       refute Accounts.get_user_by_email(user.email)
       assert Accounts.get_user_by_email(email)
 
@@ -188,7 +214,7 @@ defmodule TremtecWeb.UserLive.SettingsTest do
       assert {:live_redirect, %{to: path, flash: flash}} = redirect
       assert path == ~p"/admin/settings"
       assert %{"error" => message} = flash
-      assert message == "Email change link is invalid or it has expired."
+      assert message == gettext("Email change link is invalid or it has expired.")
     end
 
     test "does not update email with invalid token", %{conn: conn, user: user} do
@@ -196,7 +222,7 @@ defmodule TremtecWeb.UserLive.SettingsTest do
       assert {:live_redirect, %{to: path, flash: flash}} = redirect
       assert path == ~p"/admin/settings"
       assert %{"error" => message} = flash
-      assert message == "Email change link is invalid or it has expired."
+      assert message == gettext("Email change link is invalid or it has expired.")
       assert Accounts.get_user_by_email(user.email)
     end
 
@@ -206,7 +232,7 @@ defmodule TremtecWeb.UserLive.SettingsTest do
       assert {:redirect, %{to: path, flash: flash}} = redirect
       assert path == ~p"/admin/log-in"
       assert %{"error" => message} = flash
-      assert message == "You must log in to access this page."
+      assert message == gettext("You must log in to access this page.")
     end
   end
 end

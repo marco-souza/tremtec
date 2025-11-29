@@ -1,28 +1,14 @@
-defmodule TremtecWeb.LandingLive do
+defmodule TremtecWeb.PublicPages.HomeLive do
   use TremtecWeb, :live_view
 
+  require Logger
+
+  @impl true
   def mount(_params, _session, socket) do
-    code_sample = """
-    defmodule HighPerformanceTeam do
-      use Expertise
-
-      def scale(team) do
-        team
-        |> Mentorship.boost()
-        |> Process.optimize()
-        |> Output.maximize()
-      end
-    end
-    """
-
-    socket =
-      socket
-      |> assign(:page_title, gettext("Trem to your Tech Team"))
-      |> assign(:code_sample, code_sample)
-
-    {:ok, socket}
+    {:ok, assign(socket, page_title: gettext("Home"))}
   end
 
+  @impl true
   def render(assigns) do
     ~H"""
     <Layouts.app flash={@flash} current_scope={assigns[:current_scope]}>
@@ -35,7 +21,7 @@ defmodule TremtecWeb.LandingLive do
               <div class="relative p-2 md:p-4 hover:scale-[1.02] duration-500">
                 <img
                   src={~p"/images/hero.png"}
-                  alt="A Trem to your Tech Team"
+                  alt={gettext("A Trem to your Tech Team")}
                   class="rounded-md w-full h-auto object-cover"
                 />
               </div>
@@ -80,11 +66,11 @@ defmodule TremtecWeb.LandingLive do
           </p>
 
           <div class="flex justify-center items-center gap-x-12 gap-y-8 grayscale opacity-50 flex-wrap">
-            <.trust_logo name={gettext("ACME Corp")} />
-            <.trust_logo name={gettext("Stark Ind")} />
-            <.trust_logo name={gettext("Globex")} />
-            <.trust_logo name={gettext("Soylent")} />
-            <.trust_logo name={gettext("Umbrella")} />
+            <.trust_logo name="ACME Corp" />
+            <.trust_logo name="Stark Ind" />
+            <.trust_logo name="Globex" />
+            <.trust_logo name="Soylent" />
+            <.trust_logo name="Umbrella" />
           </div>
         </div>
       </div>
@@ -168,7 +154,16 @@ defmodule TremtecWeb.LandingLive do
                 <div class="w-3 h-3 rounded-full bg-warning"></div>
                 <div class="w-3 h-3 rounded-full bg-success"></div>
               </div>
-              <pre><code>{@code_sample}</code></pre>
+              <pre><code>defmodule HighPerformanceTeam do
+      use Expertise
+
+      def scale(team) do
+        team
+        |> Mentorship.boost()
+        |> Process.optimize()
+        |> Output.maximize()
+      end
+      end</code></pre>
             </div>
           </.bento_card>
         </div>
@@ -365,23 +360,18 @@ defmodule TremtecWeb.LandingLive do
   slot :extra
 
   defp service_card_content(assigns) do
-    # Define color-based classes explicitly to ensure Tailwind picks them up
-    # or assume they are safe because they are used elsewhere.
-    # For safety, we can map them or just use style if we are worried,
-    # but here I will rely on string interpolation and the fact that these colors are standard themes.
-    # However, `bg-#{@color}/10` might be tricky for scanner if not seen.
-    # Let's use a map for safety or just stick to interpolation if we trust the environment.
-    # Since I can't easily map all colors without verbose code, I'll use interpolation.
-    # Note: In Phoenix 1.7+, string interpolation in classes is fine, but Tailwind JIT needs to see full strings.
-    # If `bg-primary/10` is not in the code, it won't be generated.
-    # `bg-primary/10` IS in the code in the bento_card call in my previous step, so it should be fine if I replaced it.
-    # WAIT. If I replace the literal `bg-primary/10` with `bg-#{@color}/10`, the JIT scanner WON'T find `bg-primary/10` anymore (unless it's used elsewhere).
-    # It IS used in `process_step` arguments in my new code! So it's safe.
+    color_map = %{
+      "primary" => %{bg: "bg-primary/10", text: "text-primary"},
+      "secondary" => %{bg: "bg-secondary/10", text: "text-secondary"},
+      "accent" => %{bg: "bg-accent/10", text: "text-accent"}
+    }
+
+    assigns = assign(assigns, :colors, color_map[assigns.color])
 
     ~H"""
     <div>
-      <div class={["p-3 rounded-xl w-fit mb-6", "bg-#{@color}/10"]}>
-        <.icon name={@icon} class={"w-8 h-8 text-#{@color}"} />
+      <div class={["p-3 rounded-xl w-fit mb-6", @colors.bg]}>
+        <.icon name={@icon} class={"w-8 h-8 #{@colors.text}"} />
       </div>
       <h3 class={["font-bold text-base-content mb-4", @title_class]}>{@title}</h3>
       <p class="text-base-content/70 text-lg leading-relaxed max-w-lg">

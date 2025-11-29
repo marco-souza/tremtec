@@ -22,18 +22,6 @@ defmodule TremtecWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", TremtecWeb do
-    pipe_through :browser
-
-    live "/", LandingLive
-    live "/contact", ContactLive
-
-    scope "/admin" do
-      live "/messages", Admin.Messages.IndexLive
-      live "/messages/:id", Admin.Messages.ShowLive
-    end
-  end
-
   # Other scopes may use custom stacks.
   # scope "/api", TremtecWeb do
   #   pipe_through :api
@@ -62,9 +50,12 @@ defmodule TremtecWeb.Router do
     pipe_through [:browser, :require_authenticated_user]
 
     live_session :require_authenticated_user,
-      on_mount: [{TremtecWeb.UserAuth, :require_authenticated}] do
+      on_mount: [{TremtecWeb.UserAuth, :require_authenticated}, TremtecWeb.RestoreLocale] do
       live "/admin/settings", UserLive.Settings, :edit
       live "/admin/settings/confirm-email/:token", UserLive.Settings, :confirm_email
+
+      live "/admin/messages", Admin.Messages.IndexLive
+      live "/admin/messages/:id", Admin.Messages.ShowLive
     end
 
     post "/admin/update-password", UserSessionController, :update_password
@@ -74,7 +65,10 @@ defmodule TremtecWeb.Router do
     pipe_through [:browser]
 
     live_session :current_user,
-      on_mount: [{TremtecWeb.UserAuth, :mount_current_scope}] do
+      on_mount: [{TremtecWeb.UserAuth, :mount_current_scope}, TremtecWeb.RestoreLocale] do
+      live "/", PublicPages.HomeLive
+      live "/contact", PublicPages.ContactLive
+
       live "/admin/register", UserLive.Registration, :new
       live "/admin/log-in", UserLive.Login, :new
       live "/admin/log-in/:token", UserLive.Confirmation, :new
