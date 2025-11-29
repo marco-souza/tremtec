@@ -13,25 +13,6 @@ live_view_signing_salt =
 
 config :tremtec, TremtecWeb.Endpoint, live_view: [signing_salt: live_view_signing_salt]
 
-# Admin credentials - required in all environments
-admin_user =
-  System.get_env("ADMIN_USER") ||
-    raise """
-    environment variable ADMIN_USER is missing.
-    Set it before starting the application.
-    """
-
-admin_password =
-  System.get_env("ADMIN_PASS") ||
-    raise """
-    environment variable ADMIN_PASS is missing.
-    Set it before starting the application.
-    """
-
-config :tremtec,
-  admin_user: admin_user,
-  admin_password: admin_password
-
 # config/runtime.exs is executed for all environments, including
 # during releases. It is executed after compilation and before the
 # system starts, so it is typically used to load production configuration

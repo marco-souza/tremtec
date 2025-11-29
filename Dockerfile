@@ -37,14 +37,15 @@ COPY config ./config
 RUN mix deps.get --only prod && \
     mix deps.compile
 
-# Copy entire application
-COPY . .
+# Copy application source
+COPY lib ./lib
+COPY assets ./assets
+COPY priv ./priv
 
-# Compile the application
-RUN mix compile
-
-# Build the release
-RUN mix release
+# Compile first to generate phoenix-colocated modules, then build assets and release
+RUN mix compile && \
+    mix assets.deploy && \
+    mix release
 
 # Runtime stage - minimal image
 FROM debian:bookworm-slim
@@ -68,6 +69,10 @@ WORKDIR /app
 # Copy release from builder
 COPY --from=builder --chown=app:app /app/_build/prod/rel/tremtec ./
 
+# Copy entrypoint script
+COPY --chown=app:app scripts/docker_entrypoint.sh ./bin/docker_entrypoint.sh
+RUN chmod +x ./bin/docker_entrypoint.sh
+
 # Create data directory
 RUN mkdir -p /data && chown -R app:app /data
 
@@ -77,7 +82,8 @@ EXPOSE 4000
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=3s --start-period=10s --retries=3 \
-    CMD curl -f http://localhost:4000/healthz || exit 1
+    CMD curl -f http://localhost:4000/api/healthz || exit 1
 
-# Run the release
-CMD ["bin/tremtec", "start"]
+ENTRYPOINT ["/app/bin/docker_entrypoint.sh"]
+
+CMD ["start"]

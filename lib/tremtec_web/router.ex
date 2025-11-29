@@ -23,9 +23,12 @@ defmodule TremtecWeb.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", TremtecWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", TremtecWeb do
+    pipe_through :api
+
+    # health check endpoint
+    get "/healthz", HealthcheckController, :healthz
+  end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
   if Application.compile_env(:tremtec, :dev_routes) do
