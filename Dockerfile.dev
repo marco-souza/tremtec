@@ -12,7 +12,6 @@ ENV MIX_ENV=dev \
 RUN apt-get update -y && \
     apt-get install -y --no-install-recommends \
       build-essential \
-      watchman \
       git \
       curl \
       ca-certificates \
@@ -41,6 +40,10 @@ COPY . .
 
 # Create data directory for SQLite database
 RUN mkdir -p /data && chmod 755 /data
+
+# install watchman
+RUN apt-get update -y && \
+    apt-get install -y --no-install-recommends watchman
 
 ENV DATABASE_PATH=${DATABASE_PATH:-/data/tremtec_dev.db}
 
