@@ -42,19 +42,24 @@ defmodule TremtecWeb.Admin.MessagesLive.IndexLive do
                 </tr>
               </thead>
               <tbody>
-                <tr :for={message <- @messages} class="border-b border-base-200 hover:bg-base-200/50">
-                  <td class="font-medium">{message.name}</td>
-                  <td class="text-sm text-base-content/70">{message.email}</td>
-                  <td class="text-sm max-w-xs truncate">{message.message}</td>
+                <tr :for={message <- @messages} class="border-b border-base-200 hover:bg-base-200/50 cursor-pointer">
+                  <td class="font-medium">
+                    <.link navigate={~p"/admin/messages/#{message.id}"} class="link link-hover">
+                      {message.name}
+                    </.link>
+                  </td>
+                  <td class="text-sm text-base-content/70">
+                    <.link navigate={~p"/admin/messages/#{message.id}"} class="link link-hover">
+                      {message.email}
+                    </.link>
+                  </td>
+                  <td class="text-sm max-w-xs truncate">
+                    <.link navigate={~p"/admin/messages/#{message.id}"} class="link link-hover">
+                      {message.message}
+                    </.link>
+                  </td>
                   <td class="text-center">
-                    <span class={[
-                      "badge",
-                      message.read && "badge-success",
-                      !message.read && "badge-warning"
-                    ]}>
-                      {message.read && gettext("Read")}
-                      {!message.read && gettext("Unread")}
-                    </span>
+                    <.status_badge read={message.read} />
                   </td>
                   <td class="text-sm text-base-content/60">
                     {Calendar.strftime(message.inserted_at, "%Y-%m-%d %H:%M")}
@@ -259,5 +264,17 @@ defmodule TremtecWeb.Admin.MessagesLive.IndexLive do
       total_count: total_count,
       total_pages: total_pages
     )
+  end
+
+  defp status_badge(%{read: true} = assigns) do
+    ~H"""
+    <span class="badge badge-success">{gettext("Read")}</span>
+    """
+  end
+
+  defp status_badge(%{read: false} = assigns) do
+    ~H"""
+    <span class="badge badge-warning">{gettext("Unread")}</span>
+    """
   end
 end

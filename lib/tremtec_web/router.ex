@@ -53,10 +53,14 @@ defmodule TremtecWeb.Router do
     pipe_through [:browser, :require_authenticated_user]
 
     live_session :require_authenticated_user,
-      on_mount: [{TremtecWeb.UserAuth, :require_authenticated}, TremtecWeb.RestoreLocale] do
+      on_mount: [
+        {TremtecWeb.UserAuth, :require_authenticated},
+        {TremtecWeb.UserAuth, :require_sudo_mode},
+        TremtecWeb.RestoreLocale
+      ] do
       live "/admin/dashboard", Admin.DashboardLive
-      live "/admin/settings", UserLive.Settings, :edit
-      live "/admin/settings/confirm-email/:token", UserLive.Settings, :confirm_email
+      live "/admin/settings", Admin.Settings, :edit
+      live "/admin/settings/confirm-email/:token", Admin.Settings, :confirm_email
 
       live "/admin/messages", Admin.MessagesLive.IndexLive
       live "/admin/messages/:id", Admin.MessagesLive.ShowLive
@@ -65,6 +69,8 @@ defmodule TremtecWeb.Router do
 
     post "/admin/update-password", UserSessionController, :update_password
   end
+
+  ## Public routes
 
   scope "/", TremtecWeb do
     pipe_through [:browser]

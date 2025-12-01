@@ -1,7 +1,5 @@
-defmodule TremtecWeb.UserLive.Settings do
+defmodule TremtecWeb.Admin.Settings do
   use TremtecWeb, :live_view
-
-  on_mount {TremtecWeb.UserAuth, :require_sudo_mode}
 
   alias Tremtec.Accounts
 
