@@ -46,6 +46,9 @@ config :tremtec, TremtecWeb.Endpoint,
 # at the `config/runtime.exs`.
 config :tremtec, Tremtec.Mailer, adapter: Swoosh.Adapters.Local
 
+# disable build warning
+config :tesla, disable_deprecated_builder_warning: true
+
 # Configure esbuild (the version is required)
 config :esbuild,
   version: "0.25.4",

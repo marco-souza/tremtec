@@ -6,20 +6,20 @@ services:
       dockerfile: Dockerfile.dev
     image: tremtec:dev
     container_name: tremtec-dev
+    ports:
+      - "4000:4000"
+    env_file:
+      - .env
     environment:
       PORT: "4000"
       PHX_SERVER: "true"
-      PHX_HOST: localhost
+      PHX_HOST: "0.0.0.0"
       DATABASE_PATH: /data/tremtec_dev.db
       MIX_ENV: dev
-    ports:
-      - "4000:4000"
     volumes:
       - .:/app
       - tremtec_dev_data:/data
     restart: unless-stopped
-    env_file:
-      - .env
     profiles:
       - dev
 
