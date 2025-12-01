@@ -1,6 +1,7 @@
 defmodule Tremtec.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
+  use Gettext, backend: TremtecWeb.Gettext
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
@@ -62,7 +63,7 @@ defmodule Tremtec.Accounts.User do
         if valid? do
           []
         else
-          [email: "must be from an accepted domain: #{Enum.join(accepted_domains, ", ")}"]
+          [email: dgettext("errors", "must be from an accepted domain: %{domains}", domains: Enum.join(accepted_domains, ", "))]
         end
       end)
     else
@@ -72,7 +73,7 @@ defmodule Tremtec.Accounts.User do
 
   defp validate_email_changed(changeset) do
     if get_field(changeset, :email) && get_change(changeset, :email) == nil do
-      add_error(changeset, :email, "did not change")
+      add_error(changeset, :email, dgettext("errors", "did not change"))
     else
       changeset
     end
@@ -96,7 +97,7 @@ defmodule Tremtec.Accounts.User do
   def password_changeset(user, attrs, opts \\ []) do
     user
     |> cast(attrs, [:password])
-    |> validate_confirmation(:password, message: "does not match password")
+    |> validate_confirmation(:password, message: dgettext("errors", "does not match password"))
     |> validate_password(opts)
   end
 
