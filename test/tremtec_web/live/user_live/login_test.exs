@@ -10,7 +10,7 @@ defmodule TremtecWeb.UserLive.LoginTest do
       {:ok, _lv, html} = live(conn, ~p"/admin/log-in")
 
       assert html =~ gettext("Log in")
-      assert html =~ gettext("Register")
+      assert html =~ gettext("Sign up")
       assert html =~ gettext("Log in with email")
     end
   end

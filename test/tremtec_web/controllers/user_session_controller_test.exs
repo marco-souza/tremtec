@@ -26,7 +26,7 @@ defmodule TremtecWeb.UserSessionControllerTest do
       conn = get(conn, ~p"/")
       response = html_response(conn, 200)
       assert response =~ user.email
-      assert response =~ ~p"/admin/settings"
+      assert response =~ ~p"/admin/dashboard"
       assert response =~ ~p"/admin/log-out"
     end
 
@@ -90,7 +90,7 @@ defmodule TremtecWeb.UserSessionControllerTest do
       conn = get(conn, ~p"/")
       response = html_response(conn, 200)
       assert response =~ user.email
-      assert response =~ ~p"/admin/settings"
+      assert response =~ ~p"/admin/dashboard"
       assert response =~ ~p"/admin/log-out"
     end
 
@@ -116,7 +116,7 @@ defmodule TremtecWeb.UserSessionControllerTest do
       conn = get(conn, ~p"/")
       response = html_response(conn, 200)
       assert response =~ user.email
-      assert response =~ ~p"/admin/settings"
+      assert response =~ ~p"/admin/dashboard"
       assert response =~ ~p"/admin/log-out"
     end
 
