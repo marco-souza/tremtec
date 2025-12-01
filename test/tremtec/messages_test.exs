@@ -70,14 +70,14 @@ defmodule Tremtec.MessagesTest do
     end
   end
 
-  describe "search_admin_messages/1" do
+  describe "search_admin_messages/3" do
     test "searches messages by name" do
       msg1 = contact_message_fixture(%{name: "John Doe"})
       _msg2 = contact_message_fixture(%{name: "Jane Smith"})
 
-      results = Messages.search_admin_messages("John")
+      {results, total} = Messages.search_admin_messages("John", 1, 10)
 
-      assert Enum.count(results) >= 1
+      assert total >= 1
       assert Enum.any?(results, fn m -> m.id == msg1.id end)
     end
 
@@ -85,7 +85,7 @@ defmodule Tremtec.MessagesTest do
       msg1 = contact_message_fixture(%{email: "john@example.com"})
       _msg2 = contact_message_fixture(%{email: "jane@example.com"})
 
-      results = Messages.search_admin_messages("john@example.com")
+      {results, _total} = Messages.search_admin_messages("john@example.com", 1, 10)
 
       assert Enum.any?(results, fn m -> m.id == msg1.id end)
     end
@@ -94,7 +94,7 @@ defmodule Tremtec.MessagesTest do
       msg1 = contact_message_fixture(%{message: "I need help with project X"})
       _msg2 = contact_message_fixture(%{message: "Another message"})
 
-      results = Messages.search_admin_messages("project X")
+      {results, _total} = Messages.search_admin_messages("project X", 1, 10)
 
       assert Enum.any?(results, fn m -> m.id == msg1.id end)
     end
@@ -105,9 +105,20 @@ defmodule Tremtec.MessagesTest do
 
       {:ok, _deleted_msg} = Messages.delete_admin_message(msg1)
 
-      results = Messages.search_admin_messages("Test")
+      {results, _total} = Messages.search_admin_messages("Test", 1, 10)
 
       refute Enum.any?(results, fn m -> m.id == msg1.id end)
+    end
+
+    test "respects pagination" do
+      _msg1 = contact_message_fixture(%{name: "Pagination Test"})
+      _msg2 = contact_message_fixture(%{name: "Pagination Test"})
+      _msg3 = contact_message_fixture(%{name: "Pagination Test"})
+
+      {results, total} = Messages.search_admin_messages("Pagination", 1, 2)
+
+      assert total >= 3
+      assert Enum.count(results) == 2
     end
   end
 

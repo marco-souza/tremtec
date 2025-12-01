@@ -1,6 +1,10 @@
 defmodule TremtecWeb.Admin.DashboardLive do
   use TremtecWeb, :live_view
 
+  alias Tremtec.Date
+  alias Tremtec.Messages
+  alias Tremtec.Accounts
+
   def render(assigns) do
     ~H"""
     <Layouts.app flash={@flash} current_scope={@current_scope} is_admin={true}>
@@ -112,10 +116,10 @@ defmodule TremtecWeb.Admin.DashboardLive do
   end
 
   def mount(_params, _session, socket) do
-    {_total_users, total_users_count} = Tremtec.Accounts.list_users(1, 1000)
-    {_messages, total_messages_count} = Tremtec.Messages.list_admin_messages(1, 1000)
-    unread_messages = Tremtec.Messages.count_unread_messages()
-    last_message_date = Tremtec.Messages.get_last_message_date()
+    {_total_users, total_users_count} = Accounts.list_users(1, 1000)
+    {_messages, total_messages_count} = Messages.list_admin_messages(1, 1000)
+    unread_messages = Messages.count_unread_messages()
+    last_message_date = Messages.get_last_message_date()
 
     {:ok,
      socket
@@ -123,47 +127,7 @@ defmodule TremtecWeb.Admin.DashboardLive do
        total_users: total_users_count,
        total_messages: total_messages_count,
        unread_messages: unread_messages,
-       last_message_date: format_date(last_message_date)
+       last_message_date: Date.relative_date(last_message_date)
      )}
-  end
-
-  defp format_date(nil), do: nil
-
-  defp format_date(date) when is_struct(date, DateTime) do
-    format_relative_time(date)
-  end
-
-  defp format_date(date) when is_struct(date, NaiveDateTime) do
-    # Convert NaiveDateTime to DateTime for comparison
-    datetime = DateTime.from_naive!(date, "Etc/UTC")
-    format_relative_time(datetime)
-  end
-
-  defp format_date(_), do: nil
-
-  defp format_relative_time(date) do
-    now = DateTime.utc_now()
-    diff_seconds = DateTime.diff(now, date, :second)
-
-    cond do
-      diff_seconds < 60 ->
-        gettext("Just now")
-
-      diff_seconds < 3600 ->
-        minutes = div(diff_seconds, 60)
-        ngettext("%{count} minute ago", "%{count} minutes ago", minutes, count: minutes)
-
-      diff_seconds < 86400 ->
-        hours = div(diff_seconds, 3600)
-        ngettext("%{count} hour ago", "%{count} hours ago", hours, count: hours)
-
-      diff_seconds < 604_800 ->
-        days = div(diff_seconds, 86400)
-        ngettext("%{count} day ago", "%{count} days ago", days, count: days)
-
-      true ->
-        weeks = div(diff_seconds, 604_800)
-        ngettext("%{count} week ago", "%{count} weeks ago", weeks, count: weeks)
-    end
   end
 end

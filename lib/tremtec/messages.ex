@@ -36,6 +36,26 @@ defmodule Tremtec.Messages do
   @spec get_contact_message!(pos_integer()) :: ContactMessage.t()
   def get_contact_message!(id), do: Repo.get!(ContactMessage, id)
 
+  @spec get_contact_message(pos_integer()) :: {:ok, ContactMessage.t()} | :error
+  def get_contact_message(id) do
+    case Repo.get(ContactMessage, id) do
+      %ContactMessage{} = message -> {:ok, message}
+      nil -> :error
+    end
+  end
+
+  @doc """
+  Updates a contact message with the given attributes.
+
+  ## Examples
+
+      iex> update_contact_message(message, %{read: true})
+      {:ok, %ContactMessage{}}
+
+      iex> update_contact_message(message, %{message: nil})
+      {:error, changeset}
+
+  """
   @spec update_contact_message(ContactMessage.t(), map()) ::
           {:ok, ContactMessage.t()} | {:error, Ecto.Changeset.t()}
   def update_contact_message(%ContactMessage{} = msg, attrs) do
@@ -73,34 +93,40 @@ defmodule Tremtec.Messages do
   end
 
   @doc """
-  Searches contact messages by name, email, or message content.
+  Searches contact messages by name, email, or message content with pagination.
 
-  Excludes soft-deleted messages.
+  Excludes soft-deleted messages. Pagination happens at database level for optimal performance.
 
   ## Examples
 
-      iex> search_admin_messages("john")
-      [%ContactMessage{}, ...]
+      iex> search_admin_messages("john", 1, 10)
+      {[%ContactMessage{}, ...], total_count}
 
-      iex> search_admin_messages("john@example.com")
-      [%ContactMessage{}, ...]
-
-      iex> search_admin_messages("hello world")
-      [%ContactMessage{}, ...]
+      iex> search_admin_messages("john@example.com", 2, 10)
+      {[%ContactMessage{}, ...], total_count}
 
   """
-  def search_admin_messages(query_str) when is_binary(query_str) do
+  @spec search_admin_messages(String.t(), pos_integer(), pos_integer()) ::
+          {[ContactMessage.t()], non_neg_integer()}
+  def search_admin_messages(query_str, page \\ 1, per_page \\ 10)
+      when is_binary(query_str) and page > 0 and per_page > 0 do
     like_query = "%#{String.downcase(query_str)}%"
+    offset = (page - 1) * per_page
 
-    from(m in ContactMessage,
-      where:
-        is_nil(m.deleted_at) and
-          (like(fragment("lower(?)", m.name), ^like_query) or
-             like(fragment("lower(?)", m.email), ^like_query) or
-             like(fragment("lower(?)", m.message), ^like_query)),
-      order_by: [desc: m.inserted_at]
-    )
-    |> Repo.all()
+    query =
+      from(m in ContactMessage,
+        where:
+          is_nil(m.deleted_at) and
+            (like(fragment("lower(?)", m.name), ^like_query) or
+               like(fragment("lower(?)", m.email), ^like_query) or
+               like(fragment("lower(?)", m.message), ^like_query)),
+        order_by: [desc: m.inserted_at]
+      )
+
+    total_count = Repo.aggregate(query, :count)
+    messages = query |> limit(^per_page) |> offset(^offset) |> Repo.all()
+
+    {messages, total_count}
   end
 
   @doc """

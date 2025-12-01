@@ -516,9 +516,9 @@ defmodule TremtecWeb.CoreComponents do
 
   @doc """
   Renders a status badge component.
-  
+
   ## Examples
-  
+
       <.status_badge status={true} />
       <.status_badge status={false} label_true="Confirmed" label_false="Pending" />
   """

@@ -2,6 +2,7 @@ defmodule TremtecWeb.Admin.MessagesLive.ShowLive do
   use TremtecWeb, :live_view
 
   alias Tremtec.Messages
+  alias Tremtec.Date
 
   def render(assigns) do
     ~H"""
@@ -28,13 +29,17 @@ defmodule TremtecWeb.Admin.MessagesLive.ShowLive do
               <div>
                 <p class="text-sm text-base-content/60 mb-1">{gettext("Received")}</p>
                 <p class="font-medium">
-                  {Calendar.strftime(@message.inserted_at, "%Y-%m-%d %H:%M:%S")}
+                  {Date.format_full_date(@message.inserted_at)}
                 </p>
               </div>
 
               <div>
                 <p class="text-sm text-base-content/60 mb-1">{gettext("Status")}</p>
-                <.status_badge status={@message.read} label_true={gettext("Read")} label_false={gettext("Unread")} />
+                <.status_badge
+                  status={@message.read}
+                  label_true={gettext("Read")}
+                  label_false={gettext("Unread")}
+                />
               </div>
             </div>
             
@@ -100,23 +105,47 @@ defmodule TremtecWeb.Admin.MessagesLive.ShowLive do
   end
 
   def mount(%{"id" => id}, _session, socket) do
-    message = Messages.get_contact_message!(id)
+    case Messages.get_contact_message(id) do
+      {:ok, message} ->
+        {:ok,
+         socket
+         |> assign(
+           message: message,
+           page_title: gettext("Message"),
+           show_delete_modal: false
+         )}
 
-    {:ok,
-     socket
-     |> assign(
-       message: message,
-       page_title: gettext("Message"),
-       show_delete_modal: false
-     )}
+      :error ->
+        {:error, redirect(socket, to: ~p"/admin/messages")}
+    end
   end
 
   def handle_event("toggle_read", _params, socket) do
     message = socket.assigns.message
-    Messages.mark_message_read(message, !message.read)
-    updated_message = Messages.get_contact_message!(message.id)
 
-    {:noreply, socket |> assign(message: updated_message)}
+    case Messages.mark_message_read(message, !message.read) do
+      {:ok, _updated} ->
+        case Messages.get_contact_message(message.id) do
+          {:ok, refreshed_message} ->
+            status_msg =
+              if message.read,
+                do: gettext("Marked as unread"),
+                else: gettext("Marked as read")
+
+            socket =
+              socket
+              |> assign(message: refreshed_message)
+              |> put_flash(:info, status_msg)
+
+            {:noreply, socket}
+
+          :error ->
+            {:noreply, put_flash(socket, :error, gettext("Message not found"))}
+        end
+
+      {:error, _changeset} ->
+        {:noreply, put_flash(socket, :error, gettext("Failed to update message status"))}
+    end
   end
 
   def handle_event("show_delete_modal", _params, socket) do
@@ -129,8 +158,17 @@ defmodule TremtecWeb.Admin.MessagesLive.ShowLive do
 
   def handle_event("confirm_delete", _params, socket) do
     message = socket.assigns.message
-    Messages.delete_admin_message(message)
 
-    {:noreply, push_navigate(socket, to: ~p"/admin/messages")}
+    case Messages.delete_admin_message(message) do
+      {:ok, _deleted} ->
+        socket =
+          socket
+          |> put_flash(:info, gettext("Message deleted successfully"))
+
+        {:noreply, push_navigate(socket, to: ~p"/admin/messages")}
+
+      {:error, _changeset} ->
+        {:noreply, put_flash(socket, :error, gettext("Failed to delete message"))}
+    end
   end
 end

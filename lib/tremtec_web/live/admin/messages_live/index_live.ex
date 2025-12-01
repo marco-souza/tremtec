@@ -1,6 +1,7 @@
 defmodule TremtecWeb.Admin.MessagesLive.IndexLive do
   use TremtecWeb, :live_view
 
+  alias Tremtec.Date
   alias Tremtec.Messages
 
   @per_page 10
@@ -24,6 +25,15 @@ defmodule TremtecWeb.Admin.MessagesLive.IndexLive do
                 placeholder={gettext("Search by name, email, or message content")}
               />
             </div>
+            <button
+              :if={@search != ""}
+              type="button"
+              phx-click="clear_search"
+              class="btn btn-sm btn-ghost"
+              title={gettext("Clear search")}
+            >
+              <.icon name="hero-x-mark" class="w-4 h-4" />
+            </button>
           </.form>
         </div>
         
@@ -42,7 +52,10 @@ defmodule TremtecWeb.Admin.MessagesLive.IndexLive do
                 </tr>
               </thead>
               <tbody>
-                <tr :for={message <- @messages} class="border-b border-base-200 hover:bg-base-200/50 cursor-pointer">
+                <tr
+                  :for={message <- @messages}
+                  class="border-b border-base-200 hover:bg-base-200/50 cursor-pointer"
+                >
                   <td class="font-medium">
                     <.link navigate={~p"/admin/messages/#{message.id}"} class="link link-hover">
                       {message.name}
@@ -59,10 +72,14 @@ defmodule TremtecWeb.Admin.MessagesLive.IndexLive do
                     </.link>
                   </td>
                   <td class="text-center">
-                    <.status_badge status={message.read} label_true={gettext("Read")} label_false={gettext("Unread")} />
+                    <.status_badge
+                      status={message.read}
+                      label_true={gettext("Read")}
+                      label_false={gettext("Unread")}
+                    />
                   </td>
                   <td class="text-sm text-base-content/60">
-                    {Calendar.strftime(message.inserted_at, "%Y-%m-%d %H:%M")}
+                    {Date.format_full_date(message.inserted_at)}
                   </td>
                   <td class="text-center">
                     <div class="flex gap-2 justify-center">
@@ -183,7 +200,16 @@ defmodule TremtecWeb.Admin.MessagesLive.IndexLive do
   def handle_event("search", %{"search" => %{"q" => q}}, socket) do
     socket =
       socket
-      |> assign(search: q, page: 1)
+      |> assign(search: q, page: 1, search_form: to_form(%{"q" => q}, as: :search))
+      |> load_messages()
+
+    {:noreply, socket}
+  end
+
+  def handle_event("clear_search", _params, socket) do
+    socket =
+      socket
+      |> assign(search: "", page: 1, search_form: to_form(%{"q" => ""}, as: :search))
       |> load_messages()
 
     {:noreply, socket}
@@ -208,12 +234,29 @@ defmodule TremtecWeb.Admin.MessagesLive.IndexLive do
   end
 
   def handle_event("toggle_read", %{"id" => id}, socket) do
-    message = Messages.get_contact_message!(id)
-    Messages.mark_message_read(message, !message.read)
+    case Messages.get_contact_message(id) do
+      {:ok, message} ->
+        case Messages.mark_message_read(message, !message.read) do
+          {:ok, _updated} ->
+            status_msg =
+              if message.read,
+                do: gettext("Marked as unread"),
+                else: gettext("Marked as read")
 
-    socket = socket |> load_messages()
+            socket =
+              socket
+              |> load_messages()
+              |> put_flash(:info, status_msg)
 
-    {:noreply, socket}
+            {:noreply, socket}
+
+          {:error, _changeset} ->
+            {:noreply, put_flash(socket, :error, gettext("Failed to update message status"))}
+        end
+
+      :error ->
+        {:noreply, put_flash(socket, :error, gettext("Message not found"))}
+    end
   end
 
   def handle_event("show_delete_modal", %{"id" => id}, socket) do
@@ -225,15 +268,30 @@ defmodule TremtecWeb.Admin.MessagesLive.IndexLive do
   end
 
   def handle_event("confirm_delete", %{"id" => id}, socket) do
-    message = Messages.get_contact_message!(id)
-    Messages.delete_admin_message(message)
+    case Messages.get_contact_message(id) do
+      {:ok, message} ->
+        case Messages.delete_admin_message(message) do
+          {:ok, _deleted} ->
+            socket =
+              socket
+              |> assign(show_delete_modal: false, delete_modal_id: nil)
+              |> load_messages()
+              |> put_flash(:info, gettext("Message deleted successfully"))
 
-    socket =
-      socket
-      |> assign(show_delete_modal: false, delete_modal_id: nil)
-      |> load_messages()
+            {:noreply, socket}
 
-    {:noreply, socket}
+          {:error, _changeset} ->
+            {:noreply, put_flash(socket, :error, gettext("Failed to delete message"))}
+        end
+
+      :error ->
+        socket =
+          socket
+          |> assign(show_delete_modal: false, delete_modal_id: nil)
+          |> put_flash(:warning, gettext("Message was already deleted"))
+
+        {:noreply, socket}
+    end
   end
 
   defp load_messages(socket) do
@@ -244,16 +302,7 @@ defmodule TremtecWeb.Admin.MessagesLive.IndexLive do
       if search == "" or search == nil do
         Messages.list_admin_messages(page, @per_page)
       else
-        all_results = Messages.search_admin_messages(search)
-        offset = (page - 1) * @per_page
-        total = Enum.count(all_results)
-
-        paginated =
-          all_results
-          |> Enum.drop(offset)
-          |> Enum.take(@per_page)
-
-        {paginated, total}
+        Messages.search_admin_messages(search, page, @per_page)
       end
 
     total_pages = ceil(total_count / @per_page)
@@ -265,5 +314,4 @@ defmodule TremtecWeb.Admin.MessagesLive.IndexLive do
       total_pages: total_pages
     )
   end
-
 end
