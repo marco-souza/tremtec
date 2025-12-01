@@ -17,7 +17,7 @@ defmodule TremtecWeb.Admin.UsersLive.IndexLive do
           
     <!-- Search -->
           <.form for={@search_form} phx-change="search" class="flex gap-2">
-            <div class="flex-1 max-w-xs">
+            <div class="flex-1">
               <.input
                 field={@search_form[:q]}
                 type="text"

@@ -66,7 +66,7 @@ defmodule TremtecWeb.Admin.MessagesLive.IndexLive do
                       {message.email}
                     </.link>
                   </td>
-                  <td class="text-sm max-w-xs truncate">
+                  <td class="text-sm truncate">
                     <.link navigate={~p"/admin/messages/#{message.id}"} class="link link-hover">
                       {message.message}
                     </.link>
