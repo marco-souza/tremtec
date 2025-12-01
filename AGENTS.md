@@ -212,10 +212,12 @@ Task.async_stream(items, &process/1, timeout: :infinity)
 > **Full Documentation**: See `docs/I18N.md`.
 
 - **Rule**: All user-facing strings must use `gettext("...")`. Errors use `dgettext("errors", "...")`.
+- **Tests**: When testing HTML content with assertions like `assert html =~ "..."`, use `gettext("...")` to compare translated strings. Add `use Gettext, backend: TremtecWeb.Gettext` at the top of test modules.
 - **Workflow**:
   1. Code: `<.button>{gettext("Save")}</.button>`
-  2. Extract: `mix gettext.extract --merge`
-  3. Translate: Edit `priv/gettext/**/*.po`
+  2. Tests: `assert html =~ gettext("Save")`
+  3. Extract: `mix gettext.extract --merge`
+  4. Translate: Edit `priv/gettext/**/*.po`
   <!-- i18n-end -->
 
 <!-- usage-rules-end -->
