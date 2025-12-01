@@ -58,8 +58,9 @@ defmodule TremtecWeb.Router do
       live "/admin/settings", UserLive.Settings, :edit
       live "/admin/settings/confirm-email/:token", UserLive.Settings, :confirm_email
 
-      live "/admin/messages", Admin.Messages.IndexLive
-      live "/admin/messages/:id", Admin.Messages.ShowLive
+      live "/admin/messages", Admin.MessagesLive.IndexLive
+      live "/admin/messages/:id", Admin.MessagesLive.ShowLive
+      live "/admin/users", Admin.UsersLive.IndexLive
     end
 
     post "/admin/update-password", UserSessionController, :update_password

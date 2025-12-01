@@ -5,6 +5,9 @@ defmodule TremtecWeb.Layouts do
   """
   use TremtecWeb, :html
 
+  import TremtecWeb.Components.AdminSidebar
+  import TremtecWeb.Components.AdminNavMobile
+
   # Embed all files in layouts/* within this module.
   # The default root.html.heex file contains the HTML
   # skeleton of your application, namely HTML headers
@@ -31,24 +34,44 @@ defmodule TremtecWeb.Layouts do
     default: nil,
     doc: "the current [scope](https://hexdocs.pm/phoenix/scopes.html)"
 
+  attr :is_admin, :boolean,
+    default: false,
+    doc: "whether this is an admin page"
+
   slot :inner_block, required: true
 
   def app(assigns) do
     ~H"""
-    <div class="bg-base-100 drawer">
-      <input id="mobile-drawer" type="checkbox" class="drawer-toggle" />
+    <div class={["bg-base-100", @is_admin && "md:ml-64"]}>
+      <!-- Admin Sidebar (Desktop) -->
+      <.admin_sidebar :if={@is_admin} />
+      
+    <!-- Admin Mobile Nav -->
+      <.admin_nav_mobile :if={@is_admin} />
+      
+    <!-- Public Layout -->
+      <div :if={!@is_admin} class="drawer">
+        <input id="mobile-drawer" type="checkbox" class="drawer-toggle" />
 
-      <div class="drawer-content flex flex-col min-h-screen">
-        <.navbar current_scope={@current_scope} />
+        <div class="drawer-content flex flex-col min-h-screen">
+          <.navbar current_scope={@current_scope} />
 
-        <main class="flex-1 mt-20 py-8">
+          <main class="flex-1 mt-20 py-8">
+            {render_slot(@inner_block)}
+          </main>
+
+          <.footer />
+        </div>
+
+        <.drawer current_scope={@current_scope} />
+      </div>
+      
+    <!-- Admin Layout -->
+      <div :if={@is_admin} class="flex flex-col min-h-screen">
+        <main class="flex-1 py-8">
           {render_slot(@inner_block)}
         </main>
-
-        <.footer />
       </div>
-
-      <.drawer current_scope={@current_scope} />
     </div>
 
     <.flash_group flash={@flash} />

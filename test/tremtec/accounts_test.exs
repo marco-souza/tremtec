@@ -402,4 +402,104 @@ defmodule Tremtec.AccountsTest do
       refute inspect(%User{password: "123456"}) =~ "password: \"123456\""
     end
   end
+
+  describe "list_users/2" do
+    test "returns paginated users excluding deleted" do
+      user1 = user_fixture()
+      user2 = user_fixture()
+      user3 = user_fixture()
+
+      # Soft delete one user
+      {:ok, _deleted_user} = Accounts.delete_user(user2)
+
+      {users, total} = Accounts.list_users(1, 10)
+
+      assert Enum.count(users) == 2
+      assert total == 2
+      assert Enum.any?(users, fn u -> u.id == user1.id end)
+      assert Enum.any?(users, fn u -> u.id == user3.id end)
+      refute Enum.any?(users, fn u -> u.id == user2.id end)
+    end
+
+    test "handles pagination correctly" do
+      _user1 = user_fixture()
+      _user2 = user_fixture()
+      _user3 = user_fixture()
+
+      {users_page1, _total} = Accounts.list_users(1, 2)
+      {users_page2, _total} = Accounts.list_users(2, 2)
+
+      assert Enum.count(users_page1) == 2
+      assert Enum.count(users_page2) == 1
+    end
+  end
+
+  describe "search_users/1" do
+    test "searches users by email" do
+      user1 = user_fixture()
+      _user2 = user_fixture()
+
+      results = Accounts.search_users(user1.email)
+
+      assert Enum.count(results) >= 1
+      assert Enum.any?(results, fn u -> u.id == user1.id end)
+    end
+
+    test "excludes soft deleted users" do
+      user1 = user_fixture()
+      user2 = user_fixture()
+
+      {:ok, _deleted_user} = Accounts.delete_user(user1)
+
+      results = Accounts.search_users(user1.email)
+
+      refute Enum.any?(results, fn u -> u.id == user1.id end)
+      # Other users should not be affected
+      other_results = Accounts.search_users(user2.email)
+      assert Enum.any?(other_results, fn u -> u.id == user2.id end)
+    end
+  end
+
+  describe "delete_user/1" do
+    test "soft deletes a user" do
+      user = user_fixture()
+
+      {:ok, deleted_user} = Accounts.delete_user(user)
+
+      assert deleted_user.deleted_at != nil
+      # Verify the user is not in the list
+      {users, _total} = Accounts.list_users(1, 100)
+      refute Enum.any?(users, fn u -> u.id == user.id end)
+    end
+
+    test "soft deleted user cannot be found in normal queries" do
+      user = user_fixture()
+      Accounts.delete_user(user)
+
+      {users, total} = Accounts.list_users(1, 100)
+      assert total == 0
+      assert Enum.empty?(users)
+    end
+  end
+
+  describe "is_admin?/1" do
+    test "returns true for @tremtec.com email" do
+      user = %User{email: "admin@tremtec.com"}
+      assert Accounts.is_admin?(user)
+    end
+
+    test "returns true for uppercase @tremtec.com email" do
+      user = %User{email: "ADMIN@TREMTEC.COM"}
+      assert Accounts.is_admin?(user)
+    end
+
+    test "returns false for non-tremtec email" do
+      user = %User{email: "user@example.com"}
+      refute Accounts.is_admin?(user)
+    end
+
+    test "returns false for nil" do
+      refute Accounts.is_admin?(nil)
+    end
+  end
 end

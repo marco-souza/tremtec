@@ -9,6 +9,7 @@ defmodule Tremtec.Messages.ContactMessage do
           email: String.t() | nil,
           message: String.t() | nil,
           read: boolean(),
+          deleted_at: DateTime.t() | nil,
           inserted_at: NaiveDateTime.t() | nil,
           updated_at: NaiveDateTime.t() | nil
         }
@@ -18,6 +19,7 @@ defmodule Tremtec.Messages.ContactMessage do
     field :email, :string
     field :message, :string
     field :read, :boolean, default: false
+    field :deleted_at, :utc_datetime
 
     timestamps()
   end
@@ -25,7 +27,7 @@ defmodule Tremtec.Messages.ContactMessage do
   @spec changeset(t(), map()) :: Ecto.Changeset.t()
   def changeset(contact_message, attrs) do
     contact_message
-    |> cast(attrs, [:name, :email, :message, :read])
+    |> cast(attrs, [:name, :email, :message, :read, :deleted_at])
     |> validate_required([:name, :email, :message])
     |> validate_format(:email, ~r/^\S+@\S+\.[\w\.]+$/)
     |> validate_length(:message, min: 10)

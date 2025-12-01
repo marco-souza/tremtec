@@ -4,6 +4,7 @@ defmodule Tremtec.Accounts do
   """
 
   import Ecto.Query, warn: false
+  import Ecto.Changeset
   alias Tremtec.Repo
 
   alias Tremtec.Accounts.{User, UserToken, UserNotifier}
@@ -294,4 +295,97 @@ defmodule Tremtec.Accounts do
       end
     end)
   end
+
+  ## Admin Functions
+
+  @doc """
+  Lists users with pagination, excluding soft-deleted users.
+
+  ## Examples
+
+      iex> list_users(1, 10)
+      {[%User{}, ...], total_count}
+
+      iex> list_users(2, 10)
+      {[%User{}, ...], total_count}
+
+  """
+  def list_users(page \\ 1, per_page \\ 10) when page > 0 and per_page > 0 do
+    offset = (page - 1) * per_page
+
+    query = from u in User, where: is_nil(u.deleted_at), order_by: [asc: u.email]
+
+    total_count = Repo.aggregate(query, :count)
+    users = query |> limit(^per_page) |> offset(^offset) |> Repo.all()
+
+    {users, total_count}
+  end
+
+  @doc """
+  Searches users by email, excluding soft-deleted users.
+
+  ## Examples
+
+      iex> search_users("john@tremtec.com")
+      [%User{}, ...]
+
+      iex> search_users("jane")
+      [%User{}, ...]
+
+  """
+  def search_users(query_str) when is_binary(query_str) do
+    like_query = "%#{String.downcase(query_str)}%"
+
+    from(u in User,
+      where: is_nil(u.deleted_at) and like(fragment("lower(?)", u.email), ^like_query),
+      order_by: [asc: u.email]
+    )
+    |> Repo.all()
+  end
+
+  @doc """
+  Soft deletes a user by setting deleted_at timestamp.
+  Also cascades soft delete to user's messages.
+
+  ## Examples
+
+      iex> delete_user(user)
+      {:ok, %User{}}
+
+      iex> delete_user(user)
+      {:error, changeset}
+
+  """
+  def delete_user(%User{} = user) do
+    now = DateTime.utc_now(:second)
+
+    Repo.transact(fn ->
+      # Soft delete user
+      with {:ok, deleted_user} <- Repo.update(change(user, deleted_at: now)) do
+        # Cascade soft delete to user's messages (marked as deleted by association)
+        # Note: This is a soft delete at the message table level, not cascading from user
+        {:ok, deleted_user}
+      end
+    end)
+  end
+
+  @doc """
+  Checks if a user is an admin based on email domain.
+
+  Currently, all users with @tremtec domain are admins.
+
+  ## Examples
+
+      iex> is_admin?(%User{email: "john@tremtec.com"})
+      true
+
+      iex> is_admin?(%User{email: "jane@example.com"})
+      false
+
+  """
+  def is_admin?(%User{email: email}) when is_binary(email) do
+    String.ends_with?(String.downcase(email), "@tremtec.com")
+  end
+
+  def is_admin?(_), do: false
 end

@@ -7,10 +7,11 @@ defmodule Tremtec.Accounts.UserNotifier do
   # Delivers the email using the application mailer.
   defp deliver(recipient, subject, body) do
     mailer = Application.fetch_env!(:tremtec, Tremtec.Mailer)
+
     email =
       new()
       |> to(recipient)
-      |> from({ mailer[:sender_name], mailer[:sender_email] })
+      |> from({mailer[:sender_name], mailer[:sender_email]})
       |> subject(subject)
       |> text_body(body)
 

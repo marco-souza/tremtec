@@ -10,6 +10,7 @@ defmodule Tremtec.Accounts.User do
     field :hashed_password, :string, redact: true
     field :confirmed_at, :utc_datetime
     field :authenticated_at, :utc_datetime, virtual: true
+    field :deleted_at, :utc_datetime
 
     timestamps(type: :utc_datetime)
   end
