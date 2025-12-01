@@ -107,3 +107,18 @@ msgstr ""
 
 msgid "must be equal to %{number}"
 msgstr ""
+
+#: lib/tremtec/accounts/user.ex:81
+#, elixir-autogen, elixir-format
+msgid "did not change"
+msgstr ""
+
+#: lib/tremtec/accounts/user.ex:105
+#, elixir-autogen, elixir-format
+msgid "does not match password"
+msgstr ""
+
+#: lib/tremtec/accounts/user.ex:68
+#, elixir-autogen, elixir-format
+msgid "must be from an accepted domain: %{domains}"
+msgstr ""
