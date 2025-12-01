@@ -1,23 +1,33 @@
+## "msgid"s in this file come from POT (.pot) files.
+###
+### Do not add, change, or remove "msgid"s manually here as
+### they're tied to the ones in the corresponding POT file
+### (with the same domain).
+###
+### Use "mix gettext.extract --merge" or "mix gettext.merge"
+### to merge POT files into PO files.
 msgid ""
 msgstr ""
+"Language: pt\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: lib/tremtec_web/components/core_components.ex:386
 #, elixir-autogen, elixir-format
 msgid "Actions"
 msgstr "Ações"
 
-#: lib/tremtec_web/components/layouts.ex:380
-#: lib/tremtec_web/components/layouts.ex:392
+#: lib/tremtec_web/components/layouts.ex:351
+#: lib/tremtec_web/components/layouts.ex:363
 #, elixir-autogen, elixir-format
 msgid "Attempting to reconnect"
 msgstr "Tentando se reconectar"
 
-#: lib/tremtec_web/components/layouts.ex:387
+#: lib/tremtec_web/components/layouts.ex:358
 #, elixir-autogen, elixir-format
 msgid "Something went wrong!"
-msgstr "Alguma coisa deu errado!"
+msgstr "Algo deu errado!"
 
-#: lib/tremtec_web/components/layouts.ex:375
+#: lib/tremtec_web/components/layouts.ex:346
 #, elixir-autogen, elixir-format
 msgid "We can't find the internet"
 msgstr "Não conseguimos conectar a internet"
@@ -27,175 +37,175 @@ msgstr "Não conseguimos conectar a internet"
 msgid "close"
 msgstr "Fechar"
 
-#: lib/tremtec_web/live/landing_live.ex:29
+#: lib/tremtec_web/live/public_pages/home_live.ex:33
 #, elixir-autogen, elixir-format
 msgid "hero title"
 msgstr "Engenharia de Software que Inspira e Entrega."
 
-#: lib/tremtec_web/live/landing_live.ex:32
+#: lib/tremtec_web/live/public_pages/home_live.ex:36
 #, elixir-autogen, elixir-format
 msgid "hero subtitle"
 msgstr "Desbloqueie o verdadeiro potencial do seu produto. Unimos excelência técnica e velocidade para criar softwares que os usuários amam e os desenvolvedores têm orgulho de construir."
 
-#: lib/tremtec_web/live/landing_live.ex:36
+#: lib/tremtec_web/live/public_pages/home_live.ex:40
 #, elixir-autogen, elixir-format
 msgid "get started"
 msgstr "Começar Agora"
 
-#: lib/tremtec_web/live/landing_live.ex:42
+#: lib/tremtec_web/live/public_pages/home_live.ex:46
 #, elixir-autogen, elixir-format
 msgid "how it works"
 msgstr "Como funciona?"
 
-#: lib/tremtec_web/live/landing_live.ex:300
+#: lib/tremtec_web/live/public_pages/home_live.ex:304
 #, elixir-autogen, elixir-format
 msgid "problem subtitle"
-msgstr "Sua concorrência não espera. Cada atraso no lançamento é receita perdida e oportunidade desperdiçada."
+msgstr "Sua concorrência não espera. Cada atraso de lançamento é receita perdida e oportunidade desperdiçada."
 
-#: lib/tremtec_web/live/landing_live.ex:77
+#: lib/tremtec_web/live/public_pages/home_live.ex:81
 #, elixir-autogen, elixir-format
 msgid "problem title"
-msgstr "Elimine o Débito Técnico"
+msgstr "Mude rápido sem quebrar as coisas"
 
-#: lib/tremtec_web/live/landing_live.ex:299
+#: lib/tremtec_web/live/public_pages/home_live.ex:303
 #, elixir-autogen, elixir-format
 msgid "missed deadlines"
-msgstr "Time-to-Market Lento"
+msgstr "Lentidão no Time-to-Market"
 
-#: lib/tremtec_web/live/landing_live.ex:304
+#: lib/tremtec_web/live/public_pages/home_live.ex:308
 #, elixir-autogen, elixir-format
 msgid "unmotivated team"
 msgstr "Falta de Senioridade"
 
-#: lib/tremtec_web/live/landing_live.ex:305
+#: lib/tremtec_web/live/public_pages/home_live.ex:309
 #, elixir-autogen, elixir-format
 msgid "unpredictable costs"
-msgstr "A ausência de liderança técnica gera retrabalho, bugs e decisões arquiteturais custosas."
+msgstr "Ausência de liderança técnica leva a retrabalho, bugs e decisões arquitetônicas custosas."
 
-#: lib/tremtec_web/live/landing_live.ex:116
+#: lib/tremtec_web/live/public_pages/home_live.ex:120
 #, elixir-autogen, elixir-format
 msgid "diagnostics"
-msgstr "Diagnóstico Técnico"
+msgstr "Diagnósticos"
 
-#: lib/tremtec_web/live/landing_live.ex:117
+#: lib/tremtec_web/live/public_pages/home_live.ex:121
 #, elixir-autogen, elixir-format
 msgid "diagnostics description"
-msgstr "Deep dive na sua arquitetura e processos para identificar pontos críticos."
+msgstr "Analisamos seu processo de desenvolvimento atual, ferramentas e dinâmica de equipe para identificar gargalos"
 
-#: lib/tremtec_web/live/landing_live.ex:92
+#: lib/tremtec_web/live/public_pages/home_live.ex:96
 #, elixir-autogen, elixir-format
 msgid "implementation"
-msgstr "Outsourcing Estratégico"
+msgstr "Implementação"
 
-#: lib/tremtec_web/live/landing_live.ex:93
+#: lib/tremtec_web/live/public_pages/home_live.ex:97
 #, elixir-autogen, elixir-format
 msgid "implementation description"
-msgstr "Times autônomos de alta performance prontos para entregar valor desde o dia 1."
+msgstr "TremTec implementa práticas recomendadas e ferramentas para otimizar seu processo de desenvolvimento e acelerar a entrega."
 
-#: lib/tremtec_web/live/landing_live.ex:79
+#: lib/tremtec_web/live/public_pages/home_live.ex:83
 #, elixir-autogen, elixir-format
 msgid "solution subtitle"
-msgstr "Escalabilidade e expertise técnica instantânea para o seu time."
+msgstr "Implantamos pessoas, processos e ferramentas que aceleram seu ciclo de desenvolvimento, focando em entrega contínua e automação."
 
-#: lib/tremtec_web/live/landing_live.ex:78
+#: lib/tremtec_web/live/public_pages/home_live.ex:82
 #, elixir-autogen, elixir-format
 msgid "solution title"
-msgstr "Engenharia Sob Demanda"
+msgstr "Estrutura que transforma potencial em resultados!"
 
-#: lib/tremtec_web/live/landing_live.ex:292
+#: lib/tremtec_web/live/public_pages/home_live.ex:296
 #, elixir-autogen, elixir-format
 msgid "contact us"
-msgstr "Fale com um Especialista"
+msgstr "Marque uma reunião!"
 
-#: lib/tremtec_web/live/landing_live.ex:288
-#, elixir-autogen, elixir-format, fuzzy
+#: lib/tremtec_web/live/public_pages/home_live.ex:292
+#, elixir-autogen, elixir-format
 msgid "cta subtitle"
-msgstr "Agende uma consultoria estratégica gratuita e descubra como podemos acelerar seu roadmap."
+msgstr "Conversaremos por 30 minutos para mapear seus maiores gargalos de desenvolvimento, sem compromissos."
 
-#: lib/tremtec_web/live/landing_live.ex:285
+#: lib/tremtec_web/live/public_pages/home_live.ex:289
 #, elixir-autogen, elixir-format
 msgid "cta title"
-msgstr "Pronto para Escalar?"
+msgstr "Pronto para transformar seu processo de desenvolvimento?"
 
-#: lib/tremtec_web/live/landing_live.ex:132
+#: lib/tremtec_web/live/public_pages/home_live.ex:136
 #, elixir-autogen, elixir-format
 msgid "mentoring"
-msgstr "Mentoria & Cultura"
+msgstr "Mentoría"
 
-#: lib/tremtec_web/live/landing_live.ex:133
+#: lib/tremtec_web/live/public_pages/home_live.ex:137
 #, elixir-autogen, elixir-format
 msgid "mentoring description"
-msgstr "Elevamos a barra técnica do seu time interno através de pareamento e code reviews."
+msgstr "Se necessário, fornecemos mentoría contínua e suporte para garantir que sua equipe continue melhorando e se adaptando às necessidades em mudança."
 
-#: lib/tremtec_web/components/layouts.ex:285
+#: lib/tremtec_web/components/layouts.ex:256
 #, elixir-autogen, elixir-format
 msgid "All rights reserved"
-msgstr "Todos os direitos reservados a TremTec"
+msgstr "Todos os direitos reservados por TremTec"
 
-#: lib/tremtec_web/components/layouts.ex:253
-#: lib/tremtec_web/live/contact_live.ex:16
-#: lib/tremtec_web/live/contact_live.ex:83
+#: lib/tremtec_web/components/layouts.ex:224
+#: lib/tremtec_web/live/public_pages/contact_live.ex:12
+#: lib/tremtec_web/live/public_pages/contact_live.ex:23
 #, elixir-autogen, elixir-format
 msgid "Contact"
 msgstr "Contato"
 
-#: lib/tremtec_web/live/contact_live.ex:39
+#: lib/tremtec_web/live/public_pages/contact_live.ex:46
 #: lib/tremtec_web/live/user_live/login.ex:49
 #: lib/tremtec_web/live/user_live/login.ex:73
 #: lib/tremtec_web/live/user_live/registration.ex:29
-#: lib/tremtec_web/live/user_live/settings.ex:23
+#: lib/tremtec_web/live/user_live/settings.ex:26
 #, elixir-autogen, elixir-format
 msgid "Email"
 msgstr "E-mail"
 
-#: lib/tremtec_web/live/contact_live.ex:50
+#: lib/tremtec_web/live/public_pages/contact_live.ex:57
 #, elixir-autogen, elixir-format
 msgid "How can we help?"
-msgstr "Como podemos ajudar?"
+msgstr "Como podemos ajudá-lo?"
 
 #: lib/tremtec_web/live/admin/messages/show_live.ex:14
 #: lib/tremtec_web/live/admin/messages/show_live.ex:45
-#: lib/tremtec_web/live/contact_live.ex:49
+#: lib/tremtec_web/live/public_pages/contact_live.ex:56
 #, elixir-autogen, elixir-format
 msgid "Message"
 msgstr "Mensagem"
 
-#: lib/tremtec_web/live/contact_live.ex:31
+#: lib/tremtec_web/live/public_pages/contact_live.ex:38
 #, elixir-autogen, elixir-format
 msgid "Name"
 msgstr "Nome"
 
-#: lib/tremtec_web/live/contact_live.ex:57
+#: lib/tremtec_web/live/public_pages/contact_live.ex:64
 #, elixir-autogen, elixir-format
 msgid "Nickname"
 msgstr "Apelido"
 
-#: lib/tremtec_web/live/contact_live.ex:69
+#: lib/tremtec_web/live/public_pages/contact_live.ex:76
 #, elixir-autogen, elixir-format
 msgid "Send message"
 msgstr "Enviar mensagem"
 
-#: lib/tremtec_web/live/contact_live.ex:68
+#: lib/tremtec_web/live/public_pages/contact_live.ex:75
 #, elixir-autogen, elixir-format
 msgid "Sending..."
 msgstr "Enviando..."
 
-#: lib/tremtec_web/live/contact_live.ex:140
+#: lib/tremtec_web/live/public_pages/contact_live.ex:138
 #, elixir-autogen, elixir-format
 msgid "Spam detected"
 msgstr "Spam detectado"
 
-#: lib/tremtec_web/live/contact_live.ex:107
+#: lib/tremtec_web/live/public_pages/contact_live.ex:105
 #, elixir-autogen, elixir-format
 msgid "Thanks! Your message has been sent."
 msgstr "Obrigado! Sua mensagem foi enviada."
 
-#: lib/tremtec_web/live/contact_live.ex:17
+#: lib/tremtec_web/live/public_pages/contact_live.ex:24
 #, elixir-autogen, elixir-format
 msgid "We'd love to hear from you. Send us a message."
-msgstr "Adoraríamos ouvir você. Envie uma mensagem."
+msgstr "Gostaríamos de saber de você. Envie-nos uma mensagem."
 
-#: lib/tremtec_web/live/contact_live.ex:32
+#: lib/tremtec_web/live/public_pages/contact_live.ex:39
 #, elixir-autogen, elixir-format
 msgid "Your name"
 msgstr "Seu nome"
@@ -203,7 +213,7 @@ msgstr "Seu nome"
 #: lib/tremtec_web/components/layouts/root.html.heex:7
 #, elixir-autogen, elixir-format
 msgid " · Software Solutions"
-msgstr " · Soluções em Software"
+msgstr " · Soluções de Software"
 
 #: lib/tremtec_web/live/admin/messages/show_live.ex:17
 #, elixir-autogen, elixir-format
@@ -224,259 +234,248 @@ msgstr "De"
 #: lib/tremtec_web/live/admin/messages/show_live.ex:35
 #, elixir-autogen, elixir-format
 msgid "Mark as read"
-msgstr "Marcar como lida"
+msgstr "Marcar como lido"
 
 #: lib/tremtec_web/live/admin/messages/show_live.ex:35
 #, elixir-autogen, elixir-format
 msgid "Mark as unread"
-msgstr "Marcar como não lida"
+msgstr "Marcar como não lido"
 
 #: lib/tremtec_web/live/admin/messages/show_live.ex:28
 #, elixir-autogen, elixir-format
 msgid "Read"
-msgstr "Lida"
+msgstr "Lido"
 
 #: lib/tremtec_web/live/admin/messages/show_live.ex:24
 #, elixir-autogen, elixir-format
 msgid "Received"
-msgstr "Recebida em"
+msgstr "Recebido"
 
 #: lib/tremtec_web/live/admin/messages/index_live.ex:17
 #, elixir-autogen, elixir-format
 msgid "Search by name or email"
-msgstr "Buscar por nome ou e-mail"
+msgstr "Pesquisar por nome ou e-mail"
 
 #: lib/tremtec_web/live/admin/messages/show_live.ex:27
 #, elixir-autogen, elixir-format
 msgid "Status"
 msgstr "Status"
 
-#: lib/tremtec_web/components/layouts.ex:62
-#: lib/tremtec_web/components/layouts/root.html.heex:7
-#, elixir-autogen, elixir-format
-msgid "TremTec"
-msgstr "TremTec"
-
-#: lib/tremtec_web/components/layouts.ex:61
-#, elixir-autogen, elixir-format
-msgid "TremTec logo"
-msgstr "Logo TremTec"
-
 #: lib/tremtec_web/live/admin/messages/show_live.ex:28
 #, elixir-autogen, elixir-format
 msgid "Unread"
-msgstr "Não lida"
+msgstr "Não lido"
 
-#: lib/tremtec_web/live/contact_live.ex:40
+#: lib/tremtec_web/live/public_pages/contact_live.ex:47
 #, elixir-autogen, elixir-format
 msgid "your@email.com"
 msgstr "seu@email.com"
 
-#: lib/tremtec_web/components/layouts.ex:252
+#: lib/tremtec_web/components/layouts.ex:223
 #, elixir-autogen, elixir-format
 msgid "About Us"
 msgstr "Sobre Nós"
 
-#: lib/tremtec_web/components/layouts.ex:251
+#: lib/tremtec_web/components/layouts.ex:222
 #, elixir-autogen, elixir-format
 msgid "Company"
 msgstr "Empresa"
 
-#: lib/tremtec_web/components/layouts.ex:258
+#: lib/tremtec_web/components/layouts.ex:229
 #, elixir-autogen, elixir-format
 msgid "Connect"
-msgstr "Conecte-se"
+msgstr "Conectar"
 
-#: lib/tremtec_web/components/layouts.ex:247
+#: lib/tremtec_web/components/layouts.ex:218
 #, elixir-autogen, elixir-format
 msgid "Consulting"
 msgstr "Consultoria"
 
-#: lib/tremtec_web/components/layouts.ex:248
+#: lib/tremtec_web/components/layouts.ex:219
 #, elixir-autogen, elixir-format
 msgid "Diagnostics"
-msgstr "Diagnóstico"
+msgstr "Diagnósticos"
 
-#: lib/tremtec_web/components/layouts.ex:93
-#: lib/tremtec_web/components/layouts.ex:202
+#: lib/tremtec_web/components/layouts.ex:116
+#: lib/tremtec_web/components/layouts.ex:172
 #, elixir-autogen, elixir-format
 msgid "Get Started"
-msgstr "Começar Agora"
+msgstr "Começar"
 
-#: lib/tremtec_web/live/landing_live.ex:99
+#: lib/tremtec_web/live/public_pages/home_live.ex:103
 #, elixir-autogen, elixir-format
 msgid "Learn more"
 msgstr "Saiba mais"
 
-#: lib/tremtec_web/components/layouts.ex:304
-#: lib/tremtec_web/live/landing_live.ex:174
+#: lib/tremtec_web/components/layouts.ex:275
+#: lib/tremtec_web/live/public_pages/home_live.ex:178
 #, elixir-autogen, elixir-format
 msgid "Methodology"
 msgstr "Metodologia"
 
-#: lib/tremtec_web/components/layouts.ex:246
+#: lib/tremtec_web/components/layouts.ex:217
 #, elixir-autogen, elixir-format
 msgid "Outsourcing"
 msgstr "Outsourcing"
 
-#: lib/tremtec_web/components/layouts.ex:289
+#: lib/tremtec_web/components/layouts.ex:260
 #, elixir-autogen, elixir-format
 msgid "Privacy Policy"
 msgstr "Política de Privacidade"
 
-#: lib/tremtec_web/components/layouts.ex:245
-#: lib/tremtec_web/components/layouts.ex:303
+#: lib/tremtec_web/components/layouts.ex:216
+#: lib/tremtec_web/components/layouts.ex:274
 #, elixir-autogen, elixir-format
 msgid "Services"
 msgstr "Serviços"
 
-#: lib/tremtec_web/components/layouts.ex:292
+#: lib/tremtec_web/components/layouts.ex:263
 #, elixir-autogen, elixir-format
 msgid "Terms of Service"
-msgstr "Termos de Uso"
+msgstr "Termos de Serviço"
 
-#: lib/tremtec_web/live/landing_live.ex:61
+#: lib/tremtec_web/live/public_pages/home_live.ex:65
 #, elixir-autogen, elixir-format
 msgid "Trusted by high-growth companies"
-msgstr "A escolha de empresas em alto crescimento"
+msgstr "Confiado por empresas de alto crescimento"
 
-#: lib/tremtec_web/components/layouts.ex:239
+#: lib/tremtec_web/components/layouts.ex:210
 #, elixir-autogen, elixir-format
 msgid "Your strategic engineering partner for scaling high-performance technical teams."
-msgstr "Seu parceiro estratégico de engenharia para escalar times técnicos de alta performance."
+msgstr "Seu parceiro estratégico em engenharia para dimensionar equipes técnicas de alto desempenho."
 
-#: lib/tremtec_web/live/landing_live.ex:231
+#: lib/tremtec_web/live/public_pages/home_live.ex:235
 #, elixir-autogen, elixir-format
 msgid "About TremTec"
-msgstr "Sobre a TremTec"
+msgstr "Sobre TremTec"
 
-#: lib/tremtec_web/live/landing_live.ex:182
+#: lib/tremtec_web/live/public_pages/home_live.ex:186
 #, elixir-autogen, elixir-format
 msgid "Agile Integration"
 msgstr "Integração Ágil"
 
-#: lib/tremtec_web/live/landing_live.ex:267
+#: lib/tremtec_web/live/public_pages/home_live.ex:271
 #, elixir-autogen, elixir-format
 msgid "Our Mission"
 msgstr "Nossa Missão"
 
-#: lib/tremtec_web/live/landing_live.ex:192
+#: lib/tremtec_web/live/public_pages/home_live.ex:196
 #, elixir-autogen, elixir-format
 msgid "Quality Assurance"
 msgstr "Garantia de Qualidade"
 
-#: lib/tremtec_web/live/landing_live.ex:187
+#: lib/tremtec_web/live/public_pages/home_live.ex:191
 #, elixir-autogen, elixir-format
 msgid "Rapid Iteration"
 msgstr "Iteração Rápida"
 
-#: lib/tremtec_web/live/landing_live.ex:232
+#: lib/tremtec_web/live/public_pages/home_live.ex:236
 #, elixir-autogen, elixir-format
 msgid "about description"
-msgstr "Nascemos com o propósito de fechar o gap entre engenharia de software e valor de negócio."
+msgstr "Nascida com o propósito de fechar a lacuna entre engenharia de software e valor comercial."
 
-#: lib/tremtec_web/live/landing_live.ex:183
+#: lib/tremtec_web/live/public_pages/home_live.ex:187
 #, elixir-autogen, elixir-format
 msgid "agile description"
-msgstr "Processos adaptáveis que se moldam à realidade do seu negócio, não o contrário."
+msgstr "Processos adaptáveis que se moldam à sua realidade de negócios, não o contrário."
 
-#: lib/tremtec_web/live/landing_live.ex:188
+#: lib/tremtec_web/live/public_pages/home_live.ex:192
 #, elixir-autogen, elixir-format
 msgid "iteration description"
-msgstr "Ciclos curtos de feedback para validar hipóteses e entregar valor continuamente."
+msgstr "Ciclos de feedback curtos para validar hipóteses e entregar valor continuamente."
 
-#: lib/tremtec_web/live/landing_live.ex:176
+#: lib/tremtec_web/live/public_pages/home_live.ex:180
 #, elixir-autogen, elixir-format
 msgid "methodology description"
-msgstr "Combinamos expertise técnica profunda com visão de produto pragmática."
+msgstr "Combinamos expertise técnica profunda com visão pragmática de produto."
 
-#: lib/tremtec_web/live/landing_live.ex:175
+#: lib/tremtec_web/live/public_pages/home_live.ex:179
 #, elixir-autogen, elixir-format
 msgid "methodology title"
-msgstr "Como trabalhamos"
+msgstr "Metodologia"
 
-#: lib/tremtec_web/live/landing_live.ex:269
+#: lib/tremtec_web/live/public_pages/home_live.ex:273
 #, elixir-autogen, elixir-format
 msgid "mission description"
-msgstr "Acreditamos que a tecnologia deve ser um motor de crescimento, não uma fonte de frustração. Nossa missão é libertar equipes de engenharia do caos de processos desorganizados e dívida técnica, capacitando-as a construir produtos de classe mundial com confiança e velocidade."
+msgstr "Acreditamos que a tecnologia deve ser um motor de crescimento, não uma fonte de frustração. Nossa missão é liberar equipes de engenharia do caos de processos desorganizados e débito técnico, permitindo que construam produtos de classe mundial com confiança e velocidade."
 
-#: lib/tremtec_web/live/landing_live.ex:193
+#: lib/tremtec_web/live/public_pages/home_live.ex:197
 #, elixir-autogen, elixir-format
 msgid "quality description"
-msgstr "Automação de testes e CI/CD robusto desde o primeiro dia de projeto."
+msgstr "Automação de testes e CI/CD robusto desde o primeiro dia do projeto."
 
-#: lib/tremtec_web/components/layouts.ex:305
+#: lib/tremtec_web/components/layouts.ex:276
 #, elixir-autogen, elixir-format
 msgid "About"
-msgstr "Sobre Nós"
+msgstr "Sobre"
 
-#: lib/tremtec_web/live/landing_live.ex:251
+#: lib/tremtec_web/live/public_pages/home_live.ex:255
 #, elixir-autogen, elixir-format
 msgid "Across 4 continents"
 msgstr "Em 4 continentes"
 
-#: lib/tremtec_web/live/landing_live.ex:139
+#: lib/tremtec_web/live/public_pages/home_live.ex:143
 #, elixir-autogen, elixir-format
 msgid "Architecture"
 msgstr "Arquitetura"
 
-#: lib/tremtec_web/live/landing_live.ex:140
+#: lib/tremtec_web/live/public_pages/home_live.ex:144
 #, elixir-autogen, elixir-format
 msgid "Best Practices"
 msgstr "Melhores Práticas"
 
-#: lib/tremtec_web/live/landing_live.ex:138
+#: lib/tremtec_web/live/public_pages/home_live.ex:142
 #, elixir-autogen, elixir-format
 msgid "Code Reviews"
-msgstr "Revisão de Código"
+msgstr "Revisões de Código"
 
-#: lib/tremtec_web/live/landing_live.ex:257
+#: lib/tremtec_web/live/public_pages/home_live.ex:261
 #, elixir-autogen, elixir-format
 msgid "From Seed to Series B"
 msgstr "De Seed a Series B"
 
-#: lib/tremtec_web/components/layouts.ex:261
+#: lib/tremtec_web/components/layouts.ex:232
 #, elixir-autogen, elixir-format
 msgid "GitHub"
 msgstr "GitHub"
 
-#: lib/tremtec_web/live/landing_live.ex:245
+#: lib/tremtec_web/live/public_pages/home_live.ex:249
 #, elixir-autogen, elixir-format
 msgid "High-scale environments"
 msgstr "Ambientes de alta escala"
 
-#: lib/tremtec_web/components/layouts.ex:270
+#: lib/tremtec_web/components/layouts.ex:241
 #, elixir-autogen, elixir-format
 msgid "LinkedIn"
 msgstr "LinkedIn"
 
-#: lib/tremtec_web/live/landing_live.ex:240
+#: lib/tremtec_web/live/public_pages/home_live.ex:244
 #, elixir-autogen, elixir-format
 msgid "Our Impact"
 msgstr "Nosso Impacto"
 
-#: lib/tremtec_web/live/landing_live.ex:249
+#: lib/tremtec_web/live/public_pages/home_live.ex:253
 #, elixir-autogen, elixir-format
 msgid "Projects Delivered"
 msgstr "Projetos Entregues"
 
-#: lib/tremtec_web/live/landing_live.ex:255
+#: lib/tremtec_web/live/public_pages/home_live.ex:259
 #, elixir-autogen, elixir-format
 msgid "Teams Scaled"
-msgstr "Times Escalados"
+msgstr "Equipes Dimensionadas"
 
-#: lib/tremtec_web/live/landing_live.ex:243
+#: lib/tremtec_web/live/public_pages/home_live.ex:247
 #, elixir-autogen, elixir-format
 msgid "Years Experience"
 msgstr "Anos de Experiência"
 
-#: lib/tremtec_web/live/landing_live.ex:272
+#: lib/tremtec_web/live/public_pages/home_live.ex:276
 #, elixir-autogen, elixir-format
 msgid "mission description part 2"
-msgstr "Não apenas corrigimos código; cultivamos culturas de alta performance. Ao preencher a lacuna entre objetivos de negócios e execução técnica, transformamos squads com dificuldades em potências autônomas geradoras de valor que impulsionam a empresa para frente."
+msgstr "Não apenas corrigimos código; cultivamos culturas de alto desempenho. Ao fechar a lacuna entre objetivos comerciais e execução técnica, transformamos esquadrões de desenvolvimento que lutam em máquinas geradoras de valor autônomas que impulsionam a empresa para frente."
 
-#: lib/tremtec_web/components/layouts.ex:138
-#: lib/tremtec_web/components/layouts.ex:198
+#: lib/tremtec_web/components/layouts.ex:113
+#: lib/tremtec_web/components/layouts.ex:169
 #: lib/tremtec_web/live/user_live/confirmation.ex:53
 #: lib/tremtec_web/live/user_live/login.ex:13
 #: lib/tremtec_web/live/user_live/registration.ex:18
@@ -484,35 +483,18 @@ msgstr "Não apenas corrigimos código; cultivamos culturas de alta performance.
 msgid "Log in"
 msgstr "Entrar"
 
-#: lib/tremtec_web/components/layouts.ex:119
-#: lib/tremtec_web/components/layouts.ex:185
+#: lib/tremtec_web/components/layouts.ex:103
+#: lib/tremtec_web/components/layouts.ex:162
 #, elixir-autogen, elixir-format
 msgid "Log out"
 msgstr "Sair"
 
-#: lib/tremtec_web/components/layouts.ex:129
-#: lib/tremtec_web/components/layouts.ex:192
-#, elixir-autogen, elixir-format
-msgid "Register"
-msgstr "Cadastre-se"
-
-#: lib/tremtec_web/components/layouts.ex:109
-#: lib/tremtec_web/components/layouts.ex:178
-#, elixir-autogen, elixir-format
-msgid "Settings"
-msgstr "Configurações"
-
-#: lib/tremtec_web/live/landing_live.ex:20
-#, elixir-autogen, elixir-format
-msgid "Trem to your Tech Team"
-msgstr "Um Trem para o seu Time de Tecnologia"
-
-#: lib/tremtec_web/live/user_live/settings.ex:126
+#: lib/tremtec_web/live/user_live/settings.ex:130
 #, elixir-autogen, elixir-format
 msgid "A link to confirm your email change has been sent to the new address."
-msgstr "Um link para confirmar a alteração do seu e-mail foi enviado para o novo endereço."
+msgstr "Um link para confirmar sua mudança de e-mail foi enviado para o novo endereço."
 
-#: lib/tremtec_web/live/user_live/settings.ex:14
+#: lib/tremtec_web/live/user_live/settings.ex:15
 #, elixir-autogen, elixir-format
 msgid "Account Settings"
 msgstr "Configurações da Conta"
@@ -520,19 +502,19 @@ msgstr "Configurações da Conta"
 #: lib/tremtec_web/live/user_live/registration.ex:16
 #, elixir-autogen, elixir-format
 msgid "Already registered?"
-msgstr "Já possui cadastro?"
+msgstr "Já registrado?"
 
 #: lib/tremtec_web/live/user_live/registration.ex:70
 #, elixir-autogen, elixir-format
 msgid "An email was sent to %{email}, please access it to confirm your account."
-msgstr "Um e-mail foi enviado para %{email}, por favor acesse-o para confirmar sua conta."
+msgstr "Um e-mail foi enviado para %{email}, acesse-o para confirmar sua conta."
 
-#: lib/tremtec_web/live/user_live/settings.ex:28
+#: lib/tremtec_web/live/user_live/settings.ex:31
 #, elixir-autogen, elixir-format
 msgid "Change Email"
-msgstr "Alterar E-mail"
+msgstr "Mudar E-mail"
 
-#: lib/tremtec_web/live/user_live/settings.ex:27
+#: lib/tremtec_web/live/user_live/settings.ex:30
 #, elixir-autogen, elixir-format
 msgid "Changing..."
 msgstr "Alterando..."
@@ -545,12 +527,12 @@ msgstr "Confirmar e entrar apenas desta vez"
 #: lib/tremtec_web/live/user_live/confirmation.ex:31
 #, elixir-autogen, elixir-format
 msgid "Confirm and stay logged in"
-msgstr "Confirmar e permanecer conectado"
+msgstr "Confirmar e manter-me conectado"
 
-#: lib/tremtec_web/live/user_live/settings.ex:60
+#: lib/tremtec_web/live/user_live/settings.ex:63
 #, elixir-autogen, elixir-format
 msgid "Confirm new password"
-msgstr "Confirmar nova senha"
+msgstr "Confirme a nova senha"
 
 #: lib/tremtec_web/live/user_live/confirmation.ex:28
 #: lib/tremtec_web/live/user_live/confirmation.ex:34
@@ -573,12 +555,12 @@ msgstr "Criando conta..."
 msgid "Don't have an account?"
 msgstr "Não tem uma conta?"
 
-#: lib/tremtec_web/live/user_live/settings.ex:79
+#: lib/tremtec_web/live/user_live/settings.ex:83
 #, elixir-autogen, elixir-format
 msgid "Email change link is invalid or it has expired."
-msgstr "O link de alteração de e-mail é inválido ou expirou."
+msgstr "O link de mudança de e-mail é inválido ou expirou."
 
-#: lib/tremtec_web/live/user_live/settings.ex:76
+#: lib/tremtec_web/live/user_live/settings.ex:80
 #, elixir-autogen, elixir-format
 msgid "Email changed successfully."
 msgstr "E-mail alterado com sucesso."
@@ -586,12 +568,12 @@ msgstr "E-mail alterado com sucesso."
 #: lib/tremtec_web/live/user_live/login.ex:120
 #, elixir-autogen, elixir-format
 msgid "If your email is in our system, you will receive instructions for logging in shortly."
-msgstr "Se seu e-mail estiver em nosso sistema, você receberá instruções para entrar em breve."
+msgstr "Se seu e-mail estiver em nosso sistema, você receberá instruções de login em breve."
 
-#: lib/tremtec_web/live/user_live/confirmation.ex:59
+#: lib/tremtec_web/live/user_live/confirmation.ex:62
 #, elixir-autogen, elixir-format
 msgid "Keep me logged in on this device"
-msgstr "Mantenha-me conectado neste dispositivo"
+msgstr "Manter-me conectado neste dispositivo"
 
 #: lib/tremtec_web/live/user_live/login.ex:84
 #, elixir-autogen, elixir-format
@@ -623,14 +605,14 @@ msgstr "Entrando..."
 #: lib/tremtec_web/live/user_live/confirmation.ex:91
 #, elixir-autogen, elixir-format
 msgid "Magic link is invalid or it has expired."
-msgstr "Link mágico inválido ou expirado."
+msgstr "O link mágico é inválido ou expirou."
 
-#: lib/tremtec_web/live/user_live/settings.ex:15
+#: lib/tremtec_web/live/user_live/settings.ex:17
 #, elixir-autogen, elixir-format
 msgid "Manage your account email address and password settings"
-msgstr "Gerencie seu endereço de e-mail e senha"
+msgstr "Gerencie seu endereço de e-mail da conta e configurações de senha"
 
-#: lib/tremtec_web/live/user_live/settings.ex:53
+#: lib/tremtec_web/live/user_live/settings.ex:56
 #, elixir-autogen, elixir-format
 msgid "New password"
 msgstr "Nova senha"
@@ -645,12 +627,12 @@ msgstr "Senha"
 msgid "Register for an account"
 msgstr "Registre-se para uma conta"
 
-#: lib/tremtec_web/live/user_live/settings.ex:64
+#: lib/tremtec_web/live/user_live/settings.ex:67
 #, elixir-autogen, elixir-format
 msgid "Save Password"
 msgstr "Salvar Senha"
 
-#: lib/tremtec_web/live/user_live/settings.ex:63
+#: lib/tremtec_web/live/user_live/settings.ex:66
 #, elixir-autogen, elixir-format
 msgid "Saving..."
 msgstr "Salvando..."
@@ -658,12 +640,12 @@ msgstr "Salvando..."
 #: lib/tremtec_web/live/user_live/login.ex:22
 #, elixir-autogen, elixir-format
 msgid "Sign up"
-msgstr "Cadastre-se"
+msgstr "Registre-se"
 
 #: lib/tremtec_web/live/user_live/confirmation.ex:74
 #, elixir-autogen, elixir-format
 msgid "Tip: If you prefer passwords, you can enable them in the user settings."
-msgstr "Dica: Se você prefere senhas, pode habilitá-las nas configurações de usuário."
+msgstr "Dica: Se preferir senhas, você pode ativá-las nas configurações de usuário."
 
 #: lib/tremtec_web/live/user_live/login.ex:33
 #, elixir-autogen, elixir-format
@@ -678,12 +660,12 @@ msgstr "Bem-vindo"
 #: lib/tremtec_web/live/user_live/login.ex:31
 #, elixir-autogen, elixir-format
 msgid "You are running the local mail adapter."
-msgstr "Você está rodando o adaptador de e-mail local."
+msgstr "Você está executando o adaptador de correio local."
 
 #: lib/tremtec_web/live/user_live/login.ex:16
 #, elixir-autogen, elixir-format
 msgid "You need to reauthenticate to perform sensitive actions on your account."
-msgstr "Você precisa se reautenticar para realizar ações sensíveis em sua conta."
+msgstr "Você precisa se reautenticar para executar ações sensíveis em sua conta."
 
 #: lib/tremtec_web/live/user_live/login.ex:22
 #, elixir-autogen, elixir-format
@@ -698,12 +680,12 @@ msgstr "ou"
 #: lib/tremtec_web/live/user_live/login.ex:33
 #, elixir-autogen, elixir-format
 msgid "the mailbox page"
-msgstr "a página de caixa de entrada"
+msgstr "a página da caixa de correio"
 
 #: lib/tremtec_web/live/user_live/registration.ex:20
 #, elixir-autogen, elixir-format
 msgid "to your account now."
-msgstr "em sua conta agora."
+msgstr "para sua conta agora."
 
 #: lib/tremtec_web/controllers/user_session_controller.ex:43
 #, elixir-autogen, elixir-format
@@ -731,7 +713,7 @@ msgid "User confirmed successfully."
 msgstr "Usuário confirmado com sucesso."
 
 #: lib/tremtec_web/controllers/user_session_controller.ex:12
-#, elixir-autogen, elixir-format, fuzzy
+#, elixir-autogen, elixir-format
 msgid "Welcome back!"
 msgstr "Bem-vindo de volta!"
 
@@ -739,9 +721,19 @@ msgstr "Bem-vindo de volta!"
 #: lib/tremtec_web/user_auth.ex:279
 #, elixir-autogen, elixir-format
 msgid "You must log in to access this page."
-msgstr "Você precisa entrar para acessar esta página."
+msgstr "Você deve entrar para acessar esta página."
 
 #: lib/tremtec_web/user_auth.ex:244
 #, elixir-autogen, elixir-format
 msgid "You must re-authenticate to access this page."
-msgstr "Você precisa se reautenticar para acessar esta página."
+msgstr "Você deve se reautenticar para acessar esta página."
+
+#: lib/tremtec_web/live/public_pages/home_live.ex:24
+#, elixir-autogen, elixir-format
+msgid "A Trem to your Tech Team"
+msgstr "Um Trem para seu Equipe Técnica"
+
+#: lib/tremtec_web/live/public_pages/home_live.ex:8
+#, elixir-autogen, elixir-format
+msgid "Home"
+msgstr "Início"
