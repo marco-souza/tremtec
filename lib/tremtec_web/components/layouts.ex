@@ -84,37 +84,21 @@ defmodule TremtecWeb.Layouts do
           </a>
         </li>
 
-        <li>
-          <a
-            href="#contact"
-            class="btn btn-primary btn-block mt-4 text-white"
-            onclick="document.getElementById('mobile-drawer').click()"
-          >
-            {gettext("Get Started")}
-          </a>
-        </li>
-
         <div class="spacer flex-1" />
 
         <%= if @current_scope && @current_scope.user do %>
-          <li class="mt-4 pt-4 border-t border-base-300">
-            <span class="text-sm text-base-content/80">{@current_scope.user.email}</span>
-          </li>
           <li>
             <.link
-              navigate={~p"/admin/settings"}
+              navigate={~p"/admin/dashboard"}
               class="text-lg font-medium"
               onclick="document.getElementById('mobile-drawer').click()"
             >
-              {gettext("Settings")}
+              <span class="text-sm text-base-content/80">{@current_scope.user.email}</span>
             </.link>
-          </li>
-          <li>
             <.link
-              href={~p"/admin/log-out"}
               method="delete"
-              class="text-lg font-medium"
-              onclick="document.getElementById('mobile-drawer').click()"
+              href={~p"/admin/log-out"}
+              class="text-sm font-medium text-base-content/80 hover:text-primary transition-colors"
             >
               {gettext("Log out")}
             </.link>
@@ -122,21 +106,15 @@ defmodule TremtecWeb.Layouts do
         <% else %>
           <li class="mt-4 pt-4 border-t border-base-300">
             <.link
-              navigate={~p"/admin/register"}
-              class="text-lg font-medium"
-              onclick="document.getElementById('mobile-drawer').click()"
-            >
-              {gettext("Register")}
-            </.link>
-          </li>
-          <li>
-            <.link
-              navigate={~p"/admin/log-in"}
+              navigate={~p"/admin"}
               class="text-lg font-medium"
               onclick="document.getElementById('mobile-drawer').click()"
             >
               {gettext("Log in")}
             </.link>
+            <a href="#contact" class="btn btn-primary btn-sm font-medium px-6">
+              {gettext("Get Started")}
+            </a>
           </li>
         <% end %>
 
@@ -170,37 +148,30 @@ defmodule TremtecWeb.Layouts do
     <!-- Right: CTA & Theme -->
           <div class="hidden md:flex items-center gap-4">
             <%= if @current_scope && @current_scope.user do %>
-              <span class="text-sm text-base-content/80">{@current_scope.user.email}</span>
               <.link
-                navigate={~p"/admin/settings"}
+                navigate={~p"/admin/dashboard"}
                 class="text-sm font-medium text-base-content/80 hover:text-primary transition-colors"
               >
-                {gettext("Settings")}
+                {@current_scope.user.email}
               </.link>
               <.link
-                href={~p"/admin/log-out"}
                 method="delete"
+                href={~p"/admin/log-out"}
                 class="text-sm font-medium text-base-content/80 hover:text-primary transition-colors"
               >
                 {gettext("Log out")}
               </.link>
             <% else %>
               <.link
-                navigate={~p"/admin/register"}
-                class="text-sm font-medium text-base-content/80 hover:text-primary transition-colors"
-              >
-                {gettext("Register")}
-              </.link>
-              <.link
-                navigate={~p"/admin/log-in"}
+                navigate={~p"/admin"}
                 class="text-sm font-medium text-base-content/80 hover:text-primary transition-colors"
               >
                 {gettext("Log in")}
               </.link>
+              <a href="#contact" class="btn btn-primary btn-sm font-medium px-6">
+                {gettext("Get Started")}
+              </a>
             <% end %>
-            <a href="#contact" class="btn btn-primary btn-sm font-medium px-6">
-              {gettext("Get Started")}
-            </a>
           </div>
           
     <!-- Mobile Menu Button -->

@@ -8,9 +8,10 @@ Planned features:
   - If session is:
     `nil` -> /admin/log-in
     `_` -> /admin/dashboard
-- [ ] Create /admin/dashboard page
+- [x] Create /admin/dashboard page
   - cards with counters for users and messages
   - side bar with dashboard, messages, users - at the bottom, settings, back to page button
-- [ ] Improve NavBar UX
+- [x] Improve NavBar UX
 - [ ] Manage Messages
 - [ ] Manage Users
+
