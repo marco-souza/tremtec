@@ -63,7 +63,12 @@ defmodule Tremtec.Accounts.User do
         if valid? do
           []
         else
-          [email: dgettext("errors", "must be from an accepted domain: %{domains}", domains: Enum.join(accepted_domains, ", "))]
+          [
+            email:
+              dgettext("errors", "must be from an accepted domain: %{domains}",
+                domains: Enum.join(accepted_domains, ", ")
+              )
+          ]
         end
       end)
     else

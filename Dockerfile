@@ -42,7 +42,7 @@ COPY lib ./lib
 COPY assets ./assets
 COPY priv ./priv
 
-# Compilar primeiro para gerar módulos colocalizados do Phoenix, depois compilar assets e criar release
+# Compile first to generate phoenix-colocated modules, then build assets and release
 RUN mix compile && \
     mix assets.deploy && \
     mix release
