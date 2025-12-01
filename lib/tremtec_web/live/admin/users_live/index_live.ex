@@ -46,13 +46,7 @@ defmodule TremtecWeb.Admin.UsersLive.IndexLive do
                     {Calendar.strftime(user.inserted_at, "%Y-%m-%d %H:%M")}
                   </td>
                   <td class="text-center">
-                    <span class={[
-                      "badge",
-                      user.confirmed_at && "badge-success",
-                      !user.confirmed_at && "badge-warning"
-                    ]}>
-                      {if user.confirmed_at, do: gettext("Yes"), else: gettext("No")}
-                    </span>
+                    <.status_badge status={!!user.confirmed_at} />
                   </td>
                   <td class="text-center">
                     <button

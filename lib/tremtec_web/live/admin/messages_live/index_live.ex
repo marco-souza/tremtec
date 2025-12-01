@@ -59,7 +59,7 @@ defmodule TremtecWeb.Admin.MessagesLive.IndexLive do
                     </.link>
                   </td>
                   <td class="text-center">
-                    <.status_badge read={message.read} />
+                    <.status_badge status={message.read} label_true={gettext("Read")} label_false={gettext("Unread")} />
                   </td>
                   <td class="text-sm text-base-content/60">
                     {Calendar.strftime(message.inserted_at, "%Y-%m-%d %H:%M")}
@@ -266,15 +266,4 @@ defmodule TremtecWeb.Admin.MessagesLive.IndexLive do
     )
   end
 
-  defp status_badge(%{read: true} = assigns) do
-    ~H"""
-    <span class="badge badge-success">{gettext("Read")}</span>
-    """
-  end
-
-  defp status_badge(%{read: false} = assigns) do
-    ~H"""
-    <span class="badge badge-warning">{gettext("Unread")}</span>
-    """
-  end
 end

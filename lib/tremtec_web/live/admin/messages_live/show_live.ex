@@ -34,13 +34,7 @@ defmodule TremtecWeb.Admin.MessagesLive.ShowLive do
 
               <div>
                 <p class="text-sm text-base-content/60 mb-1">{gettext("Status")}</p>
-                <span class={[
-                  "badge",
-                  @message.read && "badge-success",
-                  !@message.read && "badge-warning"
-                ]}>
-                  {if @message.read, do: gettext("Read"), else: gettext("Unread")}
-                </span>
+                <.status_badge status={@message.read} label_true={gettext("Read")} label_false={gettext("Unread")} />
               </div>
             </div>
             
