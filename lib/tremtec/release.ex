@@ -18,13 +18,6 @@ defmodule Tremtec.Release do
     {:ok, _, _} = Ecto.Migrator.with_repo(repo, &Ecto.Migrator.run(&1, :down, to: version))
   end
 
-  def rollback() do
-    load_app()
-    # drop db
-    {:ok, _, _} =
-      Ecto.Migrator.with_repo(List.first(repos()), &Ecto.Migrator.run(&1, :down, all: true))
-  end
-
   defp repos do
     Application.fetch_env!(@app, :ecto_repos)
   end
