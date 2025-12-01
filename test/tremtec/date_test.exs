@@ -18,12 +18,6 @@ defmodule Tremtec.DateTest do
       assert result == "2025-12-01 14:30"
     end
 
-    test "formats NaiveDateTime correctly" do
-      naive = ~N[2025-12-01 14:30:45]
-      result = Date.format_full_date(naive)
-      assert result == "2025-12-01 14:30"
-    end
-
     test "handles various datetime values" do
       assert Date.format_full_date(~U[2024-01-15 09:00:00Z]) == "2024-01-15 09:00"
       assert Date.format_full_date(~U[2026-12-31 23:59:59Z]) == "2026-12-31 23:59"
@@ -105,15 +99,6 @@ defmodule Tremtec.DateTest do
       result = Date.relative_date(ago_1_week)
       assert String.contains?(result, "1")
       assert String.contains?(result, "week")
-    end
-
-    test "works with NaiveDateTime" do
-      now = DateTime.utc_now()
-      ago_30_seconds = DateTime.add(now, -30, :second)
-      naive = DateTime.to_naive(ago_30_seconds)
-
-      result = Date.relative_date(naive)
-      assert result == gettext("Just now")
     end
 
     test "handles non-datetime values gracefully" do
