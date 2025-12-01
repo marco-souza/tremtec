@@ -8,7 +8,13 @@ defmodule TremtecWeb.Components.AdminSidebar do
   """
   def admin_sidebar(assigns) do
     ~H"""
-    <aside class="hidden md:flex fixed left-0 top-0 h-screen w-64 bg-base-100 border-r border-base-200 flex-col z-40 pt-20">
+    <aside class="hidden md:flex fixed left-0 top-0 h-screen w-64 bg-base-100 border-r border-base-200 flex-col z-40">
+      <!-- Branding Section -->
+      <div class="px-6 py-8 border-b border-base-200 flex items-center gap-3">
+        <.icon name="hero-command-line" class="w-8 h-8 text-primary" />
+        <span class="text-xl font-bold text-base-content">TremTec</span>
+      </div>
+
       <nav class="flex-1 px-6 py-8">
         <div class="space-y-2">
           <.nav_link href={~p"/admin/dashboard"} icon="hero-home">

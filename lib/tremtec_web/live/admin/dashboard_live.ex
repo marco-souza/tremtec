@@ -130,12 +130,40 @@ defmodule TremtecWeb.Admin.DashboardLive do
   defp format_date(nil), do: nil
 
   defp format_date(date) when is_struct(date, DateTime) do
-    date |> Calendar.strftime("%Y-%m-%d %H:%M")
+    format_relative_time(date)
   end
 
   defp format_date(date) when is_struct(date, NaiveDateTime) do
-    date |> Calendar.strftime("%Y-%m-%d %H:%M")
+    # Convert NaiveDateTime to DateTime for comparison
+    datetime = DateTime.from_naive!(date, "Etc/UTC")
+    format_relative_time(datetime)
   end
 
   defp format_date(_), do: nil
+
+  defp format_relative_time(date) do
+    now = DateTime.utc_now()
+    diff_seconds = DateTime.diff(now, date, :second)
+
+    cond do
+      diff_seconds < 60 ->
+        gettext("Just now")
+
+      diff_seconds < 3600 ->
+        minutes = div(diff_seconds, 60)
+        ngettext("%{count} minute ago", "%{count} minutes ago", minutes, count: minutes)
+
+      diff_seconds < 86400 ->
+        hours = div(diff_seconds, 3600)
+        ngettext("%{count} hour ago", "%{count} hours ago", hours, count: hours)
+
+      diff_seconds < 604_800 ->
+        days = div(diff_seconds, 86400)
+        ngettext("%{count} day ago", "%{count} days ago", days, count: days)
+
+      true ->
+        weeks = div(diff_seconds, 604_800)
+        ngettext("%{count} week ago", "%{count} weeks ago", weeks, count: weeks)
+    end
+  end
 end
