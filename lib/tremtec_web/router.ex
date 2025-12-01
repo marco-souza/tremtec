@@ -54,6 +54,7 @@ defmodule TremtecWeb.Router do
 
     live_session :require_authenticated_user,
       on_mount: [{TremtecWeb.UserAuth, :require_authenticated}, TremtecWeb.RestoreLocale] do
+      live "/admin/dashboard", Admin.DashboardLive
       live "/admin/settings", UserLive.Settings, :edit
       live "/admin/settings/confirm-email/:token", UserLive.Settings, :confirm_email
 
@@ -77,6 +78,7 @@ defmodule TremtecWeb.Router do
       live "/admin/log-in/:token", UserLive.Confirmation, :new
     end
 
+    get "/admin", UserSessionController, :admin_redirect
     post "/admin/log-in", UserSessionController, :create
     delete "/admin/log-out", UserSessionController, :delete
   end

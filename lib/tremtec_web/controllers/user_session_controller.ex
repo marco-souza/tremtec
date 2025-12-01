@@ -64,4 +64,12 @@ defmodule TremtecWeb.UserSessionController do
     |> put_flash(:info, gettext("Logged out successfully."))
     |> UserAuth.log_out_user()
   end
+
+  def admin_redirect(conn, _params) do
+    if conn.assigns.current_scope do
+      redirect(conn, to: ~p"/admin/dashboard")
+    else
+      redirect(conn, to: ~p"/admin/log-in")
+    end
+  end
 end
