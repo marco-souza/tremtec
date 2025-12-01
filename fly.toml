@@ -6,6 +6,7 @@ primary_region = 'gru'
   PORT = "8080"
   PHX_SERVER = "true"
   DATABASE_PATH = "/data/tremtec.db"
+  ALLOWED_ORIGINS = "https://tremtec.com,https://www.tremtec.com"
 
 [http_service]
   internal_port = 8080
