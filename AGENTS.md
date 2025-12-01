@@ -209,15 +209,72 @@ Task.async_stream(items, &process/1, timeout: :infinity)
 
 ## Internationalization (i18n)
 
-> **Full Documentation**: See `docs/I18N.md`.
+> **Full Documentation**: See `docs/I18N.md`  
+> **Audit Report**: See `I18N_AUDIT_REPORT.md` for compliance status
 
-- **Rule**: All user-facing strings must use `gettext("...")`. Errors use `dgettext("errors", "...")`.
-- **Tests**: When testing HTML content with assertions like `assert html =~ "..."`, use `gettext("...")` to compare translated strings. Add `use Gettext, backend: TremtecWeb.Gettext` at the top of test modules.
-- **Workflow**:
-  1. Code: `<.button>{gettext("Save")}</.button>`
-  2. Tests: `assert html =~ gettext("Save")`
-  3. Extract: `mix gettext.extract --merge`
-  4. Translate: Edit `priv/gettext/**/*.po`
+### Core Rules
+
+- **All user-facing strings**: Use `gettext("...")`
+- **Validation errors**: Use `dgettext("errors", "...")`
+- **Pluralization**: Use `ngettext("singular", "plural", count, count: count)`
+- **Company name**: "TremTec" is NOT translated (proper noun)
+- **Tests**: Include `use Gettext, backend: TremtecWeb.Gettext` at module level
+
+### String Translation Patterns
+
+#### Templates (HEEx)
+```heex
+<!-- Static strings -->
+<h1>{gettext("Admin Dashboard")}</h1>
+
+<!-- In attributes -->
+<.input placeholder={gettext("Enter your name")} />
+
+<!-- With interpolation -->
+<p>{gettext("Welcome back,")} {@current_scope.user.email}</p>
+```
+
+#### LiveView & Controllers
+```elixir
+# Basic translation
+flash_msg = gettext("Success message here")
+
+# Error messages from validation
+error_msg = dgettext("errors", "can't be blank")
+
+# Pluralization (relative time, counts, etc)
+message = ngettext("%{count} item", "%{count} items", count, count: count)
+```
+
+### Workflow
+
+1. **Add string**: Wrap in `gettext()` in template/code
+2. **Extract**: Run `mix gettext.extract --merge`
+3. **Translate**: Edit `priv/gettext/{locale}/LC_MESSAGES/default.po`
+4. **Test**: Use `gettext()` in test assertions: `assert html =~ gettext("...")`
+5. **Verify**: Render pages in different locales to test
+
+### Current Locales
+
+| Locale | File | Status |
+|--------|------|--------|
+| Portuguese | `priv/gettext/pt/` | ✅ Default + Complete |
+| English | `priv/gettext/en/` | ✅ Complete |
+| Spanish | `priv/gettext/es/` | ✅ Complete |
+
+### Common Pitfalls
+
+❌ **DON'T**: 
+- Use hardcoded strings in templates without `gettext()`
+- Hardcode error messages (use `dgettext("errors", ...)`)
+- Compare against literal strings in tests
+- Manually edit .po file msgids (use `mix gettext.extract --merge`)
+
+✅ **DO**:
+- Wrap all user-facing text in translation functions
+- Use relative date formatting with `ngettext()`
+- Test assertions with `gettext()` calls
+- Run `mix gettext.extract --merge` after adding strings
   <!-- i18n-end -->
 
 <!-- usage-rules-end -->
