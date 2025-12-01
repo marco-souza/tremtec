@@ -23,7 +23,7 @@ services:
     profiles:
       - dev
 
-  # Production environment 
+  # Production environment
   tremtec-prod:
     build:
       context: .
@@ -42,6 +42,7 @@ services:
       - tremtec_prod_data:/data
     restart: unless-stopped
     env_file:
+      - .env
       - .env.production
     profiles:
       - prod

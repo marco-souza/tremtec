@@ -13,6 +13,11 @@ live_view_signing_salt =
 
 config :tremtec, TremtecWeb.Endpoint, live_view: [signing_salt: live_view_signing_salt]
 
+# Sender info shared by all environments
+config :tremtec, Tremtec.Mailer,
+  sender_email: System.get_env("SMTP_FROM_EMAIL") || "noreply@tremtec.com",
+  sender_name: System.get_env("SMTP_FROM_NAME") || "Tremtec"
+
 # config/runtime.exs is executed for all environments, including
 # during releases. It is executed after compilation and before the
 # system starts, so it is typically used to load production configuration
@@ -106,21 +111,9 @@ if config_env() == :prod do
   #
   # Check `Plug.SSL` for all available options in `force_ssl`.
 
-  # ## Configuring the mailer
+  # ## Configuring the Mailer
   #
   # In production you need to configure the mailer to use a different adapter.
-  # Here is an example configuration for Mailgun:
-  #
-  #     config :tremtec, Tremtec.Mailer,
-  #       adapter: Swoosh.Adapters.Mailgun,
-  #       api_key: System.get_env("MAILGUN_API_KEY"),
-  #       domain: System.get_env("MAILGUN_DOMAIN")
-  #
-  # Most non-SMTP adapters require an API client. Swoosh supports Req, Hackney,
-  # and Finch out-of-the-box. This configuration is typically done at
-  # compile-time in your config/prod.exs:
-  #
-  #     config :swoosh, :api_client, Swoosh.ApiClient.Req
-  #
-  # See https://hexdocs.pm/swoosh/Swoosh.html#module-installation for details.
+  # We support Resend out of the box, but you can switch to any other adapter.
+  config :tremtec, Tremtec.Mailer, api_key: System.fetch_env!("RESEND_API_KEY")
 end
