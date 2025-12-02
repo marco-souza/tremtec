@@ -13,24 +13,10 @@ live_view_signing_salt =
 
 config :tremtec, TremtecWeb.Endpoint, live_view: [signing_salt: live_view_signing_salt]
 
-# Admin credentials - required in all environments
-admin_user =
-  System.get_env("ADMIN_USER") ||
-    raise """
-    environment variable ADMIN_USER is missing.
-    Set it before starting the application.
-    """
-
-admin_password =
-  System.get_env("ADMIN_PASS") ||
-    raise """
-    environment variable ADMIN_PASS is missing.
-    Set it before starting the application.
-    """
-
-config :tremtec,
-  admin_user: admin_user,
-  admin_password: admin_password
+# Sender info shared by all environments
+config :tremtec, Tremtec.Mailer,
+  sender_email: System.get_env("SMTP_FROM_EMAIL") || "noreply@tremtec.com",
+  sender_name: System.get_env("SMTP_FROM_NAME") || "Tremtec"
 
 # config/runtime.exs is executed for all environments, including
 # during releases. It is executed after compilation and before the
@@ -79,6 +65,13 @@ if config_env() == :prod do
   host = System.get_env("PHX_HOST") || "example.com"
   port = String.to_integer(System.get_env("PORT") || "4000")
 
+  # Parse additional allowed origins from environment variable
+  allowed_origins =
+    System.get_env("ALLOWED_ORIGINS", "")
+    |> String.split(",")
+    |> Enum.map(&String.trim/1)
+    |> Enum.filter(&(&1 != ""))
+
   config :tremtec, :dns_cluster_query, System.get_env("DNS_CLUSTER_QUERY")
 
   config :tremtec, TremtecWeb.Endpoint,
@@ -91,7 +84,8 @@ if config_env() == :prod do
       ip: {0, 0, 0, 0, 0, 0, 0, 0},
       port: port
     ],
-    secret_key_base: secret_key_base
+    secret_key_base: secret_key_base,
+    check_origin: ["https://#{host}" | allowed_origins]
 
   # ## SSL Support
   #
@@ -125,21 +119,9 @@ if config_env() == :prod do
   #
   # Check `Plug.SSL` for all available options in `force_ssl`.
 
-  # ## Configuring the mailer
+  # ## Configuring the Mailer
   #
   # In production you need to configure the mailer to use a different adapter.
-  # Here is an example configuration for Mailgun:
-  #
-  #     config :tremtec, Tremtec.Mailer,
-  #       adapter: Swoosh.Adapters.Mailgun,
-  #       api_key: System.get_env("MAILGUN_API_KEY"),
-  #       domain: System.get_env("MAILGUN_DOMAIN")
-  #
-  # Most non-SMTP adapters require an API client. Swoosh supports Req, Hackney,
-  # and Finch out-of-the-box. This configuration is typically done at
-  # compile-time in your config/prod.exs:
-  #
-  #     config :swoosh, :api_client, Swoosh.ApiClient.Req
-  #
-  # See https://hexdocs.pm/swoosh/Swoosh.html#module-installation for details.
+  # We support Resend out of the box, but you can switch to any other adapter.
+  config :tremtec, Tremtec.Mailer, api_key: System.fetch_env!("RESEND_API_KEY")
 end

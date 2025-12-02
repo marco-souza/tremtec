@@ -5,6 +5,9 @@ defmodule TremtecWeb.Layouts do
   """
   use TremtecWeb, :html
 
+  import TremtecWeb.Components.AdminSidebar
+  import TremtecWeb.Components.AdminNavMobile
+
   # Embed all files in layouts/* within this module.
   # The default root.html.heex file contains the HTML
   # skeleton of your application, namely HTML headers
@@ -31,24 +34,44 @@ defmodule TremtecWeb.Layouts do
     default: nil,
     doc: "the current [scope](https://hexdocs.pm/phoenix/scopes.html)"
 
+  attr :is_admin, :boolean,
+    default: false,
+    doc: "whether this is an admin page"
+
   slot :inner_block, required: true
 
   def app(assigns) do
     ~H"""
-    <div class="bg-base-100 drawer">
-      <input id="my-drawer-3" type="checkbox" class="drawer-toggle" />
+    <div class={["bg-base-100", @is_admin && "md:ml-64"]}>
+      <!-- Admin Sidebar (Desktop) -->
+      <.admin_sidebar :if={@is_admin} />
+      
+    <!-- Admin Mobile Nav -->
+      <.admin_nav_mobile :if={@is_admin} />
+      
+    <!-- Public Layout -->
+      <div :if={!@is_admin} class="drawer">
+        <input id="mobile-drawer" type="checkbox" class="drawer-toggle" />
 
-      <div class="drawer-content flex flex-col min-h-screen">
-        <.navbar current_scope={@current_scope} />
+        <div class="drawer-content flex flex-col min-h-screen">
+          <.navbar current_scope={@current_scope} />
 
-        <main class="flex-grow pt-16">
+          <main class="flex-1 mt-20 py-8">
+            {render_slot(@inner_block)}
+          </main>
+
+          <.footer />
+        </div>
+
+        <.drawer current_scope={@current_scope} />
+      </div>
+      
+    <!-- Admin Layout -->
+      <div :if={@is_admin} class="flex flex-col min-h-screen">
+        <main class="flex-1 py-8">
           {render_slot(@inner_block)}
         </main>
-
-        <.footer />
       </div>
-
-      <.drawer />
     </div>
 
     <.flash_group flash={@flash} />
@@ -58,8 +81,8 @@ defmodule TremtecWeb.Layouts do
   def logo(assigns) do
     ~H"""
     <a href="/" class="flex items-center gap-2">
-      <img src={~p"/images/logo.png"} width="48" alt={gettext("TremTec logo")} />
-      <span class="text-lg font-bold">{gettext("TremTec")}</span>
+      <img src={~p"/images/logo.png"} width="48" alt="TremTec Logo" />
+      <span class="text-lg font-bold">TremTec</span>
     </a>
     """
   end
@@ -67,50 +90,57 @@ defmodule TremtecWeb.Layouts do
   def drawer(assigns) do
     ~H"""
     <div class="drawer-side z-50">
-      <label for="my-drawer-3" class="drawer-overlay"></label>
+      <label for="mobile-drawer" class="drawer-overlay"></label>
+
       <ul class="menu p-4 w-80 min-h-full bg-base-200 gap-2 flex flex-col">
         <div class="spacer mt-4 mb-8">
           <.logo />
         </div>
 
-        <li>
+        <li :for={link <- nav_links()}>
           <a
-            href="#services"
+            href={link.href}
             class="text-lg font-medium"
-            onclick="document.getElementById('my-drawer-3').click()"
+            onclick="document.getElementById('mobile-drawer').click()"
           >
-            {gettext("Services")}
-          </a>
-        </li>
-        <li>
-          <a
-            href="#methodology"
-            class="text-lg font-medium"
-            onclick="document.getElementById('my-drawer-3').click()"
-          >
-            {gettext("Methodology")}
-          </a>
-        </li>
-        <li>
-          <a
-            href="#about"
-            class="text-lg font-medium"
-            onclick="document.getElementById('my-drawer-3').click()"
-          >
-            {gettext("About")}
-          </a>
-        </li>
-        <li>
-          <a
-            href="#contact"
-            class="btn btn-primary btn-block mt-4 text-white"
-            onclick="document.getElementById('my-drawer-3').click()"
-          >
-            {gettext("Get Started")}
+            {link.label}
           </a>
         </li>
 
         <div class="spacer flex-1" />
+
+        <%= if @current_scope && @current_scope.user do %>
+          <li>
+            <.link
+              navigate={~p"/admin/dashboard"}
+              class="text-lg font-medium"
+              onclick="document.getElementById('mobile-drawer').click()"
+            >
+              <span class="text-sm text-base-content/80">{@current_scope.user.email}</span>
+            </.link>
+            <.link
+              method="delete"
+              href={~p"/admin/log-out"}
+              class="text-sm font-medium text-base-content/80 hover:text-primary transition-colors"
+            >
+              {gettext("Log out")}
+            </.link>
+          </li>
+        <% else %>
+          <li class="mt-4 pt-4 border-t border-base-300">
+            <.link
+              navigate={~p"/admin"}
+              class="text-lg font-medium"
+              onclick="document.getElementById('mobile-drawer').click()"
+            >
+              {gettext("Log in")}
+            </.link>
+            <a href="#contact" class="btn btn-primary btn-sm font-medium px-6">
+              {gettext("Get Started")}
+            </a>
+          </li>
+        <% end %>
+
         <li><.theme_toggle /></li>
       </ul>
     </div>
@@ -130,36 +160,46 @@ defmodule TremtecWeb.Layouts do
     <!-- Center: Navigation (Desktop) -->
           <div class="hidden md:flex items-center space-x-8">
             <a
-              href="#services"
+              :for={link <- nav_links()}
+              href={link.href}
               class="text-sm font-medium text-base-content/80 hover:text-primary transition-colors"
             >
-              {gettext("Services")}
-            </a>
-            <a
-              href="#methodology"
-              class="text-sm font-medium text-base-content/80 hover:text-primary transition-colors"
-            >
-              {gettext("Methodology")}
-            </a>
-            <a
-              href="#about"
-              class="text-sm font-medium text-base-content/80 hover:text-primary transition-colors"
-            >
-              {gettext("About")}
+              {link.label}
             </a>
           </div>
           
     <!-- Right: CTA & Theme -->
           <div class="hidden md:flex items-center gap-4">
-            <.theme_toggle />
-            <a href="#contact" class="btn btn-primary btn-sm font-medium px-6">
-              {gettext("Get Started")}
-            </a>
+            <%= if @current_scope && @current_scope.user do %>
+              <.link
+                navigate={~p"/admin/dashboard"}
+                class="text-sm font-medium text-base-content/80 hover:text-primary transition-colors"
+              >
+                {@current_scope.user.email}
+              </.link>
+              <.link
+                method="delete"
+                href={~p"/admin/log-out"}
+                class="text-sm font-medium text-base-content/80 hover:text-primary transition-colors"
+              >
+                {gettext("Log out")}
+              </.link>
+            <% else %>
+              <.link
+                navigate={~p"/admin"}
+                class="text-sm font-medium text-base-content/80 hover:text-primary transition-colors"
+              >
+                {gettext("Log in")}
+              </.link>
+              <a href="#contact" class="btn btn-primary btn-sm font-medium px-6">
+                {gettext("Get Started")}
+              </a>
+            <% end %>
           </div>
           
     <!-- Mobile Menu Button -->
           <div class="flex items-center md:hidden gap-4">
-            <label for="my-drawer-3" class="btn btn-square btn-ghost">
+            <label for="mobile-drawer" class="btn btn-square btn-ghost">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -196,67 +236,23 @@ defmodule TremtecWeb.Layouts do
             </p>
           </div>
 
-          <div>
-            <h3 class="text-sm font-semibold text-base-content tracking-wider uppercase mb-4">
-              {gettext("Services")}
-            </h3>
-            <ul class="space-y-3">
-              <li>
-                <a
-                  href="#services"
-                  class="text-sm text-base-content/60 hover:text-primary transition-colors"
-                >
-                  {gettext("Outsourcing")}
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#services"
-                  class="text-sm text-base-content/60 hover:text-primary transition-colors"
-                >
-                  {gettext("Consulting")}
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#services"
-                  class="text-sm text-base-content/60 hover:text-primary transition-colors"
-                >
-                  {gettext("Diagnostics")}
-                </a>
-              </li>
-            </ul>
-          </div>
+          <.footer_group title={gettext("Services")}>
+            <.footer_link href="#services">{gettext("Outsourcing")}</.footer_link>
+            <.footer_link href="#services">{gettext("Consulting")}</.footer_link>
+            <.footer_link href="#services">{gettext("Diagnostics")}</.footer_link>
+          </.footer_group>
 
-          <div>
-            <h3 class="text-sm font-semibold text-base-content tracking-wider uppercase mb-4">
-              {gettext("Company")}
-            </h3>
-            <ul class="space-y-3">
-              <li>
-                <a href="#" class="text-sm text-base-content/60 hover:text-primary transition-colors">
-                  {gettext("About Us")}
-                </a>
-              </li>
-              <!-- <li><a href="#" class="text-sm text-base-content/60 hover:text-primary transition-colors">{gettext("Careers")}</a></li> -->
-              <li>
-                <a
-                  href="#contact"
-                  class="text-sm text-base-content/60 hover:text-primary transition-colors"
-                >
-                  {gettext("Contact")}
-                </a>
-              </li>
-            </ul>
-          </div>
+          <.footer_group title={gettext("Company")}>
+            <.footer_link href="#">{gettext("About Us")}</.footer_link>
+            <.footer_link href="#contact">{gettext("Contact")}</.footer_link>
+          </.footer_group>
 
           <div>
             <h3 class="text-sm font-semibold text-base-content tracking-wider uppercase mb-4">
               {gettext("Connect")}
             </h3>
             <div class="flex space-x-4">
-              <a href="#" class="text-base-content/40 hover:text-primary transition-colors">
-                <span class="sr-only">{gettext("GitHub")}</span>
+              <.social_link href="#" icon="hero-link" label={gettext("GitHub")}>
                 <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path
                     fill-rule="evenodd"
@@ -264,9 +260,8 @@ defmodule TremtecWeb.Layouts do
                     clip-rule="evenodd"
                   />
                 </svg>
-              </a>
-              <a href="#" class="text-base-content/40 hover:text-primary transition-colors">
-                <span class="sr-only">{gettext("LinkedIn")}</span>
+              </.social_link>
+              <.social_link href="#" icon="hero-link" label={gettext("LinkedIn")}>
                 <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path
                     fill-rule="evenodd"
@@ -274,7 +269,7 @@ defmodule TremtecWeb.Layouts do
                     clip-rule="evenodd"
                   />
                 </svg>
-              </a>
+              </.social_link>
             </div>
           </div>
         </div>
@@ -294,6 +289,61 @@ defmodule TremtecWeb.Layouts do
         </div>
       </div>
     </footer>
+    """
+  end
+
+  defp nav_links do
+    [
+      %{label: gettext("Services"), href: "#services"},
+      %{label: gettext("Methodology"), href: "#methodology"},
+      %{label: gettext("About"), href: "#about"}
+    ]
+  end
+
+  attr :title, :string, required: true
+  slot :inner_block, required: true
+
+  defp footer_group(assigns) do
+    ~H"""
+    <div>
+      <h3 class="text-sm font-semibold text-base-content tracking-wider uppercase mb-4">
+        {@title}
+      </h3>
+      <ul class="space-y-3">
+        {render_slot(@inner_block)}
+      </ul>
+    </div>
+    """
+  end
+
+  attr :href, :string, required: true
+  slot :inner_block, required: true
+
+  defp footer_link(assigns) do
+    ~H"""
+    <li>
+      <a href={@href} class="text-sm text-base-content/60 hover:text-primary transition-colors">
+        {render_slot(@inner_block)}
+      </a>
+    </li>
+    """
+  end
+
+  attr :href, :string, required: true
+  attr :label, :string, required: true
+  attr :icon, :string, default: nil
+  slot :inner_block
+
+  defp social_link(assigns) do
+    ~H"""
+    <a href={@href} class="text-base-content/40 hover:text-primary transition-colors">
+      <span class="sr-only">{@label}</span>
+      <%= if @inner_block != [] do %>
+        {render_slot(@inner_block)}
+      <% else %>
+        <.icon name={@icon} class="h-6 w-6" />
+      <% end %>
+    </a>
     """
   end
 

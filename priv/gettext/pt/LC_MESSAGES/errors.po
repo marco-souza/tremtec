@@ -110,3 +110,18 @@ msgstr "Precisa ser maior ou igual a %{number}"
 
 msgid "must be equal to %{number}"
 msgstr "Precisa ser igual a %{number}"
+
+#: lib/tremtec/accounts/user.ex:81
+#, elixir-autogen, elixir-format
+msgid "did not change"
+msgstr "Não mudou"
+
+#: lib/tremtec/accounts/user.ex:105
+#, elixir-autogen, elixir-format
+msgid "does not match password"
+msgstr "Não coincide com a senha"
+
+#: lib/tremtec/accounts/user.ex:68
+#, elixir-autogen, elixir-format
+msgid "must be from an accepted domain: %{domains}"
+msgstr "Deve ser de um domínio aceito: %{domains}"

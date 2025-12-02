@@ -513,4 +513,34 @@ defmodule TremtecWeb.CoreComponents do
   def translate_errors(errors, field) when is_list(errors) do
     for {^field, {msg, opts}} <- errors, do: translate_error({msg, opts})
   end
+
+  @doc """
+  Renders a status badge component.
+
+  ## Examples
+
+      <.status_badge status={true} />
+      <.status_badge status={false} label_true="Confirmed" label_false="Pending" />
+  """
+  attr :status, :boolean, required: true, doc: "The status value"
+  attr :label_true, :string, default: "Yes", doc: "Label for true status"
+  attr :label_false, :string, default: "No", doc: "Label for false status"
+  attr :class, :string, default: nil, doc: "Additional CSS classes"
+
+  def status_badge(assigns) do
+    {label, variant} =
+      if assigns.status do
+        {assigns.label_true, "badge-success"}
+      else
+        {assigns.label_false, "badge-warning"}
+      end
+
+    assigns = assign(assigns, label: label, variant: variant)
+
+    ~H"""
+    <span class={["badge", @variant, @class]}>
+      {@label}
+    </span>
+    """
+  end
 end

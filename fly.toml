@@ -2,10 +2,11 @@ app = 'tremtec'
 primary_region = 'gru'
 
 [env]
-  PHX_HOST = "tremtec.fly.dev"
+  PHX_HOST = "tremtec.com"
   PORT = "8080"
   PHX_SERVER = "true"
   DATABASE_PATH = "/data/tremtec.db"
+  ALLOWED_ORIGINS = "https://tremtec.fly.dev,https://www.tremtec.com"
 
 [http_service]
   internal_port = 8080
