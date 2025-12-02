@@ -3,7 +3,9 @@ defmodule Tremtec.Date do
 
   def format_full_date(nil), do: nil
 
-  def format_full_date(date) when is_struct(date, DateTime) do
+  def format_full_date(date)
+      when is_struct(date, DateTime) or
+             is_struct(date, NaiveDateTime) do
     Calendar.strftime(date, "%Y-%m-%d %H:%M")
   end
 
@@ -11,6 +13,12 @@ defmodule Tremtec.Date do
 
   def relative_date(date) when is_struct(date, DateTime) do
     format_relative_time(date)
+  end
+
+  def relative_date(date) when is_struct(date, NaiveDateTime) do
+    # Convert NaiveDateTime to DateTime for comparison
+    datetime = DateTime.from_naive!(date, "Etc/UTC")
+    format_relative_time(datetime)
   end
 
   def relative_date(_), do: nil

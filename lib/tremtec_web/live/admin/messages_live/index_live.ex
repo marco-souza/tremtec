@@ -5,6 +5,7 @@ defmodule TremtecWeb.Admin.MessagesLive.IndexLive do
   alias Tremtec.Messages
 
   @per_page 10
+  @max_message_length 50
 
   def render(assigns) do
     ~H"""
@@ -68,7 +69,7 @@ defmodule TremtecWeb.Admin.MessagesLive.IndexLive do
                   </td>
                   <td class="text-sm truncate">
                     <.link navigate={~p"/admin/messages/#{message.id}"} class="link link-hover">
-                      {message.message}
+                      {truncate_message(message.message)}
                     </.link>
                   </td>
                   <td class="text-center">
@@ -313,5 +314,15 @@ defmodule TremtecWeb.Admin.MessagesLive.IndexLive do
       total_count: total_count,
       total_pages: total_pages
     )
+  end
+
+  defp truncate_message(message), do: truncate_message(message, @max_message_length)
+
+  defp truncate_message(message, max_length) do
+    if String.length(message) > max_length do
+      String.slice(message, 0, max_length - 3) <> "..."
+    else
+      message
+    end
   end
 end
