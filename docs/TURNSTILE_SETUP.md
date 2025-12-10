@@ -6,6 +6,8 @@ The contact form is protected with Cloudflare Turnstile CAPTCHA to prevent spam 
 
 ## Environment Variables
 
+**Required in all environments** (development, testing, production).
+
 Set these in `.env.local` (never commit):
 
 - `TURNSTILE_SITE_KEY`: Public key from Cloudflare Dashboard
@@ -13,9 +15,15 @@ Set these in `.env.local` (never commit):
 
 Example `.env.local`:
 ```env
-TURNSTILE_SITE_KEY=1x00000000000000000000AA
-TURNSTILE_SECRET_KEY=1x0000000000000000000000000000000000AA
+TURNSTILE_SITE_KEY=1x1234567890abcdef1234567890
+TURNSTILE_SECRET_KEY=1x5678901234567890abcdef1234567890abcdef
 ```
+
+### Development-Only Note
+
+- In **development**: If env vars are not set, test keys are used (widget won't validate, but won't error)
+- In **testing**: Test keys are always used for consistency
+- In **production**: Env vars are required and will error if missing
 
 ## Getting Started
 
@@ -25,28 +33,37 @@ TURNSTILE_SECRET_KEY=1x0000000000000000000000000000000000AA
 2. Navigate to **Turnstile** in the left sidebar
 3. Click **Create Site**
 4. Fill in:
-   - **Site Name**: `TremTec Contact Form`
-   - **Domains**: `localhost:3000` (dev), `yourdomain.com` (production)
-   - **Mode**: Managed
+   - **Site Name**: `TremTec Contact Form` (or `TremTec Dev`)
+   - **Domains**: 
+     - Development: `localhost:4000` and `localhost:3000`
+     - Production: `yourdomain.com`
+   - **Mode**: Managed (or Invisible if you prefer)
    - **Bot Fight Mode**: Enable
 5. Copy the **Site Key** and **Secret Key**
-6. Add to `.env.local`
+6. Add to `.env.local`:
+   ```bash
+   echo 'TURNSTILE_SITE_KEY=your_key' >> .env.local
+   echo 'TURNSTILE_SECRET_KEY=your_secret' >> .env.local
+   ```
+7. Start server: `mix phx.server`
 
 ### 2. Run Locally
 
-```bash
-# Install dependencies
-mix deps.get
+After setting up `.env.local`:
 
+```bash
 # Start server
 mix phx.server
 ```
 
-Navigate to http://localhost:3000/contact to see the widget.
+Navigate to **http://localhost:4000/contact** to see the widget.
 
 ## Testing Locally
 
-The dev environment uses Cloudflare test keys by default. No real API calls are made during development.
+**With credentials set in `.env.local`:**
+- Widget will render with your real Cloudflare setup
+- Real API validation against your site's credentials
+- Token validation will work correctly
 
 ### Manual Testing
 

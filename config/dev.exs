@@ -84,7 +84,8 @@ config :phoenix_live_view,
 # Disable swoosh api client as it is only required for production adapters.
 config :swoosh, :api_client, false
 
-# Cloudflare Turnstile - use test keys in development
+# Cloudflare Turnstile - read from environment variables in development
+# Set TURNSTILE_SITE_KEY and TURNSTILE_SECRET_KEY in .env.local
 config :phoenix_turnstile,
-  site_key: "1x00000000000000000000AA",
-  secret_key: "1x0000000000000000000000000000000000AA"
+  site_key: System.get_env("TURNSTILE_SITE_KEY", "1x00000000000000000000AA"),
+  secret_key: System.get_env("TURNSTILE_SECRET_KEY", "1x0000000000000000000000000000000000AA")
