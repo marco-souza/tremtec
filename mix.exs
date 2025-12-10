@@ -62,6 +62,7 @@ defmodule Tremtec.MixProject do
       {:swoosh, "~> 1.16"},
       {:resend, "~> 0.4.4"},
       {:req, "~> 0.5"},
+      {:phoenix_turnstile, "~> 1.2"},
       {:telemetry_metrics, "~> 1.0"},
       {:telemetry_poller, "~> 1.0"},
       {:gettext, "~> 0.26"},

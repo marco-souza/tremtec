@@ -5,12 +5,20 @@ defmodule TremtecWeb.PublicPages.ContactLive do
   alias Ecto.Changeset
   alias Tremtec.Messages
 
+  # Cloudflare Turnstile CAPTCHA Integration
+  # - Widget: client-side verification
+  # - Validation: server-side token verification via Siteverify API
+  # - Token lifetime: 300 seconds (5 minutes)
+  # - Tokens are single-use and expire automatically
+  @turnstile_timeout 5000
+
   @impl true
   def mount(_params, _session, socket) do
     {:ok,
      socket
      |> assign(:page_title, gettext("Contact"))
      |> assign(:submitted?, false)
+     |> assign(:captcha_valid?, false)
      |> assign(:form, empty_form())}
   end
 
@@ -70,9 +78,23 @@ defmodule TremtecWeb.PublicPages.ContactLive do
                 autocomplete="off"
               />
             </div>
+            
+    <!-- Cloudflare Turnstile CAPTCHA widget -->
+            <div class="flex justify-center my-4">
+              <Turnstile.widget
+                id="contact-captcha"
+                theme="light"
+                size="normal"
+                data-events="success,error,expired"
+              />
+            </div>
 
             <div class="pt-2">
-              <.button type="submit" phx-disable-with={gettext("Sending...")}>
+              <.button
+                type="submit"
+                phx-disable-with={gettext("Sending...")}
+                disabled={not @captcha_valid?}
+              >
                 {gettext("Send message")}
               </.button>
             </div>
@@ -94,17 +116,68 @@ defmodule TremtecWeb.PublicPages.ContactLive do
     {:noreply, assign(socket, form: form, submitted?: false)}
   end
 
+  # Handle CAPTCHA success event
   @impl true
-  def handle_event("save", %{"contact" => params}, socket) do
+  def handle_event("turnstile:success", _params, socket) do
+    # Mark CAPTCHA as validated when user completes the challenge
+    {:noreply, assign(socket, captcha_valid?: true)}
+  end
+
+  # Handle CAPTCHA error event
+  @impl true
+  def handle_event("turnstile:error", _params, socket) do
+    # Mark as invalid if there's an error
+    {:noreply, assign(socket, captcha_valid?: false)}
+  end
+
+  # Handle CAPTCHA expiration event
+  @impl true
+  def handle_event("turnstile:expired", _params, socket) do
+    # Token expired, user needs to complete again
+    {:noreply, assign(socket, captcha_valid?: false)}
+  end
+
+  @impl true
+  def handle_event("save", %{"contact" => params} = full_params, socket) do
+    # Extract Turnstile token
+    captcha_token = full_params["cf-turnstile-response"]
+
+    # Validate form fields first
     case Changeset.apply_action(changeset(params), :insert) do
       {:ok, data} ->
-        _ = Messages.create_contact_message(data)
+        # Form is valid, now validate CAPTCHA
+        case validate_captcha(captcha_token, socket) do
+          {:ok, captcha_response} ->
+            # Log successful validation
+            Logger.info("Captcha validation succeeded",
+              extra: %{challenge_ts: captcha_response["challenge_ts"]}
+            )
 
-        {:noreply,
-         socket
-         |> put_flash(:info, gettext("Thanks! Your message has been sent."))
-         |> assign(:submitted?, true)
-         |> assign(:form, empty_form())}
+            # CAPTCHA and form are valid, save message
+            _ = Messages.create_contact_message(data)
+
+            {:noreply,
+             socket
+             |> put_flash(:info, gettext("Thanks! Your message has been sent."))
+             |> assign(:submitted?, true)
+             |> assign(:captcha_valid?, false)
+             |> assign(:form, empty_form())}
+
+          {:error, reason} ->
+            # Log validation failure
+            Logger.warning("Captcha validation failed", extra: %{reason: inspect(reason)})
+
+            # Show error and reset widget
+            {:noreply,
+             socket
+             |> put_flash(
+               :error,
+               gettext("Verification failed. Please try again.")
+             )
+             |> assign(:submitted?, false)
+             |> assign(:captcha_valid?, false)
+             |> assign(:form, to_form(changeset(params), as: :contact))}
+        end
 
       {:error, %Changeset{} = cs} ->
         {:noreply, assign(socket, form: to_form(cs, as: :contact), submitted?: false)}
@@ -136,6 +209,90 @@ defmodule TremtecWeb.PublicPages.ContactLive do
       nil -> cs
       "" -> cs
       _ -> Changeset.add_error(cs, :base, gettext("Spam detected"))
+    end
+  end
+
+  # Cloudflare Turnstile CAPTCHA validation
+  # Verifies token with Cloudflare Siteverify API
+  defp validate_captcha(token, socket) when is_binary(token) and byte_size(token) > 0 do
+    secret_key = Application.fetch_env!(:phoenix_turnstile, :secret_key)
+    remote_ip = get_remote_ip(socket)
+
+    verify_token_with_cloudflare(token, secret_key, remote_ip)
+  end
+
+  defp validate_captcha(nil, _socket) do
+    {:error, :missing_token}
+  end
+
+  defp validate_captcha("", _socket) do
+    {:error, :empty_token}
+  end
+
+  # Call Cloudflare Siteverify API
+  defp verify_token_with_cloudflare(token, secret_key, remote_ip) do
+    url = "https://challenges.cloudflare.com/turnstile/v0/siteverify"
+
+    body = %{
+      "secret" => secret_key,
+      "response" => token
+    }
+
+    case Req.post(url, json: body, receive_timeout: @turnstile_timeout) do
+      {:ok, %Req.Response{status: 200, body: response_body}} ->
+        case response_body do
+          %{"success" => true} = response ->
+            Logger.debug("Turnstile verification successful",
+              extra: %{
+                challenge_ts: response["challenge_ts"],
+                hostname: response["hostname"],
+                remote_ip: inspect(remote_ip)
+              }
+            )
+
+            {:ok, response}
+
+          %{"success" => false} = response ->
+            Logger.warning("Turnstile verification failed",
+              extra: %{
+                error_codes: response["error-codes"],
+                challenge_ts: response["challenge_ts"]
+              }
+            )
+
+            {:error, {:verification_failed, response["error-codes"]}}
+
+          response ->
+            Logger.warning("Unexpected Turnstile response", extra: %{response: response})
+            {:error, :unexpected_response}
+        end
+
+      {:ok, %Req.Response{status: status}} ->
+        Logger.error("Turnstile API error",
+          extra: %{status: status, remote_ip: inspect(remote_ip)}
+        )
+
+        {:error, {:api_error, status}}
+
+      {:error, reason} ->
+        Logger.error("Turnstile request failed", extra: %{reason: inspect(reason)})
+        {:error, {:request_failed, reason}}
+    end
+  end
+
+  # Extract client IP address from LiveView socket
+  defp get_remote_ip(socket) do
+    case Map.get(socket, :transport_pid) do
+      nil ->
+        # No transport_pid means disconnected (tests, etc)
+        {127, 0, 0, 1}
+
+      _ ->
+        # Try to get IP from socket connect_info
+        case Map.get(socket, :connect_info) do
+          %{peer_data: %{address: ip}} -> ip
+          _ -> {127, 0, 0, 1}
+        end
     end
   end
 end

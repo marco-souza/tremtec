@@ -124,4 +124,9 @@ if config_env() == :prod do
   # In production you need to configure the mailer to use a different adapter.
   # We support Resend out of the box, but you can switch to any other adapter.
   config :tremtec, Tremtec.Mailer, api_key: System.fetch_env!("RESEND_API_KEY")
+
+  # Cloudflare Turnstile CAPTCHA configuration (production)
+  config :phoenix_turnstile,
+    site_key: System.fetch_env!("TURNSTILE_SITE_KEY"),
+    secret_key: System.fetch_env!("TURNSTILE_SECRET_KEY")
 end

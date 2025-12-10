@@ -38,3 +38,8 @@ config :phoenix_live_view,
 
 # Allow example.com in tests
 config :tremtec, :accepted_email_domains, ["tremtec.com", "example.com"]
+
+# Cloudflare Turnstile test keys
+config :phoenix_turnstile,
+  site_key: "1x00000000000000000000AA",
+  secret_key: "1x0000000000000000000000000000000000AA"

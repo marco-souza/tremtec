@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 
 #: lib/tremtec_web/components/core_components.ex:386
-#: lib/tremtec_web/live/admin/messages_live/index_live.ex:51
+#: lib/tremtec_web/live/admin/messages_live/index_live.ex:52
 #: lib/tremtec_web/live/admin/users_live/index_live.ex:39
 #, elixir-autogen, elixir-format
 msgid "Actions"
@@ -145,16 +145,16 @@ msgid "All rights reserved"
 msgstr ""
 
 #: lib/tremtec_web/components/layouts.ex:247
-#: lib/tremtec_web/live/public_pages/contact_live.ex:12
-#: lib/tremtec_web/live/public_pages/contact_live.ex:23
+#: lib/tremtec_web/live/public_pages/contact_live.ex:19
+#: lib/tremtec_web/live/public_pages/contact_live.ex:30
 #, elixir-autogen, elixir-format
 msgid "Contact"
 msgstr ""
 
-#: lib/tremtec_web/live/admin/messages_live/index_live.ex:47
+#: lib/tremtec_web/live/admin/messages_live/index_live.ex:48
 #: lib/tremtec_web/live/admin/settings_live.ex:36
 #: lib/tremtec_web/live/admin/users_live/index_live.ex:36
-#: lib/tremtec_web/live/public_pages/contact_live.ex:46
+#: lib/tremtec_web/live/public_pages/contact_live.ex:53
 #: lib/tremtec_web/live/user_live/login.ex:49
 #: lib/tremtec_web/live/user_live/login.ex:73
 #: lib/tremtec_web/live/user_live/registration.ex:29
@@ -162,56 +162,56 @@ msgstr ""
 msgid "Email"
 msgstr ""
 
-#: lib/tremtec_web/live/public_pages/contact_live.ex:57
+#: lib/tremtec_web/live/public_pages/contact_live.ex:64
 #, elixir-autogen, elixir-format
 msgid "How can we help?"
 msgstr ""
 
-#: lib/tremtec_web/live/admin/messages_live/index_live.ex:48
+#: lib/tremtec_web/live/admin/messages_live/index_live.ex:49
 #: lib/tremtec_web/live/admin/messages_live/show_live.ex:48
 #: lib/tremtec_web/live/admin/messages_live/show_live.ex:114
-#: lib/tremtec_web/live/public_pages/contact_live.ex:56
+#: lib/tremtec_web/live/public_pages/contact_live.ex:63
 #, elixir-autogen, elixir-format
 msgid "Message"
 msgstr ""
 
-#: lib/tremtec_web/live/admin/messages_live/index_live.ex:46
-#: lib/tremtec_web/live/public_pages/contact_live.ex:38
+#: lib/tremtec_web/live/admin/messages_live/index_live.ex:47
+#: lib/tremtec_web/live/public_pages/contact_live.ex:45
 #, elixir-autogen, elixir-format
 msgid "Name"
 msgstr ""
 
-#: lib/tremtec_web/live/public_pages/contact_live.ex:64
+#: lib/tremtec_web/live/public_pages/contact_live.ex:71
 #, elixir-autogen, elixir-format
 msgid "Nickname"
 msgstr ""
 
-#: lib/tremtec_web/live/public_pages/contact_live.ex:76
+#: lib/tremtec_web/live/public_pages/contact_live.ex:92
 #, elixir-autogen, elixir-format
 msgid "Send message"
 msgstr ""
 
-#: lib/tremtec_web/live/public_pages/contact_live.ex:75
+#: lib/tremtec_web/live/public_pages/contact_live.ex:91
 #, elixir-autogen, elixir-format
 msgid "Sending..."
 msgstr ""
 
-#: lib/tremtec_web/live/public_pages/contact_live.ex:138
+#: lib/tremtec_web/live/public_pages/contact_live.ex:182
 #, elixir-autogen, elixir-format
 msgid "Spam detected"
 msgstr ""
 
-#: lib/tremtec_web/live/public_pages/contact_live.ex:105
+#: lib/tremtec_web/live/public_pages/contact_live.ex:134
 #, elixir-autogen, elixir-format
 msgid "Thanks! Your message has been sent."
 msgstr ""
 
-#: lib/tremtec_web/live/public_pages/contact_live.ex:24
+#: lib/tremtec_web/live/public_pages/contact_live.ex:31
 #, elixir-autogen, elixir-format
 msgid "We'd love to hear from you. Send us a message."
 msgstr ""
 
-#: lib/tremtec_web/live/public_pages/contact_live.ex:39
+#: lib/tremtec_web/live/public_pages/contact_live.ex:46
 #, elixir-autogen, elixir-format
 msgid "Your name"
 msgstr ""
@@ -226,7 +226,7 @@ msgstr ""
 msgid "From"
 msgstr ""
 
-#: lib/tremtec_web/live/admin/messages_live/index_live.ex:77
+#: lib/tremtec_web/live/admin/messages_live/index_live.ex:78
 #: lib/tremtec_web/live/admin/messages_live/show_live.ex:40
 #, elixir-autogen, elixir-format
 msgid "Read"
@@ -237,19 +237,19 @@ msgstr ""
 msgid "Received"
 msgstr ""
 
-#: lib/tremtec_web/live/admin/messages_live/index_live.ex:49
+#: lib/tremtec_web/live/admin/messages_live/index_live.ex:50
 #: lib/tremtec_web/live/admin/messages_live/show_live.ex:37
 #, elixir-autogen, elixir-format
 msgid "Status"
 msgstr ""
 
-#: lib/tremtec_web/live/admin/messages_live/index_live.ex:78
+#: lib/tremtec_web/live/admin/messages_live/index_live.ex:79
 #: lib/tremtec_web/live/admin/messages_live/show_live.ex:41
 #, elixir-autogen, elixir-format
 msgid "Unread"
 msgstr ""
 
-#: lib/tremtec_web/live/public_pages/contact_live.ex:47
+#: lib/tremtec_web/live/public_pages/contact_live.ex:54
 #, elixir-autogen, elixir-format
 msgid "your@email.com"
 msgstr ""
@@ -722,28 +722,28 @@ msgstr ""
 msgid "Home"
 msgstr ""
 
-#: lib/tremtec/date.ex:36
+#: lib/tremtec/date.ex:44
 #, elixir-autogen, elixir-format
 msgid "%{count} day ago"
 msgid_plural "%{count} days ago"
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/tremtec/date.ex:32
+#: lib/tremtec/date.ex:40
 #, elixir-autogen, elixir-format
 msgid "%{count} hour ago"
 msgid_plural "%{count} hours ago"
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/tremtec/date.ex:28
+#: lib/tremtec/date.ex:36
 #, elixir-autogen, elixir-format
 msgid "%{count} minute ago"
 msgid_plural "%{count} minutes ago"
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/tremtec/date.ex:40
+#: lib/tremtec/date.ex:48
 #, elixir-autogen, elixir-format
 msgid "%{count} week ago"
 msgid_plural "%{count} weeks ago"
@@ -755,7 +755,7 @@ msgstr[1] ""
 msgid "Admin Dashboard"
 msgstr ""
 
-#: lib/tremtec_web/live/admin/messages_live/index_live.ex:159
+#: lib/tremtec_web/live/admin/messages_live/index_live.ex:160
 #: lib/tremtec_web/live/admin/messages_live/show_live.ex:87
 #, elixir-autogen, elixir-format
 msgid "Are you sure you want to delete this message? This action cannot be undone."
@@ -777,26 +777,26 @@ msgstr ""
 msgid "Back to Page"
 msgstr ""
 
-#: lib/tremtec_web/live/admin/messages_live/index_live.ex:166
+#: lib/tremtec_web/live/admin/messages_live/index_live.ex:167
 #: lib/tremtec_web/live/admin/messages_live/show_live.ex:91
 #: lib/tremtec_web/live/admin/users_live/index_live.ex:119
 #, elixir-autogen, elixir-format
 msgid "Cancel"
 msgstr ""
 
-#: lib/tremtec_web/live/admin/messages_live/index_live.ex:33
+#: lib/tremtec_web/live/admin/messages_live/index_live.ex:34
 #, elixir-autogen, elixir-format
 msgid "Clear search"
 msgstr ""
 
-#: lib/tremtec_web/live/admin/messages_live/index_live.ex:178
+#: lib/tremtec_web/live/admin/messages_live/index_live.ex:179
 #: lib/tremtec_web/live/admin/messages_live/show_live.ex:99
 #: lib/tremtec_web/live/admin/users_live/index_live.ex:131
 #, elixir-autogen, elixir-format
 msgid "Close"
 msgstr ""
 
-#: lib/tremtec_web/live/admin/messages_live/index_live.ex:157
+#: lib/tremtec_web/live/admin/messages_live/index_live.ex:158
 #: lib/tremtec_web/live/admin/messages_live/show_live.ex:85
 #: lib/tremtec_web/live/admin/users_live/index_live.ex:108
 #, elixir-autogen, elixir-format
@@ -814,12 +814,12 @@ msgstr ""
 msgid "Dashboard"
 msgstr ""
 
-#: lib/tremtec_web/live/admin/messages_live/index_live.ex:50
+#: lib/tremtec_web/live/admin/messages_live/index_live.ex:51
 #, elixir-autogen, elixir-format
 msgid "Date"
 msgstr ""
 
-#: lib/tremtec_web/live/admin/messages_live/index_live.ex:173
+#: lib/tremtec_web/live/admin/messages_live/index_live.ex:174
 #: lib/tremtec_web/live/admin/messages_live/show_live.ex:72
 #: lib/tremtec_web/live/admin/messages_live/show_live.ex:94
 #: lib/tremtec_web/live/admin/users_live/index_live.ex:126
@@ -827,7 +827,7 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: lib/tremtec_web/live/admin/messages_live/index_live.ex:104
+#: lib/tremtec_web/live/admin/messages_live/index_live.ex:105
 #, elixir-autogen, elixir-format
 msgid "Delete message"
 msgstr ""
@@ -842,13 +842,13 @@ msgstr ""
 msgid "Email Address"
 msgstr ""
 
-#: lib/tremtec_web/live/admin/messages_live/index_live.ex:284
+#: lib/tremtec_web/live/admin/messages_live/index_live.ex:285
 #: lib/tremtec_web/live/admin/messages_live/show_live.ex:171
 #, elixir-autogen, elixir-format
 msgid "Failed to delete message"
 msgstr ""
 
-#: lib/tremtec_web/live/admin/messages_live/index_live.ex:254
+#: lib/tremtec_web/live/admin/messages_live/index_live.ex:255
 #: lib/tremtec_web/live/admin/messages_live/show_live.ex:147
 #, elixir-autogen, elixir-format
 msgid "Failed to update message status"
@@ -859,7 +859,7 @@ msgstr ""
 msgid "Go to"
 msgstr ""
 
-#: lib/tremtec/date.ex:24
+#: lib/tremtec/date.ex:32
 #, elixir-autogen, elixir-format
 msgid "Just now"
 msgstr ""
@@ -895,38 +895,38 @@ msgstr ""
 msgid "Mark as Unread"
 msgstr ""
 
-#: lib/tremtec_web/live/admin/messages_live/index_live.ex:244
+#: lib/tremtec_web/live/admin/messages_live/index_live.ex:245
 #: lib/tremtec_web/live/admin/messages_live/show_live.ex:133
 #, elixir-autogen, elixir-format
 msgid "Marked as read"
 msgstr ""
 
-#: lib/tremtec_web/live/admin/messages_live/index_live.ex:243
+#: lib/tremtec_web/live/admin/messages_live/index_live.ex:244
 #: lib/tremtec_web/live/admin/messages_live/show_live.ex:132
 #, elixir-autogen, elixir-format
 msgid "Marked as unread"
 msgstr ""
 
-#: lib/tremtec_web/live/admin/messages_live/index_live.ex:279
+#: lib/tremtec_web/live/admin/messages_live/index_live.ex:280
 #: lib/tremtec_web/live/admin/messages_live/show_live.ex:166
 #, elixir-autogen, elixir-format
 msgid "Message deleted successfully"
 msgstr ""
 
-#: lib/tremtec_web/live/admin/messages_live/index_live.ex:258
+#: lib/tremtec_web/live/admin/messages_live/index_live.ex:259
 #: lib/tremtec_web/live/admin/messages_live/show_live.ex:143
 #, elixir-autogen, elixir-format
 msgid "Message not found"
 msgstr ""
 
-#: lib/tremtec_web/live/admin/messages_live/index_live.ex:291
+#: lib/tremtec_web/live/admin/messages_live/index_live.ex:292
 #, elixir-autogen, elixir-format
 msgid "Message was already deleted"
 msgstr ""
 
 #: lib/tremtec_web/components/admin_nav_mobile.ex:13
 #: lib/tremtec_web/components/admin_sidebar.ex:25
-#: lib/tremtec_web/live/admin/messages_live/index_live.ex:16
+#: lib/tremtec_web/live/admin/messages_live/index_live.ex:17
 #, elixir-autogen, elixir-format
 msgid "Messages"
 msgstr ""
@@ -936,7 +936,7 @@ msgstr ""
 msgid "More"
 msgstr ""
 
-#: lib/tremtec_web/live/admin/messages_live/index_live.ex:145
+#: lib/tremtec_web/live/admin/messages_live/index_live.ex:146
 #: lib/tremtec_web/live/admin/users_live/index_live.ex:96
 #, elixir-autogen, elixir-format
 msgid "Next"
@@ -947,7 +947,7 @@ msgstr ""
 msgid "No messages"
 msgstr ""
 
-#: lib/tremtec_web/live/admin/messages_live/index_live.ex:118
+#: lib/tremtec_web/live/admin/messages_live/index_live.ex:119
 #, elixir-autogen, elixir-format
 msgid "No messages found"
 msgstr ""
@@ -957,13 +957,13 @@ msgstr ""
 msgid "No users found"
 msgstr ""
 
-#: lib/tremtec_web/live/admin/messages_live/index_live.ex:135
+#: lib/tremtec_web/live/admin/messages_live/index_live.ex:136
 #: lib/tremtec_web/live/admin/users_live/index_live.ex:86
 #, elixir-autogen, elixir-format
 msgid "Page"
 msgstr ""
 
-#: lib/tremtec_web/live/admin/messages_live/index_live.ex:130
+#: lib/tremtec_web/live/admin/messages_live/index_live.ex:131
 #: lib/tremtec_web/live/admin/users_live/index_live.ex:81
 #, elixir-autogen, elixir-format
 msgid "Previous"
@@ -979,7 +979,7 @@ msgstr ""
 msgid "Search by email"
 msgstr ""
 
-#: lib/tremtec_web/live/admin/messages_live/index_live.ex:25
+#: lib/tremtec_web/live/admin/messages_live/index_live.ex:26
 #, elixir-autogen, elixir-format
 msgid "Search by name, email, or message content"
 msgstr ""
@@ -990,7 +990,7 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: lib/tremtec_web/live/admin/messages_live/index_live.ex:91
+#: lib/tremtec_web/live/admin/messages_live/index_live.ex:92
 #, elixir-autogen, elixir-format
 msgid "Toggle read status"
 msgstr ""
@@ -1032,8 +1032,13 @@ msgstr ""
 msgid "Welcome back,"
 msgstr ""
 
-#: lib/tremtec_web/live/admin/messages_live/index_live.ex:135
+#: lib/tremtec_web/live/admin/messages_live/index_live.ex:136
 #: lib/tremtec_web/live/admin/users_live/index_live.ex:86
 #, elixir-autogen, elixir-format
 msgid "of"
+msgstr ""
+
+#: lib/tremtec_web/live/public_pages/contact_live.ex:147
+#, elixir-autogen, elixir-format
+msgid "Verification failed. Please try again."
 msgstr ""
