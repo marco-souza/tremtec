@@ -70,17 +70,6 @@ defmodule TremtecWeb.PublicPages.ContactLive do
               minlength="10"
               required
             />
-
-            <div class="sr-only" aria-hidden="true">
-              <label for="nickname">{gettext("Nickname")}</label>
-              <input
-                id="nickname"
-                name="contact[nickname]"
-                type="text"
-                tabindex="-1"
-                autocomplete="off"
-              />
-            </div>
             
     <!-- Cloudflare Turnstile CAPTCHA widget -->
             <div class="flex justify-center my-4">
@@ -88,7 +77,7 @@ defmodule TremtecWeb.PublicPages.ContactLive do
                 id="contact-captcha"
                 theme="light"
                 size="normal"
-                data-events="success,error,expired"
+                events={[:success, :error, :expired]}
               />
             </div>
 
@@ -207,34 +196,23 @@ defmodule TremtecWeb.PublicPages.ContactLive do
   end
 
   defp changeset(params) when is_map(params) do
-    types = %{name: :string, email: :string, message: :string, nickname: :string}
+    types = %{name: :string, email: :string, message: :string}
 
     {%{}, types}
     |> Changeset.cast(params, Map.keys(types))
     |> Changeset.validate_required([:name, :email, :message])
     |> Changeset.validate_format(:email, ~r/^\S+@\S+\.[\w\.]+$/)
     |> Changeset.validate_length(:message, min: 10)
-    # Simple honeypot: if filled, add an error and prevent submit
-    |> maybe_flag_spam()
   end
 
   defp changeset(_), do: changeset(%{})
 
-  defp maybe_flag_spam(%Changeset{} = cs) do
-    case Ecto.Changeset.get_change(cs, :nickname) do
-      nil -> cs
-      "" -> cs
-      _ -> Changeset.add_error(cs, :base, gettext("Spam detected"))
-    end
-  end
-
   # Cloudflare Turnstile CAPTCHA validation
   # Verifies token with Cloudflare Siteverify API
-  defp validate_captcha(token, socket) when is_binary(token) and byte_size(token) > 0 do
+  defp validate_captcha(token, _socket) when is_binary(token) and byte_size(token) > 0 do
     secret_key = Application.fetch_env!(:phoenix_turnstile, :secret_key)
-    remote_ip = get_remote_ip(socket)
 
-    verify_token_with_cloudflare(token, secret_key, remote_ip)
+    verify_token_with_cloudflare(token, secret_key)
   end
 
   defp validate_captcha(nil, _socket) do
@@ -246,7 +224,7 @@ defmodule TremtecWeb.PublicPages.ContactLive do
   end
 
   # Call Cloudflare Siteverify API
-  defp verify_token_with_cloudflare(token, secret_key, remote_ip) do
+  defp verify_token_with_cloudflare(token, secret_key) do
     url = "https://challenges.cloudflare.com/turnstile/v0/siteverify"
 
     body = %{
@@ -261,8 +239,7 @@ defmodule TremtecWeb.PublicPages.ContactLive do
             Logger.debug("Turnstile verification successful",
               extra: %{
                 challenge_ts: response["challenge_ts"],
-                hostname: response["hostname"],
-                remote_ip: inspect(remote_ip)
+                hostname: response["hostname"]
               }
             )
 
@@ -284,31 +261,12 @@ defmodule TremtecWeb.PublicPages.ContactLive do
         end
 
       {:ok, %Req.Response{status: status}} ->
-        Logger.error("Turnstile API error",
-          extra: %{status: status, remote_ip: inspect(remote_ip)}
-        )
-
+        Logger.error("Turnstile API error", extra: %{status: status})
         {:error, {:api_error, status}}
 
       {:error, reason} ->
         Logger.error("Turnstile request failed", extra: %{reason: inspect(reason)})
         {:error, {:request_failed, reason}}
-    end
-  end
-
-  # Extract client IP address from LiveView socket
-  defp get_remote_ip(socket) do
-    case Map.get(socket, :transport_pid) do
-      nil ->
-        # No transport_pid means disconnected (tests, etc)
-        {127, 0, 0, 1}
-
-      _ ->
-        # Try to get IP from socket connect_info
-        case Map.get(socket, :connect_info) do
-          %{peer_data: %{address: ip}} -> ip
-          _ -> {127, 0, 0, 1}
-        end
     end
   end
 end
