@@ -14,12 +14,15 @@ defmodule TremtecWeb.PublicPages.ContactLive do
 
   @impl true
   def mount(_params, _session, socket) do
+    form = empty_form()
+
     {:ok,
      socket
      |> assign(:page_title, gettext("Contact"))
      |> assign(:submitted?, false)
      |> assign(:captcha_valid?, false)
-     |> assign(:form, empty_form())}
+     |> assign(:form, form)
+     |> assign(:form_valid?, form.source.valid?)}
   end
 
   @impl true
@@ -93,7 +96,7 @@ defmodule TremtecWeb.PublicPages.ContactLive do
               <.button
                 type="submit"
                 phx-disable-with={gettext("Sending...")}
-                disabled={not @captcha_valid?}
+                disabled={not (@form_valid? and @captcha_valid?)}
               >
                 {gettext("Send message")}
               </.button>
@@ -107,13 +110,17 @@ defmodule TremtecWeb.PublicPages.ContactLive do
 
   @impl true
   def handle_event("validate", %{"contact" => params}, socket) do
-    form =
+    cs =
       params
       |> changeset()
       |> Map.put(:action, :validate)
-      |> to_form(as: :contact)
 
-    {:noreply, assign(socket, form: form, submitted?: false)}
+    form = to_form(cs, as: :contact)
+
+    {:noreply,
+     socket
+     |> assign(form: form, submitted?: false)
+     |> assign(form_valid?: cs.valid?)}
   end
 
   # Handle CAPTCHA success event
@@ -156,18 +163,23 @@ defmodule TremtecWeb.PublicPages.ContactLive do
             # CAPTCHA and form are valid, save message
             _ = Messages.create_contact_message(data)
 
+            new_form = empty_form()
+
             {:noreply,
              socket
              |> put_flash(:info, gettext("Thanks! Your message has been sent."))
              |> assign(:submitted?, true)
              |> assign(:captcha_valid?, false)
-             |> assign(:form, empty_form())}
+             |> assign(:form, new_form)
+             |> assign(:form_valid?, new_form.source.valid?)}
 
           {:error, reason} ->
             # Log validation failure
             Logger.warning("Captcha validation failed", extra: %{reason: inspect(reason)})
 
             # Show error and reset widget
+            cs = changeset(params)
+
             {:noreply,
              socket
              |> put_flash(
@@ -176,11 +188,15 @@ defmodule TremtecWeb.PublicPages.ContactLive do
              )
              |> assign(:submitted?, false)
              |> assign(:captcha_valid?, false)
-             |> assign(:form, to_form(changeset(params), as: :contact))}
+             |> assign(:form, to_form(cs, as: :contact))
+             |> assign(:form_valid?, cs.valid?)}
         end
 
       {:error, %Changeset{} = cs} ->
-        {:noreply, assign(socket, form: to_form(cs, as: :contact), submitted?: false)}
+        {:noreply,
+         socket
+         |> assign(form: to_form(cs, as: :contact), submitted?: false)
+         |> assign(:form_valid?, cs.valid?)}
     end
   end
 
