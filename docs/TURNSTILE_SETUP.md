@@ -19,11 +19,13 @@ TURNSTILE_SITE_KEY=1x1234567890abcdef1234567890
 TURNSTILE_SECRET_KEY=1x5678901234567890abcdef1234567890abcdef
 ```
 
-### Development-Only Note
+### Configuration Behavior
 
-- In **development**: If env vars are not set, test keys are used (widget won't validate, but won't error)
-- In **testing**: Test keys are always used for consistency
-- In **production**: Env vars are required and will error if missing
+- **Development**: Smart fallback - reads from .env.local if set, otherwise uses test keys
+  - Real credentials: Set TURNSTILE_SITE_KEY and TURNSTILE_SECRET_KEY in .env.local
+  - Test mode: Falls back to non-validating test keys if env vars not set
+- **Testing**: Test keys are always used for consistency
+- **Production**: Env vars are required and will error if missing
 
 ## Getting Started
 
@@ -208,8 +210,7 @@ Location: `lib/tremtec_web/live/public_pages/contact_live.ex`
 Key functions:
 - `handle_event("save", params, socket)` - Form submission handler
 - `validate_captcha(token, socket)` - Token verification
-- `verify_token_with_cloudflare(token, secret_key, remote_ip)` - API call to Cloudflare
-- `get_remote_ip(socket)` - Extract client IP from socket
+- `verify_token_with_cloudflare(token, secret_key)` - API call to Cloudflare Siteverify API
 
 ### Configuration
 

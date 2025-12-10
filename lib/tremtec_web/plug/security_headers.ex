@@ -28,6 +28,9 @@ defmodule TremtecWeb.Plug.SecurityHeaders do
   defp build_csp_header do
     [
       "default-src 'self'",
+      # Note: unsafe-inline and unsafe-eval are used to support Turnstile widget and
+      # existing Phoenix templates. This is a security/simplicity trade-off accepted for MVP.
+      # Future improvement: Consider nonce-based CSP or removing unsafe-eval.
       "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://challenges.cloudflare.com",
       "frame-src 'self' https://challenges.cloudflare.com https://*.cloudflare.com",
       "connect-src 'self' https://challenges.cloudflare.com",

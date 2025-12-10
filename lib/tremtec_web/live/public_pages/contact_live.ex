@@ -201,6 +201,9 @@ defmodule TremtecWeb.PublicPages.ContactLive do
     {%{}, types}
     |> Changeset.cast(params, Map.keys(types))
     |> Changeset.validate_required([:name, :email, :message])
+    # Simple email format validation. Note: This pattern does not validate
+    # all RFC 5322 compliant emails (e.g., rejects user+tag@example.com).
+    # For MVP, this is acceptable. If needed, can upgrade to email_checker package.
     |> Changeset.validate_format(:email, ~r/^\S+@\S+\.[\w\.]+$/)
     |> Changeset.validate_length(:message, min: 10)
   end

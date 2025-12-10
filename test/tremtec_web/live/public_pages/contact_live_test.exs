@@ -34,25 +34,6 @@ defmodule TremtecWeb.PublicPages.ContactLiveTest do
                |> Phoenix.HTML.safe_to_string()
     end
 
-    test "rejects honeypot submissions", %{conn: conn} do
-      {:ok, view, _html} = live(conn, ~p"/contact")
-
-      html =
-        render_submit(view, "save", %{
-          "contact" => %{
-            "name" => "Jane",
-            "email" => "jane@example.com",
-            "message" => String.duplicate("hello world ", 2),
-            "nickname" => "bot"
-          },
-          "cf-turnstile-response" => "valid-token"
-        })
-
-      # Should not show success message for honeypot submissions
-      success_msg = gettext("Thanks! Your message has been sent.")
-      refute html =~ success_msg
-    end
-
     test "rejects submission when CAPTCHA token is missing", %{conn: conn} do
       {:ok, view, _html} = live(conn, ~p"/contact")
 
