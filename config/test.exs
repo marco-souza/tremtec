@@ -23,23 +23,8 @@ config :tremtec, TremtecWeb.Endpoint,
 # In test we don't send emails
 config :tremtec, Tremtec.Mailer, adapter: Swoosh.Adapters.Test
 
-# Disable swoosh api client as it is only required for production adapters
-config :swoosh, :api_client, false
-
 # Print only warnings and errors during test
 config :logger, level: :warning
 
-# Initialize plugs at runtime for faster test compilation
-config :phoenix, :plug_init_mode, :runtime
-
-# Enable helpful, but potentially expensive runtime checks
-config :phoenix_live_view,
-  enable_expensive_runtime_checks: true
-
 # Allow example.com in tests
 config :tremtec, :accepted_email_domains, ["tremtec.com", "example.com"]
-
-# Cloudflare Turnstile - Test Configuration
-config :phoenix_turnstile,
-  site_key: "1x00000000000000000000AA",
-  secret_key: "1x0000000000000000000000000000000000AA"
