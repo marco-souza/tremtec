@@ -5,13 +5,19 @@ defmodule TremtecWeb.PublicPages.ContactLive do
   alias Ecto.Changeset
   alias Tremtec.Messages
 
+  @turnstile_timeout Application.compile_env!(:phoenix_turnstile, :request_timeout)
+
   @impl true
   def mount(_params, _session, socket) do
+    form = empty_form()
+
     {:ok,
      socket
      |> assign(:page_title, gettext("Contact"))
      |> assign(:submitted?, false)
-     |> assign(:form, empty_form())}
+     |> assign(:captcha_valid?, false)
+     |> assign(:form, form)
+     |> assign(:form_valid?, form.source.valid?)}
   end
 
   @impl true
@@ -59,20 +65,23 @@ defmodule TremtecWeb.PublicPages.ContactLive do
               minlength="10"
               required
             />
-
-            <div class="sr-only" aria-hidden="true">
-              <label for="nickname">{gettext("Nickname")}</label>
-              <input
-                id="nickname"
-                name="contact[nickname]"
-                type="text"
-                tabindex="-1"
-                autocomplete="off"
+            
+    <!-- Cloudflare Turnstile CAPTCHA widget -->
+            <div class="flex justify-center my-4">
+              <Turnstile.widget
+                id="contact-captcha"
+                theme="light"
+                size="normal"
+                events={[:success, :error, :expired]}
               />
             </div>
 
             <div class="pt-2">
-              <.button type="submit" phx-disable-with={gettext("Sending...")}>
+              <.button
+                type="submit"
+                phx-disable-with={gettext("Sending...")}
+                disabled={not (@form_valid? and @captcha_valid?)}
+              >
                 {gettext("Send message")}
               </.button>
             </div>
@@ -85,29 +94,88 @@ defmodule TremtecWeb.PublicPages.ContactLive do
 
   @impl true
   def handle_event("validate", %{"contact" => params}, socket) do
-    form =
-      params
-      |> changeset()
-      |> Map.put(:action, :validate)
-      |> to_form(as: :contact)
+    changeset = params |> changeset() |> Map.put(:action, :validate)
 
-    {:noreply, assign(socket, form: form, submitted?: false)}
+    {:noreply,
+     socket
+     |> assign(form: to_form(changeset, as: :contact), submitted?: false)
+     |> assign(form_valid?: changeset.valid?)}
+  end
+
+  # Handle CAPTCHA success event
+  @impl true
+  def handle_event("turnstile:success", _params, socket) do
+    # Mark CAPTCHA as validated when user completes the challenge
+    {:noreply, assign(socket, captcha_valid?: true)}
+  end
+
+  # Handle CAPTCHA error event
+  @impl true
+  def handle_event("turnstile:error", _params, socket) do
+    # Mark as invalid if there's an error
+    {:noreply, assign(socket, captcha_valid?: false)}
+  end
+
+  # Handle CAPTCHA expiration event
+  @impl true
+  def handle_event("turnstile:expired", _params, socket) do
+    # Token expired, user needs to complete again
+    {:noreply, assign(socket, captcha_valid?: false)}
   end
 
   @impl true
-  def handle_event("save", %{"contact" => params}, socket) do
+  def handle_event("save", %{"contact" => params} = full_params, socket) do
+    # Extract Turnstile token
+    captcha_token = full_params["cf-turnstile-response"]
+
+    # Validate form fields first
     case Changeset.apply_action(changeset(params), :insert) do
       {:ok, data} ->
-        _ = Messages.create_contact_message(data)
+        # Form is valid, now validate CAPTCHA
+        case validate_captcha(captcha_token, socket) do
+          {:ok, captcha_response} ->
+            # Log successful validation
+            Logger.info("Captcha validation succeeded",
+              extra: %{challenge_ts: captcha_response["challenge_ts"]}
+            )
 
-        {:noreply,
-         socket
-         |> put_flash(:info, gettext("Thanks! Your message has been sent."))
-         |> assign(:submitted?, true)
-         |> assign(:form, empty_form())}
+            # CAPTCHA and form are valid, save message
+            _ = Messages.create_contact_message(data)
+
+            new_form = empty_form()
+
+            {:noreply,
+             socket
+             |> put_flash(:info, gettext("Thanks! Your message has been sent."))
+             |> assign(:submitted?, true)
+             |> assign(:captcha_valid?, false)
+             |> assign(:form, new_form)
+             |> assign(:form_valid?, new_form.source.valid?)}
+
+          {:error, reason} ->
+            # Log validation failure
+            Logger.warning("Captcha validation failed", extra: %{reason: inspect(reason)})
+
+            # Show error and reset widget
+            cs = changeset(params)
+
+            {:noreply,
+             socket
+             |> put_flash(
+               :error,
+               gettext("Verification failed. Please try again.")
+             )
+             |> assign(:submitted?, false)
+             |> assign(:captcha_valid?, false)
+             |> assign(:form, to_form(cs, as: :contact))
+             |> assign(:form_valid?, cs.valid?)}
+        end
 
       {:error, %Changeset{} = cs} ->
-        {:noreply, assign(socket, form: to_form(cs, as: :contact), submitted?: false)}
+        {:noreply,
+         socket
+         |> assign(form: to_form(cs, as: :contact), submitted?: false)
+         |> assign(:form_valid?, cs.valid?)}
     end
   end
 
@@ -118,24 +186,80 @@ defmodule TremtecWeb.PublicPages.ContactLive do
   end
 
   defp changeset(params) when is_map(params) do
-    types = %{name: :string, email: :string, message: :string, nickname: :string}
+    types = %{name: :string, email: :string, message: :string}
 
     {%{}, types}
     |> Changeset.cast(params, Map.keys(types))
     |> Changeset.validate_required([:name, :email, :message])
+    # Simple email format validation. Note: This pattern does not validate
+    # all RFC 5322 compliant emails (e.g., rejects user+tag@example.com).
+    # For MVP, this is acceptable. If needed, can upgrade to email_checker package.
     |> Changeset.validate_format(:email, ~r/^\S+@\S+\.[\w\.]+$/)
     |> Changeset.validate_length(:message, min: 10)
-    # Simple honeypot: if filled, add an error and prevent submit
-    |> maybe_flag_spam()
   end
 
   defp changeset(_), do: changeset(%{})
 
-  defp maybe_flag_spam(%Changeset{} = cs) do
-    case Ecto.Changeset.get_change(cs, :nickname) do
-      nil -> cs
-      "" -> cs
-      _ -> Changeset.add_error(cs, :base, gettext("Spam detected"))
+  # Cloudflare Turnstile CAPTCHA validation
+  # Verifies token with Cloudflare Siteverify API
+  defp validate_captcha(token, _socket) when is_binary(token) and byte_size(token) > 0 do
+    secret_key = Application.fetch_env!(:phoenix_turnstile, :secret_key)
+
+    verify_token_with_cloudflare(token, secret_key)
+  end
+
+  defp validate_captcha(nil, _socket) do
+    {:error, :missing_token}
+  end
+
+  defp validate_captcha("", _socket) do
+    {:error, :empty_token}
+  end
+
+  # Call Cloudflare Siteverify API
+  defp verify_token_with_cloudflare(token, secret_key) do
+    url = "https://challenges.cloudflare.com/turnstile/v0/siteverify"
+
+    body = %{
+      "secret" => secret_key,
+      "response" => token
+    }
+
+    case Req.post(url, json: body, receive_timeout: @turnstile_timeout) do
+      {:ok, %Req.Response{status: 200, body: response_body}} ->
+        case response_body do
+          %{"success" => true} = response ->
+            Logger.debug("Turnstile verification successful",
+              extra: %{
+                challenge_ts: response["challenge_ts"],
+                hostname: response["hostname"]
+              }
+            )
+
+            {:ok, response}
+
+          %{"success" => false} = response ->
+            Logger.warning("Turnstile verification failed",
+              extra: %{
+                error_codes: response["error-codes"],
+                challenge_ts: response["challenge_ts"]
+              }
+            )
+
+            {:error, {:verification_failed, response["error-codes"]}}
+
+          response ->
+            Logger.warning("Unexpected Turnstile response", extra: %{response: response})
+            {:error, :unexpected_response}
+        end
+
+      {:ok, %Req.Response{status: status}} ->
+        Logger.error("Turnstile API error", extra: %{status: status})
+        {:error, {:api_error, status}}
+
+      {:error, reason} ->
+        Logger.error("Turnstile request failed", extra: %{reason: inspect(reason)})
+        {:error, {:request_failed, reason}}
     end
   end
 end

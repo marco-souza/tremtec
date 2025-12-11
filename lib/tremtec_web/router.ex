@@ -10,6 +10,7 @@ defmodule TremtecWeb.Router do
     plug :put_root_layout, html: {TremtecWeb.Layouts, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug TremtecWeb.Plug.SecurityHeaders
     plug :fetch_current_scope_for_user
 
     plug TremtecWeb.Plug.DetermineLocale,

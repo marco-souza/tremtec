@@ -8,7 +8,8 @@ A Phoenix web application.
 - 📱 **Responsive Design**: Mobile-first UI with Tailwind CSS
 - ⚡ **Real-time Communication**: Phoenix LiveView for interactive features
 - 🔐 **Admin Dashboard**: Secure admin interface with basic auth
-- 📧 **Contact Form**: Fully localized contact form with spam detection
+- 📧 **Contact Form**: Fully localized contact form with spam detection and CAPTCHA
+- 🛡️ **Bot Protection**: Cloudflare Turnstile CAPTCHA on contact form
 
 ## Development
 
@@ -32,6 +33,9 @@ Comprehensive documentation available in the `docs/` directory:
 - **[docs/I18N_ADDING_TRANSLATIONS.md](./docs/I18N_ADDING_TRANSLATIONS.md)** - How to add strings
 - **[docs/I18N_ADDING_LOCALES.md](./docs/I18N_ADDING_LOCALES.md)** - How to add languages
 
+### Bot Protection & Security
+- **[docs/TURNSTILE_SETUP.md](./docs/TURNSTILE_SETUP.md)** - Cloudflare Turnstile CAPTCHA setup guide
+
 ### Guidelines
 - **[AGENTS.md](./AGENTS.md)** - Development guidelines and code patterns
 
@@ -43,6 +47,8 @@ The application uses environment variables for runtime configuration. Key variab
 - `RESEND_API_KEY`: Resend API key for email delivery (optional in dev, required in prod)
 - `SMTP_FROM_EMAIL`: Email "from" address (optional, defaults to `noreply@tremtec.com`)
 - `LIVE_VIEW_SIGNING_SALT`: Signing salt for LiveView (default in dev: `MkHmw9im`, required in prod)
+- `TURNSTILE_SITE_KEY`: Cloudflare Turnstile public key (required for contact form)
+- `TURNSTILE_SECRET_KEY`: Cloudflare Turnstile private key (required for contact form)
 
 ### Production
 - `DATABASE_PATH`: Path to SQLite database file (default: `/data/tremtec.db`)

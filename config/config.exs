@@ -78,6 +78,25 @@ config :logger, :default_formatter,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
+# Cloudflare Turnstile - Development Configuration
+# Uses test keys by default. For real testing, set TURNSTILE_SITE_KEY and
+# TURNSTILE_SECRET_KEY env vars (they will override in runtime.exs)
+config :phoenix_turnstile,
+  site_key: "1x00000000000000000000AA",
+  secret_key: "1x0000000000000000000000000000000000AA",
+  request_timeout: 5000
+
+# Shared configs for non-production environments (dev and test)
+# Disable API client for Swoosh - only needed for production adapters
+config :swoosh, :api_client, false
+
+# Initialize plugs at runtime for faster compilation
+config :phoenix, :plug_init_mode, :runtime
+
+# Enable expensive runtime checks for development and testing
+config :phoenix_live_view,
+  enable_expensive_runtime_checks: true
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{config_env()}.exs"
