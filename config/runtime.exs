@@ -18,11 +18,14 @@ config :tremtec, Tremtec.Mailer,
   sender_email: System.get_env("SMTP_FROM_EMAIL") || "noreply@tremtec.com",
   sender_name: System.get_env("SMTP_FROM_NAME") || "Tremtec"
 
+# Captcha validation
+config :phoenix_turnstile,
+  request_timeout: System.get_env("TURNSTILE_REQUEST_TIMEOUT", "5000") |> String.to_integer()
+
 if config_env() == :prod do
   config :phoenix_turnstile,
     site_key: System.fetch_env!("TURNSTILE_SITE_KEY"),
-    secret_key: System.fetch_env!("TURNSTILE_SECRET_KEY"),
-    request_timeout: String.to_integer(System.get_env("TURNSTILE_REQUEST_TIMEOUT") || "5000")
+    secret_key: System.fetch_env!("TURNSTILE_SECRET_KEY")
 end
 
 # config/runtime.exs is executed for all environments, including

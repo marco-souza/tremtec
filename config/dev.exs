@@ -89,5 +89,4 @@ config :swoosh, :api_client, false
 # TURNSTILE_SECRET_KEY env vars (they will override in runtime.exs)
 config :phoenix_turnstile,
   site_key: "1x00000000000000000000AA",
-  secret_key: "1x0000000000000000000000000000000000AA",
-  request_timeout: 5000
+  secret_key: "1x0000000000000000000000000000000000AA"
