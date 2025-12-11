@@ -2,6 +2,8 @@ defmodule Tremtec.Messages.ContactMessage do
   use Ecto.Schema
   import Ecto.Changeset
 
+  alias Tremtec.Validators.Email
+
   @typedoc "Represents a message submitted via the public contact page"
   @type t :: %__MODULE__{
           id: pos_integer() | nil,
@@ -29,7 +31,7 @@ defmodule Tremtec.Messages.ContactMessage do
     contact_message
     |> cast(attrs, [:name, :email, :message, :read, :deleted_at])
     |> validate_required([:name, :email, :message])
-    |> validate_format(:email, ~r/^\S+@\S+\.[\w\.]+$/)
+    |> Email.validate_all()
     |> validate_length(:message, min: 10)
   end
 end

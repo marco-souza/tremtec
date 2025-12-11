@@ -4,6 +4,7 @@ defmodule TremtecWeb.PublicPages.ContactLive do
   require Logger
   alias Ecto.Changeset
   alias Tremtec.Messages
+  alias Tremtec.Validators.Email
 
   @turnstile_timeout Application.compile_env!(:phoenix_turnstile, :request_timeout)
 
@@ -65,8 +66,8 @@ defmodule TremtecWeb.PublicPages.ContactLive do
               minlength="10"
               required
             />
-            
-    <!-- Cloudflare Turnstile CAPTCHA widget -->
+
+            <!-- Cloudflare Turnstile CAPTCHA widget -->
             <div class="flex justify-center my-4">
               <Turnstile.widget
                 id="contact-captcha"
@@ -77,8 +78,8 @@ defmodule TremtecWeb.PublicPages.ContactLive do
             </div>
 
             <div class="pt-2">
-              <.button
-                type="submit"
+              <.button 
+                type="submit" 
                 phx-disable-with={gettext("Sending...")}
                 disabled={not (@form_valid? and @captcha_valid?)}
               >
@@ -191,10 +192,10 @@ defmodule TremtecWeb.PublicPages.ContactLive do
     {%{}, types}
     |> Changeset.cast(params, Map.keys(types))
     |> Changeset.validate_required([:name, :email, :message])
-    # Simple email format validation. Note: This pattern does not validate
+    # Email validation. Note: The shared pattern does not validate
     # all RFC 5322 compliant emails (e.g., rejects user+tag@example.com).
     # For MVP, this is acceptable. If needed, can upgrade to email_checker package.
-    |> Changeset.validate_format(:email, ~r/^\S+@\S+\.[\w\.]+$/)
+    |> Email.validate_all()
     |> Changeset.validate_length(:message, min: 10)
   end
 

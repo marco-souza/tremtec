@@ -3,6 +3,8 @@ defmodule Tremtec.Accounts.User do
   import Ecto.Changeset
   use Gettext, backend: TremtecWeb.Gettext
 
+  alias Tremtec.Validators.Email
+
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "users" do
@@ -37,10 +39,7 @@ defmodule Tremtec.Accounts.User do
     changeset =
       changeset
       |> validate_required([:email])
-      |> validate_format(:email, ~r/^[^@,;\s]+@[^@,;\s]+$/,
-        message: "must have the @ sign and no spaces"
-      )
-      |> validate_length(:email, max: 160)
+      |> Email.validate_all(message: "must have the @ sign and no spaces")
       |> validate_email_domain()
 
     if Keyword.get(opts, :validate_unique, true) do
