@@ -99,17 +99,12 @@ defmodule TremtecWeb.PublicPages.ContactLive do
 
   @impl true
   def handle_event("validate", %{"contact" => params}, socket) do
-    cs =
-      params
-      |> changeset()
-      |> Map.put(:action, :validate)
-
-    form = to_form(cs, as: :contact)
+    changeset = params |> changeset() |> Map.put(:action, :validate)
 
     {:noreply,
      socket
-     |> assign(form: form, submitted?: false)
-     |> assign(form_valid?: cs.valid?)}
+     |> assign(form: to_form(changeset, as: :contact), submitted?: false)
+     |> assign(form_valid?: changeset.valid?)}
   end
 
   # Handle CAPTCHA success event

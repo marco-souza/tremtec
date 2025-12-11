@@ -8,12 +8,12 @@ The contact form is protected with Cloudflare Turnstile CAPTCHA to prevent spam 
 
 **Required in all environments** (development, testing, production).
 
-Set these in `.env.local` (never commit):
+Set these in `.env` (never commit):
 
 - `TURNSTILE_SITE_KEY`: Public key from Cloudflare Dashboard
 - `TURNSTILE_SECRET_KEY`: Private key from Cloudflare Dashboard
 
-Example `.env.local`:
+Example `.env`:
 ```env
 TURNSTILE_SITE_KEY=1x1234567890abcdef1234567890
 TURNSTILE_SECRET_KEY=1x5678901234567890abcdef1234567890abcdef
@@ -22,7 +22,7 @@ TURNSTILE_SECRET_KEY=1x5678901234567890abcdef1234567890abcdef
 ### Configuration Behavior
 
 - **Development**: Uses test keys by default (widget won't validate)
-  - For real testing: Set TURNSTILE_SITE_KEY and TURNSTILE_SECRET_KEY env vars in .env.local
+  - For real testing: Set TURNSTILE_SITE_KEY and TURNSTILE_SECRET_KEY env vars in .env
   - Env vars will override default test keys from config/runtime.exs
 - **Testing**: Test keys are always used for consistency
 - **Production**: Env vars are required and will error if missing
@@ -42,16 +42,16 @@ TURNSTILE_SECRET_KEY=1x5678901234567890abcdef1234567890abcdef
    - **Mode**: Managed (or Invisible if you prefer)
    - **Bot Fight Mode**: Enable
 5. Copy the **Site Key** and **Secret Key**
-6. Add to `.env.local`:
+6. Add to `.env`:
    ```bash
-   echo 'TURNSTILE_SITE_KEY=your_key' >> .env.local
-   echo 'TURNSTILE_SECRET_KEY=your_secret' >> .env.local
+   echo 'TURNSTILE_SITE_KEY=your_key' >> .env
+   echo 'TURNSTILE_SECRET_KEY=your_secret' >> .env
    ```
 7. Start server: `mix phx.server`
 
 ### 2. Run Locally
 
-After setting up `.env.local`:
+After setting up `.env`:
 
 ```bash
 # Start server
@@ -62,7 +62,7 @@ Navigate to **http://localhost:4000/contact** to see the widget.
 
 ## Testing Locally
 
-**With credentials set in `.env.local`:**
+**With credentials set in `.env`:**
 - Widget will render with your real Cloudflare setup
 - Real API validation against your site's credentials
 - Token validation will work correctly
@@ -114,11 +114,11 @@ To test error handling:
 
 - **Check CSP headers**: Browser console should show no warnings about `challenges.cloudflare.com`
 - **Check network requests**: Look for `https://challenges.cloudflare.com/turnstile/...` in Network tab
-- **Verify site key**: Ensure `TURNSTILE_SITE_KEY` is correct in `.env.local`
+- **Verify site key**: Ensure `TURNSTILE_SITE_KEY` is correct in `.env`
 
 ### Token Validation Failing
 
-- **Check secret key**: Verify `TURNSTILE_SECRET_KEY` in `.env.local`
+- **Check secret key**: Verify `TURNSTILE_SECRET_KEY` in `.env`
 - **Check logs**: Look for "Captcha validation failed" messages
 - **Check IP**: Some environments may require IP whitelisting
 - **Check timeout**: Token expires after 5 minutes
@@ -214,13 +214,21 @@ Key functions:
 
 ### Configuration
 
-Location: `config/runtime.exs`
-
+**Development & Testing**: Default test keys are defined in `config/dev.exs`:
 ```elixir
 config :phoenix_turnstile,
-  site_key: System.get_env("TURNSTILE_SITE_KEY", "1x00000000000000000000AA"),
-  secret_key: System.get_env("TURNSTILE_SECRET_KEY", "1x0000000000000000000000000000000000AA")
+  site_key: "1x00000000000000000000AA",
+  secret_key: "1x0000000000000000000000000000000000AA"
 ```
+
+**Production Runtime Override**: In `config/runtime.exs`, environment variables override defaults:
+```elixir
+config :phoenix_turnstile,
+  site_key: System.get_env("TURNSTILE_SITE_KEY") || "1x00000000000000000000AA",
+  secret_key: System.get_env("TURNSTILE_SECRET_KEY") || "1x0000000000000000000000000000000000AA"
+```
+
+This allows development to work with test keys by default while production can be configured via environment variables in `.env`.
 
 ### Dependencies
 
