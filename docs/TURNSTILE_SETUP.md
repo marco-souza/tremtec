@@ -21,9 +21,9 @@ TURNSTILE_SECRET_KEY=1x5678901234567890abcdef1234567890abcdef
 
 ### Configuration Behavior
 
-- **Development**: Smart fallback - reads from .env.local if set, otherwise uses test keys
-  - Real credentials: Set TURNSTILE_SITE_KEY and TURNSTILE_SECRET_KEY in .env.local
-  - Test mode: Falls back to non-validating test keys if env vars not set
+- **Development**: Uses test keys by default (widget won't validate)
+  - For real testing: Set TURNSTILE_SITE_KEY and TURNSTILE_SECRET_KEY env vars in .env.local
+  - Env vars will override default test keys from config/runtime.exs
 - **Testing**: Test keys are always used for consistency
 - **Production**: Env vars are required and will error if missing
 

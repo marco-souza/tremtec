@@ -18,6 +18,12 @@ config :tremtec, Tremtec.Mailer,
   sender_email: System.get_env("SMTP_FROM_EMAIL") || "noreply@tremtec.com",
   sender_name: System.get_env("SMTP_FROM_NAME") || "Tremtec"
 
+if config_env() == :prod do
+  config :phoenix_turnstile,
+    site_key: System.fetch_env!("TURNSTILE_SITE_KEY"),
+    secret_key: System.fetch_env!("TURNSTILE_SECRET_KEY")
+end
+
 # config/runtime.exs is executed for all environments, including
 # during releases. It is executed after compilation and before the
 # system starts, so it is typically used to load production configuration
@@ -124,9 +130,4 @@ if config_env() == :prod do
   # In production you need to configure the mailer to use a different adapter.
   # We support Resend out of the box, but you can switch to any other adapter.
   config :tremtec, Tremtec.Mailer, api_key: System.fetch_env!("RESEND_API_KEY")
-
-  # Cloudflare Turnstile CAPTCHA configuration (production)
-  config :phoenix_turnstile,
-    site_key: System.fetch_env!("TURNSTILE_SITE_KEY"),
-    secret_key: System.fetch_env!("TURNSTILE_SECRET_KEY")
 end

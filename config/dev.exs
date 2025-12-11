@@ -85,9 +85,8 @@ config :phoenix_live_view,
 config :swoosh, :api_client, false
 
 # Cloudflare Turnstile - Development Configuration
-# Supports two modes:
-# 1. Real credentials: Set TURNSTILE_SITE_KEY and TURNSTILE_SECRET_KEY in .env.local
-# 2. Test mode: Falls back to test keys if env vars not set (widget won't validate)
+# Uses test keys by default. For real testing, set TURNSTILE_SITE_KEY and
+# TURNSTILE_SECRET_KEY env vars (they will override in runtime.exs)
 config :phoenix_turnstile,
-  site_key: System.get_env("TURNSTILE_SITE_KEY") || "1x00000000000000000000AA",
-  secret_key: System.get_env("TURNSTILE_SECRET_KEY") || "1x0000000000000000000000000000000000AA"
+  site_key: "1x00000000000000000000AA",
+  secret_key: "1x0000000000000000000000000000000000AA"
