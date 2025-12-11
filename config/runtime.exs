@@ -132,4 +132,3 @@ if config_env() == :prod do
   # We support Resend out of the box, but you can switch to any other adapter.
   config :tremtec, Tremtec.Mailer, api_key: System.fetch_env!("RESEND_API_KEY")
 end
-

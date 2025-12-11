@@ -5,13 +5,7 @@ defmodule TremtecWeb.PublicPages.ContactLive do
   alias Ecto.Changeset
   alias Tremtec.Messages
 
-  # Cloudflare Turnstile CAPTCHA Integration
-  # - Widget: client-side verification
-  # - Validation: server-side token verification via Siteverify API
-  # - Token lifetime: 300 seconds (5 minutes)
-  # - Tokens are single-use and expire automatically
-  # - Request timeout is configurable via phoenix_turnstile config
-  @turnstile_timeout Application.compile_env(:phoenix_turnstile, :request_timeout, 5000)
+  @turnstile_timeout Application.compile_env!(:phoenix_turnstile, :request_timeout)
 
   @impl true
   def mount(_params, _session, socket) do
