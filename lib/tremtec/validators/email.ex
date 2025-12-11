@@ -59,7 +59,7 @@ defmodule Tremtec.Validators.Email do
     field = Keyword.get(opts, :field, :email)
     # Use Ecto's default message if none provided
     # The Ecto default will be translated via gettext to "has invalid format"
-    validation_opts = 
+    validation_opts =
       if Keyword.has_key?(opts, :message) do
         [message: Keyword.get(opts, :message)]
       else

@@ -74,13 +74,15 @@ defmodule TremtecWeb.Admin.MessagesLive.ShowLive do
             </div>
           </div>
         </div>
-        
+
         <TremtecWeb.Components.DeleteModal.confirm
           show={@show_delete_modal}
           modal_id={@message.id}
-          message={gettext("Are you sure you want to delete this message? This action cannot be undone.")}
+          message={
+            gettext("Are you sure you want to delete this message? This action cannot be undone.")
+          }
         />
-        </div>
+      </div>
     </Layouts.app>
     """
   end

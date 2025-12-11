@@ -66,8 +66,8 @@ defmodule TremtecWeb.PublicPages.ContactLive do
               minlength="10"
               required
             />
-
-            <!-- Cloudflare Turnstile CAPTCHA widget -->
+            
+    <!-- Cloudflare Turnstile CAPTCHA widget -->
             <div class="flex justify-center my-4">
               <Turnstile.widget
                 id="contact-captcha"
@@ -78,8 +78,8 @@ defmodule TremtecWeb.PublicPages.ContactLive do
             </div>
 
             <div class="pt-2">
-              <.button 
-                type="submit" 
+              <.button
+                type="submit"
                 phx-disable-with={gettext("Sending...")}
                 disabled={not (@form_valid? and @captcha_valid?)}
               >

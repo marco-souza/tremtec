@@ -121,39 +121,22 @@ defmodule TremtecWeb.Admin.MessagesLive.IndexLive do
         </div>
         
     <!-- Pagination -->
-        <div :if={@total_pages > 1} class="flex justify-center gap-2 mt-8">
-          <.link
-            :if={@page > 1}
-            href="#"
-            phx-click="prev_page"
-            class="btn btn-sm btn-outline"
-          >
-            {gettext("Previous")}
-          </.link>
-
-          <div class="flex items-center gap-1">
-            <span class="text-sm text-base-content/70">
-              {gettext("Page")} {@page} {gettext("of")} {@total_pages}
-            </span>
-          </div>
-
-          <.link
-            :if={@page < @total_pages}
-            href="#"
-            phx-click="next_page"
-            class="btn btn-sm btn-outline"
-          >
-            {gettext("Next")}
-          </.link>
+        <div :if={@total_pages > 1} class="mt-8">
+          <TremtecWeb.Components.Pagination.controls
+            current_page={@page}
+            total_pages={@total_pages}
+          />
         </div>
       </div>
-      
+
       <TremtecWeb.Components.DeleteModal.confirm
         show={@show_delete_modal}
         modal_id={@delete_modal_id}
-        message={gettext("Are you sure you want to delete this message? This action cannot be undone.")}
+        message={
+          gettext("Are you sure you want to delete this message? This action cannot be undone.")
+        }
       />
-      </Layouts.app>
+    </Layouts.app>
     """
   end
 
