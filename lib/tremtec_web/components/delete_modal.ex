@@ -1,44 +1,10 @@
 defmodule TremtecWeb.Components.DeleteModal do
-  @moduledoc """
-  A reusable delete confirmation modal component.
-
-  This component handles the UI and basic event structure for delete confirmations
-  across admin pages. It expects the parent LiveView to handle the actual deletion
-  logic via `confirm_delete` event.
-
-  ## Usage
-
-      <DeleteModal.confirm
-        show={@show_delete_modal}
-        modal_id={@delete_modal_id}
-        message={gettext("Are you sure you want to delete this item?")}
-      />
-
-  ## Events
-
-  The parent LiveView must handle:
-  - `"close_delete_modal"` - to close the modal
-  - `"confirm_delete"` - to perform the deletion (receives `id` in params)
-  - `"show_delete_modal"` - to open the modal (receives `id` in params)
-  """
   use Phoenix.Component
   use Gettext, backend: TremtecWeb.Gettext
 
-  @doc """
-  Renders a delete confirmation modal.
-
-  ## Attributes
-
-    * `:show` (required) - Boolean to control modal visibility
-    * `:modal_id` (required) - The ID of the item being deleted (sent with confirm_delete event)
-    * `:message` (required) - The confirmation message to display
-    * `:title` - The modal title (defaults to "Confirm Deletion")
-    * `:cancel_label` - Cancel button text (defaults to "Cancel")
-    * `:delete_label` - Delete button text (defaults to "Delete")
-  """
-  attr :show, :boolean, required: true, doc: "Whether the modal is visible"
-  attr :modal_id, :string, required: true, doc: "The ID of the item being deleted"
-  attr :message, :string, required: true, doc: "The confirmation message"
+  attr :show, :boolean, required: true
+  attr :modal_id, :string, required: true
+  attr :message, :string, required: true
   attr :title, :string, default: nil
   attr :cancel_label, :string, default: nil
   attr :delete_label, :string, default: nil
