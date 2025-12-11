@@ -39,7 +39,7 @@ defmodule Tremtec.Accounts.User do
     changeset =
       changeset
       |> validate_required([:email])
-      |> Email.validate_all(message: "must have the @ sign and no spaces")
+      |> Email.validate_all(message: dgettext("errors", "must have the @ sign and no spaces"))
       |> validate_email_domain()
 
     if Keyword.get(opts, :validate_unique, true) do
