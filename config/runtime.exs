@@ -18,11 +18,8 @@ config :tremtec, Tremtec.Mailer,
   sender_email: System.get_env("SMTP_FROM_EMAIL") || "noreply@tremtec.com",
   sender_name: System.get_env("SMTP_FROM_NAME") || "Tremtec"
 
-# Captcha validation
-config :phoenix_turnstile,
-  request_timeout: System.get_env("TURNSTILE_REQUEST_TIMEOUT", "5000") |> String.to_integer()
-
 if config_env() == :prod do
+  # Captcha validation
   config :phoenix_turnstile,
     site_key: System.fetch_env!("TURNSTILE_SITE_KEY"),
     secret_key: System.fetch_env!("TURNSTILE_SECRET_KEY")
@@ -135,3 +132,4 @@ if config_env() == :prod do
   # We support Resend out of the box, but you can switch to any other adapter.
   config :tremtec, Tremtec.Mailer, api_key: System.fetch_env!("RESEND_API_KEY")
 end
+
