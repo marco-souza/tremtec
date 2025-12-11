@@ -21,7 +21,8 @@ config :tremtec, Tremtec.Mailer,
 if config_env() == :prod do
   config :phoenix_turnstile,
     site_key: System.fetch_env!("TURNSTILE_SITE_KEY"),
-    secret_key: System.fetch_env!("TURNSTILE_SECRET_KEY")
+    secret_key: System.fetch_env!("TURNSTILE_SECRET_KEY"),
+    request_timeout: String.to_integer(System.get_env("TURNSTILE_REQUEST_TIMEOUT") || "5000")
 end
 
 # config/runtime.exs is executed for all environments, including

@@ -42,4 +42,5 @@ config :tremtec, :accepted_email_domains, ["tremtec.com", "example.com"]
 # Cloudflare Turnstile - Test Configuration
 config :phoenix_turnstile,
   site_key: "1x00000000000000000000AA",
-  secret_key: "1x0000000000000000000000000000000000AA"
+  secret_key: "1x0000000000000000000000000000000000AA",
+  request_timeout: 5000
