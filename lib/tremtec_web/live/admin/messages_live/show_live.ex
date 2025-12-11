@@ -74,31 +74,14 @@ defmodule TremtecWeb.Admin.MessagesLive.ShowLive do
             </div>
           </div>
         </div>
-        
-    <!-- Delete Confirmation Modal -->
-        <div
-          :if={@show_delete_modal}
-          class="modal modal-open"
-          id="delete-modal"
-        >
-          <div class="modal-box">
-            <h3 class="font-bold text-lg">{gettext("Confirm Deletion")}</h3>
-            <p class="py-4">
-              {gettext("Are you sure you want to delete this message? This action cannot be undone.")}
-            </p>
-            <div class="modal-action">
-              <button class="btn btn-outline" phx-click="close_delete_modal">
-                {gettext("Cancel")}
-              </button>
-              <button class="btn btn-error" phx-click="confirm_delete">
-                {gettext("Delete")}
-              </button>
-            </div>
-          </div>
-          <form method="dialog" class="modal-backdrop">
-            <button phx-click="close_delete_modal">{gettext("Close")}</button>
-          </form>
-        </div>
+
+        <TremtecWeb.Components.DeleteModal.confirm
+          show={@show_delete_modal}
+          modal_id={@message.id}
+          message={
+            gettext("Are you sure you want to delete this message? This action cannot be undone.")
+          }
+        />
       </div>
     </Layouts.app>
     """
@@ -156,7 +139,7 @@ defmodule TremtecWeb.Admin.MessagesLive.ShowLive do
     {:noreply, socket |> assign(show_delete_modal: false)}
   end
 
-  def handle_event("confirm_delete", _params, socket) do
+  def handle_event("confirm_delete", %{"id" => _id}, socket) do
     message = socket.assigns.message
 
     case Messages.delete_admin_message(message) do

@@ -71,66 +71,23 @@ defmodule TremtecWeb.Admin.UsersLive.IndexLive do
         </div>
         
     <!-- Pagination -->
-        <div :if={@total_pages > 1} class="flex justify-center gap-2 mt-8">
-          <.link
-            :if={@page > 1}
-            href="#"
-            phx-click="prev_page"
-            class="btn btn-sm btn-outline"
-          >
-            {gettext("Previous")}
-          </.link>
-
-          <div class="flex items-center gap-1">
-            <span class="text-sm text-base-content/70">
-              {gettext("Page")} {@page} {gettext("of")} {@total_pages}
-            </span>
-          </div>
-
-          <.link
-            :if={@page < @total_pages}
-            href="#"
-            phx-click="next_page"
-            class="btn btn-sm btn-outline"
-          >
-            {gettext("Next")}
-          </.link>
+        <div :if={@total_pages > 1} class="mt-8">
+          <TremtecWeb.Components.Pagination.controls
+            current_page={@page}
+            total_pages={@total_pages}
+          />
         </div>
       </div>
-      
-    <!-- Delete Confirmation Modal -->
-      <div
-        :if={@show_delete_modal}
-        class="modal modal-open"
-        id="delete-modal"
-      >
-        <div class="modal-box">
-          <h3 class="font-bold text-lg">{gettext("Confirm Deletion")}</h3>
-          <p class="py-4">
-            {gettext(
-              "Are you sure you want to delete this user? All their messages will also be deleted. This action cannot be undone."
-            )}
-          </p>
-          <div class="modal-action">
-            <button
-              class="btn btn-outline"
-              phx-click="close_delete_modal"
-            >
-              {gettext("Cancel")}
-            </button>
-            <button
-              class="btn btn-error"
-              phx-click="confirm_delete"
-              phx-value-id={@delete_modal_id}
-            >
-              {gettext("Delete")}
-            </button>
-          </div>
-        </div>
-        <form method="dialog" class="modal-backdrop">
-          <button phx-click="close_delete_modal">{gettext("Close")}</button>
-        </form>
-      </div>
+
+      <TremtecWeb.Components.DeleteModal.confirm
+        show={@show_delete_modal}
+        modal_id={@delete_modal_id}
+        message={
+          gettext(
+            "Are you sure you want to delete this user? All their messages will also be deleted. This action cannot be undone."
+          )
+        }
+      />
     </Layouts.app>
     """
   end
