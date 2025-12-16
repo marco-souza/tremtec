@@ -49,7 +49,7 @@ RUN mix compile && \
     mix release
 
 # Runtime stage - minimal image
-FROM debian:bookworm-slim
+FROM debian:trixie-slim
 
 ENV LANG=C.UTF-8 \
     SHELL=/bin/bash
