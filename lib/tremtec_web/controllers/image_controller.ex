@@ -43,6 +43,7 @@ defmodule TremtecWeb.ImageController do
     else
       err ->
         Logger.error("Image processing failed: #{inspect(err)}")
+
         conn
         |> put_status(:internal_server_error)
         |> text("Error processing image")

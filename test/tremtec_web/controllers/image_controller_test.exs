@@ -26,7 +26,7 @@ defmodule TremtecWeb.ImageControllerTest do
       assert response_content_type(conn, :png)
       assert get_resp_header(conn, "cache-control") == ["public, max-age=31536000, immutable"]
     else
-      IO.puts "Skipping image resize test: logo.png not found"
+      IO.puts("Skipping image resize test: logo.png not found")
     end
   end
 end
