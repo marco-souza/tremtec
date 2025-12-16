@@ -31,6 +31,11 @@ defmodule TremtecWeb.Router do
     get "/healthz", HealthcheckController, :healthz
   end
 
+  # Image resizing
+  scope "/images", TremtecWeb do
+    get "/dynamic/:file_spec", ImageController, :show
+  end
+
   # Enable LiveDashboard and Swoosh mailbox preview in development
   if Application.compile_env(:tremtec, :dev_routes) do
     # If you want to use the LiveDashboard in production, you should put
