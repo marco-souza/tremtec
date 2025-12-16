@@ -20,7 +20,8 @@ RUN apt-get update -y && \
       ca-certificates \
       pkg-config \
       libssl-dev \
-      libsqlite3-dev && \
+      libsqlite3-dev \
+      libvips-dev && \
     rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
@@ -48,7 +49,7 @@ RUN mix compile && \
     mix release
 
 # Runtime stage - minimal image
-FROM debian:bookworm-slim
+FROM debian:trixie-slim
 
 ENV LANG=C.UTF-8 \
     SHELL=/bin/bash
@@ -58,7 +59,8 @@ RUN apt-get update -y && \
       libssl3 \
       libsqlite3-0 \
       ca-certificates \
-      curl && \
+      curl \
+      libvips && \
     rm -rf /var/lib/apt/lists/*
 
 # Create non-root user for security
