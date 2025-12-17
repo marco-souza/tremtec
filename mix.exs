@@ -8,7 +8,13 @@ defmodule Tremtec.Umbrella.MixProject do
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       aliases: aliases(),
-      listeners: [Phoenix.CodeReloader]
+      listeners: [Phoenix.CodeReloader],
+      releases: [
+        tremtec: [
+          applications: [tremtec: :permanent, tremtec_shared: :permanent],
+          include_executables_for: [:unix]
+        ]
+      ]
     ]
   end
 
