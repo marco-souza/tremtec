@@ -37,6 +37,14 @@ This is the standard workflow for all new features. Follow this process to ensur
 - ⚠️ Simple refactoring (direct to implementation)
 - ⚠️ Documentation updates (direct to implementation)
 
+### Documentation Language
+
+**CRITICAL**: All spec, research, and plan files (`NNN-feature-name.md`, `NNN-feature-name.research.md`, `NNN-feature-name.plan.md`) **MUST** be written **exclusively in English**.
+
+- ✅ Use English for all content in spec/research/plan files
+- ✅ Code examples, comments, and technical terms remain in English
+- ✅ Only user-facing application content (templates, UI) may use other languages based on i18n requirements
+
 ---
 
 ## Phase 1: Specification (S)
@@ -94,6 +102,7 @@ As a [user role], I want to [goal] so that [reason].
 2. Fill in all sections with user input
 3. Ask for clarification if needed
 4. Ensure spec is complete before proceeding to Research
+5. **Write all content exclusively in English**
 
 ---
 
@@ -190,7 +199,8 @@ As a [user role], I want to [goal] so that [reason].
 5. Recommend technology choices with justification
 6. Break down into human and agent tasks
 7. Provide implementation guidance
-8. **Format `.md` files with Prettier before saving**
+8. **Write all content exclusively in English**
+9. **Format `.md` files with Prettier before saving**
 
 ---
 
@@ -219,36 +229,22 @@ As a [user role], I want to [goal] so that [reason].
 - Estimated timeline
 - Risk mitigation matrix
 
-**Example Task Format**:
+**Task Format**:
 
-````markdown
-### [TASK N-X] Task Name
+Use the format shown in `specs/000-implementation-plan-template.md` and see real examples in `specs/006-umbrella-project.plan.md` (TASK 1, TASK 2, etc.).
 
-**Owner**: HUMAN/AGENT  
-**Duration**: 15 minutes  
-**Depends On**: Task M-Y  
-**Blocks**: Task O-Z  
-**Status**: `todo`
+Each task should include:
 
-#### Steps
-
-1. First step with details
-2. Code example:
-   ```elixir
-   # Code here
-   ```
-````
-
-3. Verification steps
-
-#### Verification
-
-- [ ] Checklist item 1
-- [ ] Checklist item 2
-
-```
+- **Owner**: HUMAN or AGENT
+- **Duration**: Estimated time
+- **Depends On**: Other tasks that must complete first
+- **Blocks**: Tasks that depend on this one
+- **Status**: `todo`, `in_progress`, `completed`, or `cancelled`
+- **Steps**: Detailed step-by-step instructions with code examples
+- **Verification**: Checklist to verify the task is complete
 
 **Agent Responsibility**:
+
 1. Create detailed, actionable steps
 2. Include actual code examples
 3. Specify exact file paths and commands
@@ -258,8 +254,10 @@ As a [user role], I want to [goal] so that [reason].
 7. Create visual sequence diagram
 8. Document risks and mitigations
 9. Define success criteria
+10. **Write all content exclusively in English**
 
 **Formatting**:
+
 - **Markdown Files**: Always format `.md` files with Prettier before saving
   - Run `npx prettier --write path/to/file.md` or use editor integration
   - Ensures consistent formatting across all documentation
@@ -271,6 +269,7 @@ As a [user role], I want to [goal] so that [reason].
 **Purpose**: Execute the plan and implement the feature.
 
 **Guidelines**:
+
 - Follow the plan strictly; deviate only for good reasons
 - Update plan if tasks change; document why
 - Test as you go (don't wait for the end)
@@ -281,6 +280,7 @@ As a [user role], I want to [goal] so that [reason].
 - Reference spec/research/plan in commit messages
 
 **Agent Responsibility**:
+
 1. Execute each task in order (respecting dependencies)
 2. Follow verification checklist for each task
 3. Write tests for new code
@@ -293,12 +293,12 @@ As a [user role], I want to [goal] so that [reason].
 
 ## SRPI Workflow Summary
 
-| Phase | Owner | Input | Output | Duration |
-|-------|-------|-------|--------|----------|
-| **S** (Spec) | Human + Agent | Ideas, requirements | `NNN-feature.md` | 15-30 min |
-| **R** (Research) | Agent | Research questions | `NNN-feature.research.md` | 30-60 min |
-| **P** (Plan) | Agent | Research findings | `NNN-feature.plan.md` | 30-45 min |
-| **I** (Implement) | Agent | Implementation plan | Code + tests + docs | Varies |
+| Phase             | Owner         | Input               | Output                    | Duration  |
+| ----------------- | ------------- | ------------------- | ------------------------- | --------- |
+| **S** (Spec)      | Human + Agent | Ideas, requirements | `NNN-feature.md`          | 15-30 min |
+| **R** (Research)  | Agent         | Research questions  | `NNN-feature.research.md` | 30-60 min |
+| **P** (Plan)      | Agent         | Research findings   | `NNN-feature.plan.md`     | 30-45 min |
+| **I** (Implement) | Agent         | Implementation plan | Code + tests + docs       | Varies    |
 
 **Total Pre-Implementation**: ~2-3 hours
 **ROI**: Eliminates rework, clarifies scope, reduces implementation time
@@ -324,9 +324,10 @@ specs/
 004-turnstile-captcha.research.md
 004-turnstile-captcha.plan.md
 
-````
+```
 
 **Rules**:
+
 - Use 3-digit numbers (001, 002, 003, etc.)
 - Increment for each new feature
 - Keep NNN consistent across S/R/P files
@@ -433,7 +434,7 @@ socket = if connected?(socket), do: assign(socket, :x, 1), else: socket
 
 # Incorrect (value is lost)
 if connected?(socket), do: assign(socket, :x, 1)
-````
+```
 
 ### Concurrency
 
