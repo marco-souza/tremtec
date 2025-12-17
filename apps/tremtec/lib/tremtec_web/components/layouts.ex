@@ -49,10 +49,10 @@ defmodule TremtecWeb.Layouts do
     <div class={["bg-base-100", @is_admin && "md:ml-64"]}>
       <!-- Admin Sidebar (Desktop) -->
       <.admin_sidebar :if={@is_admin} />
-
+      
     <!-- Admin Mobile Nav -->
       <.admin_nav_mobile :if={@is_admin} current_path={@current_path} />
-
+      
     <!-- Public Layout -->
       <div :if={!@is_admin} class="drawer">
         <input id="mobile-drawer" type="checkbox" class="drawer-toggle" />
@@ -69,7 +69,7 @@ defmodule TremtecWeb.Layouts do
 
         <.drawer current_scope={@current_scope} />
       </div>
-
+      
     <!-- Admin Layout -->
       <div :if={@is_admin} class="flex flex-col min-h-screen">
         <main class="flex-1 py-8">
@@ -160,7 +160,7 @@ defmodule TremtecWeb.Layouts do
           <div class="flex-shrink-0 flex items-center gap-2">
             <.logo />
           </div>
-
+          
     <!-- Center: Navigation (Desktop) -->
           <div class="hidden md:flex items-center space-x-8">
             <a
@@ -171,7 +171,7 @@ defmodule TremtecWeb.Layouts do
               {link.label}
             </a>
           </div>
-
+          
     <!-- Right: CTA & Theme -->
           <div class="hidden md:flex items-center gap-4">
             <%= if @current_scope && @current_scope.user do %>
@@ -200,7 +200,7 @@ defmodule TremtecWeb.Layouts do
               </a>
             <% end %>
           </div>
-
+          
     <!-- Mobile Menu Button -->
           <div class="flex items-center md:hidden gap-4">
             <label for="mobile-drawer" class="btn btn-square btn-ghost">

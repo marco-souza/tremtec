@@ -9,7 +9,12 @@ defmodule TremtecWeb.Admin.MessagesLive.IndexLive do
 
   def render(assigns) do
     ~H"""
-    <Layouts.app flash={@flash} current_scope={@current_scope} is_admin={true} current_path={@current_path}>
+    <Layouts.app
+      flash={@flash}
+      current_scope={@current_scope}
+      is_admin={true}
+      current_path={@current_path}
+    >
       <div class="max-w-6xl mx-auto px-4 py-8">
         <!-- Header -->
         <div class="mb-8">

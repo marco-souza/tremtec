@@ -6,7 +6,12 @@ defmodule TremtecWeb.Admin.MessagesLive.ShowLive do
 
   def render(assigns) do
     ~H"""
-    <Layouts.app flash={@flash} current_scope={@current_scope} is_admin={true} current_path={@current_path}>
+    <Layouts.app
+      flash={@flash}
+      current_scope={@current_scope}
+      is_admin={true}
+      current_path={@current_path}
+    >
       <div class="max-w-3xl mx-auto px-4 py-8">
         <!-- Back Button -->
         <div class="mb-6">

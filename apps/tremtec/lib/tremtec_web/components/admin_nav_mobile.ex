@@ -39,7 +39,7 @@ defmodule TremtecWeb.Components.AdminNavMobile do
         label={gettext("Settings")}
         active={active?(@current_path, ~p"/admin/settings")}
       />
-
+      
     <!-- More Menu -->
       <div class="dropdown dropdown-top">
         <button
