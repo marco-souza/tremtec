@@ -934,7 +934,7 @@ msgstr "Mensagem"
 #: lib/tremtec_web/components/admin_nav_mobile.ex:24
 #, elixir-autogen, elixir-format, fuzzy
 msgid "More"
-msgstr "ou"
+msgstr "Mais"
 
 #: lib/tremtec_web/live/admin/messages_live/index_live.ex:146
 #: lib/tremtec_web/live/admin/users_live/index_live.ex:96

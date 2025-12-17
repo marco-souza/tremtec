@@ -7,7 +7,7 @@ defmodule TremtecWeb.Admin.DashboardLive do
 
   def render(assigns) do
     ~H"""
-    <Layouts.app flash={@flash} current_scope={@current_scope} is_admin={true}>
+    <Layouts.app flash={@flash} current_scope={@current_scope} is_admin={true} current_path={@current_path}>
       <div class="max-w-7xl mx-auto px-4 py-8">
         <!-- Header -->
         <div class="mb-12">
@@ -129,5 +129,9 @@ defmodule TremtecWeb.Admin.DashboardLive do
        unread_messages: unread_messages,
        last_message_date: Date.relative_date(last_message_date)
      )}
+  end
+
+  def handle_params(_params, uri, socket) do
+    {:noreply, assign(socket, current_path: URI.parse(uri).path)}
   end
 end

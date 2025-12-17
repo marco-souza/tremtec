@@ -6,7 +6,7 @@ defmodule TremtecWeb.Admin.Settings do
   @impl true
   def render(assigns) do
     ~H"""
-    <Layouts.app flash={@flash} current_scope={@current_scope} is_admin={true}>
+    <Layouts.app flash={@flash} current_scope={@current_scope} is_admin={true} current_path={@current_path}>
       <div class="max-w-6xl mx-auto px-4 py-8">
         <!-- Header -->
         <div class="mb-8">
@@ -176,5 +176,10 @@ defmodule TremtecWeb.Admin.Settings do
       changeset ->
         {:noreply, assign(socket, password_form: to_form(changeset, action: :insert))}
     end
+  end
+
+  @impl true
+  def handle_params(_params, uri, socket) do
+    {:noreply, assign(socket, current_path: URI.parse(uri).path)}
   end
 end

@@ -3,9 +3,22 @@ defmodule TremtecWeb.PublicPages.HomeLive do
 
   require Logger
 
+  @code_example """
+  defmodule HighPerformanceTeam do
+    use Expertise
+
+    def scale(team) do
+      team
+      |> Mentorship.boost()
+      |> Process.optimize()
+      |> Output.maximize()
+    end
+  end
+  """
+
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, page_title: gettext("Home"))}
+    {:ok, assign(socket, page_title: gettext("Home"), code_example: @code_example)}
   end
 
   @impl true
@@ -26,7 +39,7 @@ defmodule TremtecWeb.PublicPages.HomeLive do
                 />
               </div>
             </div>
-            
+
     <!-- Content Column -->
             <div class="w-full order-2 lg:order-1 md:col-span-12 lg:col-span-6 text-center lg:text-left">
               <h1 class="text-4xl font-extrabold tracking-tight text-base-content sm:text-6xl mb-6">
@@ -49,7 +62,7 @@ defmodule TremtecWeb.PublicPages.HomeLive do
             </div>
           </div>
         </div>
-        
+
     <!-- Background Gradient Blur -->
         <div class="absolute top-0 left-1/2 -translate-x-1/2 -z-10 w-full h-full max-w-7xl opacity-30 pointer-events-none">
           <div class="absolute top-[20%] left-[10%] w-72 h-72 bg-primary/30 rounded-full blur-3xl mix-blend-multiply animate-blob" />
@@ -57,7 +70,7 @@ defmodule TremtecWeb.PublicPages.HomeLive do
           <div class="absolute -bottom-8 left-[30%] w-72 h-72 bg-accent/30 rounded-full blur-3xl mix-blend-multiply animate-blob animation-delay-4000" />
         </div>
       </div>
-      
+
     <!-- Trust Section -->
       <div class="py-12 bg-base-100 border-y border-base-200/50">
         <div class="mx-auto max-w-7xl px-6 md:px-8">
@@ -74,7 +87,7 @@ defmodule TremtecWeb.PublicPages.HomeLive do
           </div>
         </div>
       </div>
-      
+
     <!-- Bento Grid Services -->
       <.landing_section id="services" class="bg-base-200">
         <.section_header
@@ -107,7 +120,7 @@ defmodule TremtecWeb.PublicPages.HomeLive do
               </.service_card_content>
             </div>
           </.bento_card>
-          
+
     <!-- Card 2: Diagnostics (Span 1) -->
           <.bento_card class="md:col-span-1" hover_border="secondary">
             <div class="absolute -bottom-8 -right-8 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
@@ -124,7 +137,7 @@ defmodule TremtecWeb.PublicPages.HomeLive do
               />
             </div>
           </.bento_card>
-          
+
     <!-- Card 3: Mentorship (Span 3 - Full Width) -->
           <.bento_card
             class="md:col-span-3 flex flex-col md:flex-row gap-8 items-center"
@@ -154,21 +167,12 @@ defmodule TremtecWeb.PublicPages.HomeLive do
                 <div class="w-3 h-3 rounded-full bg-warning"></div>
                 <div class="w-3 h-3 rounded-full bg-success"></div>
               </div>
-              <pre><code>defmodule HighPerformanceTeam do
-      use Expertise
-
-      def scale(team) do
-        team
-        |> Mentorship.boost()
-        |> Process.optimize()
-        |> Output.maximize()
-      end
-      end</code></pre>
+              <pre><code>{@code_example}</code></pre>
             </div>
           </.bento_card>
         </div>
       </.landing_section>
-      
+
     <!-- Methodology Section -->
       <.landing_section id="methodology" class="bg-base-100 overflow-hidden">
         <div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 md:mx-0 md:max-w-none md:grid-cols-2">
@@ -228,7 +232,7 @@ defmodule TremtecWeb.PublicPages.HomeLive do
           </div>
         </div>
       </.landing_section>
-      
+
     <!-- About Section -->
       <.landing_section id="about" class="bg-base-200">
         <.section_header
@@ -264,7 +268,7 @@ defmodule TremtecWeb.PublicPages.HomeLive do
               </div>
             </div>
           </div>
-          
+
     <!-- Mission -->
           <div class="card bg-base-100 shadow-xl border border-base-300 md:col-span-2">
             <div class="card-body">
@@ -279,7 +283,7 @@ defmodule TremtecWeb.PublicPages.HomeLive do
           </div>
         </div>
       </.landing_section>
-      
+
     <!-- CTA Section -->
       <div id="contact" class="relative isolate overflow-hidden bg-base-100 py-16 sm:py-24 md:py-32">
         <div class="mx-auto max-w-7xl px-6 md:px-8">
