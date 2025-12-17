@@ -1,8 +1,12 @@
-# Implementation Plan Template
+# Implementation Plan: [Feature Name]
+
+> **Note**: Format this file with Prettier before saving: `npx prettier --write specs/XXX-feature-name.plan.md`
 
 **Feature**: [Feature Name from Spec]
 
 **Spec Reference**: `specs/XXX-feature-name.md`
+
+**Research Reference**: `specs/XXX-feature-name.research.md`
 
 **Status**: [ ] Draft | [ ] Ready for Review | [ ] Approved | [ ] In Progress | [ ] Complete
 
@@ -75,24 +79,56 @@
 
 - [ ] Add/modify config for `:app_name` - Purpose
 
+### Dev Config (`config/dev.exs`)
+
+- [ ] Add/modify config for development environment
+
+### Test Config (`config/test.exs`)
+
+- [ ] Add/modify config for test environment
+
+### Prod Config (`config/prod.exs`)
+
+- [ ] Add/modify config for production environment (if needed)
+
 ## Implementation Steps
 
-### Step 1: [Step Name]
+### [TASK 1] [Task Name]
 
-**Description**: [What this step accomplishes]
+**Owner**: AGENT  
+**Duration**: [X minutes/hours]  
+**Depends On**: [Task name or "Nenhuma"]  
+**Blocks**: [Task name or "Nenhuma"]  
+**Status**: `todo`
 
-**Files**:
+#### Steps
 
-- Create: `path/to/file.ex`
-- Modify: `path/to/file.ex`
+1. [First step with detailed instructions]
+2. [Second step with code example if needed]: ```elixir
+   # Code example here
+   ```
 
-**Dependencies**: [Any prerequisites]
+   ```
+3. [Additional steps as needed]
 
-**Testing**: [How to verify this step]
+#### Verification
 
-### Step 2: [Step Name]
+- [ ] [Verification checklist item 1]
+- [ ] [Verification checklist item 2]
 
-[Repeat structure for each step]
+---
+
+### [TASK 2] [Task Name]
+
+**Owner**: AGENT  
+**Duration**: [X minutes/hours]  
+**Depends On**: TASK 1  
+**Blocks**: [Task name or "Nenhuma"]  
+**Status**: `todo`
+
+#### Steps
+
+[Repeat structure for each task]
 
 ## Testing Strategy
 

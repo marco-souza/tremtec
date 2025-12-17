@@ -8,6 +8,7 @@ This is a web application written using the Phoenix web framework.
 - **Development Workflow**: Use **SRPI** (Spec → Research → Plan → Implement) for all new features. See section below.
 - **Git**: Use `mix precommit` before committing.
 - **HTTP**: Use `:req`. Avoid `:httpoison`, `:tesla`, or `:httpc`.
+- **Markdown Formatting**: Always format `.md` files with Prettier before saving (run `npx prettier --write file.md` or use editor integration).
 
 ## AI Development Workflow: SRPI (Spec → Research → Plan → Implement)
 
@@ -47,6 +48,7 @@ This is the standard workflow for all new features. Follow this process to ensur
 **Template**: Use `specs/000-spec-template.md` as reference
 
 **Must Include**:
+
 - Feature Name (clear, descriptive)
 - Objective (1-2 sentences explaining purpose and goals)
 - User Story (As a [role], I want [goal] so that [reason])
@@ -55,31 +57,39 @@ This is the standard workflow for all new features. Follow this process to ensur
 - Notes (constraints, assumptions, additional context)
 
 **Example Headers**:
+
 ```markdown
 # Feature Specification: [Feature Name]
 
 ## Feature Name
+
 [Concise, descriptive name]
 
 ## Objective
+
 [Purpose and goals in 1-2 sentences]
 
 ## User Story
+
 As a [user role], I want to [goal] so that [reason].
 
 ## Functional Requirements
+
 - [Requirement 1]
 - [Requirement 2]
 
 ## Success Criteria
+
 - [Criterion 1]
 - [Criterion 2]
 
 ## Notes
+
 [Optional: constraints, assumptions, context]
 ```
 
 **Agent Responsibility**:
+
 1. Create spec file from template
 2. Fill in all sections with user input
 3. Ask for clarification if needed
@@ -94,6 +104,7 @@ As a [user role], I want to [goal] so that [reason].
 **File Location**: `specs/NNN-feature-name.research.md` (same number as spec)
 
 **Must Include**:
+
 - Current versions of relevant technologies
 - Dependency analysis (new packages, existing tools)
 - API/Service specifications
@@ -105,59 +116,73 @@ As a [user role], I want to [goal] so that [reason].
 - Task breakdown (human vs. agent work)
 
 **Example Sections**:
+
 ```markdown
 # Technical Research: [Feature Name]
 
 ## Executive Summary
+
 [Brief overview of findings and recommendations]
 
 ## 1. Technology Versions & Current State
+
 - Library versions
 - API versions
 - Compatibility information
 
 ## 2. Technical Architecture
+
 - Client-side details
 - Server-side details
 - Integration points
 
 ## 3. Project Requirements Analysis
+
 - Configuration needs
 - Environment variables
 - Dependencies
 
 ## 4. Dependency Analysis
+
 - New packages to add
 - Existing tools to leverage
 - Optional libraries
 
 ## 5. Key Technical Constraints
+
 - Security considerations
 - Performance limits
 - Compatibility issues
 
 ## 6. Implementation Options
+
 - Option A: Recommended
 - Option B: Alternative
 - Pros/cons of each
 
 ## 7. Implementation Tasks
+
 ### Phase 1: Setup (HUMAN/AGENT)
+
 - [ ] Task 1
 - [ ] Task 2
 
 ### Phase 2: Development (AGENT)
+
 - [ ] Task 3
 - [ ] Task 4
 
 ## 8. References
+
 [Links to documentation, examples, resources]
 
 ## Summary of Recommendations
+
 [Key takeaways for planning phase]
 ```
 
 **Agent Responsibility**:
+
 1. Search for latest versions and documentation
 2. Investigate existing project patterns
 3. Document API specifications
@@ -165,6 +190,7 @@ As a [user role], I want to [goal] so that [reason].
 5. Recommend technology choices with justification
 6. Break down into human and agent tasks
 7. Provide implementation guidance
+8. **Format `.md` files with Prettier before saving**
 
 ---
 
@@ -175,6 +201,7 @@ As a [user role], I want to [goal] so that [reason].
 **File Location**: `specs/NNN-feature-name.plan.md` (same number as spec)
 
 **Must Include**:
+
 - Overview & execution strategy
 - Prerequisites & dependencies (what must be done first)
 - Detailed task list with:
@@ -193,8 +220,10 @@ As a [user role], I want to [goal] so that [reason].
 - Risk mitigation matrix
 
 **Example Task Format**:
-```markdown
+
+````markdown
 ### [TASK N-X] Task Name
+
 **Owner**: HUMAN/AGENT  
 **Duration**: 15 minutes  
 **Depends On**: Task M-Y  
@@ -202,16 +231,21 @@ As a [user role], I want to [goal] so that [reason].
 **Status**: `todo`
 
 #### Steps
+
 1. First step with details
 2. Code example:
    ```elixir
    # Code here
    ```
+````
+
 3. Verification steps
 
 #### Verification
+
 - [ ] Checklist item 1
 - [ ] Checklist item 2
+
 ```
 
 **Agent Responsibility**:
@@ -224,6 +258,11 @@ As a [user role], I want to [goal] so that [reason].
 7. Create visual sequence diagram
 8. Document risks and mitigations
 9. Define success criteria
+
+**Formatting**:
+- **Markdown Files**: Always format `.md` files with Prettier before saving
+  - Run `npx prettier --write path/to/file.md` or use editor integration
+  - Ensures consistent formatting across all documentation
 
 ---
 
@@ -238,13 +277,14 @@ As a [user role], I want to [goal] so that [reason].
 - Keep commits atomic and well-messaged
 - Run `mix precommit` before each commit
 - Update documentation alongside code
+- **Format all `.md` files with Prettier before saving** (run `npx prettier --write file.md` or use editor integration)
 - Reference spec/research/plan in commit messages
 
 **Agent Responsibility**:
 1. Execute each task in order (respecting dependencies)
 2. Follow verification checklist for each task
 3. Write tests for new code
-4. Update documentation
+4. Update documentation (format `.md` files with Prettier)
 5. Commit changes with clear messages
 6. Mark completed tasks in plan
 7. Report blockers early
@@ -260,7 +300,7 @@ As a [user role], I want to [goal] so that [reason].
 | **P** (Plan) | Agent | Research findings | `NNN-feature.plan.md` | 30-45 min |
 | **I** (Implement) | Agent | Implementation plan | Code + tests + docs | Varies |
 
-**Total Pre-Implementation**: ~2-3 hours  
+**Total Pre-Implementation**: ~2-3 hours
 **ROI**: Eliminates rework, clarifies scope, reduces implementation time
 
 ---
@@ -270,19 +310,21 @@ As a [user role], I want to [goal] so that [reason].
 Use sequential numbering for all feature files:
 
 ```
+
 specs/
-  000-spec-template.md
-  000-implementation-plan-template.md
-  001-feature-one.md
-  001-feature-one.research.md
-  001-feature-one.plan.md
-  002-feature-two.md
-  002-feature-two.research.md
-  002-feature-two.plan.md
-  004-turnstile-captcha.md
-  004-turnstile-captcha.research.md
-  004-turnstile-captcha.plan.md
-```
+000-spec-template.md
+000-implementation-plan-template.md
+001-feature-one.md
+001-feature-one.research.md
+001-feature-one.plan.md
+002-feature-two.md
+002-feature-two.research.md
+002-feature-two.plan.md
+004-turnstile-captcha.md
+004-turnstile-captcha.research.md
+004-turnstile-captcha.plan.md
+
+````
 
 **Rules**:
 - Use 3-digit numbers (001, 002, 003, etc.)
@@ -391,7 +433,7 @@ socket = if connected?(socket), do: assign(socket, :x, 1), else: socket
 
 # Incorrect (value is lost)
 if connected?(socket), do: assign(socket, :x, 1)
-```
+````
 
 ### Concurrency
 
@@ -505,6 +547,7 @@ Task.async_stream(items, &process/1, timeout: :infinity)
 ### String Translation Patterns
 
 #### Templates (HEEx)
+
 ```heex
 <!-- Static strings -->
 <h1>{gettext("Admin Dashboard")}</h1>
@@ -517,6 +560,7 @@ Task.async_stream(items, &process/1, timeout: :infinity)
 ```
 
 #### LiveView & Controllers
+
 ```elixir
 # Basic translation
 flash_msg = gettext("Success message here")
@@ -538,21 +582,23 @@ message = ngettext("%{count} item", "%{count} items", count, count: count)
 
 ### Current Locales
 
-| Locale | File | Status |
-|--------|------|--------|
+| Locale     | File               | Status                |
+| ---------- | ------------------ | --------------------- |
 | Portuguese | `priv/gettext/pt/` | ✅ Default + Complete |
-| English | `priv/gettext/en/` | ✅ Complete |
-| Spanish | `priv/gettext/es/` | ✅ Complete |
+| English    | `priv/gettext/en/` | ✅ Complete           |
+| Spanish    | `priv/gettext/es/` | ✅ Complete           |
 
 ### Common Pitfalls
 
-❌ **DON'T**: 
+❌ **DON'T**:
+
 - Use hardcoded strings in templates without `gettext()`
 - Hardcode error messages (use `dgettext("errors", ...)`)
 - Compare against literal strings in tests
 - Manually edit .po file msgids (use `mix gettext.extract --merge`)
 
 ✅ **DO**:
+
 - Wrap all user-facing text in translation functions
 - Use relative date formatting with `ngettext()`
 - Test assertions with `gettext()` calls

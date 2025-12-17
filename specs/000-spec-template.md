@@ -1,6 +1,7 @@
-# Feature Specification Template
+# Feature Specification: [Feature Name]
 
-> **Note**: This is Phase 1 of the Spec-Driven Development process. After approval, proceed to Phase 2 (Implementation Plan) using `specs/000-implementation-plan-template.md`.
+> **Note**: This is Phase 1 of the Spec-Driven Development process. After approval, proceed to Phase 2 (Research) and Phase 3 (Implementation Plan) using the templates in `specs/`.  
+> **Formatting**: Format this file with Prettier before saving: `npx prettier --write specs/XXX-feature-name.md`
 
 ## Feature Name
 
