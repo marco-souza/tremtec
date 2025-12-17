@@ -59,6 +59,7 @@ As an administrator, I want to access an enhanced dashboard with:
 ### Navigation
 
 **Desktop**: Sidebar (fixed left) with navigation items:
+
 - Dashboard (home)
 - Messages
 - Users
@@ -67,6 +68,7 @@ As an administrator, I want to access an enhanced dashboard with:
 - Logout option
 
 **Mobile**: Bottom navigation bar (new component) with icons:
+
 - Dashboard icon
 - Messages icon
 - Users icon
@@ -132,7 +134,7 @@ As an administrator, I want to access an enhanced dashboard with:
 - Migration: Add `deleted_at` field to both `users` and `contact_messages` tables
 - Admin guard: Create helper function to check if user email is @tremtec domain
 - Update router to add /admin/messages and /admin/users routes
-- Create context functions: 
+- Create context functions:
   - Accounts.list_users (paginated, excludes deleted)
   - Messages.list_contact_messages (paginated, excludes deleted)
   - Update delete functions to use soft delete (set deleted_at)

@@ -14,13 +14,15 @@ We will implement dynamic image resizing using the `image` library (based on lib
 ## 2. Technical Architecture
 
 ### Endpoint Design
+
 - **URL**: `/images/dynamic/:file_spec`
 - **Pattern**: `name-width-height.ext` (e.g., `logo-100-100.png`)
 - **Controller**: `TremtecWeb.ImageController`
 
 ### Image Processing Flow
+
 1. **Parse**: Extract `filename`, `width`, `height`, `extension` from URL param.
-2. **Validate**: 
+2. **Validate**:
    - Check if source file exists in `priv/static/images`.
    - Ensure `width` and `height` are integers within `1..2000`.
 3. **Process**:
@@ -40,19 +42,21 @@ We will implement dynamic image resizing using the `image` library (based on lib
 ## 4. Dependency Analysis
 
 ### New Packages
+
 - `{:image, "~> 0.62"}`: Main library.
 - `{:vix, ...}`: Transitive dependency (libvips wrapper).
 
 ### System Dependencies
+
 - `libvips-dev`: For compiling Vix (if precompiled not found/used).
 - `libvips`: For runtime execution.
 
 ## 5. Key Technical Constraints
 
-- **Security**: 
+- **Security**:
   - Path traversal: Ensure `filename` doesn't contain `/` or `..`.
   - DoS: Limit max dimensions (e.g. 2048px). Limit concurrency if needed (libvips is generally safe).
-- **Performance**: 
+- **Performance**:
   - Processing is fast but CPU bound.
   - Caching is critical.
   - Initial request latency might be 50-200ms. Subsequent are cached by browser/CDN.
@@ -70,11 +74,13 @@ We will implement dynamic image resizing using the `image` library (based on lib
 ## 7. Implementation Tasks
 
 ### Phase 1: Setup (AGENT)
+
 - [ ] Add `{:image, "~> 0.62"}` to `mix.exs`.
 - [ ] Update `Dockerfile` to install `libvips`.
 - [ ] Run `mix deps.get`.
 
 ### Phase 2: Development (AGENT)
+
 - [ ] Create `TremtecWeb.ImageController`.
 - [ ] Implement parsing and validation logic.
 - [ ] Implement resizing logic using `Image`.
@@ -82,6 +88,6 @@ We will implement dynamic image resizing using the `image` library (based on lib
 - [ ] Add tests.
 
 ## 8. References
+
 - [Elixir Image Docs](https://hexdocs.pm/image/Image.html)
 - [Libvips](https://www.libvips.org/)
-

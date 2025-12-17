@@ -37,4 +37,3 @@ As a developer/user, I want to request images with specific dimensions via a URL
 - **Library**: We will use the `image` library (Elixir wrapper for libvips) for high performance and low memory usage.
 - **Source**: Images will be sourced from `priv/static/images`.
 - **Security**: Must sanitize inputs to prevent path traversal and resource exhaustion.
-

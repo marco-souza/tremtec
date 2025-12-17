@@ -1,7 +1,7 @@
 # Implementation Plan: Cloudflare Turnstile CAPTCHA
 
 > **Phase 2 of Spec-Driven Development**
-> 
+>
 > Reference: `specs/004-cloudflare-turnstile-captcha.md` (spec)  
 > Reference: `specs/004-cloudflare-turnstile-captcha.research.md` (technical research)
 
@@ -10,11 +10,13 @@
 ## 1. Overview & Execution Strategy
 
 ### Execution Model
+
 - **Parallel Tracks**: Some tasks can run in parallel
 - **Blocking Sequence**: Human dashboard setup → dependency installation → implementation
 - **Duration Estimate**: 2-3 days (Agent-focused: 1-2 days; Human setup: parallel)
 
 ### Task Distribution
+
 - **HUMAN**: 2 tasks (Cloudflare setup, env var management)
 - **AGENT**: 8 tasks (all development work)
 
@@ -23,12 +25,14 @@
 ## 2. Prerequisites & Dependencies
 
 ### Before Starting
+
 1. Access to Cloudflare Dashboard (account created)
 2. Project local environment running (`mix phx.server`)
 3. Contact form LiveView already exists: `lib/tremtec_web/live/contact_live.ex` (assumed)
 4. Environment file setup (`.env.local` or similar for dev)
 
 ### Required Mix Dependencies
+
 ```elixir
 # Current project likely has these, verify in mix.exs:
 {:phoenix_live_view, "~> 0.20"}    # for LiveView
@@ -36,6 +40,7 @@
 ```
 
 ### New Dependency to Add
+
 ```elixir
 {:phoenix_turnstile, "~> 1.2"}
 ```
@@ -45,17 +50,19 @@
 ## 3. Task List & Detailed Steps
 
 ### [TASK 0-H] Cloudflare Dashboard Setup ⚠️ BLOCKING
+
 **Owner**: HUMAN  
 **Duration**: 15-30 minutes  
 **Blocks**: Task 1-A  
 **Status**: `todo`
 
 #### Steps
+
 1. Log into Cloudflare Dashboard (https://dash.cloudflare.com)
 2. Navigate to **Turnstile** section (left sidebar)
 3. Click **Create Site** and fill:
    - **Site Name**: `TremTec Contact Form` (or `TremTec Dev`)
-   - **Domains**: 
+   - **Domains**:
      - Development: `localhost:3000`
      - Add production domain when ready
    - **Mode**: Select **Managed** (shows checkbox if suspicious)
@@ -72,6 +79,7 @@
 7. Post credentials securely to team (LastPass/1Password/secure channel, not Slack/email)
 
 #### Verification
+
 - [ ] Can access Turnstile dashboard
 - [ ] Widget created and visible in dashboard
 - [ ] Keys copied to `.env.local`
@@ -80,6 +88,7 @@
 ---
 
 ### [TASK 1-A] Dependency Installation & Configuration
+
 **Owner**: AGENT  
 **Duration**: 10 minutes  
 **Depends On**: Task 0-H  
@@ -88,6 +97,7 @@
 #### Steps
 
 **1. Add dependency to `mix.exs`:**
+
 ```elixir
 defp deps do
   [
@@ -98,11 +108,13 @@ end
 ```
 
 **2. Run dependency installation:**
+
 ```bash
 mix deps.get
 ```
 
 **3. Configure in `config/runtime.exs`:**
+
 ```elixir
 # config/runtime.exs - add to existing config :phoenix_turnstile section
 config :phoenix_turnstile,
@@ -111,6 +123,7 @@ config :phoenix_turnstile,
 ```
 
 **4. Update `.env.example`** (template for team):
+
 ```env
 # Cloudflare Turnstile
 TURNSTILE_SITE_KEY=your_site_key_here
@@ -118,6 +131,7 @@ TURNSTILE_SECRET_KEY=your_secret_key_here
 ```
 
 **5. Test configuration:**
+
 ```bash
 iex -S mix
 # In iex:
@@ -125,6 +139,7 @@ iex> Application.fetch_env!(:phoenix_turnstile, :site_key)
 ```
 
 #### Verification
+
 - [ ] `mix deps.get` succeeds
 - [ ] No compilation errors
 - [ ] `config/runtime.exs` has Turnstile config
@@ -134,6 +149,7 @@ iex> Application.fetch_env!(:phoenix_turnstile, :site_key)
 ---
 
 ### [TASK 2-A] JavaScript Hook Setup
+
 **Owner**: AGENT  
 **Duration**: 10 minutes  
 **Depends On**: Task 1-A  
@@ -144,27 +160,30 @@ iex> Application.fetch_env!(:phoenix_turnstile, :site_key)
 **1. Update `assets/app.js`:**
 
 Locate the LiveSocket initialization (around line 20-30):
+
 ```javascript
-import { TurnstileHook } from "phoenix_turnstile"
+import { TurnstileHook } from "phoenix_turnstile";
 
 const liveSocket = new LiveSocket("/live", Socket, {
   longPollFallbackMs: 2000,
   params: { _csrf_token: csrfToken },
   hooks: {
-    Turnstile: TurnstileHook  // Add this line
-  }
-})
+    Turnstile: TurnstileHook, // Add this line
+  },
+});
 
-liveSocket.connect()
+liveSocket.connect();
 ```
 
 **2. Verify module resolution:**
+
 ```bash
 # Ensure esbuild can find phoenix_turnstile
 # Check assets/config.exs has NODE_PATH configured:
 ```
 
 In `assets/config.exs`, the esbuild config should include:
+
 ```javascript
 const path = require("path")
 
@@ -179,6 +198,7 @@ module.exports = {
 ```
 
 **3. Test compilation:**
+
 ```bash
 cd assets && npm run deploy
 # Should compile without errors
@@ -186,6 +206,7 @@ cd ..
 ```
 
 #### Verification
+
 - [ ] `assets/app.js` imports TurnstileHook
 - [ ] Hook registered in LiveSocket
 - [ ] `assets/config.exs` has nodePaths configured
@@ -195,6 +216,7 @@ cd ..
 ---
 
 ### [TASK 3-A] Layout Integration
+
 **Owner**: AGENT  
 **Duration**: 5 minutes  
 **Depends On**: Task 2-A  
@@ -205,6 +227,7 @@ cd ..
 **1. Add Turnstile script to root layout:**
 
 Edit `lib/tremtec_web/components/layouts/root.html.heex`:
+
 ```heex
 <!DOCTYPE html>
 <html lang={@locale || "pt"}>
@@ -215,7 +238,7 @@ Edit `lib/tremtec_web/components/layouts/root.html.heex`:
     <%= live_title_tag(assigns[:page_title] || gettext("TremTec")) %>
     <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
     <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}></script>
-    
+
     <!-- Add Turnstile script here -->
     <Turnstile.script />
   </head>
@@ -226,10 +249,12 @@ Edit `lib/tremtec_web/components/layouts/root.html.heex`:
 ```
 
 **2. Verify layout path:**
+
 - LiveView v1.18+: usually `lib/tremtec_web/components/layouts/root.html.heex`
 - Legacy: might be `lib/tremtec_web/templates/layout/`
 
 #### Verification
+
 - [ ] `<Turnstile.script />` added to `<head>`
 - [ ] Page loads without 404 on Turnstile script
 - [ ] Browser DevTools shows script loaded
@@ -237,6 +262,7 @@ Edit `lib/tremtec_web/components/layouts/root.html.heex`:
 ---
 
 ### [TASK 4-A] Contact Form Template Update
+
 **Owner**: AGENT  
 **Duration**: 15 minutes  
 **Depends On**: Task 3-A  
@@ -245,10 +271,12 @@ Edit `lib/tremtec_web/components/layouts/root.html.heex`:
 #### Steps
 
 **1. Locate contact form LiveView:**
+
 - File: `lib/tremtec_web/live/contact_live.ex` (assumed, adjust path as needed)
 - Template: `lib/tremtec_web/live/contact_live/index.html.heex`
 
 **2. Update form template to include widget:**
+
 ```heex
 <.form for={@form} id="contact-form" phx-submit="submit" phx-change="validate">
   <.input
@@ -298,11 +326,13 @@ Edit `lib/tremtec_web/components/layouts/root.html.heex`:
 ```
 
 **3. Note on widget attributes:**
+
 - `theme="light"` - matches light mode (use "auto" for auto-detect)
 - `size="normal"` - standard widget size
 - `id="contact-captcha"` - unique ID if multiple widgets on page
 
 #### Verification
+
 - [ ] Form renders with Turnstile widget visible
 - [ ] Widget appears above submit button
 - [ ] Widget is responsive on mobile (test in DevTools)
@@ -311,6 +341,7 @@ Edit `lib/tremtec_web/components/layouts/root.html.heex`:
 ---
 
 ### [TASK 5-A] LiveView Event Handler Implementation
+
 **Owner**: AGENT  
 **Duration**: 30 minutes  
 **Depends On**: Task 4-A  
@@ -418,6 +449,7 @@ end
 **2. Update socket configuration in `lib/tremtec_web/endpoint.ex`:**
 
 Find the socket definition (around line 20-30):
+
 ```elixir
 socket "/live", Phoenix.LiveView.Socket,
   websocket: [
@@ -433,6 +465,7 @@ Verify `:peer_data` is included (needed to get visitor IP).
 **3. Create context function for submission:**
 
 If not already exists, create `lib/tremtec/contact.ex`:
+
 ```elixir
 defmodule Tremtec.Contact do
   import Ecto.Changeset
@@ -460,6 +493,7 @@ end
 ```
 
 #### Verification
+
 - [ ] Form submits successfully with valid captcha
 - [ ] Form shows flash error on failed captcha
 - [ ] Widget refreshes on captcha failure
@@ -470,6 +504,7 @@ end
 ---
 
 ### [TASK 6-A] Internationalization (gettext)
+
 **Owner**: AGENT  
 **Duration**: 20 minutes  
 **Depends On**: Task 5-A  
@@ -478,6 +513,7 @@ end
 #### Steps
 
 **1. Extract strings:**
+
 ```bash
 mix gettext.extract --merge
 ```
@@ -485,6 +521,7 @@ mix gettext.extract --merge
 This scans all `.ex`, `.exs`, `.heex` files and updates `.po` files.
 
 **2. Add translations to `priv/gettext/pt/LC_MESSAGES/default.po`:**
+
 ```po
 #: lib/tremtec_web/live/contact_live.ex
 msgid "Verification failed. Please try again."
@@ -524,6 +561,7 @@ msgstr "Sua mensagem aqui"
 ```
 
 **3. Add same to English `priv/gettext/en/LC_MESSAGES/default.po`:**
+
 ```po
 msgid "Verification failed. Please try again."
 msgstr "Verification failed. Please try again."
@@ -531,6 +569,7 @@ msgstr "Verification failed. Please try again."
 ```
 
 **4. Add same to Spanish `priv/gettext/es/LC_MESSAGES/default.po`:**
+
 ```po
 msgid "Verification failed. Please try again."
 msgstr "La verificación falló. Intente de nuevo."
@@ -538,11 +577,13 @@ msgstr "La verificación falló. Intente de nuevo."
 ```
 
 **5. Compile translations:**
+
 ```bash
 mix gettext.compile
 ```
 
 **6. Test in different locales:**
+
 ```bash
 # In IEx
 iex> Gettext.put_locale(TremtecWeb.Gettext, "pt")
@@ -550,6 +591,7 @@ iex> gettext("Verification failed. Please try again.")
 ```
 
 #### Verification
+
 - [ ] `mix gettext.extract --merge` runs without errors
 - [ ] `.po` files updated with new strings
 - [ ] All translations added (PT, EN, ES)
@@ -559,6 +601,7 @@ iex> gettext("Verification failed. Please try again.")
 ---
 
 ### [TASK 7-A] Testing Implementation
+
 **Owner**: AGENT  
 **Duration**: 30 minutes  
 **Depends On**: Task 5-A  
@@ -567,6 +610,7 @@ iex> gettext("Verification failed. Please try again.")
 #### Steps
 
 **1. Add mox to `mix.exs` (dev/test):**
+
 ```elixir
 defp deps do
   [
@@ -577,6 +621,7 @@ end
 ```
 
 **2. Setup mox in `test/test_helper.exs`:**
+
 ```elixir
 # test/test_helper.exs
 ExUnit.start()
@@ -587,6 +632,7 @@ Mox.defmock(TurnstileMock, for: Turnstile.Behaviour)
 ```
 
 **3. Configure test env in `config/test.exs`:**
+
 ```elixir
 # config/test.exs
 config :phoenix_turnstile,
@@ -596,6 +642,7 @@ config :phoenix_turnstile,
 ```
 
 **4. Write LiveView tests in `test/tremtec_web/live/contact_live_test.exs`:**
+
 ```elixir
 defmodule TremtecWeb.ContactLiveTest do
   use TremtecWeb.ConnCase, async: true
@@ -664,11 +711,13 @@ end
 ```
 
 **5. Run tests:**
+
 ```bash
 mix test test/tremtec_web/live/contact_live_test.exs
 ```
 
 #### Verification
+
 - [ ] Mox installed and configured
 - [ ] Tests compile without errors
 - [ ] All test cases pass
@@ -678,6 +727,7 @@ mix test test/tremtec_web/live/contact_live_test.exs
 ---
 
 ### [TASK 8-A] Security & CSP Headers
+
 **Owner**: AGENT  
 **Duration**: 15 minutes  
 **Depends On**: Task 4-A  
@@ -688,6 +738,7 @@ mix test test/tremtec_web/live/contact_live_test.exs
 **1. Update CSP headers in `lib/tremtec_web/endpoint.ex`:**
 
 Find the plug that sets CSP (usually around line 40-60):
+
 ```elixir
 plug :put_security_headers
 
@@ -709,11 +760,13 @@ end
 ```
 
 **Key points:**
+
 - `script-src`: Add `https://challenges.cloudflare.com`
 - `frame-src`: Add `https://challenges.cloudflare.com`
 - `connect-src`: Add `https://challenges.cloudflare.com` (for validation calls)
 
 **2. Test CSP in browser:**
+
 ```bash
 mix phx.server
 # Open DevTools Console
@@ -723,6 +776,7 @@ mix phx.server
 **3. Audit logging (optional):**
 
 Add logging to contact submission to track validation events:
+
 ```elixir
 # In contact_live.ex handle_event
 case validate_captcha(token, remote_ip) do
@@ -732,7 +786,7 @@ case validate_captcha(token, remote_ip) do
       challenge_ts: response["challenge_ts"]
     })
     # ... continue
-    
+
   {:error, reason} ->
     Logger.warning("Captcha validation failed",
       extra: %{ip: inspect(remote_ip), reason: inspect(reason)}
@@ -742,6 +796,7 @@ end
 ```
 
 #### Verification
+
 - [ ] CSP headers include Cloudflare Turnstile domains
 - [ ] No CSP violations in browser console
 - [ ] Validation calls succeed
@@ -750,6 +805,7 @@ end
 ---
 
 ### [TASK 9-A] Documentation & Handoff
+
 **Owner**: AGENT  
 **Duration**: 15 minutes  
 **Depends On**: All above tasks  
@@ -758,40 +814,51 @@ end
 #### Steps
 
 **1. Create `docs/TURNSTILE_SETUP.md`:**
+
 ```markdown
 # Cloudflare Turnstile Setup Guide
 
 ## Overview
+
 The contact form is protected with Cloudflare Turnstile CAPTCHA.
 
 ## Environment Variables
+
 Set these in `.env.local` (never commit):
+
 - `TURNSTILE_SITE_KEY`: Public key from Cloudflare Dashboard
 - `TURNSTILE_SECRET_KEY`: Private key from Cloudflare Dashboard
 
 ## Testing Locally
+
 The dev environment uses Cloudflare test keys by default. No real API calls are made.
 
 ## Troubleshooting
+
 - Widget not appearing: Check CSP headers and browser console
 - Token validation failing: Verify secret key is correct
 - Expired token: User must wait for new challenge (5 min timeout)
 
 ## Monitoring
+
 Check logs for:
+
 - Validation successes: `Captcha validation succeeded`
 - Validation failures: `Captcha validation failed`
 ```
 
 **2. Update README.md with Turnstile info:**
 Add to relevant section:
+
 ```markdown
 ### Captcha Protection
-The contact form uses Cloudflare Turnstile for bot protection. 
+
+The contact form uses Cloudflare Turnstile for bot protection.
 See `docs/TURNSTILE_SETUP.md` for configuration.
 ```
 
 **3. Add comments in code:**
+
 ```elixir
 # lib/tremtec_web/live/contact_live.ex - top of file
 # Turnstile CAPTCHA Integration
@@ -802,6 +869,7 @@ See `docs/TURNSTILE_SETUP.md` for configuration.
 ```
 
 #### Verification
+
 - [ ] Documentation created
 - [ ] README updated
 - [ ] Code comments added
@@ -845,6 +913,7 @@ See `docs/TURNSTILE_SETUP.md` for configuration.
 ```
 
 ### Critical Path
+
 1. Task 0-H (human setup) - **MUST complete first**
 2. Task 1-A (dependency) - prerequisite for all dev tasks
 3. Tasks 2-A, 3-A, 4-A (sequential: JS → Layout → Form)
@@ -856,17 +925,20 @@ See `docs/TURNSTILE_SETUP.md` for configuration.
 ## 5. Testing Strategy
 
 ### Unit Tests
+
 - [ ] Captcha validation success/failure paths
 - [ ] Form validation logic
 - [ ] IP address extraction from socket
 - [ ] Error message display
 
 ### Integration Tests
+
 - [ ] Full form submission flow with mocked Turnstile
 - [ ] Token expiration handling
 - [ ] LiveView event handling
 
 ### Manual Testing
+
 - [ ] Widget renders on page load
 - [ ] Widget completes challenge successfully
 - [ ] Failed validation shows error
@@ -875,6 +947,7 @@ See `docs/TURNSTILE_SETUP.md` for configuration.
 - [ ] Multiple locales (PT, EN, ES)
 
 ### Security Testing
+
 - [ ] CSP headers allow Turnstile domains
 - [ ] Secret key never exposed in client code
 - [ ] Secret key not in logs
@@ -887,14 +960,14 @@ See `docs/TURNSTILE_SETUP.md` for configuration.
 
 If issues arise at any point:
 
-| Task | Rollback | Impact |
-|------|----------|--------|
-| 0-H | Delete Turnstile widget in dashboard | Contact form shows validation error |
-| 1-A | Remove phoenix_turnstile dep, revert config | Need to implement manually |
-| 2-A | Remove TurnstileHook from app.js | Widget won't load |
-| 3-A | Remove `<Turnstile.script />` from layout | Widget breaks completely |
-| 4-A | Remove widget component from form | No captcha protection (security issue) |
-| 5-A | Revert to form without verification | Spam risk (security issue) |
+| Task | Rollback                                    | Impact                                 |
+| ---- | ------------------------------------------- | -------------------------------------- |
+| 0-H  | Delete Turnstile widget in dashboard        | Contact form shows validation error    |
+| 1-A  | Remove phoenix_turnstile dep, revert config | Need to implement manually             |
+| 2-A  | Remove TurnstileHook from app.js            | Widget won't load                      |
+| 3-A  | Remove `<Turnstile.script />` from layout   | Widget breaks completely               |
+| 4-A  | Remove widget component from form           | No captcha protection (security issue) |
+| 5-A  | Revert to form without verification         | Spam risk (security issue)             |
 
 **No rollback possible after Task 5-A without losing spam protection.**
 
@@ -917,17 +990,17 @@ If issues arise at any point:
 
 ## 8. Estimated Timeline
 
-| Phase | Duration | Owner |
-|-------|----------|-------|
-| Setup (Task 0-H) | 15-30 min | Human |
-| Dependencies (Task 1-A) | 10 min | Agent |
-| Front-end (Tasks 2-4) | 30 min | Agent |
-| Back-end (Task 5-A) | 30 min | Agent |
-| i18n (Task 6-A) | 20 min | Agent |
-| Testing (Task 7-A) | 30 min | Agent |
-| Security (Task 8-A) | 15 min | Agent |
-| Docs (Task 9-A) | 15 min | Agent |
-| **TOTAL** | **~3 hours** | **Split** |
+| Phase                   | Duration     | Owner     |
+| ----------------------- | ------------ | --------- |
+| Setup (Task 0-H)        | 15-30 min    | Human     |
+| Dependencies (Task 1-A) | 10 min       | Agent     |
+| Front-end (Tasks 2-4)   | 30 min       | Agent     |
+| Back-end (Task 5-A)     | 30 min       | Agent     |
+| i18n (Task 6-A)         | 20 min       | Agent     |
+| Testing (Task 7-A)      | 30 min       | Agent     |
+| Security (Task 8-A)     | 15 min       | Agent     |
+| Docs (Task 9-A)         | 15 min       | Agent     |
+| **TOTAL**               | **~3 hours** | **Split** |
 
 **Parallel execution possible:** Human can do setup while Agent does Tasks 1-A in parallel  
 **Realistic timeline:** 1-2 hours Agent time (if dependencies already known)
@@ -936,14 +1009,14 @@ If issues arise at any point:
 
 ## 9. Risk Mitigation
 
-| Risk | Probability | Severity | Mitigation |
-|------|-------------|----------|-----------|
-| Keys not configured | Medium | High | Early verification in Task 1-A |
-| CSP blocks widget | Medium | High | Pre-add CSP before testing |
-| Token expiration UX | Low | Medium | Clear error messages + widget reset |
-| Accessibility issues | Low | Medium | Use WCAG 2.1 AA compliant widget |
-| Testing complexity | Medium | Medium | Pre-write test stubs with Mox |
-| i18n strings missed | Medium | Low | Use `gettext.extract` to catch all |
+| Risk                 | Probability | Severity | Mitigation                          |
+| -------------------- | ----------- | -------- | ----------------------------------- |
+| Keys not configured  | Medium      | High     | Early verification in Task 1-A      |
+| CSP blocks widget    | Medium      | High     | Pre-add CSP before testing          |
+| Token expiration UX  | Low         | Medium   | Clear error messages + widget reset |
+| Accessibility issues | Low         | Medium   | Use WCAG 2.1 AA compliant widget    |
+| Testing complexity   | Medium      | Medium   | Pre-write test stubs with Mox       |
+| i18n strings missed  | Medium      | Low      | Use `gettext.extract` to catch all  |
 
 ---
 
@@ -957,4 +1030,3 @@ After deployment:
 - [ ] Update documentation if widget modes change
 - [ ] Consider rate limiting if spam persists
 - [ ] Review user feedback on CAPTCHA experience
-
