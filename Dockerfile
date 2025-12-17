@@ -45,11 +45,10 @@ ARG APP_NAME=tremtec
 ENV APP_NAME=${APP_NAME}
 ENV MIX_ENV=dev
 
-# Install dev-only dependencies
+# Install dev-only dependencies (inotify-tools for file watching/hot reload)
 RUN apt-get update -y && \
     apt-get install -y --no-install-recommends \
-      inotify-tools \
-      watchman && \
+      inotify-tools && \
     rm -rf /var/lib/apt/lists/*
 
 # Copy umbrella structure
