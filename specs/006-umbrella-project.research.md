@@ -210,7 +210,233 @@ erlang = "latest"
 
 ---
 
-## 6. Implementation Options
+## 6. Fly.io Deployment Strategy
+
+### The Challenge
+
+When deploying multiple Phoenix apps from an umbrella project to Fly.io:
+
+- Each app needs its own Fly.io application (separate domain, secrets, resources)
+- Docker build context is limited to the directory where `fly deploy` runs
+- Umbrella projects require access to root `config/`, `deps/`, and sibling apps
+
+### Solution: Shared Dockerfile with Build Args
+
+**Structure:**
+
+```text
+tremtec/                       # Umbrella root
+├── mix.exs
+├── config/
+├── Dockerfile                 # Shared Dockerfile at root (accepts APP_NAME arg)
+├── Dockerfile.dev             # Development Dockerfile at root
+├── apps/
+│   ├── tremtec/
+│   │   ├── fly.toml          # Fly.io config pointing to ../../Dockerfile
+│   │   ├── mix.exs
+│   │   └── ...
+│   ├── tremtec_shared/        # No fly.toml (shared lib, not deployed)
+│   │   └── ...
+│   └── future_app/            # Future Phoenix app
+│       ├── fly.toml          # Its own Fly.io config
+│       └── ...
+```
+
+### fly.toml Configuration (per app)
+
+Each deployable app gets its own `fly.toml` inside its directory:
+
+**`apps/tremtec/fly.toml`:**
+
+```toml
+app = 'tremtec'
+primary_region = 'gru'
+
+[build]
+  dockerfile = "../../Dockerfile"
+  [build.args]
+    APP_NAME = "tremtec"
+
+[env]
+  PHX_HOST = "tremtec.com"
+  PORT = "8080"
+  PHX_SERVER = "true"
+  DATABASE_PATH = "/data/tremtec.db"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+  min_machines_running = 1
+
+[[vm]]
+  memory = '512mb'
+  cpu_kind = 'shared'
+  cpus = 1
+
+[mounts]
+  source = "data"
+  destination = "/data"
+```
+
+### Dockerfile Configuration (at root)
+
+The root Dockerfile accepts `APP_NAME` as a build argument:
+
+```dockerfile
+# Production Dockerfile for TremTec Umbrella
+ARG ELIXIR_VERSION=1.18.4
+ARG OTP_VERSION=28.0.1
+ARG DEBIAN_VERSION=trixie-20250428-slim
+
+# Build stage
+FROM hexpm/elixir:${ELIXIR_VERSION}-erlang-${OTP_VERSION}-debian-${DEBIAN_VERSION} AS builder
+
+ARG APP_NAME=tremtec
+ENV APP_NAME=${APP_NAME}
+ENV MIX_ENV=prod
+
+WORKDIR /app
+
+# Copy umbrella structure
+COPY mix.exs mix.lock ./
+COPY config ./config
+COPY apps ./apps
+
+# Install dependencies and compile
+RUN mix local.hex --force && \
+    mix local.rebar --force && \
+    mix deps.get --only prod && \
+    mix deps.compile
+
+# Build assets for the specific app (if it has assets)
+RUN if [ -d "apps/${APP_NAME}/assets" ]; then \
+      mix assets.deploy; \
+    fi
+
+# Create release for specific app
+RUN mix release ${APP_NAME}
+
+# Runtime stage
+FROM debian:${DEBIAN_VERSION}
+
+ARG APP_NAME=tremtec
+ENV APP_NAME=${APP_NAME}
+
+# ... runtime setup ...
+
+COPY --from=builder /app/_build/prod/rel/${APP_NAME} /app
+
+CMD ["/app/bin/${APP_NAME}", "start"]
+```
+
+### Deployment Workflow
+
+**Deploy a specific app:**
+
+```bash
+cd apps/tremtec
+fly deploy
+```
+
+**What happens:**
+
+1. Fly.io reads `apps/tremtec/fly.toml`
+2. Sees `dockerfile = "../../Dockerfile"` → uses root Dockerfile
+3. Passes `APP_NAME = "tremtec"` as build arg
+4. Dockerfile builds the entire umbrella but releases only `tremtec`
+5. Image is deployed to Fly.io as app `tremtec`
+
+### Secrets Management
+
+Each app has its own secrets in Fly.io:
+
+```bash
+# For tremtec app
+cd apps/tremtec
+fly secrets set SECRET_KEY_BASE='...'
+fly secrets set RESEND_API_KEY='...'
+
+# For future_app (different secrets)
+cd apps/future_app
+fly secrets set SECRET_KEY_BASE='...'  # Different key
+fly secrets set SOME_OTHER_SECRET='...'
+```
+
+### Shared Libraries (tremtec_shared)
+
+- **No fly.toml needed**: `tremtec_shared` is a dependency, not a deployable app
+- **Included in builds**: When `tremtec` is built, `tremtec_shared` is compiled as a dependency
+- **No separate deployment**: It exists only as compiled code inside other apps
+
+### Multiple Apps Example
+
+If you add `apps/api/` later:
+
+**`apps/api/fly.toml`:**
+
+```toml
+app = 'tremtec-api'
+primary_region = 'gru'
+
+[build]
+  dockerfile = "../../Dockerfile"
+  [build.args]
+    APP_NAME = "api"
+
+[env]
+  PHX_HOST = "api.tremtec.com"
+  PORT = "8080"
+  # ... different env vars ...
+```
+
+**Deploy:**
+
+```bash
+cd apps/api
+fly deploy
+```
+
+### Advantages
+
+- ✅ **Single Dockerfile**: No duplication, easier maintenance
+- ✅ **Independent deploys**: Each app deployed separately
+- ✅ **Separate secrets**: Each app has its own Fly.io secrets
+- ✅ **Separate resources**: Different memory/CPU per app
+- ✅ **Separate domains**: Each app gets its own domain
+- ✅ **Shared code**: `tremtec_shared` compiled into each app
+
+### CI/CD Considerations
+
+Update GitHub Actions to deploy specific apps:
+
+```yaml
+# .github/workflows/deploy-tremtec.yml
+name: Deploy Tremtec
+on:
+  push:
+    branches: [main]
+    paths:
+      - "apps/tremtec/**"
+      - "apps/tremtec_shared/**"
+      - "config/**"
+      - "Dockerfile"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: superfly/flyctl-actions/setup-flyctl@master
+      - run: cd apps/tremtec && flyctl deploy --remote-only
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+```
+
+---
+
+## 7. Implementation Options
 
 ### Option A: Complete Migration (Recommended)
 
@@ -249,7 +475,7 @@ Keep current structure and only create new apps.
 
 ---
 
-## 7. Implementation Tasks
+## 8. Implementation Tasks
 
 ### Phase 1: Setup (AGENT)
 
@@ -279,13 +505,16 @@ Keep current structure and only create new apps.
 - [ ] Update config/runtime.exs (database)
 - [ ] Update config/prod.exs (if exists)
 
-### Phase 5: Docker and Scripts (AGENT)
+### Phase 5: Docker and Fly.io (AGENT)
 
-- [ ] Update Dockerfile
-- [ ] Update Dockerfile.dev (if exists)
+- [ ] Update Dockerfile to accept APP_NAME build arg
+- [ ] Update Dockerfile.dev for umbrella structure
+- [ ] Move fly.toml to apps/tremtec/fly.toml
+- [ ] Update fly.toml to reference ../../Dockerfile with build args
 - [ ] Update docker-compose.yml (verify .env references)
 - [ ] Update scripts/docker_entrypoint.sh
 - [ ] Verify that .env continues to be loaded correctly
+- [ ] Update GitHub Actions deploy workflow for umbrella structure
 
 ### Phase 6: Aliases and Commands (AGENT)
 
@@ -303,11 +532,14 @@ Keep current structure and only create new apps.
 
 ---
 
-## 8. References
+## 9. References
 
 - [Mix Umbrella Projects](https://hexdocs.pm/mix/Mix.Tasks.New.html#module-umbrella-projects)
 - [Phoenix Umbrella Guide](https://hexdocs.pm/phoenix/up_and_running.html#umbrella-projects)
 - [Elixir School - Umbrella Projects](https://elixirschool.com/en/lessons/advanced/umbrella-projects/)
+- [Fly.io Phoenix Deployment](https://hexdocs.pm/phoenix/fly.html)
+- [Fly.io Multiple Applications](https://fly.io/docs/rails/advanced-guides/multiple-applications/)
+- [Fly.io Community - Phoenix Umbrella Deploy](https://community.fly.io/t/how-to-deploy-a-phoenix-umbrella-project/4498)
 
 ---
 
@@ -323,3 +555,7 @@ Keep current structure and only create new apps.
 8. **.env Files**: Keep at root, automatically loaded by mise, shared between apps
 9. **Mise**: Keep mise.toml at root, works without changes for all apps
 10. **Versions**: Current versions (Elixir 1.15, Phoenix 1.8.1) are adequate; future updates in separate spec
+11. **Fly.io Deployment**: Each deployable app gets its own `fly.toml` inside its directory, pointing to shared Dockerfile at root with `APP_NAME` build arg
+12. **Dockerfile Strategy**: Single Dockerfile at root accepting `APP_NAME` arg to build specific app releases
+13. **Deploy Command**: Run `fly deploy` from inside each app directory (e.g., `cd apps/tremtec && fly deploy`)
+14. **CI/CD**: Update GitHub Actions to deploy specific apps based on changed paths

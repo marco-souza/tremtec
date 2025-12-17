@@ -60,17 +60,17 @@ mix format
 
 ## Key Files
 
-**Core Infrastructure**:
+**Core Infrastructure** (inside `apps/tremtec/`):
 
-- `lib/tremtec_web/plug/determine_locale.ex` - Locale detection
-- `lib/tremtec_web/helpers/locale_helpers.ex` - Locale utilities
-- `lib/tremtec_web/gettext.ex` - Gettext configuration
+- `apps/tremtec/lib/tremtec_web/plug/determine_locale.ex` - Locale detection
+- `apps/tremtec/lib/tremtec_web/helpers/locale_helpers.ex` - Locale utilities
+- `apps/tremtec/lib/tremtec_web/gettext.ex` - Gettext configuration
 
-**Translation Files**:
+**Translation Files** (inside `apps/tremtec/`):
 
-- `priv/gettext/pt/LC_MESSAGES/` - Portuguese translations
-- `priv/gettext/en/LC_MESSAGES/` - English translations
-- `priv/gettext/es/LC_MESSAGES/` - Spanish translations
+- `apps/tremtec/priv/gettext/pt/LC_MESSAGES/` - Portuguese translations
+- `apps/tremtec/priv/gettext/en/LC_MESSAGES/` - English translations
+- `apps/tremtec/priv/gettext/es/LC_MESSAGES/` - Spanish translations
 
 ## Documentation Index
 

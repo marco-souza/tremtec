@@ -2,7 +2,7 @@ import Config
 
 # Configure your database
 config :tremtec, Tremtec.Repo,
-  database: Path.expand("../tremtec_dev.db", __DIR__),
+  database: Path.expand("../apps/tremtec/tremtec_dev.db", __DIR__),
   pool_size: 5,
   stacktrace: true,
   show_sensitive_data_on_connection_error: true
@@ -54,9 +54,9 @@ config :tremtec, TremtecWeb.Endpoint,
   live_reload: [
     web_console_logger: true,
     patterns: [
-      ~r"priv/static/(?!uploads/).*(js|css|png|jpeg|jpg|gif|svg)$",
-      ~r"priv/gettext/.*(po)$",
-      ~r"lib/tremtec_web/(?:controllers|live|components|router)/?.*\.(ex|heex)$"
+      ~r"apps/tremtec/priv/static/(?!uploads/).*(js|css|png|jpeg|jpg|gif|svg)$",
+      ~r"apps/tremtec/priv/gettext/.*(po)$",
+      ~r"apps/tremtec/lib/tremtec_web/(?:controllers|live|components|router)/?.*\.(ex|heex)$"
     ]
   ]
 

@@ -55,7 +55,7 @@ config :esbuild,
   tremtec: [
     args:
       ~w(js/app.js --bundle --target=es2022 --outdir=../priv/static/assets/js --external:/fonts/* --external:/images/* --alias:@=.),
-    cd: Path.expand("../assets", __DIR__),
+    cd: Path.expand("../apps/tremtec/assets", __DIR__),
     env: %{"NODE_PATH" => [Path.expand("../deps", __DIR__), Mix.Project.build_path()]}
   ]
 
@@ -64,8 +64,8 @@ config :tailwind,
   version: "4.1.7",
   tremtec: [
     args: ~w(
-      --input=assets/css/app.css
-      --output=priv/static/assets/css/app.css
+      --input=apps/tremtec/assets/css/app.css
+      --output=apps/tremtec/priv/static/assets/css/app.css
     ),
     cd: Path.expand("..", __DIR__)
   ]

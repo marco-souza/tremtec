@@ -41,7 +41,13 @@ npm-debug.log
 *.db-*
 
 # dotenv files
-.env*
+.env
+.env.local
+.env.production
+.env.*.local
+# Keep example files
+!.env.example
+!.env.production.example
 
 # Mac OS
 .DS_Store

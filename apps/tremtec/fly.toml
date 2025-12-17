@@ -1,6 +1,11 @@
 app = 'tremtec'
 primary_region = 'gru'
 
+[build]
+  dockerfile = "../../Dockerfile"
+  [build.args]
+    APP_NAME = "tremtec"
+
 [env]
   PHX_HOST = "tremtec.com"
   PORT = "8080"
@@ -26,3 +31,4 @@ primary_region = 'gru'
 [mounts]
   source = "data"
   destination = "/data"
+

@@ -3,7 +3,10 @@ services:
   tremtec-dev:
     build:
       context: .
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile
+      target: dev
+      args:
+        APP_NAME: tremtec
     image: tremtec:dev
     container_name: tremtec-dev
     ports:
@@ -25,6 +28,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      target: prod
+      args:
+        APP_NAME: tremtec
     image: tremtec:latest
     container_name: tremtec-prod
     environment:

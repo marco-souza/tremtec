@@ -4,23 +4,44 @@ This guide explains how to use Docker for both development and production enviro
 
 ## Overview
 
-The project uses Docker Compose with two distinct configurations:
+This is an **umbrella project** with multiple Phoenix apps. The project uses Docker Compose with two distinct configurations:
+
 - **Development** - Local development with hot reload
-- **Production** - Optimized release build
+- **Production** - Optimized release build with `APP_NAME` build arg
+
+## Project Structure
+
+```
+tremtec/
+├── Dockerfile              # Unified build (dev & prod targets, accepts APP_NAME)
+├── docker-compose.yml      # Docker Compose configuration
+├── .env                    # Environment variables (not committed)
+├── apps/
+│   ├── tremtec/           # Main Phoenix app
+│   │   └── fly.toml       # Fly.io deployment config
+│   └── tremtec_shared/    # Shared library (not deployed)
+```
 
 ## Configuration
 
 ### Files
 
 - `docker-compose.yml` - Main Docker Compose configuration with two services
-- `Dockerfile` - Production build (multi-stage)
-- `Dockerfile.dev` - Development build (lightweight, with hot reload)
+- `Dockerfile` - Unified multi-stage build (accepts `APP_NAME` and `target` args)
 - `.env` - Development environment variables
 - `.env.production` - Production environment variables
+
+### Build Targets
+
+The unified `Dockerfile` supports two targets:
+
+- `dev` - Development with hot reload, full tooling
+- `prod` - Production optimized release
 
 ### Services
 
 #### Development Service (`tremtec-dev`)
+
 - Container name: `tremtec-dev`
 - Port: 4000
 - Runs: `mix phx.server` (hot reload enabled)
@@ -29,6 +50,7 @@ The project uses Docker Compose with two distinct configurations:
 - Profile: `dev`
 
 #### Production Service (`tremtec-prod`)
+
 - Container name: `tremtec-prod`
 - Port: 4000
 - Runs: Compiled release binary
@@ -47,7 +69,8 @@ docker-compose --profile dev up
 ```
 
 This will:
-- Build from `Dockerfile.dev`
+
+- Build from `Dockerfile` with `target: dev`
 - Load variables from `.env`
 - Run `mix phx.server` with file watching
 - Mount local source code for live changes
@@ -80,6 +103,7 @@ docker-compose --profile prod up
 ```
 
 This will:
+
 - Build a multi-stage optimized release from `Dockerfile`
 - Load variables from `.env.production`
 - Run the compiled release binary
@@ -113,14 +137,15 @@ docker-compose --profile dev --profile prod up
 ```yaml
 tremtec-dev:
   ports:
-    - "4000:4000"  # Development on 4000
+    - "4000:4000" # Development on 4000
 
 tremtec-prod:
   ports:
-    - "4001:4000"  # Production on 4001
+    - "4001:4000" # Production on 4001
 ```
 
 Then access:
+
 - Dev: http://localhost:4000
 - Prod: http://localhost:4001
 
@@ -129,6 +154,7 @@ Then access:
 ### Development (`.env`)
 
 Typically includes:
+
 ```
 DATABASE_PATH=/data/tremtec_dev.db
 SECRET_KEY_BASE=<development_key>
@@ -139,6 +165,7 @@ SMTP_FROM_EMAIL=noreply@tremtec.local
 ### Production (`.env.production`)
 
 Typically includes:
+
 ```
 DATABASE_PATH=/data/tremtec.db
 SECRET_KEY_BASE=<production_key>
@@ -152,17 +179,20 @@ SMTP_FROM_EMAIL=noreply@tremtec.com
 ## Database Management
 
 Each environment has its own database file:
+
 - **Dev**: `tremtec_dev_data` volume → `/data/tremtec_dev.db`
 - **Prod**: `tremtec_prod_data` volume → `/data/tremtec.db`
 
 ### Reset Database
 
 For development:
+
 ```bash
 docker-compose --profile dev down -v
 ```
 
 For production:
+
 ```bash
 docker-compose --profile prod down -v
 ```
@@ -189,8 +219,23 @@ docker-compose --profile dev build tremtec-dev
 
 ### Build Production Image
 
+The production Dockerfile accepts an `APP_NAME` build argument to specify which app release to build:
+
 ```bash
-docker-compose --profile dev build tremtec-prod
+# Build tremtec app (default)
+docker-compose --profile prod build tremtec-prod
+
+# Or build directly with docker
+docker build --build-arg APP_NAME=tremtec -t tremtec:latest .
+```
+
+### Building Different Apps
+
+For future apps in the umbrella, use the `APP_NAME` build arg:
+
+```bash
+# Build a different app
+docker build --build-arg APP_NAME=other_app -t other_app:latest .
 ```
 
 ### Rebuild Without Cache
@@ -207,11 +252,13 @@ docker-compose --profile prod build --no-cache tremtec-prod
 If port 4000 is already in use:
 
 1. Find the container using it:
+
    ```bash
    lsof -i :4000
    ```
 
 2. Stop it:
+
    ```bash
    docker stop <container_id>
    ```
@@ -221,6 +268,7 @@ If port 4000 is already in use:
 ### Container Won't Start
 
 Check logs:
+
 ```bash
 docker-compose --profile dev logs tremtec-dev
 # or
@@ -230,6 +278,7 @@ docker-compose --profile prod logs tremtec-prod
 ### Database Permissions Error
 
 Rebuild the image:
+
 ```bash
 docker-compose --profile dev build --no-cache tremtec-dev
 docker-compose --profile prod build --no-cache tremtec-prod
@@ -249,11 +298,13 @@ The development server uses file watching. If hot reload doesn't work:
 ## Performance Notes
 
 ### Development
+
 - Slower startup (compilation on each change)
 - Full Elixir/OTP stack in container
 - Useful for debugging and development
 
 ### Production
+
 - Fast startup (pre-compiled release)
 - Minimal runtime image (Debian slim)
 - Optimized for deployment

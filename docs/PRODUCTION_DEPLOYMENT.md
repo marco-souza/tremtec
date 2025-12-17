@@ -20,6 +20,7 @@ export SMTP_FROM_EMAIL='noreply@yourdomain.com'  # Optional, defaults to noreply
 ```
 
 **Important**:
+
 - Get your API key from [Resend](https://resend.com)
 - The `SMTP_FROM_EMAIL` must be a verified domain in your Resend account
 - Without `RESEND_API_KEY`, emails will be logged to console (development mode)
@@ -71,35 +72,66 @@ chmod 750 /var/lib/tremtec
 docker run -v tremtec-data:/data tremtec:latest
 ```
 
-## Fly.io Deployment
+## Fly.io Deployment (Umbrella Project)
+
+This is an umbrella project where each deployable app has its own `fly.toml` inside its directory.
+
+### Deploying an App
+
+```bash
+# Navigate to the app directory
+cd apps/tremtec
+
+# Deploy
+fly deploy
+```
 
 ### Environment Variables
 
-Set these secrets in Fly.io:
+Set these secrets in Fly.io (from inside the app directory):
 
 ```bash
+cd apps/tremtec
 fly secrets set SECRET_KEY_BASE='your-key'
 fly secrets set LIVE_VIEW_SIGNING_SALT='your-salt'
 fly secrets set RESEND_API_KEY='your-resend-api-key'
 fly secrets set SMTP_FROM_EMAIL='noreply@yourdomain.com'  # Optional
 ```
 
-### Volume Configuration
+### fly.toml Location
 
-The `fly.toml` already includes persistent storage configuration:
+Each app's `fly.toml` is located at `apps/<app_name>/fly.toml` and references the shared Dockerfile at the root:
 
 ```toml
+[build]
+  dockerfile = "../../Dockerfile"
+  [build.args]
+    APP_NAME = "tremtec"
+
 [mounts]
   source = "data"
   destination = "/data"
 ```
 
+### Adding New Deployable Apps
+
+1. Create a new Phoenix app inside `apps/`
+2. Create `apps/<app_name>/fly.toml` with appropriate configuration
+3. Run `fly launch` from inside the app directory to create the Fly.io app
+4. Deploy with `fly deploy`
+
 ## Docker Deployment
 
 ### Building the Image
 
+The Dockerfile at the root accepts an `APP_NAME` build argument:
+
 ```bash
+# Build for tremtec app (default)
 docker build -t tremtec:latest .
+
+# Build for a specific app
+docker build --build-arg APP_NAME=other_app -t other_app:latest .
 ```
 
 ### Running the Container
@@ -274,16 +306,16 @@ If issues occur:
 
 ## Production Configuration Summary
 
-| Variable               | Required | Description                                    |
-| ---------------------- | -------- | ---------------------------------------------- |
-| SECRET_KEY_BASE        | Yes      | Session encryption key                         |
-| LIVE_VIEW_SIGNING_SALT | Yes      | LiveView security salt                         |
-| RESEND_API_KEY         | No*      | Resend API key for email delivery              |
+| Variable               | Required | Description                                           |
+| ---------------------- | -------- | ----------------------------------------------------- |
+| SECRET_KEY_BASE        | Yes      | Session encryption key                                |
+| LIVE_VIEW_SIGNING_SALT | Yes      | LiveView security salt                                |
+| RESEND_API_KEY         | No\*     | Resend API key for email delivery                     |
 | SMTP_FROM_EMAIL        | No       | Email "from" address (default: `noreply@tremtec.com`) |
-| DATABASE_PATH          | No       | SQLite file path (default: `/data/tremtec.db`) |
-| PHX_HOST               | No       | Application hostname (default: `example.com`)  |
-| PORT                   | No       | Server port (default: `4000`)                  |
-| POOL_SIZE              | No       | Database connection pool (default: `5`)        |
+| DATABASE_PATH          | No       | SQLite file path (default: `/data/tremtec.db`)        |
+| PHX_HOST               | No       | Application hostname (default: `example.com`)         |
+| PORT                   | No       | Server port (default: `4000`)                         |
+| POOL_SIZE              | No       | Database connection pool (default: `5`)               |
 
 \* Required in production for email delivery. Optional in development (emails logged to console).
 

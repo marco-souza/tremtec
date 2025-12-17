@@ -1,15 +1,23 @@
-# Production Dockerfile for TremTec (Phoenix)
-# Multi-stage build: compile on Elixir base, run on Debian slim
-# Elixir 1.18.4, OTP 28
+# Unified Dockerfile for TremTec (Phoenix Umbrella)
+# Supports both development and production via build targets
+#
+# Usage:
+#   Development: docker build --target dev -t tremtec:dev .
+#   Production:  docker build --target prod -t tremtec:latest .
+#
+# Build args:
+#   APP_NAME: Which app to build/run (default: tremtec)
 
 ARG ELIXIR_VERSION=1.18.4
-ARG ERLANG_VERSION=28.0.0
 
-# Build stage
-FROM elixir:${ELIXIR_VERSION} AS builder
+# =============================================================================
+# Base stage - shared dependencies
+# =============================================================================
+FROM elixir:${ELIXIR_VERSION} AS base
 
-ENV MIX_ENV=prod \
-    LANG=C.UTF-8 \
+ARG APP_NAME=tremtec
+ENV APP_NAME=${APP_NAME}
+ENV LANG=C.UTF-8 \
     SHELL=/bin/bash
 
 RUN apt-get update -y && \
@@ -20,37 +28,85 @@ RUN apt-get update -y && \
       ca-certificates \
       pkg-config \
       libssl-dev \
-      libsqlite3-dev \
-      libvips-dev && \
+      libsqlite3-dev && \
     rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
-# Install hex and rebar
 RUN mix local.hex --force && \
     mix local.rebar --force
 
-# Copy mix files and config
+# =============================================================================
+# Development stage - hot reload, full tooling
+# =============================================================================
+FROM base AS dev
+
+ARG APP_NAME=tremtec
+ENV APP_NAME=${APP_NAME}
+ENV MIX_ENV=dev
+
+# Install dev-only dependencies
+RUN apt-get update -y && \
+    apt-get install -y --no-install-recommends \
+      inotify-tools \
+      watchman && \
+    rm -rf /var/lib/apt/lists/*
+
+# Copy umbrella structure
 COPY mix.exs mix.lock ./
 COPY config ./config
+COPY apps ./apps
 
-# Install dependencies (prod only - no dev/test)
+# Install all dependencies (including dev and test)
+RUN mix deps.get
+
+# Create data directory for SQLite database
+RUN mkdir -p /data && chmod 755 /data
+
+ENV DATABASE_PATH=${DATABASE_PATH:-/data/tremtec_dev.db}
+
+EXPOSE 4000
+
+# Run the server from umbrella root (delegates to specific app via mix.exs aliases)
+CMD ["mix", "phx.server"]
+
+# =============================================================================
+# Builder stage - compile release for production
+# =============================================================================
+FROM base AS builder
+
+ARG APP_NAME=tremtec
+ENV APP_NAME=${APP_NAME}
+ENV MIX_ENV=prod
+
+# Install libvips for image processing
+RUN apt-get update -y && \
+    apt-get install -y --no-install-recommends libvips-dev && \
+    rm -rf /var/lib/apt/lists/*
+
+# Copy umbrella structure
+COPY mix.exs mix.lock ./
+COPY config ./config
+COPY apps ./apps
+
+# Install production dependencies only
 RUN mix deps.get --only prod && \
     mix deps.compile
 
-# Copy application source
-COPY lib ./lib
-COPY assets ./assets
-COPY priv ./priv
-
-# Compile first to generate phoenix-colocated modules, then build assets and release
+# Compile and build assets
 RUN mix compile && \
-    mix assets.deploy && \
-    mix release
+    if [ -d "apps/${APP_NAME}/assets" ]; then \
+      mix assets.deploy; \
+    fi && \
+    mix release ${APP_NAME}
 
-# Runtime stage - minimal image
-FROM debian:trixie-slim
+# =============================================================================
+# Production stage - minimal runtime image
+# =============================================================================
+FROM debian:trixie-slim AS prod
 
+ARG APP_NAME=tremtec
+ENV APP_NAME=${APP_NAME}
 ENV LANG=C.UTF-8 \
     SHELL=/bin/bash
 
@@ -69,7 +125,7 @@ RUN useradd -m -u 1000 app
 WORKDIR /app
 
 # Copy release from builder
-COPY --from=builder --chown=app:app /app/_build/prod/rel/tremtec ./
+COPY --from=builder --chown=app:app /app/_build/prod/rel/${APP_NAME} ./
 
 # Copy entrypoint script
 COPY --chown=app:app scripts/docker_entrypoint.sh ./bin/docker_entrypoint.sh
@@ -82,7 +138,7 @@ USER app
 
 EXPOSE 4000
 
-# Health check
+# Health check (port 4000 is the default internal port)
 HEALTHCHECK --interval=30s --timeout=3s --start-period=10s --retries=3 \
     CMD curl -f http://localhost:4000/api/healthz || exit 1
 

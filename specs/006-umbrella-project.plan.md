@@ -6,7 +6,7 @@
 
 **Research Reference**: `specs/006-umbrella-project.research.md`
 
-**Status**: [ ] Draft | [x] Ready for Review | [ ] Approved | [ ] In Progress | [ ] Complete
+**Status**: [ ] Draft | [ ] Ready for Review | [ ] Approved | [ ] In Progress | [x] Complete
 
 ## Overview
 
