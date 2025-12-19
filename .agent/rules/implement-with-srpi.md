@@ -1,3 +1,7 @@
+---
+trigger: manual
+---
+
 # SDD Implementation Rule
 
 ## Overview
