@@ -36,7 +36,7 @@ describe("API server", () => {
       expect(res.headers.get("location")).toBe("/login");
 
       const setCookie = res.headers.get("set-cookie") ?? "";
-      expect(setCookie).toContain("aboard_session=");
+      expect(setCookie).toContain("tremtec_session=");
       expect(setCookie).toContain("Max-Age=0");
     });
   });

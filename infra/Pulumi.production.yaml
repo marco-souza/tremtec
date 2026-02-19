@@ -1,12 +1,12 @@
 config:
-  aboard-infra:accountId: b0a2804a399607a0f277e3d712983a00
-  aboard-infra:environment: production
-  aboard-infra:github-id:
+  tremtec-infra:accountId: b2386820ea46b6a9a2eff9e3f8ff5182
+  tremtec-infra:environment: production
+  tremtec-infra:github-id:
     secure: v1:1KmWHTqydCbMlCd2:ZtN+/81yVRv43RNSpMc7ZW1vQldbhE7N+pSsoV19ROy0z+bp
-  aboard-infra:github-secret:
+  tremtec-infra:github-secret:
     secure: v1:qXqxhPcYxgyozsaZ:X2PVNnzXDtjqFVgNUr66XGqR2CikBJ4SE/4oPVALm4UAn/Lzrq1t9a5mC3DLZlcbEipCb49Q2NQ=
-  aboard-infra:google-id:
+  tremtec-infra:google-id:
     secure: v1:L7FbzkNCsfYRbU87:2inJf4X7yjT56YlGjF3Y2mevDpR2LA==
-  aboard-infra:google-secret:
+  tremtec-infra:google-secret:
     secure: v1:fHeG5taJK0Vzbzk6:5yC9vOCQXx7iLU6v9ok6nzBsTWzwKA==
 encryptionsalt: v1:l0zvedYGFKs=:v1:E7GS0D3iYRpl4DrA:fhBTiks+4At2H5kfKNh6bdpDDMZHjw==

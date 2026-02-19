@@ -28,42 +28,36 @@ const gitCommitHash = child_process
   .trim();
 
 const buildCommand = pulumi.interpolate`bun run build && bun w build`;
-const builder = new command.local.Command(
-  "website-build",
-  {
-    dir: absolutePath(".."),
-    create: buildCommand,
-    update: buildCommand,
-    environment: {
-      NODE_ENV: "production",
-    },
-    triggers: [gitCommitHash],
+const builder = new command.local.Command("website-build", {
+  dir: absolutePath(".."),
+  create: buildCommand,
+  update: buildCommand,
+  environment: {
+    NODE_ENV: "production",
   },
-);
+  triggers: [gitCommitHash],
+});
 
-const worker = new cloudflare.Worker(
-  `tremtec-${environment}`,
-  {
-    accountId,
-    name: `tremtec-${environment}`,
+const worker = new cloudflare.Worker(`tremtec-${environment}`, {
+  accountId,
+  name: `tremtec-${environment}`,
 
-    subdomain: {
-      enabled: true,
-    },
+  subdomain: {
+    enabled: true,
+  },
 
-    tags: ["tremtec", environment],
+  tags: ["tremtec", environment],
 
-    observability: {
+  observability: {
+    enabled: true,
+    headSamplingRate: 1.0,
+
+    logs: {
       enabled: true,
       headSamplingRate: 1.0,
-
-      logs: {
-        enabled: true,
-        headSamplingRate: 1.0,
-      },
     },
   },
-);
+});
 
 const baseUrl = pulumi.interpolate`https://${worker.name}.ma-souza-junior.workers.dev`;
 
@@ -87,12 +81,6 @@ const workerVersion = new cloudflare.WorkerVersion(
       {
         type: "assets",
         name: "ASSETS",
-      },
-
-      {
-        type: "kv_namespace",
-        name: "SESSION",
-        namespaceId: kvNamespaces.id,
       },
 
       // env vars
