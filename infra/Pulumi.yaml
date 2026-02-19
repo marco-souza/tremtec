@@ -1,0 +1,15 @@
+name: tremtec-infra
+description: Cloudflare infrastructure for TremTec
+
+runtime:
+  name: nodejs
+  options:
+    packagemanager: bun
+
+backend:
+  url: file://.
+
+config:
+  pulumi:tags:
+    value:
+      pulumi:template: typescript

@@ -1,0 +1,64 @@
+---
+import "~/ui/styles/global.css";
+import { routes } from "~/server/contants";
+import background from "~/ui/assets/background.svg";
+import CTA from "~/ui/components/landing/CTA.astro";
+import FAQ from "~/ui/components/landing/FAQ.astro";
+import Features from "~/ui/components/landing/Features.astro";
+import Footer from "~/ui/components/landing/Footer.astro";
+import Hero from "~/ui/components/landing/Hero.astro";
+import PackedFeatures from "~/ui/components/landing/PackedFeatures.astro";
+import Stats from "~/ui/components/landing/Stats.astro";
+import Testimonials from "~/ui/components/landing/Testimonials.astro";
+---
+
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>Aboard — Task Management Reimagined</title>
+    <style is:global>
+       /* Global styles are now imported in global.css, but we keep the font import here or move it to a Layout */
+       @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+       
+       /* Float animation for background elements */
+       @keyframes float {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-20px); }
+      }
+
+      .float-animate {
+        animation: float 3s ease-in-out infinite;
+      }
+    </style>
+  </head>
+
+  <body>
+    <img id="background" src={background.src} alt="" fetchpriority="high" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; filter: blur(100px); opacity: 0.7;" />
+
+    <main class="min-h-screen relative z-10">
+      <nav class="navbar sticky top-0 z-50 bg-base-100/80 backdrop-blur-xl border-b border-base-300">
+        <div class="flex-1">
+          <a href={routes.public.home} class="btn btn-ghost text-xl font-bold">
+            <span class="gradient-text">Aboard</span>
+          </a>
+        </div>
+        <div class="flex-none gap-4">
+          <a href={routes.public.login} class="btn btn-ghost">Sign in</a>
+          <a href={routes.public.login} class="btn gradient-btn text-white border-0">Get started</a>
+        </div>
+      </nav>
+
+      <Hero />
+      <Stats />
+      <Features />
+      <PackedFeatures />
+      <Testimonials />
+      <FAQ />
+      <CTA />
+      <Footer />
+    </main>
+  </body>
+</html>

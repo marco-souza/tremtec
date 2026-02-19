@@ -1,0 +1,26 @@
+---
+const features = [
+  { icon: "🤖", label: "Auto-close old cards" },
+  { icon: "🔗", label: "Slack & Webhook integrations" },
+  { icon: "🔔", label: "Smart notifications" },
+  { icon: "🔗", label: "Shareable public boards" },
+  { icon: "⏰", label: "Activity timestamps" },
+  { icon: "⚡", label: "Real-time sync" },
+];
+---
+<section class="py-24 px-4">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="text-4xl font-bold text-center mb-4">Packed with power</h2>
+    <p class="text-gray-400 text-center mb-16">Clever features that save you hours every week</p>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+      {
+        features.map((feature) => (
+          <div class="group flex items-center gap-4 p-5 rounded-xl bg-gradient-to-r from-base-100 to-base-200 border border-base-300 hover:border-primary/50 transition-all duration-300 hover:shadow-lg">
+            <span class="text-3xl group-hover:scale-110 transition-transform">{feature.icon}</span>
+            <span class="font-medium text-lg group-hover:text-primary transition-colors">{feature.label}</span>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

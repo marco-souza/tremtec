@@ -1,0 +1,48 @@
+---
+import { routes } from "~/server/contants";
+
+interface Props {
+  boardName?: string;
+}
+
+const { boardName = "Playground" } = Astro.props;
+---
+
+<nav class="navbar flex-col w-full py-8">
+  <div class="hover:animate-pulse text-2xl mx-auto font-bold bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+    TremTec
+  </div>
+
+  <div class="container mx-auto flex gap-4 text-center items-center py-4">
+    <button class="btn btn-ghost btn-circle hover:animate-pulse"> 🌐 </button>
+
+    <div class="divider flex-1" />
+
+
+    <!-- logo with title and keyboard shortcut -->
+    <div class="flex items-center gap-2 mb-4">
+      <div class="w-8 h-8 rounded bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white font-bold shadow-sm">
+        {boardName.slice(0, 1).toUpperCase()}
+      </div>
+
+      <h1 class="text-3xl font-bold text-base-content tracking-tight">{boardName}</h1>
+
+      <span class="kbd kbd-sm text-xs">Option</span>
+      <span class="kbd kbd-sm text-xs">A</span>
+    </div>
+  
+
+    <div class="divider flex-1" />
+
+    <details class="dropdown">
+      <summary class="btn btn-ghost btn-circle hover:animate-pulse">
+        ⚙️
+      </summary>
+
+      <ul class="menu dropdown-content bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
+        <li><a href="#">Profile</a></li>
+        <li><a href={routes.public.logout}>Logout</a></li>
+      </ul>
+    </details>
+  </div>
+</nav>

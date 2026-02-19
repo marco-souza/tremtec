@@ -1,0 +1,45 @@
+---
+const faqs = [
+  {
+    question: "Is it really free?",
+    answer:
+      "Yes! The Personal plan is free forever for up to 100 tasks. No credit card required.",
+  },
+  {
+    question: "How does the migration work?",
+    answer:
+      "You can import tasks from Trello, Jira, or CSV in one click. We make it super easy.",
+  },
+  {
+    question: "Can I use it offline?",
+    answer:
+      "Aboard is a cloud-first application, but we have a robust offline mode coming soon.",
+  },
+  {
+    question: "What about security?",
+    answer:
+      "We use enterprise-grade encryption for all data at rest and in transit. Your data is safe.",
+  },
+];
+---
+<section class="py-24 px-4 bg-base-100">
+  <div class="max-w-3xl mx-auto">
+    <h2 class="text-4xl font-bold text-center mb-12">Frequently Asked Questions</h2>
+    
+    <div class="join join-vertical w-full bg-base-200 border border-base-300 rounded-2xl">
+      {
+        faqs.map((faq) => (
+          <div class="collapse collapse-plus join-item border-base-300 border-b last:border-0 hover:bg-base-300/30 transition-colors">
+            <input type="radio" name="my-accordion-3" />
+            <div class="collapse-title text-xl font-medium">
+              {faq.question}
+            </div>
+            <div class="collapse-content text-base-content/70">
+              <p>{faq.answer}</p>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
