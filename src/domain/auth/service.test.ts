@@ -37,7 +37,7 @@ describe("Auth Service", () => {
 
       expect(user).toEqual({
         name: "Jane Doe",
-        login: "jane",
+        login: "jane@gmail.com",
         email: "jane@gmail.com",
         provider: "google",
         avatar: "https://example.com/jane.jpg",
@@ -65,7 +65,7 @@ describe("Auth Service", () => {
       const user = extractOAuthUser("google", payload);
 
       expect(user?.name).toBe("Google User");
-      expect(user?.login).toBe("jane");
+      expect(user?.login).toBe("jane@gmail.com");
     });
 
     it("should return null for invalid provider", () => {
