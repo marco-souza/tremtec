@@ -59,7 +59,7 @@ const worker = new cloudflare.Worker(`tremtec-${environment}`, {
   },
 });
 
-const baseUrl = pulumi.interpolate`https://${worker.name}.ma-souza-junior.workers.dev`;
+const baseUrl = pulumi.interpolate`https://${worker.name}.tremtec.workers.dev`;
 
 const workerVersion = new cloudflare.WorkerVersion(
   `tremtec-worker-version-${environment}`,
