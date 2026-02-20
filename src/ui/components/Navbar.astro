@@ -1,48 +1,71 @@
 ---
 import { routes } from "~/server/contants";
+import { landingContent } from "~/ui/contents/landing";
 
-interface Props {
-  boardName?: string;
-}
-
-const { boardName = "Playground" } = Astro.props;
+const { navbar } = landingContent;
 ---
 
-<nav class="navbar flex-col w-full py-8">
-  <div class="hover:animate-pulse text-2xl mx-auto font-bold bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
-    TremTec
-  </div>
-
-  <div class="container mx-auto flex gap-4 text-center items-center py-4">
-    <button class="btn btn-ghost btn-circle hover:animate-pulse"> 🌐 </button>
-
-    <div class="divider flex-1" />
-
-
-    <!-- logo with title and keyboard shortcut -->
-    <div class="flex items-center gap-2 mb-4">
-      <div class="w-8 h-8 rounded bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white font-bold shadow-sm">
-        {boardName.slice(0, 1).toUpperCase()}
+<div
+  class="navbar fixed top-0 w-full z-50 transition-all duration-300 bg-base-100/80 backdrop-blur-md border-b border-base-200/50"
+>
+  <div class="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between h-16 items-center w-full">
+      <!-- Left: Logo -->
+      <div class="flex-shrink-0 flex items-center gap-2">
+        <a href={routes.public.home} class="flex items-center gap-2">
+          <img src="/images/logo.svg" width="48" alt={`${navbar.logo} Logo`} />
+          <span class="text-lg font-bold">{navbar.logo}</span>
+        </a>
       </div>
 
-      <h1 class="text-3xl font-bold text-base-content tracking-tight">{boardName}</h1>
+      <!-- Center: Navigation (Desktop) -->
+      <div class="hidden md:flex items-center space-x-8">
+        {
+          navbar.links.map((link) => (
+            <a
+              href={link.href}
+              class="text-sm font-medium text-base-content/80 hover:text-primary transition-colors"
+            >
+              {link.label}
+            </a>
+          ))
+        }
+      </div>
 
-      <span class="kbd kbd-sm text-xs">Option</span>
-      <span class="kbd kbd-sm text-xs">A</span>
+      <!-- Right: CTA -->
+      <div class="hidden md:flex items-center gap-4">
+        <a
+          href={routes.public.login}
+          class="text-sm font-medium text-base-content/80 hover:text-primary transition-colors"
+        >
+          {navbar.cta.login}
+        </a>
+        <a href="#contact" class="btn btn-primary btn-sm font-medium px-6">
+          {navbar.cta.getStarted}
+        </a>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <div class="flex items-center md:hidden gap-4">
+        <label
+          aria-label="Open mobile menu"
+          for="mobile-drawer"
+          class="btn btn-square btn-ghost"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            class="inline-block w-6 h-6 stroke-current"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </label>
+      </div>
     </div>
-  
-
-    <div class="divider flex-1" />
-
-    <details class="dropdown">
-      <summary class="btn btn-ghost btn-circle hover:animate-pulse">
-        ⚙️
-      </summary>
-
-      <ul class="menu dropdown-content bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
-        <li><a href="#">Profile</a></li>
-        <li><a href={routes.public.logout}>Logout</a></li>
-      </ul>
-    </details>
   </div>
-</nav>
+</div>

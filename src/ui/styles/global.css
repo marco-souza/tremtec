@@ -1,4 +1,28 @@
 @import "tailwindcss";
-@plugin "daisyui" {
-  themes: light --default, dark --prefersDark;
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+
+@plugin "daisyui";
+
+@theme {
+  --color-primary: oklch(55% 0.2 250);
+  --color-secondary: oklch(60% 0.2 290);
+  --color-accent: oklch(60% 0.2 290);
+}
+
+/* Custom Deep Tech Blue for Dark Mode */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-base-100: oklch(20% 0.1 260);
+    /* Deep Navy/Blue */
+    --color-base-200: oklch(15% 0.1 260);
+    /* Darker Navy */
+    --color-base-300: oklch(10% 0.1 260);
+    /* Almost Black Blue */
+    --color-base-content: oklch(95% 0.05 250);
+    /* Pale Blue/White Text */
+  }
+}
+
+body {
+  font-family: "Inter", sans-serif;
 }

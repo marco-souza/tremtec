@@ -1,36 +1,59 @@
 ---
+import { landingContent } from "~/ui/contents/landing";
+import { loginContent } from "~/ui/contents/login";
 import { routes } from "~/server/contants";
 import GitHubButton from "~/ui/components/GitHubButton.astro";
 import GoogleButton from "~/ui/components/GoogleButton.astro";
 import Layout from "~/ui/components/layouts/Layout.astro";
+const { navbar } = landingContent;
 ---
 
-<Layout title="Sign In - TremTec" showNavbar={false}>
+<Layout title={loginContent.title}>
   <div class="min-h-screen flex items-center justify-center p-4">
-    <div class="card w-full max-w-lg bg-base-100/40 backdrop-blur-xl border border-white/10 shadow-2xl overflow-hidden relative group">
+    <div
+      class="card w-full max-w-lg bg-base-100/40 backdrop-blur-xl border border-white/10 shadow-2xl overflow-hidden relative group"
+    >
       <!-- Glow effect on hover -->
-      <div class="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-secondary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+      <div
+        class="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-secondary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+      >
+      </div>
 
       <div class="card-body p-10 text-center relative z-10">
-        <a href={routes.public.home} class="text-4xl font-black bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-2 inline-block hover:scale-105 transition-transform cursor-pointer">
-          TremTec
+        <a
+          href={routes.public.home}
+          class="flex flex-col items-center justify-center gap-4 mb-6 hover:scale-105 transition-transform cursor-pointer"
+        >
+          <img src="/images/logo.svg" width="64" alt={`${navbar.logo} Logo`} />
+          <span class="text-4xl font-black text-base-content">
+            {navbar.logo}
+          </span>
         </a>
 
-        <p class="text-base-content/60 mb-8 font-medium">Welcome back, Pilot.</p>
+        <p class="text-base-content/60 mb-8 font-medium">
+          {loginContent.welcome}
+        </p>
 
         <div class="flex flex-col gap-4 mb-4">
-           <!-- Social Login Buttons need to be wrapped to maintain their internal styles or styled here -->
-           <div class="hover:scale-[1.02] transition-transform duration-200">
-             <GitHubButton />
-           </div>
+          <!-- Social Login Buttons need to be wrapped to maintain their internal styles or styled here -->
+          <div class="hover:scale-[1.02] transition-transform duration-200">
+            <GitHubButton />
+          </div>
 
-           <div class="hover:scale-[1.02] transition-transform duration-200">
-             <GoogleButton />
-           </div>
+          <div class="hover:scale-[1.02] transition-transform duration-200">
+            <GoogleButton />
+          </div>
         </div>
-        
+
         <p class="mt-8 text-xs text-base-content/40">
-            By signing in, you agree to our <a href="#" class="link link-hover text-base-content/60">Terms</a> and <a href="#" class="link link-hover text-base-content/60">Privacy Policy</a>.
+          {loginContent.tos_privacy.text}
+          <a href="#" class="link link-hover text-base-content/60"
+            >{loginContent.tos_privacy.terms}
+          </a>
+          {loginContent.tos_privacy.and}
+          <a href="#" class="link link-hover text-base-content/60"
+            >{loginContent.tos_privacy.privacy}
+          </a>.
         </p>
       </div>
     </div>

@@ -1,7 +1,79 @@
 ---
+import { Icon } from "astro-icon/components";
+import { landingContent } from "~/ui/contents/landing";
+const { footer } = landingContent;
+const currentYear = new Date().getFullYear();
 ---
-<footer class="footer footer-center bg-base-200 text-base-content p-10 border-t border-base-300">
-  <aside>
-    <p class="font-medium">Made with care. © 2026 TremTec</p>
-  </aside>
+
+<footer class="bg-base-100 border-t border-base-200 pt-16 pb-12">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+      <div class="col-span-2 md:col-span-1">
+        <a href="/" class="flex items-center gap-2">
+          <img src="/images/logo.svg" width="48" alt="TremTec Logo" />
+          <span class="text-lg font-bold">TremTec</span>
+        </a>
+        <p class="mt-4 text-sm text-base-content/60">
+          {footer.description}
+        </p>
+      </div>
+
+      {
+        footer.sections.map((section) => (
+          <div>
+            <h3 class="text-sm font-semibold text-base-content tracking-wider uppercase mb-4">
+              {section.title}
+            </h3>
+            {section.links && (
+              <ul class="space-y-3">
+                {section.links.map((link) => (
+                  <li>
+                    <a
+                      href={link.href}
+                      class="text-sm text-base-content/60 hover:text-primary transition-colors"
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
+            {section.socials && (
+              <div class="flex space-x-4">
+                {section.socials.map((social) => (
+                  <a
+                    href={social.href}
+                    class="text-base-content/40 hover:text-primary transition-colors"
+                  >
+                    <span class="sr-only">{social.label}</span>
+                    <Icon name={social.icon} class="h-6 w-6" />
+                  </a>
+                ))}
+              </div>
+            )}
+          </div>
+        ))
+      }
+    </div>
+
+    <div
+      class="border-t border-base-200 pt-8 flex flex-col md:flex-row justify-between items-center gap-4"
+    >
+      <p class="text-sm text-base-content/40">
+        &copy; {currentYear} TremTec. {footer.rights}
+      </p>
+      <div class="flex space-x-6">
+        {
+          footer.legal.map((link) => (
+            <a
+              href={link.href}
+              class="text-sm text-base-content/40 hover:text-base-content"
+            >
+              {link.label}
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </div>
 </footer>

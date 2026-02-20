@@ -1,0 +1,99 @@
+---
+import { Icon } from "astro-icon/components";
+import { landingContent } from "~/ui/contents/landing";
+const { methodology } = landingContent;
+---
+
+<!-- Methodology Section -->
+<div id="methodology" class="py-24 bg-base-100 overflow-hidden">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <div
+      class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 md:mx-0 md:max-w-none md:grid-cols-2"
+    >
+      <div class="md:pr-8 md:pt-4">
+        <div class="md:max-w-lg">
+          <div class="max-w-2xl mb-12 md:max-w-lg">
+            <h2 class="text-base font-semibold leading-7 text-primary">
+              {methodology.badge}
+            </h2>
+
+            <p
+              class="mt-2 text-3xl font-bold tracking-tight text-base-content sm:text-4xl"
+            >
+              {methodology.title}
+            </p>
+            <p class="mt-6 text-lg leading-8 text-base-content/70">
+              {methodology.description}
+            </p>
+          </div>
+          <dl
+            class="mt-10 max-w-xl space-y-8 text-base leading-7 text-base-content/70"
+          >
+            {
+              methodology.features.map((feature) => (
+                <div class="relative pl-9">
+                  <dt class="inline font-semibold text-base-content">
+                    <Icon
+                      name={feature.icon}
+                      class="absolute left-1 top-1 h-5 w-5 text-primary"
+                    />
+                    {feature.title}
+                  </dt>
+                  <dd class="inline">{feature.description}</dd>
+                </div>
+              ))
+            }
+          </dl>
+        </div>
+      </div>
+
+      <div class="flex items-start justify-end md:order-last">
+        <div
+          class="relative rounded-xl bg-base-200 p-2 ring-1 w-full ring-base-300 md:-ml-4 lg:-ml-0"
+        >
+          <!-- Abstract Visualization of Process -->
+          <div
+            class="relative w-full h-[400px] bg-base-100 rounded-lg overflow-hidden flex items-center justify-center"
+          >
+            <div class="grid grid-cols-3 gap-8 opacity-80">
+              <div class="flex flex-col items-center gap-4 animate-pulse">
+                <div
+                  class="w-16 h-16 rounded-2xl flex items-center justify-center bg-primary/20"
+                >
+                  <Icon name="heroicons:beaker" class="w-8 h-8 text-primary" />
+                </div>
+                <div class="h-1 w-12 rounded-full bg-primary/20"></div>
+              </div>
+              <div
+                class="flex flex-col items-center gap-4 animate-pulse animation-delay-2000"
+              >
+                <div
+                  class="w-16 h-16 rounded-2xl flex items-center justify-center bg-secondary/20"
+                >
+                  <Icon
+                    name="heroicons:code-bracket"
+                    class="w-8 h-8 text-secondary"
+                  />
+                </div>
+                <div class="h-1 w-12 rounded-full bg-secondary/20"></div>
+              </div>
+              <div
+                class="flex flex-col items-center gap-4 animate-pulse animation-delay-4000"
+              >
+                <div
+                  class="w-16 h-16 rounded-2xl flex items-center justify-center bg-accent/20"
+                >
+                  <Icon
+                    name="heroicons:rocket-launch"
+                    class="w-8 h-8 text-accent"
+                  />
+                </div>
+                <div class="h-1 w-12 rounded-full bg-accent/20"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

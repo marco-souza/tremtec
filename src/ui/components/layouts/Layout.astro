@@ -1,38 +1,116 @@
 ---
-import "~/styles/global.css";
+import "~/ui/styles/global.css";
+
+import { routes } from "~/server/contants";
+import { landingContent } from "~/ui/contents/landing";
 import Navbar from "~/ui/components/Navbar.astro";
+
+const { navbar } = landingContent;
 
 interface Props {
   title?: string;
-  showNavbar?: boolean;
+  description?: string;
+  image?: string;
 }
 
-const { title = "TremTec", showNavbar = true } = Astro.props;
+const {
+  title = "TremTec",
+  description = "TremTec Software Solutions",
+  image = "/images/og-image.jpg",
+} = Astro.props;
 ---
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
 
-		<title>{title}</title>
-	</head>
+    <!-- SEO Meta Tags -->
+    <meta name="description" content={description} />
 
-	<body class="min-h-screen bg-base-100 text-base-content antialiased">
-    <!-- Background Elements -->
-    <div class="fixed inset-0 z-[-1] overflow-hidden pointer-events-none">
-      <div class="absolute -top-[20%] -left-[10%] w-[70vh] h-[70vh] rounded-full bg-primary/20 blur-[120px] opacity-70 animate-pulse"></div>
-       <div class="absolute top-[40%] -right-[10%] w-[60vh] h-[60vh] rounded-full bg-secondary/10 blur-[100px] opacity-60"></div>
-       <div class="absolute -bottom-[20%] left-[20%] w-[50vh] h-[50vh] rounded-full bg-accent/10 blur-[100px] opacity-60"></div>
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={image} />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={image} />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>{title}</title>
+  </head>
+
+  <body class="min-h-screen bg-base-100 text-base-content antialiased">
+    <div class="drawer">
+      <input id="mobile-drawer" type="checkbox" class="drawer-toggle" />
+
+      <div class="drawer-content flex flex-col min-h-screen">
+        <Navbar />
+
+        <div class="w-full">
+          <slot />
+        </div>
+      </div>
+
+      <div class="drawer-side z-50">
+        <label for="mobile-drawer" class="drawer-overlay"></label>
+
+        <ul class="menu p-4 w-80 min-h-full bg-base-200 gap-2 flex flex-col">
+          <div class="spacer mt-4 mb-8">
+            <a
+              href={routes.public.home}
+              class="flex dark:text-white items-center gap-2"
+            >
+              <img
+                src="/images/logo.svg"
+                width="48"
+                alt={`${navbar.logo} Logo`}
+              />
+              <span class="text-lg font-bold">{navbar.logo}</span>
+            </a>
+          </div>
+
+          {
+            navbar.links.map((link) => (
+              <li>
+                <a
+                  href={link.href}
+                  class="text-lg font-medium"
+                  onclick="document.getElementById('mobile-drawer').click()"
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
+
+          <div class="spacer flex-1"></div>
+
+          <li class="mt-4 py-4 gap-4 flex flex-col border-t border-base-300">
+            <a
+              href={routes.public.login}
+              class="text-lg font-medium"
+              onclick="document.getElementById('mobile-drawer').click()"
+            >
+              {navbar.cta.login}
+            </a>
+            <a href="#contact" class="btn btn-primary btn-sm font-medium px-6">
+              {navbar.cta.getStarted}
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
-
-    {showNavbar && <Navbar boardName={title} />}
-
-    <div class="w-full">
-      <slot />
-    </div>
-	</body>
+  </body>
 </html>

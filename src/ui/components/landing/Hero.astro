@@ -1,39 +1,58 @@
 ---
-import { routes } from "~/server/contants";
+import { landingContent } from "~/ui/contents/landing";
+const { hero } = landingContent;
 ---
-<div class="hero min-h-[90vh] bg-base-200 relative overflow-hidden">
-  <!-- Decorative background elements -->
-  <div class="absolute inset-0 pointer-events-none">
-    <div class="absolute -top-20 -right-20 w-96 h-96 bg-primary/20 rounded-full blur-3xl animate-pulse"></div>
-    <div class="absolute top-1/2 -left-20 w-72 h-72 bg-secondary/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
-  </div>
 
-  <div class="hero-content text-center z-10">
-    <div class="max-w-4xl">
-      <div class="badge badge-primary badge-outline mb-6 gap-2 p-4">
-        <span class="animate-pulse">✨</span> The future of task management
+<!-- Hero Section -->
+<div
+  class="relative overflow-hidden bg-base-100 pt-16 pb-12 sm:pb-16 md:pb-24 lg:pb-32"
+>
+  <div class="mx-auto max-w-7xl px-6 md:px-8 relative z-10">
+    <div
+      class="flex flex-col md:grid md:grid-cols-12 md:gap-x-8 md:items-center md:py-12"
+    >
+      <!-- Image Column (Visible only on lg+) -->
+      <div class="hidden lg:block w-full lg:order-2 lg:col-span-6">
+        <div class="relative p-2 md:p-4 hover:scale-[1.02] duration-500">
+          <img
+            src="/images/hero.png"
+            alt={hero.imageAlt}
+            class="rounded-md w-full h-auto object-cover"
+          />
+        </div>
       </div>
-      
-      <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-8 leading-tight">
-        Kanban that <span class="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">actually scales</span>
-      </h1>
-      
-      <p class="py-6 text-xl text-base-content/70 max-w-2xl mx-auto leading-relaxed">
-        Stop fighting your tools. Start shipping faster. TremTec makes task management so simple, your team will actually use it.
-      </p>
-      
-      <div class="flex flex-col sm:flex-row gap-4 justify-center mt-8">
-         <a href={routes.public.login} class="btn btn-primary btn-lg shadow-lg hover:shadow-primary/50 transition-all duration-300">
-           Get Started Free
-         </a>
-         <a href={routes.public.login} class="btn btn-ghost btn-lg gap-2 group">
-           Watch Demo
-           <span class="group-hover:translate-x-1 transition-transform">→</span>
-         </a>
-       </div>
 
-      <div class="mt-12 text-sm text-base-content/50">
-        No credit card required · Free for small teams
+      <!-- Content Column -->
+      <div
+        class="w-full order-2 lg:order-1 md:col-span-12 lg:col-span-6 text-center lg:text-left"
+      >
+        <h1
+          class="text-4xl font-extrabold tracking-tight text-base-content sm:text-6xl mb-6"
+        >
+          {hero.title}
+        </h1>
+        <p
+          class="mt-6 text-lg leading-8 text-base-content/70 max-w-2xl mx-auto lg:mx-0"
+        >
+          {hero.description}
+        </p>
+        <div
+          class="mt-10 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 sm:gap-x-6"
+        >
+          <a
+            href="#contact"
+            class="btn btn-primary btn-lg w-full sm:w-auto px-8"
+          >
+            {hero.cta.demo}
+          </a>
+          <a
+            href="#services"
+            class="btn btn-ghost btn-lg w-full sm:w-auto text-sm font-semibold leading-6 text-base-content"
+          >
+            {hero.cta.howItWorks}
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
       </div>
     </div>
   </div>

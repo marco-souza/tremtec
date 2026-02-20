@@ -12,7 +12,7 @@ export interface FlattenedError {
  * Creates a user-friendly error summary from Zod issues.
  */
 export function createErrorSummary(error: ZodError): string {
-  const flattened = error.flatten();
+  const flattened = error.flatten((issue) => issue.message);
   const parts: string[] = [];
 
   // Add field errors

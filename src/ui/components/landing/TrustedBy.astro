@@ -1,0 +1,25 @@
+---
+import { landingContent } from "~/ui/contents/landing";
+const { trustedBy } = landingContent;
+---
+
+<!-- Trust Section -->
+<div class="py-12 bg-base-100 border-y border-base-200/50">
+  <div class="mx-auto max-w-7xl px-6 md:px-8">
+    <p
+      class="text-center text-sm font-semibold text-base-content/40 uppercase tracking-widest mb-8"
+    >
+      {trustedBy.title}
+    </p>
+
+    <div
+      class="flex justify-center items-center gap-x-12 gap-y-8 grayscale opacity-50 flex-wrap"
+    >
+      {
+        trustedBy.companies.map((company) => (
+          <div class="text-2xl font-bold text-base-content/60">{company}</div>
+        ))
+      }
+    </div>
+  </div>
+</div>
