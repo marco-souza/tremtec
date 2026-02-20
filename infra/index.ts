@@ -6,6 +6,7 @@ import * as child_process from "node:child_process";
 const config = new pulumi.Config();
 const environment = config.require("environment");
 const accountId = config.require("accountId");
+const zoneId = config.get("zoneId");
 
 const secrets = {
   github: {
@@ -28,7 +29,7 @@ const gitCommitHash = child_process
   .trim();
 
 const buildCommand = pulumi.interpolate`bun run build && bun w build`;
-const builder = new command.local.Command("website-build", {
+const builder = new command.local.Command("tremtec-website-build", {
   dir: absolutePath(".."),
   create: buildCommand,
   update: buildCommand,
@@ -59,7 +60,9 @@ const worker = new cloudflare.Worker(`tremtec-${environment}`, {
   },
 });
 
-const baseUrl = pulumi.interpolate`https://${worker.name}.tremtec.workers.dev`;
+const baseUrl = zoneId
+  ? pulumi.interpolate`https://tremtec.com`
+  : pulumi.interpolate`https://${worker.name}.tremtec.workers.dev`;
 
 const workerVersion = new cloudflare.WorkerVersion(
   `tremtec-worker-version-${environment}`,
@@ -123,13 +126,11 @@ const workerVersion = new cloudflare.WorkerVersion(
       },
     ],
   },
-  {
-    dependsOn: [worker, builder],
-  },
+  { dependsOn: [worker, builder] },
 );
 
 const workerDeployment = new cloudflare.WorkersDeployment(
-  `tremtec-worker-deployment-${environment}`,
+  `tremtec-worker-deployment`,
   {
     accountId,
     versions: [
@@ -141,10 +142,64 @@ const workerDeployment = new cloudflare.WorkersDeployment(
     scriptName: worker.name,
     strategy: "percentage",
   },
-  {
-    dependsOn: [workerVersion],
-  },
+  { dependsOn: [workerVersion] },
 );
+
+// add custom domain if zoneId is available
+if (zoneId) {
+  const domain = "tremtec.com";
+  const customDomain = new cloudflare.WorkersCustomDomain(
+    "tremtec-custom-domain",
+    {
+      zoneId,
+      accountId,
+      environment,
+      service: worker.name,
+      hostname: domain,
+    },
+    { dependsOn: [workerDeployment] },
+  );
+
+  const wwwCustomDomain = new cloudflare.WorkersCustomDomain(
+    "tremtec-www-custom-domain",
+    {
+      zoneId,
+      accountId,
+      environment,
+      service: worker.name,
+      hostname: `www.${domain}`,
+    },
+    { dependsOn: [workerDeployment] },
+  );
+
+  new cloudflare.Ruleset(
+    "tremtec-www-to-apex",
+    {
+      zoneId,
+      name: "Redirect www to primary",
+      description: "Redirects all www traffic to the apex domain",
+      kind: "zone",
+      phase: "http_request_dynamic_redirect",
+      rules: [
+        {
+          action: "redirect",
+          actionParameters: {
+            fromValue: {
+              statusCode: 301,
+              targetUrl: {
+                expression: `concat("https://${domain}", http.request.uri.path)`,
+              },
+              preserveQueryString: true,
+            },
+          },
+          expression: `(http.host eq "www.${domain}")`,
+          enabled: true,
+        },
+      ],
+    },
+    { dependsOn: [customDomain, wwwCustomDomain] },
+  );
+}
 
 export const domain = baseUrl;
 export const workerScriptName = workerDeployment.scriptName;
