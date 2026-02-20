@@ -174,8 +174,8 @@ end`,
       {
         title: "Connect",
         socials: [
-          { label: "GitHub", icon: "mdi:github", href: "#" },
-          { label: "LinkedIn", icon: "mdi:linkedin", href: "#" },
+          { label: "GitHub", icon: "mdi:github", href: "https://github.com/tremtec" },
+          { label: "LinkedIn", icon: "mdi:linkedin", href: "https://www.linkedin.com/company/tremtec/" },
         ],
       },
     ],
