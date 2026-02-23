@@ -3,14 +3,13 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "astro": "astro",
+    "a": "astro",
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
     "lint": "biome lint . && astro check",
     "fix": "biome check --write --unsafe .",
     "test": "vitest",
-    "test:ui": "vitest --ui",
     "w": "wrangler"
   },
   "dependencies": {
@@ -29,7 +28,6 @@
     "astro-icon": "^1.1.5",
     "daisyui": "^5.5.19",
     "hono": "^4.12.2",
-    "solid-dnd-directive": "^0.2.0",
     "solid-js": "^1.9.11",
     "tailwindcss": "^4.2.1",
     "typescript": "^5.9.3",
