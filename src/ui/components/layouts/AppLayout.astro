@@ -11,10 +11,7 @@ interface Props {
   description?: string;
 }
 
-const {
-  title = "TremTec",
-  description = "TremTec Dashboard",
-} = Astro.props;
+const { title = "TremTec", description = "TremTec Dashboard" } = Astro.props;
 ---
 
 <!DOCTYPE html>
@@ -83,7 +80,7 @@ const {
         <!-- User Section -->
         <div class="p-4 border-t border-base-300">
           <a
-            href={routes.public.login}
+            href={routes.public.logout}
             class="btn btn-sm btn-outline w-full"
           >
             Sign Out
