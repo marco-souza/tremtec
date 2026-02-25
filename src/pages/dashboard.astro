@@ -1,13 +1,35 @@
 ---
-import Layout from "~/ui/components/layouts/Layout.astro";
+import AppLayout from "~/ui/components/layouts/AppLayout.astro";
 
 export const prerender = false;
 ---
 
-<Layout title="Playground">
-  <div class="h-screen flex flex-col overflow-hidden bg-base-100">
-    <main class="flex-1 overflow-hidden relative">
-      Coming Soon
-    </main>
+<AppLayout title="Dashboard">
+  <div class="space-y-6">
+    <div>
+      <h1 class="text-3xl font-bold text-base-content">Welcome back!</h1>
+      <p class="text-base-content/60 mt-2">Here's what's happening with your projects.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="card bg-base-200 shadow-sm">
+        <div class="card-body">
+          <p class="text-base-content/60 text-sm">Total Projects</p>
+          <p class="text-3xl font-bold text-base-content">0</p>
+        </div>
+      </div>
+      <div class="card bg-base-200 shadow-sm">
+        <div class="card-body">
+          <p class="text-base-content/60 text-sm">Active Tasks</p>
+          <p class="text-3xl font-bold text-base-content">0</p>
+        </div>
+      </div>
+      <div class="card bg-base-200 shadow-sm">
+        <div class="card-body">
+          <p class="text-base-content/60 text-sm">Team Members</p>
+          <p class="text-3xl font-bold text-base-content">0</p>
+        </div>
+      </div>
+    </div>
   </div>
-</Layout>
+</AppLayout>
