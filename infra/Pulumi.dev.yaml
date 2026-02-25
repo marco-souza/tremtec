@@ -2,9 +2,9 @@ config:
   tremtec-infra:accountId: b2386820ea46b6a9a2eff9e3f8ff5182
   tremtec-infra:environment: dev
   tremtec-infra:github-id:
-    secure: v1:OKjSVMUc3WDD79HO:7Bm42HULg8VngZW71wyaN8yL72KO9KsZN+IpWYbdVYnEuiew
+    secure: v1:+blP7GFbmoEELZiy:mfqfbMmZcJdskxRKjFXoQXaxvDg69ymhbGUpWsGC+f74FAnK
   tremtec-infra:github-secret:
-    secure: v1:xpM0ESv6OjyFoA+w:1xjzMs3VQFNe3Mn3HGpjB5gdY6MFE4g3P/8zjc6C+xgCrsBZKUDa5mVD5qXe29jqBrMbmYl4SpQ=
+    secure: v1:xFZo2SCR6YgvK9wc:yAbuZ8Zs0zlRANosLv1TVf0cEYd0I9gRgfvg+PMku6wTIbPlgQ8Y+eE2RZrLcT4nwWoNKHOiy3U=
   tremtec-infra:google-id:
     secure: v1:i5iLPQQqTSxvuylw:dxzMLR0UfiFQisqTSae2tO2l2dfRMw==
   tremtec-infra:google-secret:

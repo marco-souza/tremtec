@@ -28,14 +28,12 @@ const gitCommitHash = child_process
   .execSync("git rev-parse HEAD", { encoding: "utf-8" })
   .trim();
 
-const buildCommand = pulumi.interpolate`bun run build && bun w build`;
+const buildCommand = pulumi.interpolate`bun run build:worker`;
 const builder = new command.local.Command("tremtec-website-build", {
   dir: absolutePath(".."),
   create: buildCommand,
   update: buildCommand,
-  environment: {
-    NODE_ENV: "production",
-  },
+  environment: { NODE_ENV: "production" },
   triggers: [gitCommitHash],
 });
 

@@ -3,9 +3,9 @@ config:
   tremtec-infra:zoneId: 41af03736c37c38d8d6b2db7c02548a4
   tremtec-infra:environment: production
   tremtec-infra:github-id:
-    secure: v1:1KmWHTqydCbMlCd2:ZtN+/81yVRv43RNSpMc7ZW1vQldbhE7N+pSsoV19ROy0z+bp
+    secure: v1:ayUoX2qSCralfBoL:O+2/qXAe1AP8hqilwsAmsPJLSCXmCaFV10p/+dEDzQ6q0ZHz
   tremtec-infra:github-secret:
-    secure: v1:qXqxhPcYxgyozsaZ:X2PVNnzXDtjqFVgNUr66XGqR2CikBJ4SE/4oPVALm4UAn/Lzrq1t9a5mC3DLZlcbEipCb49Q2NQ=
+    secure: v1:kri7LmdIvJGpHBNs:GTeMwLwLhNzOmrZg4UUT9zlMbyHYYGDPMJdjYaVFGAEYscS1q69vPG2glLkI5hUjqNz9XK3XMLY=
   tremtec-infra:google-id:
     secure: v1:L7FbzkNCsfYRbU87:2inJf4X7yjT56YlGjF3Y2mevDpR2LA==
   tremtec-infra:google-secret:

@@ -6,6 +6,7 @@
     "a": "astro",
     "dev": "astro dev",
     "build": "astro build",
+    "build:worker": "astro build && wrangler build",
     "preview": "astro preview",
     "lint": "biome lint . && astro check",
     "fix": "biome check --write --unsafe .",
