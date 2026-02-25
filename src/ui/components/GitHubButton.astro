@@ -5,7 +5,7 @@ interface Props {
 
 const { text = "Sign in with GitHub" } = Astro.props;
 ---
-<a href="/api/auth/github" class="btn btn-outline btn-lg w-full gap-2">
+<a href="/api/auth/github" class="btn btn-outline btn-lg w-full gap-2 hover:bg-gray-100 dark:hover:bg-gray-900">
   <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
     <title>GitHub</title>
     <path
@@ -16,4 +16,4 @@ const { text = "Sign in with GitHub" } = Astro.props;
   </svg>
 
   {text}
-</a>;
+</a>

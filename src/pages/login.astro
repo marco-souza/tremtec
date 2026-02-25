@@ -9,8 +9,8 @@ import { loginContent } from "~/ui/contents/login";
 const { navbar } = landingContent;
 ---
 
-<Layout title={loginContent.title}>
-  <div class="min-h-screen flex items-center justify-center p-4">
+<Layout title={loginContent.title} hideNavbar>
+  <div class="min-h-screen flex items-center justify-center p-4 pt-10">
     <div
       class="card w-full max-w-lg bg-base-100/40 backdrop-blur-xl border border-white/10 shadow-2xl overflow-hidden relative group"
     >
@@ -20,7 +20,7 @@ const { navbar } = landingContent;
       >
       </div>
 
-      <div class="card-body p-10 text-center relative z-10">
+      <div class="card-body p-10 text-center relative z-10 gap-4">
         <a
           href={routes.public.home}
           class="flex flex-col items-center justify-center gap-4 mb-6 hover:scale-105 transition-transform cursor-pointer"
@@ -35,7 +35,7 @@ const { navbar } = landingContent;
           {loginContent.welcome}
         </p>
 
-        <div class="flex flex-col gap-4 mb-4">
+        <div class="flex flex-col gap-4">
           <!-- Social Login Buttons need to be wrapped to maintain their internal styles or styled here -->
           <div class="hover:scale-[1.02] transition-transform duration-200">
             <GitHubButton />
@@ -46,7 +46,27 @@ const { navbar } = landingContent;
           </div>
         </div>
 
-        <p class="mt-8 text-xs text-base-content/40">
+        <div class="divider text-base-content/40 my-4">{loginContent.divider}</div>
+        
+        <div class="flex flex-col gap-4">
+          <!-- Email Login -->
+          <form class="flex flex-col gap-4">
+            <input
+              type="email"
+              placeholder={loginContent.email_login.placeholder}
+              class="input input-bordered w-full bg-base-100/50 border-white/20 focus:border-primary focus:ring-primary/20 transition-colors duration-300"
+              required
+            />
+            <button
+              type="submit"
+              class="btn btn-primary w-full hover:scale-105 transition-transform duration-200"
+            >
+              {loginContent.email_login.button}
+            </button>
+          </form>
+        </div>
+
+        <p class="text-xs text-base-content/40">
           {loginContent.tos_privacy.text}
           <a href="#" class="link link-hover text-base-content/60"
             >{loginContent.tos_privacy.terms}
