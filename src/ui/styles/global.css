@@ -27,3 +27,10 @@
 body {
   font-family: "Inter", sans-serif;
 }
+
+/* Logo visibility in dark mode */
+@media (prefers-color-scheme: dark) {
+  img[alt*="Logo"] {
+    filter: invert(1) brightness(1.1);
+  }
+}
