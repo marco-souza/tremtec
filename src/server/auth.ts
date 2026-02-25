@@ -17,8 +17,9 @@ export const auth = new Hono()
     githubAuth({
       client_id: config.GITHUB_ID,
       client_secret: config.GITHUB_SECRET,
+      redirect_uri: `${config.BASE_URL}/api/auth/github`,
       scope: ["user:email"],
-      oauthApp: true,
+      oauthApp: false,
     }),
   )
   .get("/github", (c) => {
@@ -55,6 +56,7 @@ export const auth = new Hono()
     googleAuth({
       client_id: config.GOOGLE_ID,
       client_secret: config.GOOGLE_SECRET,
+      redirect_uri: `${config.BASE_URL}/api/auth/google`,
       scope: ["openid", "email", "profile"],
     }),
   )
