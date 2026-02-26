@@ -1,100 +1,27 @@
 # TremTec Agent Workflows
 
-This document defines the standard operational workflows for AI Agents within the TremTec ecosystem. All agent interactions and state transitions must adhere to these flows.
+This document has been reorganized into individual workflow files for easier navigation and selective loading by LLMs.
 
-## 1. New Product Workflow (Zero to One 🚀)
+See the [`workflows/`](./workflows/) directory for individual workflow documents.
 
-**Objective**: Convert a raw idea into a deployed MVP.
-**Trigger**: User submits a new idea via the Platform.
+## Quick Reference
 
-```mermaid
-sequenceDiagram
-    participant U as User (PodCodar)
-    participant P as Platform (Astro)
-    participant B as Brain (TS/LangGraph.js)
-    participant CPO as CPO Agent
-    participant TL as Tech Lead Agent
-    participant DEV as Dev Agents
+| Workflow      | File                                                           | Use When                                    |
+| ------------- | -------------------------------------------------------------- | ------------------------------------------- |
+| New Product   | [`workflows/new-product.md`](./workflows/new-product.md)       | Converting an idea into a deployed MVP      |
+| New Feature   | [`workflows/new-feature.md`](./workflows/new-feature.md)       | Adding functionality to existing codebase   |
+| Bug Fix       | [`workflows/bug-fix.md`](./workflows/bug-fix.md)               | Resolving errors or bugs                    |
+| Board Meeting | [`workflows/board-meetings.md`](./workflows/board-meetings.md) | Strategic discussions between board members |
 
-    Note over U, P: Phase 1: Initiation
-    U->>P: Submit "New Idea"
-    P->>B: POST /workflow/start (Idea)
-    B->>CPO: Analyze Market & Competitors
-    CPO->>CPO: Generate PRD & MVP Scope
-    CPO->>B: Return PRD (Draft)
-    B->>P: Webhook: PRD Ready
-    P->>U: Display PRD for Approval
-    
-    Note over U, P: Phase 2: Execution
-    U->>P: Approve PRD
-    P->>B: POST /workflow/approve
-    B->>TL: Review Requirements
-    TL->>TL: Design Architecture (D1 Schema, Astro Structure)
-    TL->>B: Architecture Plan Ready
+## How to Use
 
-    par Parallel Build
-        B->>DEV: Frontend (SolidJS Components)
-        B->>DEV: Backend (Hono API)
-        B->>CMO: Generate Copy & Branding
-        B->>DESIGN: Create Logo & Assets
-    end
+LLMs should load the specific workflow file that matches the task:
 
-    DEV->>P: Push Code (GitHub)
-    P->>U: Notify "Deployment Ready"
+```
+Load: workflows/new-product.md
+Load: workflows/new-feature.md
+Load: workflows/bug-fix.md
+Load: workflows/board-meetings.md
 ```
 
-## 2. New Feature Workflow (Iteration 🔄)
-
-**Objective**: Add functionality to an existing codebase safely.
-**Trigger**: User request for a new feature.
-
-```mermaid
-flowchart TD
-    Start["User Request: 'Add Dark Mode'"] --> P["Platform: Context Fetch"]
-    P --> |Current Codebase + Request| B["Brain: Router"]
-    
-    B --> CPO[CPO Agent]
-    CPO --> |Validate Fit| Spec[Feature Spec]
-    
-    Spec --> TL[Tech Lead Agent]
-    TL --> |Analyze Impact| Plan[Implementation Plan]
-    
-    Plan --> |Schema Changes?| DB["Tech Lead: Update D1 Schema"]
-    Plan --> |UI Changes?| FE["Dev Agent: SolidJS Component"]
-    Plan --> |API Changes?| BE["Dev Agent: Hono Endpoint"]
-    
-    DB & FE & BE --> Merge[Merge Request]
-    Merge --> Test["Automated Tests (Vitest)"]
-    Test --> |Pass| Deploy[Deploy Trigger]
-    Test --> |Fail| Debug["Dev Agent: Fix"]
-    Debug --> Test
-```
-
-## 3. Bug Fix Workflow (Maintenance 🛠️)
-
-**Objective**: Resolve errors or bugs reported by users or monitoring.
-**Trigger**: Error log or user report.
-
-```mermaid
-stateDiagram-v2
-    [*] --> IssueReported
-    IssueReported --> Triage: Tech Lead Agent
-    
-    state Triage {
-        AnalyzeLogs --> LocateFile
-        LocateFile --> CreateReproduction
-    }
-    
-    Triage --> FixImplementation: Dev Agent
-    
-    state FixImplementation {
-        WriteTest --> FailTest
-        FailTest --> WriteFix
-        WriteFix --> PassTest
-    }
-    
-    FixImplementation --> CodeReview: Tech Lead Agent
-    CodeReview --> Deploy: Approved
-    CodeReview --> FixImplementation: Rejected
-    Deploy --> [*]
-```
+For complete workflow index and descriptions, see [`workflows/index.md`](./workflows/index.md).
