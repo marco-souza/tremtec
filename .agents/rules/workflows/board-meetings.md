@@ -117,3 +117,52 @@ When scheduling a board meeting, include:
 - **Context Documents** (PRD, metrics, feedback, etc.)
 - **Decisions Needed** (what decisions must be made)
 - **Success Criteria** (how we'll measure success)
+
+---
+
+## Lessons Learned (Feb 26, 2026 - First Board Meeting)
+
+### What Worked Well
+
+1. **Step-by-Step Discussion** - Breaking complex topics (mission, values, copy, design) into sequential agenda items prevented decision fatigue and allowed deep focus
+2. **Synthetic Perspectives** - Having CPO, CMO, Copywriter, Visual Designer present unique viewpoints (not just generic consultants) added genuine value
+3. **Challenge & Refinement** - Iterative refinement (e.g., "this copy feels AI-generated, make it more human") led to authentic output
+4. **Documentation as You Go** - Creating docs (mission_and_values.md, backlog.md) during the meeting vs. after kept decisions locked and clear
+5. **Real Data Wins** - Shifting from vanity metrics (15+ years) to actual client outcomes (75% TTM reduction) was high-impact and credible
+
+### Best Practices Established
+
+1. **Pause for Clarity** - When proposing options, explicitly ask "which resonates?" rather than continuing without alignment
+2. **Lock Decisions Immediately** - Don't move forward until decision is documented and stored
+3. **Use Templates for Consistency** - Board meeting notes template helped capture all relevant info systematically
+4. **Create Supporting Docs** - Separate docs for mission/values, backlog, meeting notes improves searchability and team reference
+5. **Session-Based Agenda** - Moving items in sequence with clear status (✅ complete, ⏳ pending) keeps momentum
+
+### Process Improvements for Future Meetings
+
+1. **Develop Meeting Playbooks** - Create templates for recurring meeting types (strategy sync, retrospective, planning)
+2. **Pre-Meeting Brief** - Have agents prepare 30-second takes before rotating discussion to save time
+3. **Decision Log** - Maintain a running decision log with yes/no and rationale for audit trail
+4. **Async Feedback Loop** - For decisions needing wider input, post to docs/meeting_notes/ for async feedback before finalizing
+5. **Follow-up Metric Tracking** - Review action items' success metrics in next meeting to close the loop
+
+### Documentation Structure
+
+For board meetings, maintain this structure:
+
+```
+docs/
+├── mission_and_values.md        # Locked strategic direction
+├── backlog.md                   # Prioritized action items
+└── meeting_notes/
+    └── board_meeting_notes_YYYY-MM-DD.md
+```
+
+Each meeting notes file should include:
+
+- Attendees and facilitator
+- Agenda items with status
+- Key decisions with rationale
+- Approved copy/design changes
+- Action items with owners, deadlines, and success criteria
+- Success metrics to track
