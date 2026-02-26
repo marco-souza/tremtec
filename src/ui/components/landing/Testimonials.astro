@@ -1,0 +1,59 @@
+---
+import { Icon } from "astro-icon/components";
+import { landingContent } from "~/ui/contents/landing";
+
+const { testimonials } = landingContent;
+---
+
+<!-- Testimonials / Client Wins Section -->
+<div class="py-24 bg-base-100">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <div class="max-w-2xl mb-12 mx-auto text-center">
+      <h2
+        class="text-3xl font-bold tracking-tight text-base-content sm:text-4xl"
+      >
+        {testimonials.title}
+      </h2>
+      <p class="mt-6 text-lg leading-8 text-base-content/70">
+        {testimonials.description}
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {
+        testimonials.items.map((item) => (
+          <div class="card bg-base-200 border border-base-300 hover:border-primary/50 transition-colors">
+            <div class="card-body">
+              <div class="p-3 rounded-lg w-fit bg-primary/10 mb-4">
+                <Icon name={item.icon} class="w-8 h-8 text-primary" />
+              </div>
+
+              <h3 class="card-title text-xl text-base-content">
+                {item.company}
+              </h3>
+
+              <p class="text-sm font-medium text-primary mb-3">
+                {item.service}
+              </p>
+
+              {item.outcomes ? (
+                <ul class="space-y-2">
+                  {item.outcomes.map((outcome) => (
+                    <li class="text-lg font-semibold text-base-content flex items-start gap-2">
+                      <span class="text-secondary flex-shrink-0">✓</span>
+                      {outcome}
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p class="text-lg font-semibold text-base-content">
+                  {item.outcome}
+                </p>
+              )}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</div>

@@ -5,7 +5,7 @@ const { about } = landingContent;
 ---
 
 <!-- About Section -->
-<div id="about" class="py-24 bg-base-200">
+<div id="about" class="py-24 bg-base-100">
   <div class="mx-auto max-w-7xl px-6 lg:px-8">
     <div class="max-w-2xl mb-12 mx-auto text-center">
       <h2
@@ -19,41 +19,18 @@ const { about } = landingContent;
       </p>
     </div>
 
-    <div class="mx-auto grid max-w-7xl gap-8 md:grid-cols-3">
-      <!-- Stats Card -->
-      <div class="card bg-base-100 shadow-xl border border-base-300">
-        <div class="card-body">
-          <h3 class="card-title text-primary">{about.impact.title}</h3>
-          <div
-            class="stats stats-vertical sm:stats-horizontal md:stats-vertical shadow bg-transparent"
-          >
-            {
-              about.impact.stats.map((stat) => (
-                <div class="stat place-items-center px-2">
-                  <div class="stat-title">{stat.title}</div>
-                  <div class={`stat-value ${stat.color}`}>{stat.value}</div>
-                  <div class="stat-desc">{stat.desc}</div>
-                </div>
-              ))
-            }
-          </div>
-        </div>
-      </div>
-
-      <!-- Mission -->
-      <div
-        class="card bg-base-100 shadow-xl border border-base-300 md:col-span-2"
-      >
-        <div class="card-body">
-          <h3 class="card-title text-2xl mb-4">{about.mission.title}</h3>
-          {
-            about.mission.paragraphs.map((p) => (
-              <p class="text-lg leading-relaxed text-base-content/70 mb-4">
-                {p}
-              </p>
-            ))
-          }
-        </div>
+    <div class="card bg-base-200 border border-base-300">
+      <div class="card-body max-w-4xl mx-auto">
+        <h3 class="card-title text-2xl mb-6 text-primary">
+          {about.mission.title}
+        </h3>
+        {
+          about.mission.paragraphs.map((p) => (
+            <p class="text-lg leading-relaxed text-base-content/80 mb-4">
+              {p}
+            </p>
+          ))
+        }
       </div>
     </div>
   </div>

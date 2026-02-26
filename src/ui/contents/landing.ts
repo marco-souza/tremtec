@@ -1,6 +1,6 @@
 export const landingContent = {
   metadata: {
-    title: "TremTec - Your Software on Track!",
+    title: "TremTec - Build Trustworthy Software Faster",
   },
   navbar: {
     logo: "TremTec",
@@ -15,47 +15,72 @@ export const landingContent = {
     },
   },
   hero: {
-    title: "Your Software on Track!",
+    title: "Build trustworthy software faster.",
     description:
- "Unlock your product's true potential. We combine technical excellence and speed to create software that users love and developers are proud to build.",
+      "Your team can move faster without sacrificing quality. We teach you to master AI—and every other tool in your stack—to create SDLCs that sustain velocity without burning people out.",
     cta: {
-      demo: "Book a Demo!",
+      demo: "Let's Talk",
       howItWorks: "How it works?",
     },
-    imageAlt: "A Trem to your Tech Team",
+    imageAlt: "Build trustworthy software faster",
   },
   trustedBy: {
     title: "Trusted by high-growth companies",
     companies: ["PodCodar", "Devopness", "Plantar Me", "MeHabilite"],
   },
-  services: {
-    badge: "Move fast without breaking things",
-    title: "Structure that turns potential into results!",
+  testimonials: {
+    title: "Proven Client Wins",
     description:
- "Deploy people, processes, and tools that accelerate your development cycle, focusing on continuous delivery and automation.",
+      "Real outcomes from high-growth companies we've partnered with",
+    items: [
+      {
+        company: "MeHabilite",
+        service: "AI-based outsourcing",
+        outcome: "75% reduction in Time-to-Market",
+        icon: "heroicons:rocket-launch",
+      },
+      {
+        company: "PodCodar",
+        service: "Outsourcing & training",
+        outcome: "40+ people qualified from zero to market in 3 years",
+        icon: "heroicons:users",
+      },
+      {
+        company: "Devopness",
+        service: "Outsourcing + Engineering Excellence Consulting",
+        outcomes: ["56% cheaper MVP", "36% faster delivery"],
+        icon: "heroicons:chart-bar-square",
+      },
+    ],
+  },
+  services: {
+    badge: "Build with trust, not shortcuts.",
+    title: "Three ways to master your development process",
+    description:
+      "Whether you need hands-on help building with AI, a deep diagnostic of what's slowing you down, or ongoing mentorship—we customize our approach to help your team ship faster without the technical debt.",
     items: [
       {
         id: "implementation",
-        title: "Implementation",
+        title: "Ship with Confidence",
         description:
- "TremTec implements best practices and tools to streamline your development process and accelerate delivery.",
+          "We implement reproducible SDLCs that combine AI and human expertise. Your team learns patterns you can sustain independently.",
         icon: "heroicons:cpu-chip",
         bgIcon: "heroicons:code-bracket-square",
         linkText: "Learn more",
       },
       {
         id: "diagnostics",
-        title: "Diagnostics",
+        title: "Know Your Real Bottlenecks",
         description:
- "We analyze your current development process, tools, and team dynamics to identify bottlenecks",
+          "Deep analysis reveals where you're actually slow—and it's rarely what you think. Clear roadmap to sustainable velocity.",
         icon: "heroicons:chart-bar-square",
         bgIcon: "heroicons:magnifying-glass",
       },
       {
         id: "mentoring",
-        title: "Mentoring",
+        title: "Build Engineering Excellence",
         description:
- "If needed, we provide ongoing mentorship and support to ensure your team continues to improve and adapt to changing needs.",
+          "Ongoing coaching that teaches your team to work symbiotically with AI and modern tools. From reactive to proactive. From survival to mastery.",
         icon: "heroicons:academic-cap",
         badges: ["Code Reviews", "Architecture", "Best Practices"],
       },
@@ -74,94 +99,72 @@ end`,
   },
   methodology: {
     badge: "Methodology",
-    title: "Methodology",
+    title: "We focus on sustainable speed.",
     description:
- "We combine deep technical expertise and pragmatic product vision.",
+      "Pragmatic processes that adapt to your reality, not the other way around.",
     features: [
       {
-        title: "Agile Integration",
+        title: "Reality-First Process",
         description:
- "Adaptable processes that mold to your business reality, not the other way around.",
+          "Your process adapts to reality. Not the other way around.",
         icon: "heroicons:adjustments-horizontal",
       },
       {
-        title: "Rapid Iteration",
+        title: "Continuous Validation",
         description:
- "Short feedback cycles to validate hypotheses and deliver value continuously.",
+          "Short feedback loops that prove what works before you scale it.",
         icon: "heroicons:bolt",
       },
       {
-        title: "Quality Assurance",
-        description: "Test automation and robust CI/CD from project day one.",
+        title: "Reproducible & Auditable",
+        description:
+          "Every decision documented. Every process repeatable. Trust built in from day one.",
         icon: "heroicons:shield-check",
       },
     ],
   },
   about: {
-    title: "About TremTec",
+    title: "We believe engineering is about people, not just tools.",
     description:
- "Born with the purpose of closing the gap between software engineering and business value.",
-    impact: {
-      title: "Our Impact",
-      stats: [
-        {
-          title: "Years Experience",
-          value: "15+",
-          desc: "High-scale environments",
-          color: "text-primary",
-        },
-        {
-          title: "Projects Delivered",
-          value: "50+",
-          desc: "Across 4 continents",
-          color: "text-secondary",
-        },
-        {
-          title: "Teams Scaled",
-          value: "20+",
-          desc: "From Seed to Series B",
-          color: "text-accent",
-        },
-      ],
-    },
+      "AI is powerful. But it's dangerous without humans who understand responsibility, quality, and sustainability. We help teams master AI as a tool—not a replacement. Build software that's fast, trustworthy, and maintainable. Your people stay energized. Your code stays clean.",
     mission: {
       title: "Our Mission",
       paragraphs: [
- "We believe that technology should be an engine of growth, not a source of frustration. Our mission is to liberate engineering teams from the chaos of disorganized processes and technical debt, empowering them to build world-class products with confidence and speed.",
- "We don't just fix code; we cultivate high-performance cultures. By bridging the gap between business goals and technical execution, we transform struggling development squads into autonomous, value-generating powerhouses that drive the company forward.",
+        "Build trustworthy software faster. We help your team master AI—not replace humans with it—and create SDLCs that actually sustain.",
+        "We believe that technology should be an engine of growth, not a source of frustration. Our mission is to liberate engineering teams from the chaos of disorganized processes and technical debt, empowering them to build world-class products with confidence and speed.",
       ],
     },
   },
   cta: {
-    title: "Ready to transform your development process?",
+    title: "Your team deserves better than chaos.",
     description:
- "We will talk for 30 minutes to map your biggest development bottlenecks, no strings attached.",
-    button: "Let's book a call!",
+      "30 minutes. No pitch. We'll map your biggest bottleneck and show you one concrete next step to sustainable velocity.",
+    button: "Let's Talk",
     features: [
       {
         title: "Slow Time-to-Market",
         description:
- "Your competition won't wait. Every launch delay is lost revenue and missed opportunity.",
+          "Your competition won't wait. Every launch delay is lost revenue and missed opportunity.",
         icon: "heroicons:rocket-launch",
       },
       {
         title: "Lack of Seniority",
         description:
- "Absence of technical leadership leads to rework, bugs, and costly architectural decisions.",
+          "Absence of technical leadership leads to rework, bugs, and costly architectural decisions.",
         icon: "heroicons:users",
       },
     ],
   },
   footer: {
     description:
- "Your strategic engineering partner for scaling high-performance technical teams.",
+      "Build trustworthy software faster. With your team in control.",
     sections: [
       {
         title: "Services",
         links: [
-          { label: "Outsourcing", href: "#services" },
-          { label: "Consulting", href: "#services" },
+          { label: "Implementation", href: "#services" },
           { label: "Diagnostics", href: "#services" },
+          { label: "Mentoring", href: "#services" },
         ],
       },
       {

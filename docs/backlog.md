@@ -4,15 +4,14 @@
 
 ### Action Items
 
-| Task                                               | Owner           | Due    | Status |
-| -------------------------------------------------- | --------------- | ------ | ------ |
-| Update color palette in `src/ui/styles/global.css` | Visual Designer | Feb 27 | `todo` |
-| Rewrite landing.ts content with new copy           | Copywriter      | Feb 28 | `todo` |
-| Add testimonials section with client wins          | Copywriter      | Feb 28 | `todo` |
-| QA review: visual hierarchy on all components      | Visual Designer | Feb 28 | `todo` |
-| A/B test hero variants (current vs. new)           | CMO             | Mar 2  | `todo` |
-| Update README.md mission statement                 | CPO             | Feb 27 | `todo` |
-| Deploy to staging for team review                  | Dev             | Feb 28 | `todo` |
+| Task                                               | Owner           | Due    | Status    |
+| -------------------------------------------------- | --------------- | ------ | --------- |
+| Update color palette in `src/ui/styles/global.css` | Visual Designer | Feb 27 | ✅ `done` |
+| Rewrite landing.ts content with new copy           | Copywriter      | Feb 28 | ✅ `done` |
+| Add testimonials section with client wins          | Copywriter      | Feb 28 | ✅ `done` |
+| Update README.md mission statement                 | CPO             | Feb 27 | ✅ `done` |
+| QA review: visual hierarchy on all components      | Visual Designer | Feb 28 | ✅ `done` |
+| Deploy to staging for team review                  | Dev             | Feb 28 | `todo`    |
 
 ### Approved Decisions
 

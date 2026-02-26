@@ -6,8 +6,8 @@
 
 @theme {
   --color-primary: oklch(55% 0.2 250);
-  --color-secondary: oklch(60% 0.2 290);
-  --color-accent: oklch(60% 0.2 290);
+  --color-secondary: oklch(65% 0.25 35);
+  --color-accent: oklch(50% 0.22 130);
 }
 
 /* Custom Deep Tech Blue for Dark Mode */

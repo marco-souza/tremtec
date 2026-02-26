@@ -2,15 +2,24 @@
 
 TremTec is a strategic engineering consulting and outsourcing platform that helps high-growth companies accelerate their development process and scale high-performance technical teams.
 
-## 🎯 What is TremTec?
+## 🎯 Mission
+
+> **"Build trustworthy software faster. We help your team master AI—not replace humans with it—and create SDLCs that actually sustain."**
+
+TremTec helps high-growth engineering teams accelerate their development velocity **without sacrificing quality, security, or sustainability**. We believe:
+
+- **AI is a tool**, not a replacement for human expertise
+- **Humans come first** - software should serve people, not the other way around
+- **Speed must be sustainable** - velocity that burns out teams is velocity that fails
+- **Trust is earned through reproducibility** - auditable, documented processes you can rely on
+
+## 🎯 Core Services
 
 TremTec offers three core services:
 
-1. **Implementation**: We implement best practices and tools to streamline your development process and accelerate delivery
-2. **Diagnostics**: We analyze your current development process, tools, and team dynamics to identify bottlenecks
-3. **Mentoring**: We provide ongoing mentorship and support to ensure your team continues to improve and adapt to changing needs
-
-Our mission is to liberate engineering teams from the chaos of disorganized processes and technical debt, empowering them to build world-class products with confidence and speed.
+1. **Implementation**: We implement reproducible SDLCs that combine AI and human expertise. Your team learns patterns you can sustain independently.
+2. **Diagnostics**: Deep analysis reveals where you're actually slow—and it's rarely what you think. Clear roadmap to sustainable velocity.
+3. **Mentoring**: Ongoing coaching that teaches your team to work symbiotically with AI and modern tools. From reactive to proactive. From survival to mastery.
 
 ## 🏗️ Project Structure
 
