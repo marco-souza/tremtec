@@ -24,7 +24,7 @@ sequenceDiagram
     CPO->>CPO: Return PRD (Draft)
     B->>P: Webhook: PRD Ready
     P->>U: Display PRD for Approval
-    
+
     Note over U, P: Phase 2: Execution
     U->>P: Approve PRD
     P->>B: POST /workflow/approve
@@ -52,17 +52,17 @@ sequenceDiagram
 flowchart TD
     Start["User Request: 'Add Dark Mode'"] --> P["Platform: Context Fetch"]
     P --> |Current Codebase + Request| B["Brain: Router"]
-    
+
     B --> CPO[CPO Agent]
     CPO --> |Validate Fit| Spec[Feature Spec]
-    
+
     Spec --> TL[Tech Lead Agent]
     TL --> |Analyze Impact| Plan[Implementation Plan]
-    
+
     Plan --> |Schema Changes?| DB["Tech Lead: Update D1 Schema"]
     Plan --> |UI Changes?| FE["Dev Agent: SolidJS Component"]
     Plan --> |API Changes?| BE["Dev Agent: Hono Endpoint"]
-    
+
     DB & FE & BE --> Merge[Merge Request]
     Merge --> Test["Automated Tests (Vitest)"]
     Test --> |Pass| Deploy[Deploy Trigger]
@@ -79,20 +79,20 @@ flowchart TD
 stateDiagram-v2
     [*] --> IssueReported
     IssueReported --> Triage: Tech Lead Agent
-    
+
     state Triage {
         AnalyzeLogs --> LocateFile
         LocateFile --> CreateReproduction
     }
-    
+
     Triage --> FixImplementation: Dev Agent
-    
+
     state FixImplementation {
         WriteTest --> FailTest
         FailTest --> WriteFix
         WriteFix --> PassTest
     }
-    
+
     FixImplementation --> CodeReview: Tech Lead Agent
     CodeReview --> Deploy: Approved
     CodeReview --> FixImplementation: Rejected
