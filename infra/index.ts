@@ -149,7 +149,6 @@ const customDomain = new cloudflare.WorkersCustomDomain(
   {
     zoneId,
     accountId,
-    environment,
     service: worker.name,
     hostname: domain,
   },
