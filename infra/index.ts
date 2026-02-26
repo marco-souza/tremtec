@@ -4,9 +4,11 @@ import * as pulumi from "@pulumi/pulumi";
 import * as child_process from "node:child_process";
 
 const config = new pulumi.Config();
-const environment = config.require("environment");
 const accountId = config.require("accountId");
-const zoneId = config.get("zoneId");
+const zoneId = config.require("zoneId");
+
+const environment = config.require("environment");
+const isProd = environment === "production";
 
 const secrets = {
   github: {
@@ -58,9 +60,8 @@ const worker = new cloudflare.Worker(`tremtec-${environment}`, {
   },
 });
 
-const baseUrl = zoneId
-  ? pulumi.interpolate`https://tremtec.com`
-  : pulumi.interpolate`https://${worker.name}.tremtec.workers.dev`;
+const domain = isProd ? "tremtec.com" : "dev.tremtec.com";
+const baseUrl = pulumi.interpolate`https://${domain}`;
 
 const workerVersion = new cloudflare.WorkerVersion(
   `tremtec-worker-version-${environment}`,
@@ -143,21 +144,20 @@ const workerDeployment = new cloudflare.WorkersDeployment(
   { dependsOn: [workerVersion] },
 );
 
-// add custom domain if zoneId is available
-if (zoneId) {
-  const domain = "tremtec.com";
-  const customDomain = new cloudflare.WorkersCustomDomain(
-    "tremtec-custom-domain",
-    {
-      zoneId,
-      accountId,
-      environment,
-      service: worker.name,
-      hostname: domain,
-    },
-    { dependsOn: [workerDeployment] },
-  );
+const customDomain = new cloudflare.WorkersCustomDomain(
+  "tremtec-custom-domain",
+  {
+    zoneId,
+    accountId,
+    environment,
+    service: worker.name,
+    hostname: domain,
+  },
+  { dependsOn: [workerDeployment] },
+);
 
+if (isProd) {
+  // INFO: In production, add www redirect to apex domain
   const wwwCustomDomain = new cloudflare.WorkersCustomDomain(
     "tremtec-www-custom-domain",
     {
@@ -199,5 +199,5 @@ if (zoneId) {
   );
 }
 
-export const domain = baseUrl;
+export const appDomain = baseUrl;
 export const workerScriptName = workerDeployment.scriptName;

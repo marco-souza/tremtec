@@ -1,4 +1,5 @@
 config:
+  tremtec-infra:zoneId: 41af03736c37c38d8d6b2db7c02548a4
   tremtec-infra:accountId: b2386820ea46b6a9a2eff9e3f8ff5182
   tremtec-infra:environment: dev
   tremtec-infra:github-id:
