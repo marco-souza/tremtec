@@ -1,16 +1,26 @@
 <svg width="260" height="256" viewBox="0 0 260 256" fill="none" xmlns="http://www.w3.org/2000/svg">
   <circle cx="132.5" cy="136.5" r="101.5" stroke-width="12"/>
+  <circle cx="132.5" cy="136.5" r="150" stroke-width="12" class="bg"/>
+
   <path d="M2 128.978L14.146 111.693L130.467 90.2044L120.19 106.088L80.0146 114.029V182.234L66.4671 185.036V116.832L17.4161 125.708L2 128.978Z" />
   <path d="M129.066 104.686L141.212 87.4015L257.533 65.9124L247.255 81.7956L207.08 89.7372V157.942L193.533 160.745V92.5402L144.482 101.416L129.066 104.686Z" />
   <path d="M2 218.204L14.6131 200.453L258 154.672L247.723 170.555L2 218.204Z" />
 
   <style>
-      circle { stroke: #0B1427; }
-      path { fill: #0B1427; stroke: #353535; }
+    :root {
+      --tremtec-primary: #0B1427;
+      --tremtec-accent: #353535;
+      --tremtec-light: #FFFEF0;
+    }
 
-      @media (prefers-color-scheme: dark) {
-          circle { stroke: #FFE; }
-          path { fill: #FFE; stroke: #353535; }
-      }
+    circle { stroke: var(--tremtec-primary); }
+    path { fill: var(--tremtec-primary); stroke: var(--tremtec-accent); }
+    .bg { stroke: var(--tremtec-light); }
+
+    @media (prefers-color-scheme: dark) {
+      circle { stroke: var(--tremtec-light); }
+      path { fill: var(--tremtec-light); stroke: var(--tremtec-accent); }
+      .bg { stroke: var(--tremtec-primary); }
+    }
   </style>
 </svg>
