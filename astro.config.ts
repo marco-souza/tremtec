@@ -9,6 +9,10 @@ export default defineConfig({
   integrations: [solidJs(), icon()],
 
   vite: {
-    plugins: [tailwindcss({ optimize: true })],
+    plugins: [
+      // NOTE: type mismatch between tailwindcss and vite, but it works fine
+      // @ts-expect-error
+      tailwindcss({ optimize: true }),
+    ],
   },
 });

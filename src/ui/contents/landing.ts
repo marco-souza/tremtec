@@ -167,10 +167,9 @@ end`,
       {
         title: "Services",
         links: [
-          { label: "Implementation Squad", href: "#services" },
-          { label: "Fractional CTO", href: "#services" },
-          { label: "Mentoring & Coaching", href: "#services" },
-          { label: "Pricing", href: "/pricing" },
+          { label: "Implementation Squad", href: "/services" },
+          { label: "Fractional CTO", href: "/services" },
+          { label: "Mentoring & Coaching", href: "/services" },
         ],
       },
       {
