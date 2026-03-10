@@ -2,12 +2,19 @@
   "compatibility_date": "2026-01-23",
   "compatibility_flags": ["global_fetch_strictly_public", "nodejs_compat"],
   "name": "tremtec",
-  "main": "dist/_worker.js/index.js",
+  "main": "@astrojs/cloudflare/entrypoints/server",
   "assets": {
     "directory": "./dist",
     "binding": "ASSETS"
   },
   "observability": {
     "enabled": true
+  },
+  "env": {
+    "development": {
+      "vars": {
+        "DEBUG": "astro:*"
+      }
+    }
   }
 }

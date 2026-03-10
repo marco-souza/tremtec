@@ -6,8 +6,9 @@ export const landingContent = {
     logo: "TremTec",
     links: [
       { label: "Services", href: "#services" },
-      { label: "Methodology", href: "#methodology" },
+      { label: "How it Works", href: "#methodology" },
       { label: "About", href: "#about" },
+      { label: "Pricing", href: "/pricing" },
     ],
     cta: {
       login: "Log in",
@@ -15,14 +16,14 @@ export const landingContent = {
     },
   },
   hero: {
-    title: "Build trustworthy software faster.",
+    title: "Flexible Engineering. Built for Your Pace.",
     description:
-      "Your team can move faster without sacrificing quality. We teach you to master AI—and every other tool in your stack—to create SDLCs that sustain velocity without burning people out.",
+      "Bring the right team to your project when you need them. No fixed roles. No long-term commitments. Just experts who scale with your scope, timeline, and budget—then hand off complete ownership to your team.",
     cta: {
-      demo: "Let's Talk",
-      howItWorks: "How it works?",
+      demo: "Start Your Project",
+      howItWorks: "See How It Works",
     },
-    imageAlt: "Build trustworthy software faster",
+    imageAlt: "Flexible engineering teams for high-growth companies",
   },
   trustedBy: {
     title: "Trusted by high-growth companies",
@@ -54,35 +55,39 @@ export const landingContent = {
     ],
   },
   services: {
-    badge: "Build with trust, not shortcuts.",
-    title: "Three ways to master your development process",
+    badge: "Flexible Resourcing",
+    title: "Three ways we scale with your project",
     description:
-      "Whether you need hands-on help building with AI, a deep diagnostic of what's slowing you down, or ongoing mentorship—we customize our approach to help your team ship faster without the technical debt.",
+      "Whether you need a quick SDLC analysis, hands-on implementation with a dedicated squad, or ongoing mentoring as you master new practices—we flex our team to match your scope, timeline, and constraints.",
     items: [
       {
         id: "implementation",
-        title: "Ship with Confidence",
+        title: "Implementation Squad",
         description:
-          "We implement reproducible SDLCs that combine AI and human expertise. Your team learns patterns you can sustain independently.",
+          "A dedicated team (1 lead + 1–3 engineers) that builds reproducible SDLCs and transfers complete knowledge to your team. After 4–8 weeks, you operate independently. No ongoing retainer.",
         icon: "heroicons:cpu-chip",
         bgIcon: "heroicons:code-bracket-square",
-        linkText: "Learn more",
+        linkText: "View pricing",
       },
       {
-        id: "diagnostics",
-        title: "Know Your Real Bottlenecks",
+        id: "fractional-cto",
+        title: "Fractional CTO",
         description:
-          "Deep analysis reveals where you're actually slow—and it's rarely what you think. Clear roadmap to sustainable velocity.",
+          "1–2 week analysis uncovering your actual bottlenecks, velocity drivers, and a clear roadmap forward. Fast clarity without a year-long engagement.",
         icon: "heroicons:chart-bar-square",
         bgIcon: "heroicons:magnifying-glass",
       },
       {
         id: "mentoring",
-        title: "Build Engineering Excellence",
+        title: "Mentoring & Coaching",
         description:
-          "Ongoing coaching that teaches your team to work symbiotically with AI and modern tools. From reactive to proactive. From survival to mastery.",
+          "Ongoing partnership (month-to-month) where your team steers and we coach. Monthly strategy sessions, on-demand guidance, and continuous pattern optimization.",
         icon: "heroicons:academic-cap",
-        badges: ["Code Reviews", "Architecture", "Best Practices"],
+        badges: [
+          "AI Mastery",
+          "Architecture Guidance",
+          "Performance Optimization",
+        ],
       },
     ],
     codeSnippet: `
@@ -98,79 +103,81 @@ defmodule HighPerformanceTeam do
 end`,
   },
   methodology: {
-    badge: "Methodology",
-    title: "We focus on sustainable speed.",
+    badge: "How We Work",
+    title: "Flexible teams. Flexible engagement.",
     description:
-      "Pragmatic processes that adapt to your reality, not the other way around.",
+      "We customize our approach to match your constraints—scope, timeline, location, team composition, and level of involvement.",
     features: [
       {
-        title: "Reality-First Process",
+        title: "Right People, Right Time",
         description:
-          "Your process adapts to reality. Not the other way around.",
+          "We allocate architects, engineers, DevOps, or AI specialists based on what your project actually needs—not a preset squad.",
+        icon: "heroicons:users",
+      },
+      {
+        title: "Your Constraints Matter",
+        description:
+          "Remote, embedded, hybrid. Part-time, full-time. Short sprint, long engagement. We flex to your reality.",
         icon: "heroicons:adjustments-horizontal",
       },
       {
-        title: "Continuous Validation",
+        title: "Knowledge Transfer Built-In",
         description:
-          "Short feedback loops that prove what works before you scale it.",
-        icon: "heroicons:bolt",
-      },
-      {
-        title: "Reproducible & Auditable",
-        description:
-          "Every decision documented. Every process repeatable. Trust built in from day one.",
+          "Your team owns the outcome. We document patterns, mentor as we build, and hand off complete understanding—not just code.",
         icon: "heroicons:shield-check",
       },
     ],
   },
   about: {
-    title: "We believe engineering is about people, not just tools.",
+    title: "We scale resources to match your reality.",
     description:
-      "AI is powerful. But it's dangerous without humans who understand responsibility, quality, and sustainability. We help teams master AI as a tool—not a replacement. Build software that's fast, trustworthy, and maintainable. Your people stay energized. Your code stays clean.",
+      "Not every project needs a fractional CTO. Not every team wants a long-term dependency. We bring flexible squads that teach, implement, and hand off—so you own the outcome and operate independently.",
     mission: {
       title: "Our Mission",
       paragraphs: [
-        "Build trustworthy software faster. We help your team master AI—not replace humans with it—and create SDLCs that actually sustain.",
-        "We believe that technology should be an engine of growth, not a source of frustration. Our mission is to liberate engineering teams from the chaos of disorganized processes and technical debt, empowering them to build world-class products with confidence and speed.",
+        "Build trustworthy software faster, with your team in control. We bring expertise when you need it, scale resources to match your constraints, and ensure complete knowledge transfer so you can operate independently.",
+        "We believe high-growth companies deserve engineering partners who flex with them—not vendors who trap them in retainers. Speed that sticks. Patterns you understand. Teams that grow. That's TremTec.",
       ],
     },
   },
   cta: {
-    title: "Your team deserves better than chaos.",
+    title: "Ready to flex your engineering?",
     description:
-      "30 minutes. No pitch. We'll map your biggest bottleneck and show you one concrete next step to sustainable velocity.",
-    button: "Let's Talk",
+      "Let's talk about your project. We'll listen to your constraints, scope, and timeline—then propose a flexible staffing model that actually fits your reality.",
+    button: "Schedule a Call",
     features: [
       {
-        title: "Slow Time-to-Market",
+        title: "No Fixed Roles",
         description:
-          "Your competition won't wait. Every launch delay is lost revenue and missed opportunity.",
-        icon: "heroicons:rocket-launch",
+          "We don't force a standard squad. We allocate based on what your project actually needs.",
+        icon: "heroicons:users",
       },
       {
-        title: "Lack of Seniority",
+        title: "Your Team Owns It",
         description:
-          "Absence of technical leadership leads to rework, bugs, and costly architectural decisions.",
-        icon: "heroicons:users",
+          "Knowledge transfer, not hand-off. After engagement, your team operates independently with complete understanding.",
+        icon: "heroicons:shield-check",
       },
     ],
   },
   footer: {
     description:
-      "Build trustworthy software faster. With your team in control.",
+      "Flexible engineering teams that scale with your project. Your team in control.",
     sections: [
       {
         title: "Services",
         links: [
-          { label: "Implementation", href: "#services" },
-          { label: "Diagnostics", href: "#services" },
-          { label: "Mentoring", href: "#services" },
+          { label: "Implementation Squad", href: "#services" },
+          { label: "Fractional CTO", href: "#services" },
+          { label: "Mentoring & Coaching", href: "#services" },
+          { label: "Pricing", href: "/pricing" },
         ],
       },
       {
         title: "Company",
         links: [
           { label: "About Us", href: "#about" },
+          { label: "How We Work", href: "#methodology" },
           { label: "Contact", href: "#contact" },
         ],
       },

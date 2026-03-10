@@ -7,13 +7,10 @@ import solidJs from "@astrojs/solid-js";
 
 // https://astro.build/config
 export default defineConfig({
+  output: "static",
   vite: {
     plugins: [tailwindcss()],
   },
-
-  adapter: cloudflare({
-    imageService: "compile",
-  }),
 
   integrations: [solidJs(), icon()],
 });
