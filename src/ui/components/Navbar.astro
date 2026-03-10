@@ -3,6 +3,9 @@ import { routes } from "~/server/contants";
 import { landingContent } from "~/ui/contents/landing";
 
 const { navbar } = landingContent;
+
+const pathname = Astro.url.pathname;
+const isActive = (href: string) => pathname === href;
 ---
 
 <div
@@ -24,7 +27,7 @@ const { navbar } = landingContent;
           navbar.links.map((link) => (
             <a
               href={link.href}
-              class="text-sm font-medium text-base-content/80 hover:text-primary transition-colors"
+              class={`text-sm font-medium transition-colors ${isActive(link.href) ? "text-primary" : "text-base-content/80 hover:text-primary"}`}
             >
               {link.label}
             </a>

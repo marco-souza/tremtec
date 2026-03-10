@@ -1,0 +1,174 @@
+[
+  {
+    "id": "maestro",
+    "name": "Maestro",
+    "description": "OpenCode Agent to orchestrate a squad of agents for complex multi-step workflows.",
+    "techStack": ["golang", "cobra-cli", "opencode", "agents"],
+    "category": "AI Agents",
+    "github": "https://github.com/tremtec/maestro"
+  },
+  {
+    "id": "code-reviewer",
+    "name": "Code Reviewer",
+    "description": "AI-powered CLI that reviews pull requests, flags anti-patterns, and suggests improvements using LLM analysis.",
+    "techStack": ["golang", "cobra-cli", "openai", "github-api", "ast-parsing"],
+    "category": "AI Agents",
+    "github": "https://github.com/tremtec/code-reviewer"
+  },
+  {
+    "id": "doc-gen",
+    "name": "Doc Gen",
+    "description": "Generate API docs, ADRs, and README files from your codebase using LLM-driven static analysis.",
+    "techStack": ["golang", "cobra-cli", "openai", "markdown", "ast-parsing"],
+    "category": "AI Agents",
+    "github": "https://github.com/tremtec/doc-gen"
+  },
+  {
+    "id": "test-pilot",
+    "name": "Test Pilot",
+    "description": "AI agent that generates unit and integration tests by analyzing your source code and domain logic.",
+    "techStack": ["golang", "cobra-cli", "openai", "tree-sitter", "vitest"],
+    "category": "AI Agents",
+    "github": "https://github.com/tremtec/test-pilot"
+  },
+  {
+    "id": "incident-ai",
+    "name": "Incident AI",
+    "description": "On-call assistant that correlates logs, metrics, and traces to surface root cause during incidents.",
+    "techStack": [
+      "golang",
+      "cobra-cli",
+      "openai",
+      "opentelemetry",
+      "pagerduty"
+    ],
+    "category": "AI Agents",
+    "github": "https://github.com/tremtec/incident-ai"
+  },
+  {
+    "id": "refactor-bot",
+    "name": "Refactor Bot",
+    "description": "Detects code smells and technical debt, then generates safe refactoring PRs with full test coverage.",
+    "techStack": ["golang", "cobra-cli", "openai", "tree-sitter", "github-api"],
+    "category": "AI Agents",
+    "github": "https://github.com/tremtec/refactor-bot"
+  },
+  {
+    "id": "compliance-auditor",
+    "name": "Compliance Auditor",
+    "description": "CLI tool to audit your codebase for compliance issues across SDLC stages.",
+    "techStack": [
+      "golang",
+      "cobra-cli",
+      "sdlc",
+      "automation",
+      "compliance",
+      "agents"
+    ],
+    "category": "Security & Compliance",
+    "github": "https://github.com/tremtec/compliance-auditor"
+  },
+  {
+    "id": "infra-pilot",
+    "name": "Infra Pilot",
+    "description": "Infrastructure-as-Code scaffolding and drift detection for Kubernetes, Terraform, and Pulumi.",
+    "techStack": ["golang", "cobra-cli", "kubernetes", "terraform", "pulumi"],
+    "category": "DevOps",
+    "github": "https://github.com/tremtec/infra-pilot"
+  },
+  {
+    "id": "ci-forge",
+    "name": "CI Forge",
+    "description": "Generate and optimize CI/CD pipelines for GitHub Actions, GitLab CI, and CircleCI from a single config.",
+    "techStack": ["golang", "cobra-cli", "github-actions", "gitlab-ci", "yaml"],
+    "category": "DevOps",
+    "github": "https://github.com/tremtec/ci-forge"
+  },
+  {
+    "id": "vuln-scanner",
+    "name": "Vuln Scanner",
+    "description": "Scan container images, dependencies, and IaC templates for known CVEs and misconfigurations.",
+    "techStack": ["golang", "cobra-cli", "trivy", "sbom", "cve-database"],
+    "category": "Security & Compliance",
+    "github": "https://github.com/tremtec/vuln-scanner"
+  },
+  {
+    "id": "eol-monitor",
+    "name": "EOL Monitor",
+    "description": "Track end-of-life dates for your dependencies, runtimes, and OS versions. Get alerts before they expire.",
+    "techStack": [
+      "golang",
+      "cobra-cli",
+      "endoflife-api",
+      "sbom",
+      "notifications"
+    ],
+    "category": "Observability",
+    "github": "https://github.com/tremtec/eol-monitor"
+  },
+  {
+    "id": "cost-lens",
+    "name": "Cost Lens",
+    "description": "Monitor and forecast cloud spending across AWS, GCP, and Azure. Surface anomalies and unused resources.",
+    "techStack": [
+      "golang",
+      "cobra-cli",
+      "aws-sdk",
+      "gcp-sdk",
+      "cost-allocation"
+    ],
+    "category": "Observability",
+    "github": "https://github.com/tremtec/cost-lens"
+  },
+  {
+    "id": "secret-guard",
+    "name": "Secret Guard",
+    "description": "Pre-commit and CI hook that detects leaked secrets, tokens, and credentials in your codebase.",
+    "techStack": [
+      "golang",
+      "cobra-cli",
+      "regex-engine",
+      "git-hooks",
+      "entropy-analysis"
+    ],
+    "category": "Security & Compliance",
+    "github": "https://github.com/tremtec/secret-guard"
+  },
+  {
+    "id": "env-sync",
+    "name": "Env Sync",
+    "description": "Synchronize environment variables and secrets across dev, staging, and production from a single source of truth.",
+    "techStack": ["golang", "cobra-cli", "vault", "aws-ssm", "dotenv"],
+    "category": "System Automation",
+    "github": "https://github.com/tremtec/env-sync"
+  },
+  {
+    "id": "deploy-wave",
+    "name": "Deploy Wave",
+    "description": "Zero-downtime deployment orchestrator with canary releases, rollback, and health-check gating.",
+    "techStack": [
+      "golang",
+      "cobra-cli",
+      "kubernetes",
+      "helm",
+      "progressive-delivery"
+    ],
+    "category": "DevOps",
+    "github": "https://github.com/tremtec/deploy-wave"
+  },
+  {
+    "id": "db-migrate",
+    "name": "DB Migrate",
+    "description": "Schema migration runner with diff previews, rollback safety, and multi-database support.",
+    "techStack": [
+      "golang",
+      "cobra-cli",
+      "postgres",
+      "mysql",
+      "sqlite",
+      "migrations"
+    ],
+    "category": "System Automation",
+    "github": "https://github.com/tremtec/db-migrate"
+  }
+]

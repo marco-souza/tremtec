@@ -1,0 +1,73 @@
+---
+import products from "~/content/products.json";
+import Layout from "~/ui/components/layouts/Layout.astro";
+
+const categories = [...new Set(products.map((p) => p.category))];
+
+const categoryIcons: Record<string, string> = {
+  "AI Agents": "🤖",
+  "Security & Compliance": "🔒",
+  DevOps: "🚀",
+  Observability: "📡",
+  "System Automation": "⚙️",
+};
+---
+
+<Layout title="Products - TremTec" description="Open-source CLI tools for DevOps, Security, and System Automation.">
+  <main class="flex-1 mt-20 min-h-screen bg-base-100">
+    <!-- Hero -->
+    <section class="px-6 py-20 max-w-6xl mx-auto text-center">
+      <p class="text-sm font-semibold text-primary uppercase tracking-wide mb-4">Open-Source Tools</p>
+      <h1 class="text-5xl font-bold text-base-content mb-6">
+        CLI Tools That Ship With You
+      </h1>
+      <p class="text-xl text-base-content/70 max-w-3xl mx-auto">
+        Battle-tested command-line tools for DevOps, security scanning, system automation, and AI-powered workflows. Built in Go. Open source.
+      </p>
+    </section>
+
+    <!-- Products by Category -->
+    {categories.map((category) => (
+      <section class="px-6 pb-16 max-w-6xl mx-auto">
+        <div class="flex items-center gap-3 mb-8">
+          <span class="text-2xl">{categoryIcons[category] ?? "📦"}</span>
+          <h2 class="text-3xl font-bold text-base-content">{category}</h2>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {products
+            .filter((p) => p.category === category)
+            .map((product) => (
+              <div class="bg-base-100 border border-base-300 rounded-lg p-6 hover:shadow-lg transition flex flex-col">
+                <h3 class="text-xl font-bold text-base-content mb-2">{product.name}</h3>
+                <p class="text-base-content/70 mb-4 flex-1">{product.description}</p>
+                <div class="flex flex-wrap gap-2 mb-4">
+                  {product.techStack.map((tech) => (
+                    <span class="badge badge-outline badge-sm">{tech}</span>
+                  ))}
+                </div>
+                <a href={product.github} target="_blank" rel="noopener noreferrer" class="text-primary font-semibold text-sm hover:text-primary/80 transition inline-flex items-center gap-1">
+                  View on GitHub →
+                </a>
+              </div>
+            ))}
+        </div>
+      </section>
+    ))}
+
+    <!-- CTA -->
+    <section class="bg-base-200 px-6 py-20">
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="text-4xl font-bold mb-6 text-base-content">
+          Need a Custom Tool?
+        </h2>
+        <p class="text-lg text-base-content/70 mb-8 max-w-2xl mx-auto">
+          We build bespoke CLI tools and automation pipelines tailored to your stack. Let's talk about what you need.
+        </p>
+        <a href="mailto:hello@tremtec.com?subject=Custom%20Tool%20Inquiry" class="btn btn-primary font-bold">
+          Get in touch
+        </a>
+      </div>
+    </section>
+  </main>
+</Layout>

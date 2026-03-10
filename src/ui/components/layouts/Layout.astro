@@ -14,6 +14,10 @@ interface Props {
   hideNavbar?: boolean;
 }
 
+const pathname = Astro.url.pathname;
+const isActive = (href: string) =>
+  href.startsWith("#") ? false : pathname.startsWith(href);
+
 const {
   title = "TremTec",
   description = "TremTec Software Solutions",
@@ -88,7 +92,7 @@ const {
               <li>
                 <a
                   href={link.href}
-                  class="text-lg font-medium"
+                  class={`text-lg font-medium ${isActive(link.href) ? "text-primary" : ""}`}
                   onclick="document.getElementById('mobile-drawer').click()"
                 >
                   {link.label}

@@ -5,10 +5,10 @@ export const landingContent = {
   navbar: {
     logo: "TremTec",
     links: [
-      { label: "Services", href: "#services" },
-      { label: "How it Works", href: "#methodology" },
-      { label: "About", href: "#about" },
-      { label: "Pricing", href: "/pricing" },
+      { label: "Home", href: "/" },
+      { label: "Services", href: "/services" },
+      { label: "Products", href: "/products" },
+      { label: "Blog", href: "/blog" },
     ],
     cta: {
       login: "Log in",
@@ -178,6 +178,7 @@ end`,
         links: [
           { label: "About Us", href: "#about" },
           { label: "How We Work", href: "#methodology" },
+          { label: "Blog", href: "/blog" },
           { label: "Contact", href: "#contact" },
         ],
       },
