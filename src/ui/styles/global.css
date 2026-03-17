@@ -44,3 +44,454 @@ body {
     filter: invert(1) brightness(1.1);
   }
 }
+
+/* ============================================
+   MARKDOWN CONTENT STYLING
+   ============================================ */
+
+@layer components {
+  /* ------------------------------------------
+     Paragraph Spacing
+     ------------------------------------------ */
+  .prose p {
+    margin-bottom: 1.25rem;
+    line-height: 1.8;
+  }
+
+  .prose p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Add extra space between paragraph and following elements */
+  .prose p + h2,
+  .prose p + h3,
+  .prose p + h4 {
+    margin-top: 2.5rem;
+  }
+
+  /* Ensure spacing after lists, blockquotes, and other blocks */
+  .prose ul + p,
+  .prose ol + p,
+  .prose blockquote + p,
+  .prose .callout + p,
+  .prose pre + p,
+  .prose table + p {
+    margin-top: 1.5rem;
+  }
+
+  /* ------------------------------------------
+     Table Styling
+     ------------------------------------------ */
+  .prose table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin: 1.5rem 0;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    border: 1px solid var(--color-base-300);
+  }
+
+  .prose thead {
+    background-color: var(--color-base-200);
+    border-bottom: 2px solid var(--color-base-300);
+  }
+
+  .prose th {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.875rem;
+    color: var(--color-base-content);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .prose tbody tr {
+    border-bottom: 1px solid var(--color-base-300);
+    transition: background-color 0.15s ease;
+  }
+
+  .prose tbody tr:last-child {
+    border-bottom: none;
+  }
+
+  .prose tbody tr:nth-child(even) {
+    background-color: var(--color-base-200);
+  }
+
+  .prose tbody tr:hover {
+    background-color: var(--color-base-300);
+  }
+
+  .prose td {
+    padding: 0.75rem 1rem;
+    color: var(--color-base-content);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  /* Responsive table wrapper */
+  .prose .table-wrapper {
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    border-radius: 0.75rem;
+    border: 1px solid var(--color-base-300);
+  }
+
+  .prose .table-wrapper table {
+    margin: 0;
+    border: none;
+  }
+
+  /* ------------------------------------------
+     Callout/Admonition Blocks
+     ------------------------------------------ */
+  .prose .callout {
+    position: relative;
+    padding: 1.25rem 1.5rem;
+    margin: 1.5rem 0;
+    border-radius: 0.75rem;
+    border-left: 4px solid;
+    background-color: var(--color-base-200);
+    border-color: var(--color-base-300);
+  }
+
+  .prose .callout::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    border-radius: 0.75rem 0 0 0.75rem;
+  }
+
+  .prose .callout-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    margin-bottom: 0.5rem;
+    color: var(--color-base-content);
+  }
+
+  .prose .callout p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Info variant */
+  .prose .callout-info {
+    background-color: color-mix(in oklch, var(--color-primary) 8%, var(--color-base-200));
+    border-left-color: var(--color-primary);
+  }
+
+  .prose .callout-info::before {
+    background-color: var(--color-primary);
+  }
+
+  .prose .callout-info .callout-title {
+    color: var(--color-primary);
+  }
+
+  /* Warning variant */
+  .prose .callout-warning {
+    background-color: color-mix(in oklch, oklch(75% 0.15 85) 15%, var(--color-base-200));
+    border-left-color: oklch(75% 0.15 85);
+  }
+
+  .prose .callout-warning::before {
+    background-color: oklch(75% 0.15 85);
+  }
+
+  .prose .callout-warning .callout-title {
+    color: oklch(65% 0.15 85);
+  }
+
+  /* Tip variant */
+  .prose .callout-tip {
+    background-color: color-mix(in oklch, oklch(60% 0.15 150) 10%, var(--color-base-200));
+    border-left-color: oklch(60% 0.15 150);
+  }
+
+  .prose .callout-tip::before {
+    background-color: oklch(60% 0.15 150);
+  }
+
+  .prose .callout-tip .callout-title {
+    color: oklch(55% 0.15 150);
+  }
+
+  /* Danger variant */
+  .prose .callout-danger {
+    background-color: color-mix(in oklch, oklch(60% 0.2 25) 10%, var(--color-base-200));
+    border-left-color: oklch(60% 0.2 25);
+  }
+
+  .prose .callout-danger::before {
+    background-color: oklch(60% 0.2 25);
+  }
+
+  .prose .callout-danger .callout-title {
+    color: oklch(55% 0.2 25);
+  }
+
+  /* ------------------------------------------
+     Enhanced List Styling
+     ------------------------------------------ */
+  .prose ul {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  .prose ul li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .prose ul li::before {
+    content: "";
+    position: absolute;
+    left: 0.25rem;
+    top: 0.65rem;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--color-primary);
+  }
+
+  .prose ol {
+    list-style: none;
+    padding-left: 0;
+    counter-reset: item;
+  }
+
+  .prose ol li {
+    position: relative;
+    padding-left: 2rem;
+    margin-bottom: 0.5rem;
+    counter-increment: item;
+  }
+
+  .prose ol li::before {
+    content: counter(item);
+    position: absolute;
+    left: 0;
+    top: 0.125rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    background-color: color-mix(in oklch, var(--color-primary) 10%, transparent);
+    border-radius: 50%;
+  }
+
+  /* Nested lists */
+  .prose ul ul,
+  .prose ol ul,
+  .prose ul ol,
+  .prose ol ol {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .prose ul ul li::before {
+    background-color: transparent;
+    border: 2px solid var(--color-primary);
+    width: 5px;
+    height: 5px;
+  }
+
+  .prose ul ul ul li::before {
+    background-color: var(--color-primary);
+    border-radius: 0;
+    width: 5px;
+    height: 5px;
+  }
+
+  /* ------------------------------------------
+     Image & Figure Styling
+     ------------------------------------------ */
+  .prose img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.75rem;
+    border: 1px solid var(--color-base-300);
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    margin: 1.5rem 0;
+  }
+
+  .prose figure {
+    margin: 1.5rem 0;
+  }
+
+  .prose figure img {
+    margin: 0;
+  }
+
+  .prose figcaption {
+    text-align: center;
+    font-size: 0.875rem;
+    font-style: italic;
+    color: var(--color-base-content);
+    opacity: 0.6;
+    margin-top: 0.75rem;
+  }
+
+  /* ------------------------------------------
+     Enhanced Horizontal Rule
+     ------------------------------------------ */
+  .prose hr {
+    position: relative;
+    border: none;
+    height: 2px;
+    margin: 3rem 0;
+    background: linear-gradient(
+      to right,
+      transparent,
+      var(--color-base-300) 20%,
+      var(--color-base-300) 80%,
+      transparent
+    );
+  }
+
+  .prose hr::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 8px;
+    height: 8px;
+    background-color: var(--color-base-300);
+    border-radius: 50%;
+  }
+
+  /* ------------------------------------------
+     Enhanced Code Blocks
+     ------------------------------------------ */
+  .prose pre {
+    position: relative;
+    background-color: var(--color-base-200);
+    border: 1px solid var(--color-base-300);
+    border-radius: 0.75rem;
+    padding: 1.25rem;
+    overflow-x: auto;
+  }
+
+  .prose pre code {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    font-size: 0.875rem;
+    line-height: 1.7;
+  }
+
+  /* Inline code */
+  .prose :not(pre) > code {
+    background-color: color-mix(in oklch, var(--color-primary) 10%, transparent);
+    color: var(--color-primary);
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.375rem;
+    font-size: 0.875em;
+    font-weight: 500;
+  }
+
+  /* Code block language indicator */
+  .prose pre[data-language]::before {
+    content: attr(data-language);
+    position: absolute;
+    top: 0;
+    right: 1rem;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--color-base-content);
+    opacity: 0.5;
+    background-color: var(--color-base-300);
+    border-radius: 0 0 0.375rem 0.375rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* ------------------------------------------
+     Dark Mode Adjustments
+     ------------------------------------------ */
+  @media (prefers-color-scheme: dark) {
+    .prose table {
+      border-color: oklch(30% 0.05 260);
+    }
+
+    .prose thead {
+      background-color: oklch(25% 0.08 260);
+      border-bottom-color: oklch(30% 0.05 260);
+    }
+
+    .prose tbody tr {
+      border-bottom-color: oklch(25% 0.05 260);
+    }
+
+    .prose tbody tr:nth-child(even) {
+      background-color: oklch(22% 0.06 260);
+    }
+
+    .prose tbody tr:hover {
+      background-color: oklch(28% 0.08 260);
+    }
+
+    .prose .callout {
+      background-color: oklch(22% 0.06 260);
+    }
+
+    .prose .callout-info {
+      background-color: color-mix(in oklch, var(--color-primary) 12%, oklch(20% 0.08 260));
+    }
+
+    .prose .callout-warning {
+      background-color: color-mix(in oklch, oklch(75% 0.15 85) 8%, oklch(20% 0.08 260));
+    }
+
+    .prose .callout-tip {
+      background-color: color-mix(in oklch, oklch(60% 0.15 150) 8%, oklch(20% 0.08 260));
+    }
+
+    .prose .callout-danger {
+      background-color: color-mix(in oklch, oklch(60% 0.2 25) 8%, oklch(20% 0.08 260));
+    }
+
+    .prose img {
+      border-color: oklch(25% 0.05 260);
+      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+    }
+
+    .prose pre {
+      background-color: oklch(18% 0.05 260);
+      border-color: oklch(25% 0.05 260);
+    }
+
+    .prose pre[data-language]::before {
+      background-color: oklch(28% 0.08 260);
+    }
+
+    .prose hr {
+      background: linear-gradient(
+        to right,
+        transparent,
+        oklch(30% 0.05 260) 20%,
+        oklch(30% 0.05 260) 80%,
+        transparent
+      );
+    }
+
+    .prose hr::before {
+      background-color: oklch(30% 0.05 260);
+    }
+  }
+}
