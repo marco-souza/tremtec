@@ -1,0 +1,70 @@
+# Maestro workflow definition
+name: my-project
+description: Squad-based development orchestrator
+
+# Supported tools — agent runtimes to scaffold and use
+# Supported values: opencode, amp
+tools:
+  - opencode
+  - amp
+
+# Squad definition — maps roles to agent configurations
+agents:
+  architect:
+    role: architect
+    phase: discovery
+
+  researcher:
+    role: researcher
+    phase: discovery
+
+  ux-designer:
+    role: ux-designer
+    phase: discovery
+
+  frontend-engineer:
+    role: frontend-engineer
+    phase: build
+
+  backend-engineer:
+    role: backend-engineer
+    phase: build
+
+  devops-sre:
+    role: devops-sre
+    phase: build
+
+  qa-engineer:
+    role: qa-engineer
+    phase: quality
+
+  code-reviewer:
+    role: code-reviewer
+    phase: quality
+
+# Workflow phases
+workflow:
+  discovery:
+    parallel: true
+
+  synthesis:
+    approval: true # pause for human approval before build
+
+  build:
+    parallel: true
+    tasks:
+      - agent: backend-engineer
+        depends_on: []
+      - agent: devops-sre
+        depends_on: []
+      - agent: frontend-engineer
+        depends_on: [backend-engineer]
+
+  quality:
+    parallel: true
+    on_failure: fix_and_retry
+    max_retries: 3
+    # TODO: project specific commands
+    # commands:
+    #   - make test
+    #   - make lint
