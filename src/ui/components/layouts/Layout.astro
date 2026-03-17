@@ -49,10 +49,22 @@ const {
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={image} />
 
+    <meta name="theme-color" content="#1a3a6e" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={Astro.url.href} />
+
+    <!-- Non-blocking Google Fonts loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      id="google-fonts"
       rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      media="print"
     />
+    <script is:inline>
+      document.getElementById("google-fonts").media = "all";
+    </script>
 
     <title>{title}</title>
   </head>
@@ -81,6 +93,7 @@ const {
               <img
                 src="/images/logo.svg"
                 width="48"
+                height="48"
                 alt={`${navbar.logo} Logo`}
               />
               <span class="text-lg font-bold">{navbar.logo}</span>

@@ -15,11 +15,18 @@ const { hero } = landingContent;
       <!-- Image Column (Visible only on lg+) -->
       <div class="hidden lg:block w-full lg:order-2 lg:col-span-6">
         <div class="relative p-2 md:p-4 hover:scale-[1.02] duration-500">
-          <img
-            src="/images/hero.png"
-            alt={hero.imageAlt}
-            class="rounded-md w-full h-auto object-cover"
-          />
+          <picture>
+            <source srcset="/images/hero.webp" type="image/webp" />
+            <img
+              src="/images/hero.png"
+              alt={hero.imageAlt}
+              width="600"
+              height="400"
+              fetchpriority="high"
+              decoding="async"
+              class="rounded-md w-full h-auto object-cover"
+            />
+          </picture>
         </div>
       </div>
 
