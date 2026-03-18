@@ -2,7 +2,6 @@
 import "~/ui/styles/global.css";
 import About from "~/ui/components/landing/About.astro";
 import CTA from "~/ui/components/landing/CTA.astro";
-import Footer from "~/ui/components/landing/Footer.astro";
 import Hero from "~/ui/components/landing/Hero.astro";
 import Methodology from "~/ui/components/landing/Methodology.astro";
 import Services from "~/ui/components/landing/Services.astro";
@@ -13,15 +12,11 @@ import { landingContent } from "~/ui/contents/landing";
 ---
 
 <Layout title={landingContent.metadata.title}>
-  <main class="flex-1 mt-20 py-8">
-    <Hero />
-    <TrustedBy />
-    <Testimonials />
-    <Services />
-    <Methodology />
-    <About />
-    <CTA />
-  </main>
-
-  <Footer />
+  <Hero />
+  <TrustedBy />
+  <Testimonials />
+  <Services />
+  <Methodology />
+  <About />
+  <CTA />
 </Layout>

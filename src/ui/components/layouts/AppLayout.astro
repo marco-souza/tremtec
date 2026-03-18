@@ -2,6 +2,7 @@
 import "~/ui/styles/global.css";
 
 import { routes } from "~/server/contants";
+import OpenGraph from "~/ui/components/OpenGraph.astro";
 import { landingContent } from "~/ui/contents/landing";
 
 const { navbar } = landingContent;
@@ -9,9 +10,14 @@ const { navbar } = landingContent;
 interface Props {
   title?: string;
   description?: string;
+  image?: string;
 }
 
-const { title = "TremTec", description = "TremTec Dashboard" } = Astro.props;
+const {
+  title = "TremTec",
+  description = "TremTec Dashboard",
+  image = "/images/og-image.jpg",
+} = Astro.props;
 ---
 
 <!DOCTYPE html>
@@ -21,12 +27,8 @@ const { title = "TremTec", description = "TremTec Dashboard" } = Astro.props;
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    <meta name="description" content={description} />
 
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
+    <OpenGraph title={title} description={description} image={image} />
 
     <title>{title}</title>
   </head>

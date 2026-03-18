@@ -1,8 +1,10 @@
 ---
 import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
-import Footer from "~/ui/components/landing/Footer.astro";
 import Layout from "~/ui/components/layouts/Layout.astro";
 import { getCollection, render } from "astro:content";
+
+// Prerender blog posts as static pages
+export const prerender = true;
 
 export const getStaticPaths = (async () => {
   const posts = await getCollection("blog");
@@ -40,169 +42,165 @@ const prevPost = allPosts[currentIndex - 1];
   title={`${post.data.title} - TremTec`}
   description={post.data.description}
 >
-  <main class="flex-1 mt-20">
-    <!-- Article Header -->
-    <section class="relative overflow-hidden bg-base-100 pt-12 pb-16">
-      <div class="absolute inset-0 opacity-5">
-        <div class="absolute top-10 right-20 w-96 h-96 bg-primary rounded-full blur-3xl"></div>
-      </div>
+  <!-- Article Header -->
+  <section class="relative overflow-hidden bg-base-100 pt-12 pb-16">
+    <div class="absolute inset-0 opacity-5">
+      <div class="absolute top-10 right-20 w-96 h-96 bg-primary rounded-full blur-3xl"></div>
+    </div>
 
-      <div class="relative z-10 mx-auto max-w-3xl px-6 lg:px-8">
-        <!-- Back Link -->
-        <a
-          href="/blog"
-          class="group inline-flex items-center gap-2 text-sm font-medium text-base-content/50 hover:text-primary transition-colors duration-300 mb-10"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 group-hover:-translate-x-1 transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd" d="M17 10a.75.75 0 01-.75.75H5.612l4.158 3.96a.75.75 0 11-1.04 1.08l-5.5-5.25a.75.75 0 010-1.08l5.5-5.25a.75.75 0 111.04 1.08L5.612 9.25H16.25A.75.75 0 0117 10z" clip-rule="evenodd" />
-          </svg>
-          Back to Blog
-        </a>
+    <div class="relative z-10 mx-auto max-w-3xl px-6 lg:px-8">
+      <!-- Back Link -->
+      <a
+        href="/blog"
+        class="group inline-flex items-center gap-2 text-sm font-medium text-base-content/50 hover:text-primary transition-colors duration-300 mb-10"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 group-hover:-translate-x-1 transition-transform duration-300" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M17 10a.75.75 0 01-.75.75H5.612l4.158 3.96a.75.75 0 11-1.04 1.08l-5.5-5.25a.75.75 0 010-1.08l5.5-5.25a.75.75 0 111.04 1.08L5.612 9.25H16.25A.75.75 0 0117 10z" clip-rule="evenodd" />
+        </svg>
+        Back to Blog
+      </a>
 
-        <!-- Tags -->
-        {post.data.tags && post.data.tags.length > 0 && (
-          <div class="flex flex-wrap gap-2 mb-6">
-            {post.data.tags.map((tag) => (
-              <span class="text-xs font-medium text-primary/80 bg-primary/10 rounded-full px-3 py-1">
-                {tag}
+      <!-- Tags -->
+      {post.data.tags && post.data.tags.length > 0 && (
+        <div class="flex flex-wrap gap-2 mb-6">
+          {post.data.tags.map((tag) => (
+            <span class="text-xs font-medium text-primary/80 bg-primary/10 rounded-full px-3 py-1">
+              {tag}
+            </span>
+          ))}
+        </div>
+      )}
+
+      <!-- Title -->
+      <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-base-content mb-6 leading-tight">
+        {post.data.title}
+      </h1>
+
+      <!-- Description -->
+      {post.data.description && (
+        <p class="text-xl text-base-content/60 leading-relaxed mb-8">
+          {post.data.description}
+        </p>
+      )}
+
+      <!-- Meta -->
+      <div class="flex items-center gap-4 pb-8 border-b border-base-200">
+        {post.data.author && (
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+              <span class="text-sm font-bold text-primary">
+                {post.data.author.charAt(0)}
               </span>
-            ))}
+            </div>
+            <div>
+              <p class="text-sm font-medium text-base-content">
+                {post.data.author}
+              </p>
+              {post.data.date && (
+                <p class="text-xs text-base-content/40">
+                  {formatDate(post.data.date)}
+                </p>
+              )}
+            </div>
           </div>
         )}
+      </div>
+    </div>
+  </section>
 
-        <!-- Title -->
-        <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-base-content mb-6 leading-tight">
-          {post.data.title}
-        </h1>
+  <!-- Article Body -->
+  <section class="bg-base-100 pb-20">
+    <article class="mx-auto max-w-3xl px-6 lg:px-8">
+      <div class="prose prose-lg max-w-none
+        /* Headings */
+        prose-headings:font-bold prose-headings:tracking-tight prose-headings:text-base-content
+        prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-4 prose-h2:border-b prose-h2:border-base-200 prose-h2:pb-3
+        prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3
+        /* Paragraphs & Links */
+        prose-p:text-base-content/80 prose-p:leading-relaxed
+        prose-a:text-primary prose-a:font-medium prose-a:no-underline hover:prose-a:underline
+        prose-strong:text-base-content prose-strong:font-semibold
+        /* Lists - base styling, enhanced in global.css */
+        prose-li:text-base-content/80
+        prose-ul:my-6 prose-ul:list-none
+        prose-ol:my-6 prose-ol:list-none
+        /* Blockquotes */
+        prose-blockquote:border-primary prose-blockquote:text-base-content/70 prose-blockquote:font-normal prose-blockquote:not-italic prose-blockquote:bg-base-200/50 prose-blockquote:rounded-r-lg prose-blockquote:py-2 prose-blockquote:px-4
+        /* Inline Code */
+        prose-code:text-primary prose-code:bg-primary/10 prose-code:rounded prose-code:px-1.5 prose-code:py-0.5 prose-code:font-normal prose-code:before:content-none prose-code:after:content-none
+        /* Code Blocks */
+        prose-pre:bg-base-200 prose-pre:border prose-pre:border-base-300 prose-pre:rounded-2xl prose-pre:shadow-sm
+        /* Tables */
+        prose-table:w-full prose-table:border-collapse prose-table:my-6
+        prose-thead:bg-base-200 prose-thead:border-b-2 prose-thead:border-base-300
+        prose-th:p-3 prose-th:text-left prose-th:font-semibold prose-th:text-sm prose-th:text-base-content prose-th:uppercase prose-th:tracking-wider
+        prose-td:p-3 prose-td:border-b prose-td:border-base-300 prose-td:text-base-content/80
+        prose-tr:border-b prose-tr:border-base-300 prose-tr:transition-colors
+        /* Images */
+        prose-img:rounded-xl prose-img:border prose-img:border-base-300 prose-img:shadow-md prose-img:mx-auto prose-img:my-6
+        /* Figures */
+        prose-figure:my-6
+        /* Horizontal Rule - enhanced in global.css */
+        prose-hr:my-12 prose-hr:border-0 prose-hr:h-px
+        /* Captions */
+        prose-figcaption:text-center prose-figcaption:text-sm prose-figcaption:italic prose-figcaption:text-base-content/60 prose-figcaption:mt-3"
+      >
+        <Content />
+      </div>
+    </article>
+  </section>
 
-        <!-- Description -->
-        {post.data.description && (
-          <p class="text-xl text-base-content/60 leading-relaxed mb-8">
-            {post.data.description}
-          </p>
-        )}
+  <!-- Post Navigation -->
+  {(prevPost || nextPost) && (
+    <section class="bg-base-200 py-16">
+      <div class="mx-auto max-w-3xl px-6 lg:px-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          {prevPost ? (
+            <a
+              href={`/blog/${prevPost.id}`}
+              class="group flex flex-col p-6 rounded-2xl bg-base-100 border border-base-300 hover:border-primary/30 transition-all duration-300 hover:shadow-lg"
+            >
+              <span class="text-xs font-medium text-base-content/40 uppercase tracking-wider mb-3">
+                ← Previous
+              </span>
+              <span class="text-base font-bold text-base-content group-hover:text-primary transition-colors duration-300 line-clamp-2">
+                {prevPost.data.title}
+              </span>
+            </a>
+          ) : (
+            <div />
+          )}
 
-        <!-- Meta -->
-        <div class="flex items-center gap-4 pb-8 border-b border-base-200">
-          {post.data.author && (
-            <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                <span class="text-sm font-bold text-primary">
-                  {post.data.author.charAt(0)}
-                </span>
-              </div>
-              <div>
-                <p class="text-sm font-medium text-base-content">
-                  {post.data.author}
-                </p>
-                {post.data.date && (
-                  <p class="text-xs text-base-content/40">
-                    {formatDate(post.data.date)}
-                  </p>
-                )}
-              </div>
-            </div>
+          {nextPost && (
+            <a
+              href={`/blog/${nextPost.id}`}
+              class="group flex flex-col p-6 rounded-2xl bg-base-100 border border-base-300 hover:border-primary/30 transition-all duration-300 hover:shadow-lg text-right"
+            >
+              <span class="text-xs font-medium text-base-content/40 uppercase tracking-wider mb-3">
+                Next →
+              </span>
+              <span class="text-base font-bold text-base-content group-hover:text-primary transition-colors duration-300 line-clamp-2">
+                {nextPost.data.title}
+              </span>
+            </a>
           )}
         </div>
       </div>
     </section>
+  )}
 
-    <!-- Article Body -->
-    <section class="bg-base-100 pb-20">
-      <article class="mx-auto max-w-3xl px-6 lg:px-8">
-        <div class="prose prose-lg max-w-none
-          /* Headings */
-          prose-headings:font-bold prose-headings:tracking-tight prose-headings:text-base-content
-          prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-4 prose-h2:border-b prose-h2:border-base-200 prose-h2:pb-3
-          prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3
-          /* Paragraphs & Links */
-          prose-p:text-base-content/80 prose-p:leading-relaxed
-          prose-a:text-primary prose-a:font-medium prose-a:no-underline hover:prose-a:underline
-          prose-strong:text-base-content prose-strong:font-semibold
-          /* Lists - base styling, enhanced in global.css */
-          prose-li:text-base-content/80
-          prose-ul:my-6 prose-ul:list-none
-          prose-ol:my-6 prose-ol:list-none
-          /* Blockquotes */
-          prose-blockquote:border-primary prose-blockquote:text-base-content/70 prose-blockquote:font-normal prose-blockquote:not-italic prose-blockquote:bg-base-200/50 prose-blockquote:rounded-r-lg prose-blockquote:py-2 prose-blockquote:px-4
-          /* Inline Code */
-          prose-code:text-primary prose-code:bg-primary/10 prose-code:rounded prose-code:px-1.5 prose-code:py-0.5 prose-code:font-normal prose-code:before:content-none prose-code:after:content-none
-          /* Code Blocks */
-          prose-pre:bg-base-200 prose-pre:border prose-pre:border-base-300 prose-pre:rounded-2xl prose-pre:shadow-sm
-          /* Tables */
-          prose-table:w-full prose-table:border-collapse prose-table:my-6
-          prose-thead:bg-base-200 prose-thead:border-b-2 prose-thead:border-base-300
-          prose-th:p-3 prose-th:text-left prose-th:font-semibold prose-th:text-sm prose-th:text-base-content prose-th:uppercase prose-th:tracking-wider
-          prose-td:p-3 prose-td:border-b prose-td:border-base-300 prose-td:text-base-content/80
-          prose-tr:border-b prose-tr:border-base-300 prose-tr:transition-colors
-          /* Images */
-          prose-img:rounded-xl prose-img:border prose-img:border-base-300 prose-img:shadow-md prose-img:mx-auto prose-img:my-6
-          /* Figures */
-          prose-figure:my-6
-          /* Horizontal Rule - enhanced in global.css */
-          prose-hr:my-12 prose-hr:border-0 prose-hr:h-px
-          /* Captions */
-          prose-figcaption:text-center prose-figcaption:text-sm prose-figcaption:italic prose-figcaption:text-base-content/60 prose-figcaption:mt-3"
-        >
-          <Content />
-        </div>
-      </article>
-    </section>
-
-    <!-- Post Navigation -->
-    {(prevPost || nextPost) && (
-      <section class="bg-base-200 py-16">
-        <div class="mx-auto max-w-3xl px-6 lg:px-8">
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            {prevPost ? (
-              <a
-                href={`/blog/${prevPost.id}`}
-                class="group flex flex-col p-6 rounded-2xl bg-base-100 border border-base-300 hover:border-primary/30 transition-all duration-300 hover:shadow-lg"
-              >
-                <span class="text-xs font-medium text-base-content/40 uppercase tracking-wider mb-3">
-                  ← Previous
-                </span>
-                <span class="text-base font-bold text-base-content group-hover:text-primary transition-colors duration-300 line-clamp-2">
-                  {prevPost.data.title}
-                </span>
-              </a>
-            ) : (
-              <div />
-            )}
-
-            {nextPost && (
-              <a
-                href={`/blog/${nextPost.id}`}
-                class="group flex flex-col p-6 rounded-2xl bg-base-100 border border-base-300 hover:border-primary/30 transition-all duration-300 hover:shadow-lg text-right"
-              >
-                <span class="text-xs font-medium text-base-content/40 uppercase tracking-wider mb-3">
-                  Next →
-                </span>
-                <span class="text-base font-bold text-base-content group-hover:text-primary transition-colors duration-300 line-clamp-2">
-                  {nextPost.data.title}
-                </span>
-              </a>
-            )}
-          </div>
-        </div>
-      </section>
-    )}
-
-    <!-- CTA -->
-    <section class="bg-base-100 py-20 border-t border-base-200">
-      <div class="mx-auto max-w-3xl px-6 lg:px-8 text-center">
-        <h2 class="text-3xl font-bold text-base-content mb-4">
-          Want to work with us?
-        </h2>
-        <p class="text-lg text-base-content/60 mb-8">
-          We help high-growth companies build trustworthy software faster.
-        </p>
-        <a href="/#contact" class="btn btn-primary btn-lg px-8">
-          Get Started
-        </a>
-      </div>
-    </section>
-  </main>
-
-  <Footer />
+  <!-- CTA -->
+  <section class="bg-base-100 py-20 border-t border-base-200">
+    <div class="mx-auto max-w-3xl px-6 lg:px-8 text-center">
+      <h2 class="text-3xl font-bold text-base-content mb-4">
+        Want to work with us?
+      </h2>
+      <p class="text-lg text-base-content/60 mb-8">
+        We help high-growth companies build trustworthy software faster.
+      </p>
+      <a href="/#contact" class="btn btn-primary btn-lg px-8">
+        Get Started
+      </a>
+    </div>
+  </section>
 </Layout>

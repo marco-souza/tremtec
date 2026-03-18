@@ -3,389 +3,387 @@ import Layout from "~/ui/components/layouts/Layout.astro";
 ---
 
 <Layout title="Pricing - TremTec">
-  <main class="flex-1 mt-20 min-h-screen bg-base-100">
-    <!-- Hero -->
-    <section class="px-6 py-20 max-w-6xl mx-auto">
-      <div class="text-center mb-16">
-        <h1 class="text-5xl font-bold text-base-content mb-6">
-          Flexible Engineering. Built for Your Pace.
-        </h1>
-        <p class="text-xl text-base-content/70 max-w-3xl mx-auto">
-          We scale our team to match your project, timeline, and budget. No fixed roles. No long-term commitments. 
-          Just the right people, the right time.
+  <!-- Hero -->
+  <section class="px-6 py-20 max-w-6xl mx-auto">
+    <div class="text-center mb-16">
+      <h1 class="text-5xl font-bold text-base-content mb-6">
+        Flexible Engineering. Built for Your Pace.
+      </h1>
+      <p class="text-xl text-base-content/70 max-w-3xl mx-auto">
+        We scale our team to match your project, timeline, and budget. No fixed roles. No long-term commitments. 
+        Just the right people, the right time.
+      </p>
+    </div>
+
+    <!-- Three Core Services -->
+    <div class="grid md:grid-cols-3 gap-8 mb-20">
+      <!-- Fractional CTO -->
+      <div class="bg-base-100 border border-base-300 rounded-lg p-8 hover:shadow-lg transition">
+        <div class="h-12 w-12 bg-primary/10 rounded-lg mb-4 flex items-center justify-center">
+          <span class="text-primary text-xl">🔍</span>
+        </div>
+        <h3 class="text-2xl font-bold text-base-content mb-3">Fractional CTO</h3>
+        <p class="text-base-content/70 mb-6">
+          Uncover where you're actually slow. Get a clear velocity roadmap.
         </p>
+        
+        <div class="bg-base-200 rounded p-4 mb-6">
+          <p class="text-sm text-base-content/60 uppercase tracking-wide font-semibold mb-2">Investment</p>
+          <p class="text-3xl font-bold text-base-content">$5K–$15K</p>
+          <p class="text-sm text-base-content/70 mt-1">1–2 weeks</p>
+        </div>
+
+        <div class="space-y-3 mb-6">
+          <p class="text-sm text-base-content/80">
+            ✓ SDLC deep dive
+          </p>
+          <p class="text-sm text-base-content/80">
+            ✓ Bottleneck identification
+          </p>
+          <p class="text-sm text-base-content/80">
+            ✓ Recommended roadmap
+          </p>
+        </div>
+
+        <p class="text-xs text-base-content/60 mb-4">
+          <strong>Team:</strong> 1 Senior Engineer (lead) + optional specialists
+        </p>
+
+        <a href="#contact" class="text-primary font-semibold hover:text-primary/80 transition">
+          Schedule a call →
+        </a>
       </div>
 
-      <!-- Three Core Services -->
-      <div class="grid md:grid-cols-3 gap-8 mb-20">
-        <!-- Fractional CTO -->
-        <div class="bg-base-100 border border-base-300 rounded-lg p-8 hover:shadow-lg transition">
-          <div class="h-12 w-12 bg-primary/10 rounded-lg mb-4 flex items-center justify-center">
-            <span class="text-primary text-xl">🔍</span>
-          </div>
-          <h3 class="text-2xl font-bold text-base-content mb-3">Fractional CTO</h3>
-          <p class="text-base-content/70 mb-6">
-            Uncover where you're actually slow. Get a clear velocity roadmap.
-          </p>
-          
-          <div class="bg-base-200 rounded p-4 mb-6">
-            <p class="text-sm text-base-content/60 uppercase tracking-wide font-semibold mb-2">Investment</p>
-            <p class="text-3xl font-bold text-base-content">$5K–$15K</p>
-            <p class="text-sm text-base-content/70 mt-1">1–2 weeks</p>
-          </div>
-
-          <div class="space-y-3 mb-6">
-            <p class="text-sm text-base-content/80">
-              ✓ SDLC deep dive
-            </p>
-            <p class="text-sm text-base-content/80">
-              ✓ Bottleneck identification
-            </p>
-            <p class="text-sm text-base-content/80">
-              ✓ Recommended roadmap
-            </p>
-          </div>
-
-          <p class="text-xs text-base-content/60 mb-4">
-            <strong>Team:</strong> 1 Senior Engineer (lead) + optional specialists
-          </p>
-
-          <a href="#contact" class="text-primary font-semibold hover:text-primary/80 transition">
-            Schedule a call →
-          </a>
+      <!-- Implementation -->
+      <div class="bg-base-100 border-2 border-primary rounded-lg p-8 shadow-lg hover:shadow-xl transition relative">
+        <div class="absolute -top-4 left-8 bg-primary text-base-100 px-3 py-1 rounded-full text-xs font-bold">
+          MOST POPULAR
+        </div>
+        
+        <div class="h-12 w-12 bg-primary/10 rounded-lg mb-4 flex items-center justify-center">
+          <span class="text-primary text-xl">⚙️</span>
+        </div>
+        <h3 class="text-2xl font-bold text-base-content mb-3">Implementation</h3>
+        <p class="text-base-content/70 mb-6">
+          Build reproducible SDLCs with AI. Your team learns sustainable patterns.
+        </p>
+        
+        <div class="bg-primary/10 rounded p-4 mb-6">
+          <p class="text-sm text-base-content/60 uppercase tracking-wide font-semibold mb-2">Investment</p>
+          <p class="text-3xl font-bold text-base-content">$25K–$75K</p>
+          <p class="text-sm text-base-content/70 mt-1">4–8 weeks</p>
         </div>
 
-        <!-- Implementation -->
-        <div class="bg-base-100 border-2 border-primary rounded-lg p-8 shadow-lg hover:shadow-xl transition relative">
-          <div class="absolute -top-4 left-8 bg-primary text-base-100 px-3 py-1 rounded-full text-xs font-bold">
-            MOST POPULAR
-          </div>
-          
-          <div class="h-12 w-12 bg-primary/10 rounded-lg mb-4 flex items-center justify-center">
-            <span class="text-primary text-xl">⚙️</span>
-          </div>
-          <h3 class="text-2xl font-bold text-base-content mb-3">Implementation</h3>
-          <p class="text-base-content/70 mb-6">
-            Build reproducible SDLCs with AI. Your team learns sustainable patterns.
+        <div class="space-y-3 mb-6">
+          <p class="text-sm text-base-content/80">
+            ✓ Dedicated engineering squad
           </p>
-          
-          <div class="bg-primary/10 rounded p-4 mb-6">
-            <p class="text-sm text-base-content/60 uppercase tracking-wide font-semibold mb-2">Investment</p>
-            <p class="text-3xl font-bold text-base-content">$25K–$75K</p>
-            <p class="text-sm text-base-content/70 mt-1">4–8 weeks</p>
-          </div>
-
-          <div class="space-y-3 mb-6">
-            <p class="text-sm text-base-content/80">
-              ✓ Dedicated engineering squad
-            </p>
-            <p class="text-sm text-base-content/80">
-              ✓ Full SDLC setup + AI integration
-            </p>
-            <p class="text-sm text-base-content/80">
-              ✓ Knowledge transfer (your team learns)
-            </p>
-            <p class="text-sm text-base-content/80">
-              ✓ Independent after engagement
-            </p>
-          </div>
-
-          <p class="text-xs text-base-content/60 mb-4">
-            <strong>Team:</strong> 1 Lead + 1–3 Engineers (scales with scope)
+          <p class="text-sm text-base-content/80">
+            ✓ Full SDLC setup + AI integration
           </p>
-
-          <a href="#contact" class="text-primary font-semibold hover:text-primary/80 transition">
-            Get a quote →
-          </a>
+          <p class="text-sm text-base-content/80">
+            ✓ Knowledge transfer (your team learns)
+          </p>
+          <p class="text-sm text-base-content/80">
+            ✓ Independent after engagement
+          </p>
         </div>
 
-        <!-- Mentoring -->
-        <div class="bg-base-100 border border-base-300 rounded-lg p-8 hover:shadow-lg transition">
-          <div class="h-12 w-12 bg-primary/10 rounded-lg mb-4 flex items-center justify-center">
-            <span class="text-primary text-xl">🎓</span>
-          </div>
-          <h3 class="text-2xl font-bold text-base-content mb-3">Mentoring</h3>
-          <p class="text-base-content/70 mb-6">
-            Ongoing coaching for AI mastery and sustainable velocity.
+        <p class="text-xs text-base-content/60 mb-4">
+          <strong>Team:</strong> 1 Lead + 1–3 Engineers (scales with scope)
+        </p>
+
+        <a href="#contact" class="text-primary font-semibold hover:text-primary/80 transition">
+          Get a quote →
+        </a>
+      </div>
+
+      <!-- Mentoring -->
+      <div class="bg-base-100 border border-base-300 rounded-lg p-8 hover:shadow-lg transition">
+        <div class="h-12 w-12 bg-primary/10 rounded-lg mb-4 flex items-center justify-center">
+          <span class="text-primary text-xl">🎓</span>
+        </div>
+        <h3 class="text-2xl font-bold text-base-content mb-3">Mentoring</h3>
+        <p class="text-base-content/70 mb-6">
+          Ongoing coaching for AI mastery and sustainable velocity.
+        </p>
+        
+        <div class="bg-base-200 rounded p-4 mb-6">
+          <p class="text-sm text-base-content/60 uppercase tracking-wide font-semibold mb-2">Investment</p>
+          <p class="text-3xl font-bold text-base-content">$5K–$8K/mo</p>
+          <p class="text-sm text-base-content/70 mt-1">Month-to-month</p>
+        </div>
+
+        <div class="space-y-3 mb-6">
+          <p class="text-sm text-base-content/80">
+            ✓ Monthly strategy sessions
           </p>
-          
-          <div class="bg-base-200 rounded p-4 mb-6">
-            <p class="text-sm text-base-content/60 uppercase tracking-wide font-semibold mb-2">Investment</p>
-            <p class="text-3xl font-bold text-base-content">$5K–$8K/mo</p>
-            <p class="text-sm text-base-content/70 mt-1">Month-to-month</p>
-          </div>
-
-          <div class="space-y-3 mb-6">
-            <p class="text-sm text-base-content/80">
-              ✓ Monthly strategy sessions
-            </p>
-            <p class="text-sm text-base-content/80">
-              ✓ On-demand technical guidance
-            </p>
-            <p class="text-sm text-base-content/80">
-              ✓ Pattern refinement & optimization
-            </p>
-          </div>
-
-          <p class="text-xs text-base-content/60 mb-4">
-            <strong>Team:</strong> 1 Senior Engineer (flexible hours)
+          <p class="text-sm text-base-content/80">
+            ✓ On-demand technical guidance
           </p>
+          <p class="text-sm text-base-content/80">
+            ✓ Pattern refinement & optimization
+          </p>
+        </div>
 
-          <a href="#contact" class="text-primary font-semibold hover:text-primary/80 transition">
-            Learn more →
-          </a>
+        <p class="text-xs text-base-content/60 mb-4">
+          <strong>Team:</strong> 1 Senior Engineer (flexible hours)
+        </p>
+
+        <a href="#contact" class="text-primary font-semibold hover:text-primary/80 transition">
+          Learn more →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Comparison Banner -->
+  <section class="bg-base-200 px-6 py-16 border-t border-base-300">
+    <div class="max-w-6xl mx-auto">
+      <h3 class="text-2xl font-bold text-base-content mb-8 text-center">
+        Why Teams Choose TremTec
+      </h3>
+      <div class="grid md:grid-cols-4 gap-6">
+        <div class="text-center">
+          <p class="text-3xl font-bold text-primary mb-2">40%</p>
+          <p class="text-sm text-base-content/70">Average velocity gain in first month</p>
+        </div>
+        <div class="text-center">
+          <p class="text-3xl font-bold text-primary mb-2">0</p>
+          <p class="text-sm text-base-content/70">Monthly retainers after engagement</p>
+        </div>
+        <div class="text-center">
+          <p class="text-3xl font-bold text-primary mb-2">1 week</p>
+          <p class="text-sm text-base-content/70">Average ramp-up for new hires</p>
+        </div>
+        <div class="text-center">
+          <p class="text-3xl font-bold text-primary mb-2">100%</p>
+          <p class="text-sm text-base-content/70">Knowledge ownership by your team</p>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- Flexibility Section -->
-    <section class="bg-base-200 px-6 py-20">
-      <div class="max-w-6xl mx-auto">
-        <h2 class="text-4xl font-bold mb-12 text-center text-base-content">
-          Resources That Flex With You
-        </h2>
-
-        <div class="grid md:grid-cols-2 gap-12">
-          <div>
-            <h3 class="text-xl font-bold mb-4 text-base-content">Team Composition</h3>
-            <p class="text-base-content/70 mb-6">
-              We don't force a standard "squad." Depending on your project, we might allocate:
-            </p>
-            <ul class="space-y-3 text-base-content/80">
-              <li class="flex items-start">
-                <span class="mr-3">→</span>
-                <span><strong>Full-stack engineers</strong> for end-to-end features</span>
-              </li>
-              <li class="flex items-start">
-                <span class="mr-3">→</span>
-                <span><strong>Architects</strong> for complex system design</span>
-              </li>
-              <li class="flex items-start">
-                <span class="mr-3">→</span>
-                <span><strong>DevOps/Infrastructure</strong> for deployment & scaling</span>
-              </li>
-              <li class="flex items-start">
-                <span class="mr-3">→</span>
-                <span><strong>AI specialists</strong> for LLM integration</span>
-              </li>
-              <li class="flex items-start">
-                <span class="mr-3">→</span>
-                <span><strong>Product coaches</strong> for process design</span>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 class="text-xl font-bold mb-4 text-base-content">Engagement Models</h3>
-            <p class="text-base-content/70 mb-6">
-              Choose what fits your constraints:
-            </p>
-            <ul class="space-y-3 text-base-content/80">
-              <li class="flex items-start">
-                <span class="mr-3">→</span>
-                <span><strong>Embedded</strong> — Squad works in your office/timezone</span>
-              </li>
-              <li class="flex items-start">
-                <span class="mr-3">→</span>
-                <span><strong>Remote</strong> — Async-first, flexible async overlap</span>
-              </li>
-              <li class="flex items-start">
-                <span class="mr-3">→</span>
-                <span><strong>Hybrid</strong> — Key people co-located, rest remote</span>
-              </li>
-              <li class="flex items-start">
-                <span class="mr-3">→</span>
-                <span><strong>Part-time</strong> — We flex hours based on your needs</span>
-              </li>
-              <li class="flex items-start">
-                <span class="mr-3">→</span>
-                <span><strong>Full-time</strong> — Dedicated squad for sprint duration</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Pricing Drivers -->
-    <section class="px-6 py-20 max-w-6xl mx-auto">
-      <h2 class="text-4xl font-bold text-base-content mb-12 text-center">
-        What Shapes Your Investment
+  <!-- Flexibility Section -->
+  <section class="bg-base-200 px-6 py-20">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="text-4xl font-bold mb-12 text-center text-base-content">
+        Resources That Flex With You
       </h2>
 
       <div class="grid md:grid-cols-2 gap-12">
-        <div class="bg-base-200 border border-base-300 rounded-lg p-8">
-          <h3 class="text-xl font-bold text-base-content mb-4">Scope</h3>
+        <div>
+          <h3 class="text-xl font-bold mb-4 text-base-content">Team Composition</h3>
           <p class="text-base-content/70 mb-6">
-            What are we building?
+            We don't force a standard "squad." Depending on your project, we might allocate:
           </p>
-          <ul class="space-y-2 text-base-content/70">
-            <li>• Single feature vs. full SDLC overhaul</li>
-            <li>• Team size (5 engineers vs. 50)</li>
-            <li>• Technical complexity (legacy code vs. greenfield)</li>
-            <li>• Integration requirements</li>
+          <ul class="space-y-3 text-base-content/80">
+            <li class="flex items-start">
+              <span class="mr-3">→</span>
+              <span><strong>Full-stack engineers</strong> for end-to-end features</span>
+            </li>
+            <li class="flex items-start">
+              <span class="mr-3">→</span>
+              <span><strong>Architects</strong> for complex system design</span>
+            </li>
+            <li class="flex items-start">
+              <span class="mr-3">→</span>
+              <span><strong>DevOps/Infrastructure</strong> for deployment & scaling</span>
+            </li>
+            <li class="flex items-start">
+              <span class="mr-3">→</span>
+              <span><strong>AI specialists</strong> for LLM integration</span>
+            </li>
+            <li class="flex items-start">
+              <span class="mr-3">→</span>
+              <span><strong>Product coaches</strong> for process design</span>
+            </li>
           </ul>
         </div>
 
-        <div class="bg-base-200 border border-base-300 rounded-lg p-8">
-          <h3 class="text-xl font-bold text-base-content mb-4">Timeline</h3>
+        <div>
+          <h3 class="text-xl font-bold mb-4 text-base-content">Engagement Models</h3>
           <p class="text-base-content/70 mb-6">
-            How fast do you need results?
+            Choose what fits your constraints:
           </p>
-          <ul class="space-y-2 text-base-content/70">
-            <li>• 4-week sprint vs. 12-week program</li>
-            <li>• Intensity (half-time vs. full-time)</li>
-            <li>• Ramp-up and knowledge transfer overlap</li>
-          </ul>
-        </div>
-
-        <div class="bg-base-200 border border-base-300 rounded-lg p-8">
-          <h3 class="text-xl font-bold text-base-content mb-4">Team Composition</h3>
-          <p class="text-base-content/70 mb-6">
-            Who do you need?
-          </p>
-          <ul class="space-y-2 text-base-content/70">
-            <li>• Senior architect vs. full-stack team</li>
-            <li>• Specialized expertise (DevOps, AI, etc.)</li>
-            <li>• Seniority levels</li>
-          </ul>
-        </div>
-
-        <div class="bg-base-200 border border-base-300 rounded-lg p-8">
-          <h3 class="text-xl font-bold text-base-content mb-4">Support Model</h3>
-          <p class="text-base-content/70 mb-6">
-            What happens after?
-          </p>
-          <ul class="space-y-2 text-base-content/70">
-            <li>• Standalone engagement vs. + mentoring</li>
-            <li>• Hand-off readiness (docs, training)</li>
-            <li>• Ongoing optimization retainer</li>
+          <ul class="space-y-3 text-base-content/80">
+            <li class="flex items-start">
+              <span class="mr-3">→</span>
+              <span><strong>Embedded</strong> — Squad works in your office/timezone</span>
+            </li>
+            <li class="flex items-start">
+              <span class="mr-3">→</span>
+              <span><strong>Remote</strong> — Async-first, flexible async overlap</span>
+            </li>
+            <li class="flex items-start">
+              <span class="mr-3">→</span>
+              <span><strong>Hybrid</strong> — Key people co-located, rest remote</span>
+            </li>
+            <li class="flex items-start">
+              <span class="mr-3">→</span>
+              <span><strong>Part-time</strong> — We flex hours based on your needs</span>
+            </li>
+            <li class="flex items-start">
+              <span class="mr-3">→</span>
+              <span><strong>Full-time</strong> — Dedicated squad for sprint duration</span>
+            </li>
           </ul>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- FAQ -->
-    <section class="bg-base-200 px-6 py-20">
-      <div class="max-w-4xl mx-auto">
-        <h2 class="text-4xl font-bold text-base-content mb-12 text-center">
-          Frequently Asked
-        </h2>
+  <!-- Pricing Drivers -->
+  <section class="px-6 py-20 max-w-6xl mx-auto">
+    <h2 class="text-4xl font-bold text-base-content mb-12 text-center">
+      What Shapes Your Investment
+    </h2>
 
-        <div class="space-y-6">
-          <details class="bg-base-100 border border-base-300 rounded-lg p-6 cursor-pointer hover:shadow-md transition group">
-            <summary class="font-bold text-base-content flex items-center justify-between">
-              Is this replacing our team?
-              <span class="group-open:rotate-180 transition">→</span>
-            </summary>
-            <p class="text-base-content/70 mt-4">
-              No. We teach your team to master modern practices. The goal is independence—after our engagement, you own the process. We're not a permanent dependency.
-            </p>
-          </details>
-
-          <details class="bg-base-100 border border-base-300 rounded-lg p-6 cursor-pointer hover:shadow-md transition group">
-            <summary class="font-bold text-base-content flex items-center justify-between">
-              Can we scale the team up or down mid-project?
-              <span class="group-open:rotate-180 transition">→</span>
-            </summary>
-            <p class="text-base-content/70 mt-4">
-              Yes. We adjust staffing based on actual needs. If you discover scope changes or hit a roadblock, we flex. There's no penalty for rightsizing.
-            </p>
-          </details>
-
-          <details class="bg-base-100 border border-base-300 rounded-lg p-6 cursor-pointer hover:shadow-md transition group">
-            <summary class="font-bold text-base-content flex items-center justify-between">
-              What if we need ongoing support?
-              <span class="group-open:rotate-180 transition">→</span>
-            </summary>
-            <p class="text-base-content/70 mt-4">
-              Add our Mentoring tier ($5K–$8K/month). Your lead engineer stays involved for strategy, reviews, and pattern refinement. Very different from a fractional CTO retainer—this is coaching, not substitution.
-            </p>
-          </details>
-
-          <details class="bg-base-100 border border-base-300 rounded-lg p-6 cursor-pointer hover:shadow-md transition group">
-            <summary class="font-bold text-base-content flex items-center justify-between">
-              Do you work remote?
-              <span class="group-open:rotate-180 transition">→</span>
-            </summary>
-            <p class="text-base-content/70 mt-4">
-              Yes. Full remote, embedded, hybrid—whatever works for you. We design engagement models around your constraints, not ours.
-            </p>
-          </details>
-
-          <details class="bg-base-100 border border-base-300 rounded-lg p-6 cursor-pointer hover:shadow-md transition group">
-            <summary class="font-bold text-base-content flex items-center justify-between">
-              What's included in knowledge transfer?
-              <span class="group-open:rotate-180 transition">→</span>
-            </summary>
-            <p class="text-base-content/70 mt-4">
-              Documentation of patterns, code walkthroughs, team training sessions, and overlap time with your engineers. You'll have ownership + understanding by the end, not just handed-off code.
-            </p>
-          </details>
-
-          <details class="bg-base-100 border border-base-300 rounded-lg p-6 cursor-pointer hover:shadow-md transition group">
-            <summary class="font-bold text-base-content flex items-center justify-between">
-              How is this different from hiring a Fractional CTO?
-              <span class="group-open:rotate-180 transition">→</span>
-            </summary>
-            <p class="text-base-content/70 mt-4">
-              Fractional CTOs ($5K–$10K/month) lead your tech indefinitely. You stay dependent. TremTec Implementation ($25K–$75K upfront, 4–8 weeks) teaches your team sustainable practices, then you operate independently. If you want ongoing support, add Mentoring—but your team is steering, not us.
-            </p>
-          </details>
-        </div>
-      </div>
-    </section>
-
-    <!-- CTA -->
-    <section class="bg-base-200 px-6 py-20" id="contact">
-      <div class="max-w-4xl mx-auto text-center">
-        <h2 class="text-4xl font-bold mb-6 text-base-content">
-          Let's Talk About Your Project
-        </h2>
-        <p class="text-lg text-base-content/70 mb-8 max-w-2xl mx-auto">
-          Every project is different. We'll listen to your constraints, scope, and timeline—then propose a flexible staffing model that actually fits.
+    <div class="grid md:grid-cols-2 gap-12">
+      <div class="bg-base-200 border border-base-300 rounded-lg p-8">
+        <h3 class="text-xl font-bold text-base-content mb-4">Scope</h3>
+        <p class="text-base-content/70 mb-6">
+          What are we building?
         </p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <a href="mailto:hello@tremtec.com?subject=Inquiry%20about%20services" 
-             class="btn btn-primary font-bold">
-            Book a 30-min call
-          </a>
-          <a href="#" 
-             class="btn btn-outline">
-            See case studies
-          </a>
-        </div>
-        <p class="text-sm text-base-content/60 mt-6">
-          Or email <strong>hello@tremtec.com</strong> with your project details.
-        </p>
+        <ul class="space-y-2 text-base-content/70">
+          <li>• Single feature vs. full SDLC overhaul</li>
+          <li>• Team size (5 engineers vs. 50)</li>
+          <li>• Technical complexity (legacy code vs. greenfield)</li>
+          <li>• Integration requirements</li>
+        </ul>
       </div>
-    </section>
 
-    <!-- Comparison Banner -->
-    <section class="bg-base-200 px-6 py-16 border-t border-base-300">
-      <div class="max-w-6xl mx-auto">
-        <h3 class="text-2xl font-bold text-base-content mb-8 text-center">
-          Why Teams Choose TremTec
-        </h3>
-        <div class="grid md:grid-cols-4 gap-6">
-          <div class="text-center">
-            <p class="text-3xl font-bold text-primary mb-2">40%</p>
-            <p class="text-sm text-base-content/70">Average velocity gain in first month</p>
-          </div>
-          <div class="text-center">
-            <p class="text-3xl font-bold text-primary mb-2">0</p>
-            <p class="text-sm text-base-content/70">Monthly retainers after engagement</p>
-          </div>
-          <div class="text-center">
-            <p class="text-3xl font-bold text-primary mb-2">1 week</p>
-            <p class="text-sm text-base-content/70">Average ramp-up for new hires</p>
-          </div>
-          <div class="text-center">
-            <p class="text-3xl font-bold text-primary mb-2">100%</p>
-            <p class="text-sm text-base-content/70">Knowledge ownership by your team</p>
-          </div>
-        </div>
+      <div class="bg-base-200 border border-base-300 rounded-lg p-8">
+        <h3 class="text-xl font-bold text-base-content mb-4">Timeline</h3>
+        <p class="text-base-content/70 mb-6">
+          How fast do you need results?
+        </p>
+        <ul class="space-y-2 text-base-content/70">
+          <li>• 4-week sprint vs. 12-week program</li>
+          <li>• Intensity (half-time vs. full-time)</li>
+          <li>• Ramp-up and knowledge transfer overlap</li>
+        </ul>
       </div>
-    </section>
-  </main>
+
+      <div class="bg-base-200 border border-base-300 rounded-lg p-8">
+        <h3 class="text-xl font-bold text-base-content mb-4">Team Composition</h3>
+        <p class="text-base-content/70 mb-6">
+          Who do you need?
+        </p>
+        <ul class="space-y-2 text-base-content/70">
+          <li>• Senior architect vs. full-stack team</li>
+          <li>• Specialized expertise (DevOps, AI, etc.)</li>
+          <li>• Seniority levels</li>
+        </ul>
+      </div>
+
+      <div class="bg-base-200 border border-base-300 rounded-lg p-8">
+        <h3 class="text-xl font-bold text-base-content mb-4">Support Model</h3>
+        <p class="text-base-content/70 mb-6">
+          What happens after?
+        </p>
+        <ul class="space-y-2 text-base-content/70">
+          <li>• Standalone engagement vs. + mentoring</li>
+          <li>• Hand-off readiness (docs, training)</li>
+          <li>• Ongoing optimization retainer</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="bg-base-200 px-6 py-20" id="contact">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="text-4xl font-bold mb-6 text-base-content">
+        Let's Talk About Your Project
+      </h2>
+      <p class="text-lg text-base-content/70 mb-8 max-w-2xl mx-auto">
+        Every project is different. We'll listen to your constraints, scope, and timeline—then propose a flexible staffing model that actually fits.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="mailto:hello@tremtec.com?subject=Inquiry%20about%20services" 
+            class="btn btn-primary font-bold">
+          Book a 30-min call
+        </a>
+        <a href="#" 
+            class="btn btn-outline">
+          See case studies
+        </a>
+      </div>
+      <p class="text-sm text-base-content/60 mt-6">
+        Or email <strong>hello@tremtec.com</strong> with your project details.
+      </p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="bg-base-200 px-6 py-20">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-4xl font-bold text-base-content mb-12 text-center">
+        Frequently Asked
+      </h2>
+
+      <div class="space-y-6">
+        <details class="bg-base-100 border border-base-300 rounded-lg p-6 cursor-pointer hover:shadow-md transition group">
+          <summary class="font-bold text-base-content flex items-center justify-between">
+            Is this replacing our team?
+            <span class="group-open:rotate-180 transition">→</span>
+          </summary>
+          <p class="text-base-content/70 mt-4">
+            No. We teach your team to master modern practices. The goal is independence—after our engagement, you own the process. We're not a permanent dependency.
+          </p>
+        </details>
+
+        <details class="bg-base-100 border border-base-300 rounded-lg p-6 cursor-pointer hover:shadow-md transition group">
+          <summary class="font-bold text-base-content flex items-center justify-between">
+            Can we scale the team up or down mid-project?
+            <span class="group-open:rotate-180 transition">→</span>
+          </summary>
+          <p class="text-base-content/70 mt-4">
+            Yes. We adjust staffing based on actual needs. If you discover scope changes or hit a roadblock, we flex. There's no penalty for rightsizing.
+          </p>
+        </details>
+
+        <details class="bg-base-100 border border-base-300 rounded-lg p-6 cursor-pointer hover:shadow-md transition group">
+          <summary class="font-bold text-base-content flex items-center justify-between">
+            What if we need ongoing support?
+            <span class="group-open:rotate-180 transition">→</span>
+          </summary>
+          <p class="text-base-content/70 mt-4">
+            Add our Mentoring tier ($5K–$8K/month). Your lead engineer stays involved for strategy, reviews, and pattern refinement. Very different from a fractional CTO retainer—this is coaching, not substitution.
+          </p>
+        </details>
+
+        <details class="bg-base-100 border border-base-300 rounded-lg p-6 cursor-pointer hover:shadow-md transition group">
+          <summary class="font-bold text-base-content flex items-center justify-between">
+            Do you work remote?
+            <span class="group-open:rotate-180 transition">→</span>
+          </summary>
+          <p class="text-base-content/70 mt-4">
+            Yes. Full remote, embedded, hybrid—whatever works for you. We design engagement models around your constraints, not ours.
+          </p>
+        </details>
+
+        <details class="bg-base-100 border border-base-300 rounded-lg p-6 cursor-pointer hover:shadow-md transition group">
+          <summary class="font-bold text-base-content flex items-center justify-between">
+            What's included in knowledge transfer?
+            <span class="group-open:rotate-180 transition">→</span>
+          </summary>
+          <p class="text-base-content/70 mt-4">
+            Documentation of patterns, code walkthroughs, team training sessions, and overlap time with your engineers. You'll have ownership + understanding by the end, not just handed-off code.
+          </p>
+        </details>
+
+        <details class="bg-base-100 border border-base-300 rounded-lg p-6 cursor-pointer hover:shadow-md transition group">
+          <summary class="font-bold text-base-content flex items-center justify-between">
+            How is this different from hiring a Fractional CTO?
+            <span class="group-open:rotate-180 transition">→</span>
+          </summary>
+          <p class="text-base-content/70 mt-4">
+            Fractional CTOs ($5K–$10K/month) lead your tech indefinitely. You stay dependent. TremTec Implementation ($25K–$75K upfront, 4–8 weeks) teaches your team sustainable practices, then you operate independently. If you want ongoing support, add Mentoring—but your team is steering, not us.
+          </p>
+        </details>
+      </div>
+    </div>
+  </section>
 </Layout>

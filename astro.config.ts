@@ -1,20 +1,30 @@
 import cloudflare from "@astrojs/cloudflare";
-import solidJs from "@astrojs/solid-js";
 import tailwindcss from "@tailwindcss/vite";
-import { defineConfig } from "astro/config";
+import { defineConfig, fontProviders } from "astro/config";
 import icon from "astro-icon";
 
 // https://astro.build/config
 export default defineConfig({
   output: "server",
   adapter: cloudflare(),
-  integrations: [solidJs(), icon()],
+  integrations: [icon()],
+
+  fonts: [
+    {
+      name: "Inter",
+      cssVariable: "--font-inter",
+      provider: fontProviders.fontsource(),
+    },
+  ],
+
+  security: {
+    csp: true,
+  },
 
   vite: {
     plugins: [
-      // NOTE: type mismatch between tailwindcss and vite, but it works fine
-      // @ts-expect-error
-      tailwindcss({ optimize: true }),
+      // @ts-expect-error - type mismatch between tailwindcss and vite versions
+      tailwindcss(),
     ],
   },
 });

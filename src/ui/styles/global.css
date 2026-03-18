@@ -22,6 +22,10 @@
   }
 }
 
+html{
+  scrollbar-gutter: auto; 
+}
+
 body {
   font-family: "Inter", sans-serif;
 }

@@ -2,7 +2,9 @@
 import "~/ui/styles/global.css";
 
 import { routes } from "~/server/contants";
+import Footer from "~/ui/components/Footer.astro";
 import Navbar from "~/ui/components/Navbar.astro";
+import OpenGraph from "~/ui/components/OpenGraph.astro";
 import { landingContent } from "~/ui/contents/landing";
 
 const { navbar } = landingContent;
@@ -34,37 +36,7 @@ const {
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
 
-    <!-- SEO Meta Tags -->
-    <meta name="description" content={description} />
-
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:image" content={image} />
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:title" content={title} />
-    <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content={image} />
-
-    <meta name="theme-color" content="#1a3a6e" />
-    <meta name="robots" content="index, follow" />
-    <link rel="canonical" href={Astro.url.href} />
-
-    <!-- Non-blocking Google Fonts loading -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      id="google-fonts"
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-      media="print"
-    />
-    <script is:inline>
-      document.getElementById("google-fonts").media = "all";
-    </script>
+    <OpenGraph title={title} description={description} image={image} />
 
     <title>{title}</title>
   </head>
@@ -74,11 +46,18 @@ const {
       <input id="mobile-drawer" type="checkbox" class="drawer-toggle" />
 
       <div class="drawer-content flex flex-col min-h-screen">
-        {!hideNavbar && <Navbar />}
+        {hideNavbar 
+          ? <slot />
+          : (
+            <Navbar />
 
-        <div class="w-full">
-          <slot />
-        </div>
+            <!-- Content -->
+            <div class="w-full flex-1 py-4 mt-20">
+              <slot />
+            </div>
+
+            <Footer />
+          )}
       </div>
 
       <div class="drawer-side z-50">
