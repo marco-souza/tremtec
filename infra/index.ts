@@ -1,7 +1,5 @@
 import * as cloudflare from "@pulumi/cloudflare";
-import * as command from "@pulumi/command";
 import * as pulumi from "@pulumi/pulumi";
-import * as child_process from "node:child_process";
 import * as fs from "node:fs";
 import * as path from "node:path";
 
@@ -85,19 +83,6 @@ function discoverWorkerModules(serverDir: string): Array<{
   return modules;
 }
 
-const gitCommitHash = child_process
-  .execSync("git rev-parse HEAD", { encoding: "utf-8" })
-  .trim();
-
-const buildCommand = pulumi.interpolate`bun run build`;
-const builder = new command.local.Command("tremtec-website-build", {
-  dir: absolutePath(".."),
-  create: buildCommand,
-  update: buildCommand,
-  environment: { NODE_ENV: "production" },
-  triggers: [gitCommitHash],
-});
-
 const worker = new cloudflare.Worker(`tremtec-${environment}`, {
   accountId,
   name: `tremtec-${environment}`,
@@ -178,7 +163,7 @@ const workerVersion = new cloudflare.WorkerVersion(
 
     modules: discoverWorkerModules(absolutePath("../dist/server")),
   },
-  { dependsOn: [worker, builder] },
+  { dependsOn: [worker] },
 );
 
 const workerDeployment = new cloudflare.WorkersDeployment(
