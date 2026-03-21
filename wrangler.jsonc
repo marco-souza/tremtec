@@ -1,6 +1,9 @@
 {
   "compatibility_date": "2026-01-23",
-  "compatibility_flags": ["global_fetch_strictly_public", "nodejs_compat"],
+  "compatibility_flags": [
+    "global_fetch_strictly_public",
+    "nodejs_compat"
+  ],
   "name": "tremtec",
   "main": "@astrojs/cloudflare/entrypoints/server",
   "assets": {
@@ -14,6 +17,12 @@
     {
       "binding": "SESSION",
       "id": "my-kv-id"
+    }
+  ],
+  "send_email": [
+    {
+      "name": "EMAIL",
+      "destination_address": "hello@tremtec.com"
     }
   ],
   "env": {
