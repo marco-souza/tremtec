@@ -8,4 +8,10 @@ export default defineConfig({
     environment: "jsdom",
     ui: true,
   },
+  resolve: {
+    alias: {
+      // Stub Cloudflare-specific modules for Node.js testing environment
+      "cloudflare:email": "/src/lib/__mocks__/cloudflare-email.ts",
+    },
+  },
 });

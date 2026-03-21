@@ -159,6 +159,11 @@ const workerVersion = new cloudflare.WorkerVersion(
         secretName: "google-secret",
         text: secrets.google.secret,
       },
+      {
+        type: "send_email",
+        name: "EMAIL",
+        destinationAddress: "hello@tremtec.com",
+      },
     ],
 
     modules: discoverWorkerModules(absolutePath("../dist/server")),
