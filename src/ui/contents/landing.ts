@@ -178,7 +178,7 @@ end`,
           { label: "About Us", href: "#about" },
           { label: "How We Work", href: "#methodology" },
           { label: "Blog", href: "/blog" },
-          { label: "Contact", href: "#contact" },
+          { label: "Contact", href: "/contact" },
         ],
       },
       {

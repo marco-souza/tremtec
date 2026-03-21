@@ -1,0 +1,262 @@
+---
+import Layout from "~/ui/components/layouts/Layout.astro";
+import { contactContent } from "~/ui/contents/contact";
+
+const { metadata, hero, form, trustSignals } = contactContent;
+---
+
+<Layout title={metadata.title} description={metadata.description}>
+  <div class="min-h-screen bg-gradient-to-br from-base-100 via-base-200 to-base-100">
+    <div class="container mx-auto px-4 py-16 md:py-24">
+      <!-- Hero Section -->
+      <div class="text-center mb-12">
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-base-content mb-6">
+          {hero.title}
+        </h1>
+        <p class="text-lg md:text-xl text-base-content/70 max-w-2xl mx-auto">
+          {hero.subtitle}
+        </p>
+      </div>
+
+      <!-- Contact Form Card -->
+      <div class="max-w-2xl mx-auto">
+        <div
+          class="card bg-base-100/60 backdrop-blur-xl border border-white/10 shadow-2xl overflow-hidden relative group"
+        >
+          <!-- Glow effect on hover -->
+          <div
+            class="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-secondary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+          >
+          </div>
+
+          <div class="card-body p-8 md:p-12 relative z-10">
+            <!-- Success Message -->
+            <div
+              id="success-message"
+              class="hidden alert alert-success mb-6"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span>{form.success}</span>
+            </div>
+
+            <!-- Error Message -->
+            <div
+              id="error-message"
+              class="hidden alert alert-error mb-6"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+              </svg>
+              <span>{form.error}</span>
+            </div>
+
+            <form id="contact-form" class="flex flex-col gap-6">
+              <!-- Full Name -->
+              <div class="form-control">
+                <label class="label" for="name">
+                  <span class="label-text font-medium">{form.fields.name.label}{form.fields.name.required && <span class="text-error"> *</span>}</span>
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  placeholder={form.fields.name.placeholder}
+                  class="input input-bordered w-full bg-base-100/50 border-white/20 focus:border-primary focus:ring-primary/20 transition-colors duration-300"
+                  required={form.fields.name.required}
+                  minlength="2"
+                  maxlength="100"
+                />
+              </div>
+
+              <!-- Email -->
+              <div class="form-control">
+                <label class="label" for="email">
+                  <span class="label-text font-medium">{form.fields.email.label}{form.fields.email.required && <span class="text-error"> *</span>}</span>
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder={form.fields.email.placeholder}
+                  class="input input-bordered w-full bg-base-100/50 border-white/20 focus:border-primary focus:ring-primary/20 transition-colors duration-300"
+                  required={form.fields.email.required}
+                  maxlength="100"
+                />
+              </div>
+
+              <!-- Company (Optional) -->
+              <div class="form-control">
+                <label class="label" for="company">
+                  <span class="label-text font-medium">{form.fields.company.label}</span>
+                </label>
+                <input
+                  type="text"
+                  id="company"
+                  name="company"
+                  placeholder={form.fields.company.placeholder}
+                  class="input input-bordered w-full bg-base-100/50 border-white/20 focus:border-primary focus:ring-primary/20 transition-colors duration-300"
+                  maxlength="100"
+                />
+              </div>
+
+              <!-- Service Interest -->
+              <div class="form-control">
+                <label class="label" for="service">
+                  <span class="label-text font-medium">{form.fields.service.label}{form.fields.service.required && <span class="text-error"> *</span>}</span>
+                </label>
+                <select
+                  id="service"
+                  name="service"
+                  class="select select-bordered w-full bg-base-100/50 border-white/20 focus:border-primary focus:ring-primary/20 transition-colors duration-300"
+                  required={form.fields.service.required}
+                >
+                  <option value="" disabled selected>{form.fields.service.placeholder}</option>
+                  {form.fields.service.options.map((option) => (
+                    <option value={option.value}>{option.label}</option>
+                  ))}
+                </select>
+              </div>
+
+              <!-- Message -->
+              <div class="form-control">
+                <label class="label" for="message">
+                  <span class="label-text font-medium">{form.fields.message.label}{form.fields.message.required && <span class="text-error"> *</span>}</span>
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  placeholder={form.fields.message.placeholder}
+                  class="textarea textarea-bordered w-full bg-base-100/50 border-white/20 focus:border-primary focus:ring-primary/20 transition-colors duration-300 min-h-[150px]"
+                  required={form.fields.message.required}
+                  minlength="10"
+                  maxlength="2000"
+                ></textarea>
+                <label class="label">
+                  <span class="label-text-alt text-base-content/50">{form.fields.message.hint}</span>
+                </label>
+              </div>
+
+              <!-- Submit Button -->
+              <button
+                type="submit"
+                id="submit-btn"
+                class="btn btn-primary w-full hover:scale-105 transition-transform duration-200 mt-2"
+              >
+                <span class="btn-text">{form.submit}</span>
+                <span class="btn-loading hidden loading loading-spinner"></span>
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Trust Signals - Static classes for Tailwind processing -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+          <!-- 24h Response -->
+          <div class="flex items-center gap-4 p-4 rounded-xl bg-base-100/40 backdrop-blur-sm border border-white/5">
+            <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <div>
+              <h3 class="font-semibold text-base-content">{trustSignals[0].title}</h3>
+              <p class="text-sm text-base-content/60">{trustSignals[0].description}</p>
+            </div>
+          </div>
+
+          <!-- No Obligation -->
+          <div class="flex items-center gap-4 p-4 rounded-xl bg-base-100/40 backdrop-blur-sm border border-white/5">
+            <div class="w-12 h-12 rounded-full bg-secondary/10 flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+              </svg>
+            </div>
+            <div>
+              <h3 class="font-semibold text-base-content">{trustSignals[1].title}</h3>
+              <p class="text-sm text-base-content/60">{trustSignals[1].description}</p>
+            </div>
+          </div>
+
+          <!-- Privacy Protected -->
+          <div class="flex items-center gap-4 p-4 rounded-xl bg-base-100/40 backdrop-blur-sm border border-white/5">
+            <div class="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+              </svg>
+            </div>
+            <div>
+              <h3 class="font-semibold text-base-content">{trustSignals[2].title}</h3>
+              <p class="text-sm text-base-content/60">{trustSignals[2].description}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+  const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
+  const btnText = submitBtn.querySelector('.btn-text') as HTMLSpanElement;
+  const btnLoading = submitBtn.querySelector('.btn-loading') as HTMLSpanElement;
+  const successMsg = document.getElementById('success-message') as HTMLDivElement;
+  const errorMsg = document.getElementById('error-message') as HTMLDivElement;
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    // Hide any previous messages
+    successMsg.classList.add('hidden');
+    errorMsg.classList.add('hidden');
+
+    // Show loading state
+    submitBtn.disabled = true;
+    btnText.classList.add('hidden');
+    btnLoading.classList.remove('hidden');
+
+    // Get form data
+    const formData = new FormData(form);
+    const data = {
+      name: formData.get('name') as string,
+      email: formData.get('email') as string,
+      company: formData.get('company') as string || undefined,
+      service: formData.get('service') as string,
+      message: formData.get('message') as string,
+    };
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        // Show success message
+        successMsg.classList.remove('hidden');
+        form.reset();
+        
+        // Scroll to success message
+        successMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } else {
+        throw new Error('Failed to submit form');
+      }
+    } catch (error) {
+      // Show error message
+      errorMsg.classList.remove('hidden');
+      
+      // Scroll to error message
+      errorMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } finally {
+      // Hide loading state
+      submitBtn.disabled = false;
+      btnText.classList.remove('hidden');
+      btnLoading.classList.add('hidden');
+    }
+  });
+</script>
