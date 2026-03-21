@@ -6,7 +6,7 @@ export default defineConfig({
   test: {
     globals: true,
     environment: "jsdom",
-    ui: true,
+    ui: false,
   },
   resolve: {
     alias: {
