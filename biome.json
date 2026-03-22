@@ -45,6 +45,22 @@
   },
   "overrides": [
     {
+      "includes": ["**/worker-configuration.d.ts"],
+      "linter": {
+        "rules": {
+          "recommended": false,
+          "a11y": "off",
+          "complexity": "off",
+          "correctness": "off",
+          "nursery": "off",
+          "performance": "off",
+          "security": "off",
+          "style": "off",
+          "suspicious": "off"
+        }
+      }
+    },
+    {
       "includes": ["**/*.svelte", "**/*.astro", "**/*.vue"],
       "linter": {
         "rules": {

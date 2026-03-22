@@ -3,7 +3,24 @@ declare namespace App {
 
   interface Locals {
     title: string;
-    // Add other properties you might use
     user: CurrentUser | undefined;
+  }
+}
+
+// Cloudflare Worker Bindings
+declare interface Bindings {
+  EMAIL?: {
+    send(message: { from: string; to: string; raw: Uint8Array }): Promise<void>;
+  };
+}
+
+// Cloudflare Email module declaration
+declare module "cloudflare:email" {
+  export class EmailMessage {
+    constructor(from: string, to: string, raw: Uint8Array);
+    setReplyTo(addr: string): void;
+    from: string;
+    to: string;
+    raw: Uint8Array;
   }
 }
