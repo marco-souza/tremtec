@@ -3,9 +3,6 @@ import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
 import Layout from "~/ui/components/layouts/Layout.astro";
 import { getCollection, render } from "astro:content";
 
-// Prerender blog posts as static pages
-export const prerender = true;
-
 export const getStaticPaths = (async () => {
   const posts = await getCollection("blog");
   return posts.map((post) => ({
