@@ -1,5 +1,5 @@
 {
-  "compatibility_date": "2026-01-23",
+  "compatibility_date": "2026-03-17",
   "compatibility_flags": [
     "global_fetch_strictly_public",
     "nodejs_compat"
@@ -11,7 +11,11 @@
     "binding": "ASSETS"
   },
   "observability": {
-    "enabled": true
+    "enabled": true,
+    "logs": {
+      "enabled": true,
+      "head_sampling_rate": 1
+    }
   },
   "kv_namespaces": [
     {
@@ -24,12 +28,5 @@
       "name": "EMAIL",
       "destination_address": "hello@tremtec.com"
     }
-  ],
-  "env": {
-    "development": {
-      "vars": {
-        "DEBUG": "astro:*"
-      }
-    }
-  }
+  ]
 }
