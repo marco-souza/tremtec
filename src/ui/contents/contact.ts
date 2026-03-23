@@ -1,4 +1,45 @@
-export const contactContent = {
+export interface TrustSignal {
+  icon: "clock" | "shield" | "lock";
+  title: string;
+  description: string;
+  color: "primary" | "secondary" | "accent";
+}
+
+export interface ContactContent {
+  metadata: {
+    title: string;
+    description: string;
+  };
+  hero: {
+    title: string;
+    subtitle: string;
+  };
+  form: {
+    fields: {
+      name: { label: string; placeholder: string; required: boolean };
+      email: { label: string; placeholder: string; required: boolean };
+      company: { label: string; placeholder: string; required?: boolean };
+      service: {
+        label: string;
+        placeholder: string;
+        required: boolean;
+        options: { value: string; label: string }[];
+      };
+      message: {
+        label: string;
+        placeholder: string;
+        required: boolean;
+        hint: string;
+      };
+    };
+    submit: string;
+    success: string;
+    error: string;
+  };
+  trustSignals: TrustSignal[];
+}
+
+export const contactContent: ContactContent = {
   metadata: {
     title: "Contact Us - TremTec",
     description:
@@ -54,16 +95,19 @@ export const contactContent = {
       icon: "clock",
       title: "24h Response",
       description: "We reply within one business day",
+      color: "primary",
     },
     {
       icon: "shield",
       title: "No Obligation",
       description: "Free consultation, no pressure",
+      color: "secondary",
     },
     {
       icon: "lock",
       title: "Privacy Protected",
       description: "Your information is safe with us",
+      color: "accent",
     },
   ],
 };

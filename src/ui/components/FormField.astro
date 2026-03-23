@@ -1,0 +1,105 @@
+---
+export interface Props {
+  name: string;
+  label: string;
+  type?: "text" | "email" | "textarea" | "select";
+  required?: boolean;
+  error?: string;
+  placeholder?: string;
+  value?: string;
+  options?: { value: string; label: string }[];
+  minlength?: number;
+  maxlength?: number;
+  hint?: string;
+}
+
+const {
+  name,
+  label,
+  type = "text",
+  required = false,
+  error,
+  placeholder = "",
+  value = "",
+  options = [],
+  minlength,
+  maxlength,
+  hint,
+} = Astro.props;
+
+const hasError = Boolean(error);
+---
+
+<div class="form-control">
+  <label class="label" for={name}>
+    <span class="label-text font-medium">
+      {label}{required && <span class="text-error"> *</span>}
+    </span>
+  </label>
+
+  {type === "textarea" ? (
+    <textarea
+      name={name}
+      id={name}
+      placeholder={placeholder}
+      value={value}
+      required={required}
+      minlength={minlength}
+      maxlength={maxlength}
+      class:list={[
+        "textarea textarea-bordered w-full bg-base-100/50 border-white/20 focus:border-primary focus:ring-primary/20 transition-colors duration-300 min-h-[150px]",
+        hasError && "textarea-error"
+      ]}
+      aria-invalid={hasError}
+      aria-describedby={hasError ? `${name}-error` : undefined}
+    />
+  ) : type === "select" ? (
+    <select
+      name={name}
+      id={name}
+      required={required}
+      class:list={[
+        "select select-bordered w-full bg-base-100 border-white/20 focus:border-primary focus:ring-primary/20 transition-colors duration-300 cursor-pointer",
+        hasError && "select-error"
+      ]}
+      aria-invalid={hasError}
+      aria-describedby={hasError ? `${name}-error` : undefined}
+    >
+      <option value="" disabled selected>{placeholder}</option>
+      {options.map((option) => (
+        <option value={option.value}>{option.label}</option>
+      ))}
+    </select>
+  ) : (
+    <input
+      type={type}
+      name={name}
+      id={name}
+      placeholder={placeholder}
+      value={value}
+      required={required}
+      minlength={minlength}
+      maxlength={maxlength}
+      class:list={[
+        "input input-bordered w-full bg-base-100/50 border-white/20 focus:border-primary focus:ring-primary/20 transition-colors duration-300",
+        hasError && "input-error"
+      ]}
+      aria-invalid={hasError}
+      aria-describedby={hasError ? `${name}-error` : undefined}
+    />
+  )}
+
+  {hint && !hasError && (
+    <label class="label">
+      <span class="label-text-alt text-base-content/50">{hint}</span>
+    </label>
+  )}
+
+  <div 
+    id={`${name}-error`} 
+    class:list={["text-error text-sm mt-1", !hasError && "hidden"]}
+    role="alert"
+  >
+    {error}
+  </div>
+</div>

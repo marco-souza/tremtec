@@ -56,14 +56,16 @@ describe("API server", () => {
 
   describe("POST /api/contact", () => {
     it("accepts POST requests at the endpoint", async () => {
-      const res = await client.api.contact.$post({
-        json: {
+      const res = await app.request("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams({
           name: "Test User",
           email: "test@example.com",
           service: "implementation",
           message:
             "This is a test message with sufficient length for validation.",
-        },
+        }),
       });
 
       // Should not be 404 (endpoint exists)
@@ -105,15 +107,17 @@ describe("API server", () => {
     });
 
     it("accepts valid form data structure", async () => {
-      const res = await client.api.contact.$post({
-        json: {
+      const res = await app.request("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams({
           name: "John Doe",
           email: "john@example.com",
           company: "Test Company",
           service: "implementation",
           message:
             "This is a valid test message with sufficient length to pass validation rules.",
-        },
+        }),
       });
 
       // Should either succeed (200) or fail due to missing Resend config (500)

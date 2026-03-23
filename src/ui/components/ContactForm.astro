@@ -1,0 +1,94 @@
+---
+import Button from "./Button.astro";
+import FormField from "./FormField.astro";
+
+export interface Props {
+  fields: {
+    name: { label: string; placeholder: string; required: boolean };
+    email: { label: string; placeholder: string; required: boolean };
+    company: { label: string; placeholder: string };
+    service: {
+      label: string;
+      placeholder: string;
+      required: boolean;
+      options: { value: string; label: string }[];
+    };
+    message: {
+      label: string;
+      placeholder: string;
+      required: boolean;
+      hint: string;
+    };
+  };
+  submit: string;
+  successMessage: string;
+  errorMessage: string;
+}
+
+const { fields, submit } = Astro.props;
+---
+
+<form
+  id="contact-form"
+  hx-post="/api/contact"
+  hx-target="#form-response"
+  hx-swap="innerHTML"
+  hx-indicator="#submit-btn"
+  hx-trigger="htmx:after-request"
+  onhtmx:after-request="if(event.detail.successful) { this.reset(); }"
+  class="flex flex-col gap-6"
+>
+  <!-- Form-level response area -->
+  <div id="form-response"></div>
+
+  <FormField
+    name="name"
+    label={fields.name.label}
+    type="text"
+    placeholder={fields.name.placeholder}
+    required={fields.name.required}
+    minlength={2}
+    maxlength={100}
+  />
+
+  <FormField
+    name="email"
+    label={fields.email.label}
+    type="email"
+    placeholder={fields.email.placeholder}
+    required={fields.email.required}
+    maxlength={100}
+  />
+
+  <FormField
+    name="company"
+    label={fields.company.label}
+    type="text"
+    placeholder={fields.company.placeholder}
+    maxlength={100}
+  />
+
+  <FormField
+    name="service"
+    label={fields.service.label}
+    type="select"
+    placeholder={fields.service.placeholder}
+    required={fields.service.required}
+    options={fields.service.options}
+  />
+
+  <FormField
+    name="message"
+    label={fields.message.label}
+    type="textarea"
+    placeholder={fields.message.placeholder}
+    required={fields.message.required}
+    hint={fields.message.hint}
+    minlength={10}
+    maxlength={2000}
+  />
+
+  <Button type="submit" id="submit-btn" variant="primary" class="w-full mt-2">
+    {submit}
+  </Button>
+</form>

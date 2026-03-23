@@ -1,0 +1,63 @@
+---
+export interface Props {
+  variant?: "primary" | "secondary" | "ghost";
+  type?: "submit" | "button" | "reset";
+  disabled?: boolean;
+  class?: string;
+  id?: string;
+}
+
+const {
+  variant = "primary",
+  type = "button",
+  disabled = false,
+  class: className = "",
+  id,
+} = Astro.props;
+---
+
+<button
+  type={type}
+  id={id}
+  disabled={disabled}
+  data-htmx-indicator
+  class:list={[
+    "btn",
+    variant === "primary" && "btn-primary",
+    variant === "secondary" && "btn-secondary",
+    variant === "ghost" && "btn-ghost",
+    "hover:scale-105",
+    "transition-transform",
+    "duration-200",
+    className
+  ]}
+>
+  <span class="btn-text"><slot /></span>
+  <span class="btn-spinner hidden loading loading-spinner"></span>
+</button>
+
+<script>
+  document.addEventListener('htmx:request-start', (e) => {
+    const target = e.target as HTMLElement;
+    const btn = target.closest('button[data-htmx-indicator]') as HTMLButtonElement | null;
+    if (btn && !btn.disabled) {
+      btn.disabled = true;
+      const text = btn.querySelector('.btn-text') as HTMLElement;
+      const spinner = btn.querySelector('.btn-spinner') as HTMLElement;
+      text?.classList.add('hidden');
+      spinner?.classList.remove('hidden');
+    }
+  });
+
+  document.addEventListener('htmx:request-end', (e) => {
+    const target = e.target as HTMLElement;
+    const btn = target.closest('button[data-htmx-indicator]') as HTMLButtonElement | null;
+    if (btn) {
+      btn.disabled = false;
+      const text = btn.querySelector('.btn-text') as HTMLElement;
+      const spinner = btn.querySelector('.btn-spinner') as HTMLElement;
+      text?.classList.remove('hidden');
+      spinner?.classList.add('hidden');
+    }
+  });
+</script>
