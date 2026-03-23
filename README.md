@@ -26,7 +26,7 @@ TremTec offers three core services:
 ```
 tremtec/
 ├── src/                    # Frontend & Backend Application
-│   ├── domain/             # Business logic (DDD pattern)
+│   ├── domain/             # Business entities & services (Clean Architecture)
 │   │   ├── auth/           # Authentication domain
 │   │   ├── user/           # User domain
 │   │   └── shared/         # Shared types & services
@@ -118,12 +118,18 @@ See [docs/agent_workflows.md](docs/agent_workflows.md) for detailed sequence dia
 
 ## 🏛️ Architecture Patterns
 
-### Domain-Driven Design (DDD)
+### Clean Architecture
 
-- `src/domain/` contains business logic
-- Types defined with Zod for runtime validation
-- Services encapsulate domain operations
-- Tests co-located with domain modules
+- **Domain Layer** (`src/domain/`): Pure entities and business rules
+  - Simple data structures (Zod schemas for validation)
+  - No framework dependencies
+  - Tests co-located with modules
+- **Service Layer** (`src/domain/*/service.ts`): Use cases and business logic
+  - Encapsulates operations on entities
+  - Stateless functions, no HTTP/DB dependencies (via injection)
+- **Controller Layer** (`src/server/`): HTTP handlers
+  - Routes and request/response handling
+  - Delegates all business logic to services
 
 ### Full-Stack TypeScript
 
@@ -165,11 +171,12 @@ Features:
 
 ### Adding Features
 
-1. Start with domain layer (`src/domain/`)
-2. Add server routes (`src/server/`)
-3. Create UI components (`src/ui/`)
-4. Add tests and run `bun run lint`
-5. Push to GitHub (auto-deploys)
+1. Start with domain entities (`src/domain/`)
+2. Add service logic (`src/domain/*/service.ts`)
+3. Add controller routes (`src/server/`)
+4. Create UI components (`src/ui/`)
+5. Add tests and run `bun run lint`
+6. Push to GitHub (auto-deploys)
 
 ### Documentation
 

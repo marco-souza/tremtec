@@ -29,13 +29,20 @@ The standard operating procedures for agents are defined in `.agents/rules`:
 
 ## 🏛️ Architecture & Structure
 
-### Domain-Driven Design (DDD)
+### Clean Architecture
 
-- **Domain Layer** (`src/domain/`): Business logic isolated from framework concerns
-  - Modules: `auth/`, `user/`, `shared/`
-  - Types defined with Zod for runtime safety
-  - Services encapsulate domain operations
-  - Tests co-located with domain modules
+Simplified layered architecture (no DDD boilerplate):
+
+- **Domain Layer** (`src/domain/*/schema.ts`): Entities and business rules
+  - Pure data structures with Zod validation
+  - No dependencies on frameworks or external services
+- **Service Layer** (`src/domain/*/service.ts`): Use cases and business logic
+  - Stateless functions that operate on entities
+  - Dependencies injected (no direct DB/HTTP calls)
+  - Tests co-located with services
+- **Controller Layer** (`src/server/`): HTTP handlers
+  - Routes, middleware, request/response handling
+  - Delegates to services, no business logic
 - **Server Layer** (`src/server/`): Hono backend
   - Routes, handlers, middleware
   - Request/response validation with Zod
@@ -53,7 +60,7 @@ The standard operating procedures for agents are defined in `.agents/rules`:
 
 ```
 src/
-├── domain/              # Business logic
+├── domain/              # Entities & services
 │   ├── auth/           # Authentication
 │   ├── user/           # User management
 │   └── shared/         # Shared types/constants
@@ -177,21 +184,21 @@ bun run pulumi up --stack staging # Deploy to staging
 ### When Starting a Task
 
 1. **Read the PRD**: Understand what, why, and success criteria
-2. **Review Architecture**: Check `AGENTS.md` and domain layer patterns
+2. **Review Architecture**: Check `AGENTS.md` and service layer patterns
 3. **Plan Implementation**: Tech lead reviews design before coding
 4. **Write Tests**: Test-first for domain logic
 5. **Implement**: Follow code style conventions
 6. **Lint & Test**: `bun run lint` then `bun run test`
 7. **Commit & Push**: Git push triggers CI/CD deployment
 
-### When Adding New Domains/Features
+### When Adding New Features
 
 1. Create directory in `src/domain/feature-name/`
-2. Define types with Zod schemas
-3. Implement services with business logic
-4. Add server routes in `src/server/router.ts`
+2. Define entity schemas (`schema.ts`) with Zod
+3. Implement service logic (`service.ts`) with use cases
+4. Add controller routes in `src/server/router.ts`
 5. Create UI components in `src/ui/`
-6. Add tests for domain layer
+6. Add tests for service layer
 7. Update AGENTS.md if establishing new patterns
 
 ### Before Committing
@@ -199,7 +206,7 @@ bun run pulumi up --stack staging # Deploy to staging
 - [ ] `bun run lint` passes (Biome + Astro check)
 - [ ] `bun run test` passes (all tests green)
 - [ ] TypeScript strict mode: no `any` types
-- [ ] New domains documented in code comments
+- [ ] New services documented in code comments
 - [ ] Updated AGENTS.md if new patterns established
 
 ## 🔗 Related Documentation
