@@ -1,12 +1,12 @@
 ---
 name: testing
-description: Vitest unit testing with Solid Testing Library — write tests for domain services and SolidJS components.
+description: Vitest unit testing — write tests for domain services and Astro components.
 ---
 
 ## What I do
 
 - Run unit tests for domain services (pure business logic)
-- Write component tests for SolidJS UI elements
+- Write tests for Astro components
 - Mock external dependencies (DB, HTTP, modules)
 - Verify test coverage and pass/fail status
 - Provide an interactive UI dashboard for test exploration
@@ -16,7 +16,7 @@ description: Vitest unit testing with Solid Testing Library — write tests for 
 Use this skill when:
 
 - Writing unit tests for domain services in `src/domain/*/service.ts`
-- Writing component tests for SolidJS components in `src/ui/`
+- Writing tests for Astro components in `src/ui/components/`
 - Running the test suite during development or CI
 - Debugging test failures with the Vitest UI
 - Mocking modules or functions for isolated testing
@@ -37,8 +37,8 @@ Test files are co-located with source files using `.test.ts` suffix:
 ```
 src/domain/auth/service.ts
 src/domain/auth/service.test.ts    ← unit test
-src/ui/Counter.tsx
-src/ui/Counter.test.tsx           ← component test
+src/ui/components/Button.astro
+src/ui/components/Button.test.ts   ← component test
 ```
 
 ## Vitest API
@@ -62,29 +62,6 @@ describe("UserService", () => {
     );
   });
 });
-```
-
-## Solid Testing Library
-
-For SolidJS component tests, use Solid Testing Library:
-
-```typescript
-import { render, screen, fireEvent } from '@solidjs/testing-library'
-import { describe, it, expect } from 'vitest'
-import { Counter } from './Counter'
-
-describe('Counter', () => {
-  it('increments on click', async () => {
-    const { container } = render(() => <Counter initial={0} />)
-
-    expect(screen.getByText('0')).toBeTruthy()
-
-    const button = screen.getByRole('button', { name: /increment/i })
-    await fireEvent.click(button)
-
-    expect(screen.getByText('1')).toBeTruthy()
-  })
-})
 ```
 
 ## Common Queries
@@ -130,4 +107,3 @@ vi.useRealTimers();
 https://vitest.dev
 https://vitest.dev/api/expect
 https://vitest.dev/api/vi
-https://solidjs.com/docs/testing

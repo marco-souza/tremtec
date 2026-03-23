@@ -1,12 +1,12 @@
 ---
 name: astro
-description: Astro v6 web framework — SSR pages, SolidJS islands, Cloudflare adapter, and page routing.
+description: Astro v6 web framework — SSR pages, HTMX, Cloudflare adapter, and page routing.
 ---
 
 ## What I do
 
 - Build server-rendered pages with `.astro` files
-- Compose SolidJS interactive islands within static/server content
+- Compose HTMX-powered interactive components within static/server content
 - Configure SSR with Cloudflare Workers adapter
 - Handle routing via file-based page conventions
 - Run type checking and build validation
@@ -17,7 +17,7 @@ Use this skill when:
 
 - Creating or modifying pages in `src/pages/`
 - Configuring `astro.config.ts` (SSR, adapters, integrations)
-- Adding SolidJS components as interactive islands
+- Adding HTMX-powered interactive components
 - Understanding Astro's rendering modes (static, SSR, hybrid)
 - Running dev server, build, or type checks
 
@@ -28,7 +28,7 @@ bun run dev              # Start Astro dev server (localhost:4321)
 bun run build            # Build for production
 astro preview            # Preview production build locally
 astro check             # Run TypeScript type checking
-astro add <integration> # Add an integration (solid, tailwind, etc.)
+astro add <integration> # Add an integration (tailwind, etc.)
 ```
 
 ## File Conventions
@@ -37,7 +37,7 @@ astro add <integration> # Add an integration (solid, tailwind, etc.)
 src/
 ├── pages/               # File-based routing (index.astro, about.astro, etc.)
 │   └── [slug].astro    # Dynamic route with params
-├── ui/                  # SolidJS components (islands)
+├── ui/                  # Astro components and HTMX elements
 ├── layouts/             # Shared page layouts
 └── components/           # Astro components (.astro files)
 ```
@@ -62,18 +62,24 @@ export default defineConfig({
 });
 ```
 
-## Islands Architecture
+## HTMX Integration
 
-SolidJS components are "islands" — interactive components hydrated client-side within static Astro pages.
+HTMX is used for progressive enhancement of forms and interactive elements.
 
 ```astro
----
-import Counter from '../ui/Counter.tsx'
----
-<Counter client:load />
+<form hx-post="/api/contact" hx-target="#form-response" hx-swap="innerHTML">
+  <input name="email" type="email" />
+  <button type="submit">Send</button>
+</form>
+<div id="form-response"></div>
 ```
 
-`client:load` hydrates immediately. Use `client:idle` for deferred hydration.
+HTMX attributes:
+
+- `hx-post`, `hx-get`, `hx-put`, `hx-delete` — HTTP method
+- `hx-target` — CSS selector for target element
+- `hx-swap` — swap strategy (innerHTML, outerHTML, etc.)
+- `hx-indicator` — element to show during request
 
 ## Project Page Routing
 
@@ -88,3 +94,4 @@ Pages in `src/pages/` map to URL routes:
 https://astro.build
 https://docs.astro.build/en/guides/server-side-rendering/
 https://developers.cloudflare.com/pages/framework-guides/deploy-an-astro-site/
+https://htmx.org/docs/
