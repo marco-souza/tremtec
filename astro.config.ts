@@ -1,4 +1,5 @@
 import cloudflare from "@astrojs/cloudflare";
+import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig, fontProviders } from "astro/config";
 import icon from "astro-icon";
@@ -6,14 +7,16 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const site = process.env.BASE_URL || "https://tremtec.com";
 
 // https://astro.build/config
 export default defineConfig({
+  site,
   adapter: cloudflare({
     prerenderEnvironment: "node",
   }),
 
-  integrations: [icon()],
+  integrations: [sitemap(), icon()],
 
   fonts: [
     {
