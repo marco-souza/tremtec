@@ -205,7 +205,6 @@ if (isProd) {
     {
       zoneId,
       accountId,
-      environment,
       service: worker.name,
       hostname: `www.${domain}`,
     },
