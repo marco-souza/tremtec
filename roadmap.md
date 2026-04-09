@@ -1,10 +1,12 @@
 # Roadmap
 
+- [ ] enh: publish posts made in MacOS
+
 - [ ] ref: move private pages under /admin
-- [ ] debt: set sitemap environment domain during pulumi deployment
-- [ ] fea: add a cleaner UI/UX
-- [ ] enh: change color scheme to match new copy strategy
 - [ ] ref: clean up project removing boilerplate info
+- [ ] ref: revamp UI/UX and color scheme to match branding
+
+- [ ] debt: set sitemap environment domain during pulumi deployment
 
 - [ ] fea: contact form
   - [ ] fea: website
@@ -31,4 +33,7 @@
 
 ## Done
 
+### 2026-04-09
+
 - [x] sitemap support
+- [x] enh: set up pulumi S3 bucket
