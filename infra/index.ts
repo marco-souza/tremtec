@@ -94,12 +94,12 @@ const worker = new cloudflare.Worker(`tremtec-${environment}`, {
   tags: ["tremtec", environment],
 
   observability: {
-    enabled: true,
-    headSamplingRate: 1.0,
-
+    enabled: false,
+    headSamplingRate: 1,
     logs: {
       enabled: true,
-      headSamplingRate: 1.0,
+      headSamplingRate: 1,
+      invocationLogs: true,
     },
   },
 });
