@@ -24,7 +24,7 @@ const secrets = {
 const today = () => new Date().toISOString().split("T")[0];
 
 const absolutePath = (relativePath: string) =>
-  path.resolve(import.meta.dir, relativePath);
+  new URL(relativePath, import.meta.url).pathname;
 
 /**
  * Discover all .mjs module files from the Astro build output.

@@ -7,7 +7,7 @@ runtime:
     packagemanager: bun
 
 backend:
-  url: file://.
+  url: $PULUMI_BACKEND_URL
 
 config:
   pulumi:tags:
