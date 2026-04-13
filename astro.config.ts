@@ -41,9 +41,6 @@ export default defineConfig({
         debug: path.resolve(__dirname, "src/lib/debug-shim.js"),
       },
     },
-    plugins: [
-      // @ts-expect-error Reason: interface issue with tailwindcss plugin
-      tailwindcss(),
-    ],
+    plugins: [tailwindcss()],
   },
 });

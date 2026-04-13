@@ -24,7 +24,7 @@ const secrets = {
 const today = () => new Date().toISOString().split("T")[0];
 
 const absolutePath = (relativePath: string) =>
-  new URL(relativePath, import.meta.url).pathname;
+  path.resolve(import.meta.dir, relativePath);
 
 /**
  * Discover all .mjs module files from the Astro build output.
@@ -117,7 +117,7 @@ const workerVersion = new cloudflare.WorkerVersion(
     compatibilityFlags: ["global_fetch_strictly_public", "nodejs_compat"],
 
     assets: {
-      directory: absolutePath("../dist/client"),
+      directory: absolutePath("../dist/client/"),
       config: {
         runWorkerFirst: false,
       },
