@@ -14,6 +14,8 @@ This convergence isn't coincidental. It reveals something profound: **the Double
 
 <!-- more -->
 
+---
+
 ## The UX Double Diamond—A Timeless Foundation
 
 Before we talk about AI, let's revisit the original framework that started it all.
@@ -22,12 +24,12 @@ Before we talk about AI, let's revisit the original framework that started it al
 
 The Double Diamond consists of two diamonds, each with a divergent and convergent phase:
 
-**Diamond 1: Problem Space**
+#### Diamond 1: Problem Space
 
 - **DISCOVER** (Diverge): Understand rather than assume. Speak to users, gather observations, research broadly.
 - **DEFINE** (Converge): Synthesize insights into a clear problem statement.
 
-**Diamond 2: Solution Space**
+#### Diamond 2: Solution Space
 
 - **DEVELOP** (Diverge): Generate multiple solutions. Brainstorm, co-design, seek inspiration.
 - **DELIVER** (Converge): Test and refine. Build prototypes, validate, improve what works.
@@ -42,6 +44,8 @@ The genius of the Double Diamond lies in its structure:
 4. **User-centricity**: Every diamond starts with human needs and ends with human validation
 
 But here's the thing: this pattern isn't just for designers. It's how intelligent agents—human or artificial—solve problems.
+
+---
 
 ## The AI Autonomous Workflow
 
@@ -67,11 +71,20 @@ Based on research from Anthropic, OpenAI, and LangChain, autonomous AI workflows
 
 At the heart of every agentic system is a simple loop:
 
+```mermaid
+flowchart LR
+    A[User Request] --> B[Agent Plans]
+    B --> C[Executes Tools]
+    C --> D[Observes Results]
+    D -->|Iterates if Needed| B
+
+    style A fill:#e1f5ff,stroke:#0066cc,stroke-width:2px
+    style B fill:#fff3e0,stroke:#ff9800,stroke-width:2px
+    style C fill:#e8f5e9,stroke:#4caf50,stroke-width:2px
+    style D fill:#fce4ec,stroke:#e91e63,stroke-width:2px
 ```
-User Request → Agent Plans → Executes Tools → Observes Results
-                    ↑                            ↓
-                    └────── Iterates if Needed ←─┘
-```
+
+---
 
 ## The Hidden Connection—Why AI Agents Think Like Designers
 
@@ -89,16 +102,39 @@ Let's trace how a coding agent solves a bug:
 
 **The key difference**: AI agents do this at machine speed (seconds to minutes), with perfect recall, and continuously.
 
+---
+
 ## Introducing the AI Diamond Chain
 
 If the Double Diamond is the atomic unit of problem-solving, the **AI Diamond Chain** is what happens when you link these units together to tackle complex, multi-phase workflows—like the entire Software Development Lifecycle.
 
-```
-◆──────◆──────◆──────◆──────◆
-  ↘    ↗ ↘    ↗ ↘    ↗ ↘    ↗
-   D1───→D2───→D3───→D4───→Dn
-  ↗    ↘ ↗    ↘ ↗    ↘ ↗    ↘
-◆──────◆──────◆──────◆──────◆
+```mermaid
+graph TD
+    subgraph "Diamond 1"
+        D1[D1: Discover] --> D1C[Define]
+    end
+    subgraph "Diamond 2"
+        D2[D2: Discover] --> D2C[Define]
+    end
+    subgraph "Diamond 3"
+        D3[D3: Discover] --> D3C[Define]
+    end
+    subgraph "Diamond n"
+        Dn[Dn: Discover] --> DnC[Define]
+    end
+
+    D1C --> D2
+    D2C --> D3
+    D3C --> Dn
+
+    style D1 fill:#e1f5ff,stroke:#0066cc
+    style D1C fill:#e1f5ff,stroke:#0066cc
+    style D2 fill:#e8f5e9,stroke:#4caf50
+    style D2C fill:#e8f5e9,stroke:#4caf50
+    style D3 fill:#fff3e0,stroke:#ff9800
+    style D3C fill:#fff3e0,stroke:#ff9800
+    style Dn fill:#fce4ec,stroke:#e91e63
+    style DnC fill:#fce4ec,stroke:#e91e63
 ```
 
 Each diamond has:
@@ -115,14 +151,29 @@ Each diamond has:
 - **Parallel Chain**: Multiple diamonds run simultaneously
 - **Recursive Chain**: Output feeds back for refinement
 
+---
+
 ## The AI Diamond Chain Meets SDLC
 
 Traditional SDLC has well-defined phases, but they often suffer from context loss, handoff friction, and human bottlenecks. The Diamond Chain model solves this by making each phase a self-contained diamond with clear inputs, outputs, and quality gates.
 
 ### The Diamond Chain SDLC
 
-```
-Requirements Diamond → Architecture Diamond → Implementation Diamond → Quality Diamond → Deployment Diamond
+```mermaid
+flowchart LR
+    R[Requirements<br/>Diamond] --> A[Architecture<br/>Diamond] --> I[Implementation<br/>Diamond] --> Q[Quality<br/>Diamond] --> D[Deployment<br/>Diamond]
+
+    R -.->|Discover| R
+    A -.->|Discover| A
+    I -.->|Discover| I
+    Q -.->|Discover| Q
+    D -.->|Discover| D
+
+    style R fill:#e1f5ff,stroke:#0066cc,stroke-width:2px
+    style A fill:#e8f5e9,stroke:#4caf50,stroke-width:2px
+    style I fill:#fff3e0,stroke:#ff9800,stroke-width:2px
+    style Q fill:#fce4ec,stroke:#e91e63,stroke-width:2px
+    style D fill:#ede7f6,stroke:#7e57c2,stroke-width:2px
 ```
 
 **Requirements Diamond**: Discover user needs, competitive analysis → Define PRD, user stories, success criteria
@@ -145,6 +196,8 @@ Requirements Diamond → Architecture Diamond → Implementation Diamond → Qua
 
 **4. Objective Quality Gates**: Each diamond has clear exit criteria. You can't leave a phase without meeting them.
 
+---
+
 ## Implementation with OpenCode and Maestro
 
 Theory is great, but how do we actually build this? Enter **OpenCode** and **Maestro**.
@@ -159,8 +212,14 @@ Theory is great, but how do we actually build this? Enter **OpenCode** and **Mae
 
 Maestro's workflow is itself a Diamond Chain:
 
-```
-Discovery Phase → Synthesis Phase → Build Phase → Quality Gate Phase
+```mermaid
+flowchart LR
+    Discovery[Discovery<br/>Phase] --> Synthesis[Synthesis<br/>Phase] --> Build[Build<br/>Phase] --> Quality[Quality Gate<br/>Phase]
+
+    style Discovery fill:#e1f5ff,stroke:#0066cc,stroke-width:2px
+    style Synthesis fill:#e8f5e9,stroke:#4caf50,stroke-width:2px
+    style Build fill:#fff3e0,stroke:#ff9800,stroke-width:2px
+    style Quality fill:#fce4ec,stroke:#e91e63,stroke-width:2px
 ```
 
 **Discovery Phase**: Architect explores requirements, researches solutions, produces Discovery Report.
@@ -173,24 +232,24 @@ Discovery Phase → Synthesis Phase → Build Phase → Quality Gate Phase
 
 ### Getting Started
 
-**Step 1: Install the Tools**
+#### Step 1: Install the Tools
 
 ```bash
 # Install OpenCode (the agent runtime)
-go install github.com/opencode-ai/opencode@latest
+go install github.com/anomalyco/opencode@latest
 
 # Install Maestro (the orchestrator)
 go install github.com/tremtec/maestro@latest
 ```
 
-**Step 2: Initialize Your Project**
+#### Step 2: Initialize Your Project
 
 ```bash
 cd /path/to/your/project
 maestro init
 ```
 
-**Step 3: Configure Your Squad**
+#### Step 3: Configure Your Squad
 
 The `maestro init` command creates a squad configuration:
 
@@ -235,13 +294,13 @@ squad:
 
 ### Running a Diamond Chain
 
-**Basic Usage:**
+#### Basic Usage
 
 ```bash
 maestro run "Build a user authentication system with OAuth2 support"
 ```
 
-**What Happens Behind the Scenes:**
+#### What Happens Behind the Scenes
 
 1. **Discovery Phase**: Maestro prompts the Architect agent via OpenCode to explore requirements, research solutions, and produce a Discovery Report.
 
@@ -255,7 +314,7 @@ maestro run "Build a user authentication system with OAuth2 support"
 
 Maestro uses markdown files as its state database, creating a transparent, auditable chain:
 
-```
+```text
 .maestro/
 ├── discovery.md              # Discovery Phase output
 ├── spec-architecture.md      # Architecture spec
@@ -272,7 +331,7 @@ Maestro uses markdown files as its state database, creating a transparent, audit
 
 ### Advanced Diamond Chain Patterns
 
-**Parallel Diamond Execution:**
+#### Parallel Diamond Execution
 
 ```bash
 # Multiple independent features in parallel
@@ -282,7 +341,7 @@ maestro run --parallel \
   "Create email notification service"
 ```
 
-**Continuous Diamond Chain (CI/CD):**
+#### Continuous Diamond Chain (CI/CD)
 
 ```yaml
 # .github/workflows/diamond-chain.yml
@@ -305,7 +364,7 @@ jobs:
           maestro run "Auto-fix from CI: ${{ github.event.head_commit.message }}"
 ```
 
-**Human-in-the-Loop with Approval Gates:**
+#### Human-in-the-Loop with Approval Gates
 
 ```bash
 maestro run "Implement payment integration" \
@@ -317,7 +376,7 @@ maestro run "Implement payment integration" \
 
 Let's walk through building a **"Forgot Password" flow**:
 
-**Phase 1: Discovery (D1)** — 15 minutes
+#### Phase 1: Discovery (D1) — 15 minutes
 
 ```markdown
 # .maestro/discovery.md
@@ -353,7 +412,7 @@ Add forgot password functionality
 - No user enumeration (always return 200)
 ```
 
-**Phase 2: Synthesis (D2)** — 12 minutes
+#### Phase 2: Synthesis (D2) — 12 minutes
 
 ```markdown
 # .maestro/spec-backend.md
@@ -372,7 +431,7 @@ Add forgot password functionality
 - Validates token + password strength
 ```
 
-**Phase 3: Build (D3)** — 28 minutes
+#### Phase 3: Build (D3) — 28 minutes
 
 Files created by specialist agents:
 
@@ -384,7 +443,7 @@ Files created by specialist agents:
 - `src/server/auth/reset-password.ts`
 - `tests/integration/auth/password-reset.test.ts`
 
-**Phase 4: Quality Gate (D4)** — 8 minutes
+#### Phase 4: Quality Gate (D4) — 8 minutes
 
 ```markdown
 # .maestro/qa-report.md
@@ -406,23 +465,31 @@ Files created by specialist agents:
 ## Status: ✅ APPROVED FOR DEPLOYMENT
 ```
 
-**Final Result:**
+#### Final Result
 
+```mermaid
+gantt
+    title Diamond Chain Execution - Forgot Password Flow
+    dateFormat X
+    axisFormat %s min
+
+    Discovery       :active, 0, 15
+    Synthesis       :12, 27
+    Build           :27, 55
+    Quality Gate    :55, 63
 ```
-╔═══════════════════════════════════════════════════╗
-║           DIAMOND CHAIN COMPLETE                  ║
-╠═══════════════════════════════════════════════════╣
-║  Phase           Duration    Status               ║
-║  ────────────────────────────────────────         ║
-║  Discovery       15 min      ✅ PASS              ║
-║  Synthesis       12 min      ✅ PASS              ║
-║  Build           28 min      ✅ PASS              ║
-║  Quality Gate    8 min       ✅ PASS              ║
-║                                                   ║
-║  Total Time: 63 minutes                          ║
-║  Status: READY FOR DEPLOYMENT                    ║
-╚═══════════════════════════════════════════════════╝
-```
+
+| Phase        | Duration | Status  |
+| ------------ | -------- | ------- |
+| Discovery    | 15 min   | ✅ PASS |
+| Synthesis    | 12 min   | ✅ PASS |
+| Build        | 28 min   | ✅ PASS |
+| Quality Gate | 8 min    | ✅ PASS |
+
+**Total Time:** 63 minutes  
+**Status:** READY FOR DEPLOYMENT
+
+---
 
 ## The Future—Living Diamond Chains
 
@@ -444,6 +511,8 @@ As AI capabilities advance, Diamond Chains will evolve from discrete, request-tr
 
 The ultimate Diamond Chain learns from past iterations—which convergence criteria produce better outcomes, which prompts are most effective, how to optimize for different task types.
 
+---
+
 ## Key Takeaways
 
 1. **The Double Diamond is the atomic unit of problem-solving**—not just for designers, but for any intelligent agent.
@@ -460,13 +529,15 @@ The ultimate Diamond Chain learns from past iterations—which convergence crite
 
 7. **The future is continuous**—Diamond Chains will evolve from discrete workflows to always-on, self-improving processes.
 
+---
+
 ## Getting Started
 
 Ready to implement Diamond Chains in your workflow?
 
 ```bash
 # 1. Install the tools
-go install github.com/opencode-ai/opencode@latest
+go install github.com/anomalyco/opencode@latest
 go install github.com/tremtec/maestro@latest
 
 # 2. Initialize your first project
@@ -480,6 +551,8 @@ maestro run "Your feature description here"
 ls -la .maestro/
 ```
 
+---
+
 ## Conclusion
 
 The Double Diamond has served us well for twenty years because it captures something fundamental about how intelligent agents solve problems. Now, as AI agents become capable of autonomous execution, we have the opportunity to embed this pattern into our entire development workflow.
@@ -488,10 +561,12 @@ The AI Diamond Chain isn't just a theoretical framework—it's a practical archi
 
 The future of software development isn't humans vs. AI—it's humans **orchestrating** AI through proven patterns like the Diamond Chain. The tools are here. The pattern is proven. The only question is: what will you build?
 
+---
+
 ## Resources
 
 - [Maestro](https://github.com/tremtec/maestro)
-- [OpenCode](https://github.com/opencode-ai/opencode)
+- [OpenCode](https://github.com/anomalyco/opencode)
 - [Design Council Double Diamond](https://www.designcouncil.org.uk/our-resources/the-double-diamond/)
 - [Anthropic on Building Effective Agents](https://www.anthropic.com/research/building-effective-agents)
 - [LangChain on Agentic Workflows](https://blog.langchain.dev/what-is-an-agent/)

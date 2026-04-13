@@ -426,6 +426,36 @@ body {
   }
 
   /* ------------------------------------------
+     Diagram/Text Block Styling
+     ------------------------------------------ */
+  .prose pre[data-language="text"],
+  .prose pre:has(code[data-language="text"]) {
+    font-family: "JetBrains Mono", "Fira Code", "SF Mono", "Cascadia Code", Consolas, monospace;
+    font-size: 0.8125rem;
+    line-height: 1.6;
+    letter-spacing: 0;
+    background: linear-gradient(135deg, var(--color-base-200) 0%, color-mix(in oklch, var(--color-base-200) 90%, var(--color-base-300)) 100%);
+    border: 1px solid var(--color-base-300);
+    box-shadow: 
+      0 4px 6px -1px rgb(0 0 0 / 0.1),
+      0 2px 4px -2px rgb(0 0 0 / 0.1),
+      inset 0 1px 0 0 rgb(255 255 255 / 0.05);
+  }
+
+  .prose pre[data-language="text"]::before,
+  .prose pre:has(code[data-language="text"])::before {
+    background-color: var(--color-primary);
+    color: white;
+    opacity: 0.9;
+  }
+
+  .prose pre[data-language="text"] code,
+  .prose pre:has(code[data-language="text"]) code {
+    color: var(--color-base-content);
+    background: transparent;
+  }
+
+  /* ------------------------------------------
      Dark Mode Adjustments
      ------------------------------------------ */
   @media (prefers-color-scheme: dark) {
@@ -482,6 +512,22 @@ body {
 
     .prose pre[data-language]::before {
       background-color: oklch(28% 0.08 260);
+    }
+
+    /* Diagram blocks in dark mode */
+    .prose pre[data-language="text"],
+    .prose pre:has(code[data-language="text"]) {
+      background: linear-gradient(135deg, oklch(18% 0.05 260) 0%, oklch(15% 0.05 260) 100%);
+      border-color: oklch(30% 0.05 260);
+      box-shadow: 
+        0 4px 6px -1px rgb(0 0 0 / 0.4),
+        0 2px 4px -2px rgb(0 0 0 / 0.3),
+        inset 0 1px 0 0 rgb(255 255 255 / 0.03);
+    }
+
+    .prose pre[data-language="text"]::before,
+    .prose pre:has(code[data-language="text"])::before {
+      background-color: var(--color-primary);
     }
 
     .prose hr {

@@ -28,6 +28,7 @@
     "@tailwindcss/vite": "^4.2.2",
     "astro": "6.1.5",
     "astro-icon": "^1.1.5",
+    "astro-mermaid": "^2.0.1",
     "daisyui": "^5.5.19",
     "hono": "^4.12.12",
     "htmx.org": "^2.0.8",
