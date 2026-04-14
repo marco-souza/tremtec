@@ -30,7 +30,8 @@ const canonicalUrl = Astro.url.href;
 const absoluteImageUrl = image.startsWith("http")
   ? image
   : new URL(image, Astro.site).href;
-const logo = `${canonicalUrl}/images/logo.svg`;
+
+const logo = new URL("/images/logo.svg", Astro.url.origin).href;
 ---
 
 <!-- SEO Meta Tags -->

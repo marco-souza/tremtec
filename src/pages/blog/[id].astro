@@ -1,21 +1,22 @@
 ---
-import "~/ui/styles/prism.css";
 import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
 import Layout from "~/ui/components/layouts/Layout.astro";
 import { getCollection, render } from "astro:content";
 
-export const getStaticPaths = (async () => {
+export const getStaticPaths = async () => {
   const posts = await getCollection("blog");
   return posts.map((post) => ({
     params: { id: post.id },
     props: { post },
   }));
-}) satisfies GetStaticPaths;
+};
 
 type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 
 const { post } = Astro.props as Props;
 const { Content } = await render(post);
+
+console.log({ Content, post });
 
 const formatDate = (date?: Date) => {
   if (!date) return "";
@@ -34,19 +35,16 @@ const allPosts = (await getCollection("blog")).sort((a, b) => {
 const currentIndex = allPosts.findIndex((p) => p.id === post.id);
 const nextPost = allPosts[currentIndex + 1];
 const prevPost = allPosts[currentIndex - 1];
-
-const image = "/images/blog-og.jpg";
 ---
 
 <Layout
   title={`${post.data.title} - TremTec`}
   description={post.data.description}
   type="article"
-  image={image}
   author={post.data.author}
   publishedTime={post.data.date?.toISOString()}
   section={post.data.tags?.[0]}
-/>
+>
   <!-- Artile Header -->
   <section class="relative overflow-hidden bg-base-100 pt-12 pb-16">
     <div class="absolute inset-0 opacity-5">
