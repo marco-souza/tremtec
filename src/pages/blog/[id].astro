@@ -18,8 +18,6 @@ type Props = InferGetStaticPropsType<typeof getStaticPaths>;
 const { post } = Astro.props as Props;
 const { Content } = await render(post);
 
-console.log({ Content, post });
-
 const formatDate = (date?: Date) => {
   if (!date) return "";
   return date.toLocaleDateString("en-US", {
@@ -37,12 +35,15 @@ const allPosts = (await getCollection("blog")).sort((a, b) => {
 const currentIndex = allPosts.findIndex((p) => p.id === post.id);
 const nextPost = allPosts[currentIndex + 1];
 const prevPost = allPosts[currentIndex - 1];
+
+const image = new URL("/images/blog-og.webp", import.meta.url).href;
 ---
 
 <Layout
   title={`${post.data.title} - TremTec`}
   description={post.data.description}
   type="article"
+  image={image}
   author={post.data.author}
   publishedTime={post.data.date?.toISOString()}
   section={post.data.tags?.[0]}
