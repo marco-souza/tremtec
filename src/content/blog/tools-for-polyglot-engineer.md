@@ -6,7 +6,7 @@ author: "TremTec Team"
 tags: ["Developer Experience", "Tooling", "Productivity"]
 ---
 
-Every polyglot engineer pays a tax. It's not money—it's context.
+Every polyglot engineer pays a tax. It's not money - it's context.
 
 Switching from a Python FastAPI project to a Rust CLI to a Node.js frontend isn't just syntax. It's package managers, linters, formatters, runtime versions, editor configs, and mental models. The overhead piles up until you're spending more time managing your tools than writing code.
 
@@ -100,7 +100,7 @@ font-size = 13
 theme = "dark-matrix"
 ```
 
-The key insight: GPU acceleration isn't overkill—it's noticeable when you're staring at this screen for hours.
+The key insight: GPU acceleration isn't overkill - it's noticeable when you're staring at this screen for hours.
 
 ## mise
 
@@ -161,13 +161,13 @@ How does authentication work in this codebase?
 Add a rate limiting middleware to the user API.
 ```
 
-The agent mode (tap `Tab`) switches to read-only analysis—you get plans without execution.
+The agent mode (tap `Tab`) switches to read-only analysis - you get plans without execution.
 
 The key insight: AI coding agents work best when they understand your project's patterns. `/init` does that automatically.
 
 ## AI Compatibility
 
-Modern AI coding agents like opencode are designed to work seamlessly with terminal-native tools. This isn't accidental—it's by design.
+Modern AI coding agents like opencode are designed to work seamlessly with terminal-native tools. This isn't accidental - it's by design.
 
 ### How CLI Tools Enhance AI Agent Workflows
 
@@ -208,17 +208,18 @@ These combinations create powerful workflows:
    ```
 
 4. **Cloudflare + Pulumi + opencode**:
+
    ```
    # Agent can help write Pulumi infrastructure
    # Then deploy it with wrangler
    opencode "Add a Cloudflare KV namespace for user sessions"
    ```
 
-The key insight: AI agents aren't replacements for your toolchain—they're force multipliers that work best when your tools are modern, terminal-native, and well-configured.
+The key insight: AI agents aren't replacements for your toolchain - they're force multipliers that work best when your tools are modern, terminal-native, and well-configured.
 
 ## GPG
 
-Encrypting sensitive files—SSH keys, credentials, client data—with mathematical certainty.
+Encrypting sensitive files - SSH keys, credentials, client data - with mathematical certainty.
 
 ```bash
 # macOS
@@ -269,7 +270,7 @@ npm install -g wrangler
 cargo install wrangler
 ```
 
-Cloudflare Workers run in 300+ data centers worldwide. Your code executes closest to the user—not in `us-east-1`.
+Cloudflare Workers run in 300+ data centers worldwide. Your code executes closest to the user - not in `us-east-1`.
 
 ```bash
 # Login
@@ -295,7 +296,7 @@ The key insight: you don't need a server. You need compute at the edge.
 
 ## Pulumi
 
-Infrastructure as actual code—not YAML templates.
+Infrastructure as actual code - not YAML templates.
 
 ```bash
 # Install (macOS and Linux)
@@ -345,18 +346,16 @@ The key insight: infrastructure that uses the same language as your app is easie
 
 **Quick to Start**: Every tool on this list installs in under 2 minutes. No Dockerfiles, no init systems.
 
-**Cross-Platform**: macOS and Linux are first-class citizens. Your config travels—`~/.config/` syncs across machines via dotfiles.
+**Cross-Platform**: macOS and Linux are first-class citizens. Your config travels - `~/.config/` syncs across machines via dotfiles.
 
 **Terminal-First**: 100% keyboard-driven, works over SSH, zero rendering lag, no Electron bloat. Your hands never leave the keyboard.
 
 **Flexibility**: Switch between Python API, Rust CLI, and JS frontend without thinking about versions. Mise handles the switch automatically.
 
-**Continuous Learning**: None of these tools have a ceiling. You'll discover something new in neovim next year. That's the point—you're never done improving.
+**Continuous Learning**: None of these tools have a ceiling. You'll discover something new in neovim next year. That's the point - you're never done improving.
 
 **Deploy & Infrastructure**: Cloudflare handles deployment, Pulumi handles infrastructure-as-code. Together they replace Chef, Terraform, and most DevOps tooling with far less complexity.
 
 ---
 
 The best tools are the ones that disappear. You think about your code, not your setup.
-
-[Opencode GO]: https://opencode.ai/docs/go/
