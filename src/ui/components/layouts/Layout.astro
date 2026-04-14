@@ -13,6 +13,11 @@ interface Props {
   title?: string;
   description?: string;
   image?: string;
+  type?: "website" | "article";
+  author?: string;
+  publishedTime?: string;
+  updatedTime?: string;
+  section?: string;
   hideNavbar?: boolean;
 }
 
@@ -23,7 +28,12 @@ const isActive = (href: string) =>
 const {
   title = "TremTec",
   description = "TremTec Software Solutions",
-  image = "/images/og-image.jpg",
+  image = "/images/og-image.png",
+  type = "website",
+  author,
+  publishedTime,
+  updatedTime,
+  section,
   hideNavbar = false,
 } = Astro.props;
 ---
@@ -38,7 +48,16 @@ const {
     <link rel="sitemap" href="/sitemap-index.xml" />
     <link rel="alternate" type="application/rss+xml" title="TremTec Blog RSS Feed" href="/rss.xml" />
 
-    <OpenGraph title={title} description={description} image={image} />
+    <OpenGraph
+      title={title}
+      description={description}
+      image={image}
+      type={type}
+      author={author}
+      publishedTime={publishedTime}
+      updatedTime={updatedTime}
+      section={section}
+    />
 
     <title>{title}</title>
   </head>

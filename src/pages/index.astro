@@ -11,7 +11,10 @@ import Layout from "~/ui/components/layouts/Layout.astro";
 import { landingContent } from "~/ui/contents/landing";
 ---
 
-<Layout title={landingContent.metadata.title}>
+<Layout
+  title={landingContent.metadata.title}
+  description="Flexible engineering teams that scale with your project. Build trustworthy software faster with AI-driven development and expert teams."
+>
   <Hero />
   <TrustedBy />
   <Testimonials />

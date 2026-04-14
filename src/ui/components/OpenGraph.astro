@@ -4,16 +4,32 @@ interface Props {
   description?: string;
   image?: string;
   type?: string;
+  imageWidth?: number;
+  imageHeight?: number;
+  author?: string;
+  publishedTime?: string;
+  updatedTime?: string;
+  section?: string;
 }
 
 const {
   title = "TremTec",
   description = "TremTec Software Solutions",
-  image = "/images/og-image.jpg",
+  image = "/images/og-image.png",
   type = "website",
+  imageWidth = 1200,
+  imageHeight = 630,
+  author,
+  publishedTime,
+  updatedTime,
+  section,
 } = Astro.props;
 
+const siteName = "TremTec";
 const canonicalUrl = Astro.url.href;
+const absoluteImageUrl = image.startsWith("http")
+  ? image
+  : new URL(image, Astro.site).href;
 ---
 
 <!-- SEO Meta Tags -->
@@ -22,16 +38,35 @@ const canonicalUrl = Astro.url.href;
 <meta name="robots" content="index, follow" />
 <link rel="canonical" href={canonicalUrl} />
 
-<!-- Open Graph / Facebook -->
+<!-- Open Graph / Facebook (WhatsApp compatible) -->
 <meta property="og:type" content={type} />
 <meta property="og:url" content={canonicalUrl} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-<meta property="og:image" content={image} />
+<meta property="og:image" content={absoluteImageUrl} />
+<meta property="og:image:width" content={String(imageWidth)} />
+<meta property="og:image:height" content={String(imageHeight)} />
+<meta property="og:image:alt" content={description} />
+<meta property="og:locale" content="en_US" />
+<meta property="og:site_name" content={siteName} />
 
-<!-- Twitter -->
+{type === "article" && (
+  <>
+    <meta property="article:published_time" content={publishedTime} />
+    {updatedTime && <meta property="article:modified_time" content={updatedTime} />}
+    {author && <meta property="article:author" content={author} />}
+    {section && <meta property="article:section" content={section} />}
+  </>
+)}
+
+<!-- Twitter Card -->
 <meta property="twitter:card" content="summary_large_image" />
 <meta property="twitter:url" content={canonicalUrl} />
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
-<meta property="twitter:image" content={image} />
+<meta property="twitter:image" content={absoluteImageUrl} />
+<meta property="twitter:image:alt" content={description} />
+
+<!-- Twitter App (mobile-friendly) -->
+<meta property="twitter:app:id:iphone" content="TremTec" />
+<meta property="twitter:app:name:iphone" content={siteName} />

@@ -39,7 +39,11 @@ const prevPost = allPosts[currentIndex - 1];
 <Layout
   title={`${post.data.title} - TremTec`}
   description={post.data.description}
->
+  type="article"
+  author={post.data.author}
+  publishedTime={post.data.date?.toISOString()}
+  section={post.data.tags?.[0]}
+/>
   <!-- Artile Header -->
   <section class="relative overflow-hidden bg-base-100 pt-12 pb-16">
     <div class="absolute inset-0 opacity-5">
