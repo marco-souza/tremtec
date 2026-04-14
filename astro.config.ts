@@ -31,6 +31,11 @@ export default defineConfig({
     csp: true,
   },
 
+  // Use Prism instead of Shiki for CSP compatibility
+  markdown: {
+    syntaxHighlight: "prism",
+  },
+
   vite: {
     define: {
       // Force debug package to use browser detection
