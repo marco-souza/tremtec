@@ -1,0 +1,16 @@
+---
+import { landingContent } from "~/ui/contents/landing";
+
+const { navbar } = landingContent;
+
+export interface Props {
+  size?: number;
+}
+const { size = 48 } = Astro.props;
+---
+<img
+  src="/images/logo.svg"
+  width={size}
+  height={size}
+  alt={`${navbar.logo} Logo`}
+/>

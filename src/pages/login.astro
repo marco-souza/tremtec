@@ -2,6 +2,7 @@
 import { routes } from "~/server/contants";
 import GitHubButton from "~/ui/components/GitHubButton.astro";
 import GoogleButton from "~/ui/components/GoogleButton.astro";
+import Logo from "~/ui/components/Logo.astro";
 import Layout from "~/ui/components/layouts/Layout.astro";
 import { landingContent } from "~/ui/contents/landing";
 import { loginContent } from "~/ui/contents/login";
@@ -27,7 +28,7 @@ export const prerender = false;
           href={routes.public.home}
           class="flex flex-col items-center justify-center gap-4 mb-6 hover:scale-105 transition-transform cursor-pointer"
         >
-          <img src="/images/logo.svg" width="64" height="64" alt={`${navbar.logo} Logo`} />
+          <Logo size={64} />
           <span class="text-4xl font-black text-base-content">
             {navbar.logo}
           </span>

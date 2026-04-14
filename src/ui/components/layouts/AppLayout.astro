@@ -1,7 +1,7 @@
 ---
 import "~/ui/styles/global.css";
-
 import { routes } from "~/server/contants";
+import Logo from "~/ui/components/Logo.astro";
 import OpenGraph from "~/ui/components/OpenGraph.astro";
 import { landingContent } from "~/ui/contents/landing";
 
@@ -40,11 +40,7 @@ const { title = "TremTec", description = "TremTec Dashboard" } = Astro.props;
             href={routes.public.home}
             class="flex items-center gap-2 hover:opacity-80 transition-opacity"
           >
-            <img
-              src="/images/logo.svg"
-              width="40"
-              alt={`${navbar.logo} Logo`}
-            />
+            <Logo size={40} />
             <span class="text-lg font-bold text-base-content">{navbar.logo}</span>
           </a>
         </div>
