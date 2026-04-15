@@ -440,9 +440,9 @@ tests/integration/auth/password-reset.test.ts
 
 ```
 Timeline:  0min------15min----27min--------55min-----63min
-           |          |        |           |        |
-           | Discovery|  Syn-  |   Build  | Quality|
-           |<-------->|<------>|<-------->|<------>|
+           |          |        |           |         |
+           | Discovery|  Syn-  |   Build   | Quality |
+           |<-------->|<------>|<--------->|<------->|
 ```
 
 | Phase        | Duration | Status  |
