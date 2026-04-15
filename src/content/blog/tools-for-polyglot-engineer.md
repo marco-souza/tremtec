@@ -151,6 +151,8 @@ OpenCode (from Anomaly) is a terminal-based AI coding agent with built-in projec
 
 ```bash
 opencode
+
+# inside opencode interface
 /init
 ```
 
@@ -185,7 +187,7 @@ These combinations create powerful workflows:
 
 1. **mise + opencode**:
 
-   ```
+   ```bash
    # Agent understands your project's Node.js version
    opencode "Add TypeScript support to this project"
    # Uses node@20 from mise.toml automatically
@@ -193,7 +195,7 @@ These combinations create powerful workflows:
 
 2. **tmux + opencode**:
 
-   ```
+   ```ini
    # Split your tmux pane
    Ctrl-b %
    # Left: opencode working on implementation
@@ -209,7 +211,7 @@ These combinations create powerful workflows:
 
 4. **Cloudflare + Pulumi + opencode**:
 
-   ```
+   ```bash
    # Agent can help write Pulumi infrastructure
    # Then deploy it with wrangler
    opencode "Add a Cloudflare KV namespace for user sessions"

@@ -71,17 +71,11 @@ Based on research from Anthropic, OpenAI, and LangChain, autonomous AI workflows
 
 At the heart of every agentic system is a simple loop:
 
-```mermaid
-flowchart LR
-    A[User Request] --> B[Agent Plans]
-    B --> C[Executes Tools]
-    C --> D[Observes Results]
-    D -->|Iterates if Needed| B
-
-    style A fill:#e1f5ff,stroke:#0066cc,stroke-width:2px
-    style B fill:#fff3e0,stroke:#ff9800,stroke-width:2px
-    style C fill:#e8f5e9,stroke:#4caf50,stroke-width:2px
-    style D fill:#fce4ec,stroke:#e91e63,stroke-width:2px
+```
+Autonomous Loop:  User Request --> Agent Plans --> Executes Tool --> Matches User Request?
+                                       ^                            |
+                                       |___________________________/ no
+                                                          (iterate if needed)
 ```
 
 ---
@@ -108,33 +102,12 @@ Let's trace how a coding agent solves a bug:
 
 If the Double Diamond is the atomic unit of problem-solving, the **AI Diamond Chain** is what happens when you link these units together to tackle complex, multi-phase workflows—like the entire Software Development Lifecycle.
 
-```mermaid
-graph TD
-    subgraph "Diamond 1"
-        D1[D1: Discover] --> D1C[Define]
-    end
-    subgraph "Diamond 2"
-        D2[D2: Discover] --> D2C[Define]
-    end
-    subgraph "Diamond 3"
-        D3[D3: Discover] --> D3C[Define]
-    end
-    subgraph "Diamond n"
-        Dn[Dn: Discover] --> DnC[Define]
-    end
+```
+Linear Diamond Chain:
 
-    D1C --> D2
-    D2C --> D3
-    D3C --> Dn
-
-    style D1 fill:#e1f5ff,stroke:#0066cc
-    style D1C fill:#e1f5ff,stroke:#0066cc
-    style D2 fill:#e8f5e9,stroke:#4caf50
-    style D2C fill:#e8f5e9,stroke:#4caf50
-    style D3 fill:#fff3e0,stroke:#ff9800
-    style D3C fill:#fff3e0,stroke:#ff9800
-    style Dn fill:#fce4ec,stroke:#e91e63
-    style DnC fill:#fce4ec,stroke:#e91e63
+  Diamond 1:  Discover --> Define  ---->  Diamond 2: Discover --> Define
+                 <           >     ---->  Diamond 3: Discover --> Define
+                                   ---->  Diamond n: Discover --> Define
 ```
 
 Each diamond has:
@@ -146,7 +119,7 @@ Each diamond has:
 
 ### Chain Types
 
-- **Linear Chain**: Sequential diamonds, one after another
+- **Linear Chain**: Sequential dniamonds, one after another
 - **Nested Hierarchy**: A diamond contains sub-diamonds
 - **Parallel Chain**: Multiple diamonds run simultaneously
 - **Recursive Chain**: Output feeds back for refinement
@@ -159,21 +132,18 @@ Traditional SDLC has well-defined phases, but they often suffer from context los
 
 ### The Diamond Chain SDLC
 
-```mermaid
-flowchart LR
-    R[Requirements<br/>Diamond] --> A[Architecture<br/>Diamond] --> I[Implementation<br/>Diamond] --> Q[Quality<br/>Diamond] --> D[Deployment<br/>Diamond]
+```
+SDLC Diamond Chain:
 
-    R -.->|Discover| R
-    A -.->|Discover| A
-    I -.->|Discover| I
-    Q -.->|Discover| Q
-    D -.->|Discover| D
+  Requirements  --> Architecture --> Implementation --> Quality --> Deployment
+  (Discover+      (Discover+      (Discover+         (Discover+    (Discover+
+   Define)         Define+         Develop+           Define+       Develop+
+                   Design)         Deliver)           Develop+      Deliver)
+                                                      Report)
+```
 
-    style R fill:#e1f5ff,stroke:#0066cc,stroke-width:2px
-    style A fill:#e8f5e9,stroke:#4caf50,stroke-width:2px
-    style I fill:#fff3e0,stroke:#ff9800,stroke-width:2px
-    style Q fill:#fce4ec,stroke:#e91e63,stroke-width:2px
-    style D fill:#ede7f6,stroke:#7e57c2,stroke-width:2px
+Each SDLC phase follows the diamond pattern:
+
 ```
 
 **Requirements Diamond**: Discover user needs, competitive analysis → Define PRD, user stories, success criteria
@@ -212,14 +182,13 @@ Theory is great, but how do we actually build this? Enter **OpenCode** and **Mae
 
 Maestro's workflow is itself a Diamond Chain:
 
-```mermaid
-flowchart LR
-    Discovery[Discovery<br/>Phase] --> Synthesis[Synthesis<br/>Phase] --> Build[Build<br/>Phase] --> Quality[Quality Gate<br/>Phase]
+```
 
-    style Discovery fill:#e1f5ff,stroke:#0066cc,stroke-width:2px
-    style Synthesis fill:#e8f5e9,stroke:#4caf50,stroke-width:2px
-    style Build fill:#fff3e0,stroke:#ff9800,stroke-width:2px
-    style Quality fill:#fce4ec,stroke:#e91e63,stroke-width:2px
+MAESTRO DIAMOND CHAIN:
+
+```
+Maesto Workflow:  Discovery --> Synthesis --> Build --> Quality Gate
+                 (Report)       (Specs)      (Code)      (QA Report)
 ```
 
 **Discovery Phase**: Architect explores requirements, researches solutions, produces Discovery Report.
@@ -435,13 +404,15 @@ Add forgot password functionality
 
 Files created by specialist agents:
 
-- `src/components/auth/ForgotPasswordForm.tsx`
-- `src/components/auth/ResetPasswordForm.tsx`
-- `src/pages/forgot-password.astro`
-- `src/pages/reset-password.astro`
-- `src/server/auth/forgot-password.ts`
-- `src/server/auth/reset-password.ts`
-- `tests/integration/auth/password-reset.test.ts`
+```bash
+src/components/auth/ForgotPasswordForm.tsx
+src/components/auth/ResetPasswordForm.tsx
+src/pages/forgot-password.astro
+src/pages/reset-password.astro
+src/server/auth/forgot-password.ts
+src/server/auth/reset-password.ts
+tests/integration/auth/password-reset.test.ts
+```
 
 #### Phase 4: Quality Gate (D4) — 8 minutes
 
@@ -467,16 +438,11 @@ Files created by specialist agents:
 
 #### Final Result
 
-```mermaid
-gantt
-    title Diamond Chain Execution - Forgot Password Flow
-    dateFormat X
-    axisFormat %s min
-
-    Discovery       :active, 0, 15
-    Synthesis       :12, 27
-    Build           :27, 55
-    Quality Gate    :55, 63
+```
+Timeline:  0min------15min----27min--------55min-----63min
+           |          |        |           |        |
+           | Discovery|  Syn-  |   Build  | Quality|
+           |<-------->|<------>|<-------->|<------>|
 ```
 
 | Phase        | Duration | Status  |
