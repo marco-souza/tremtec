@@ -405,6 +405,7 @@ Add forgot password functionality
 Files created by specialist agents:
 
 ```bash
+# file list
 src/components/auth/ForgotPasswordForm.tsx
 src/components/auth/ResetPasswordForm.tsx
 src/pages/forgot-password.astro
